@@ -1,0 +1,31 @@
+{
+  "raiden": [{
+    "build": "CRIT",
+    "sets": ["emblem"],
+    "mainstats": ["ATK", "ER", "DMG", "CR", "CD"],
+    "substats": ["ER","CR","CD","ATK"]
+  }, {
+    "build": "EM",
+    "sets": ["gilded", "paradise"],
+    "mainstats": ["EM"],
+    "substats": ["EM","ER"]
+  }],
+  "xiangling": [{
+    "build": "CRIT",
+    "sets": ["emblem"],
+    "mainstats": ["ATK", "ER", "DMG", "CR", "CD"],
+    "substats": ["ER","CR","CD","ATK", "EM"]
+  }],
+  "beidou": [{
+    "build": "CRIT",
+    "sets": ["emblem"],
+    "mainstats": ["ER", "DMG", "CR", "CD"],
+    "substats": ["ER","CR","CD","ATK"]
+  }],
+  "lisa": [{
+    "build": "CRIT",
+    "sets": ["emblem", "noblesse", "shimenawa", "gladiator"],
+    "mainstats": ["ATK", "DMG", "CR", "CD"],
+    "substats": ["ER","CR","CD","ATK", "EM"]
+  }]
+}
