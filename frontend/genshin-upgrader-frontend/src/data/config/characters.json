@@ -2,36 +2,60 @@
   "RaidenShogun": [{
     "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
-    "mainstats": ["atk_", "enerRech_", "electro_dmg_", "critRate_", "critDMG_"],
+    "mainstats": {
+      "sands": ["atk_", "enerRech_"], 
+      "goblet": ["electro_dmg_"], 
+      "circlet": ["critRate_", "critDMG_"]
+    },
     "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }, {
     "build": "EM",
     "sets": ["GildedDreams", "paradise"],
-    "mainstats": ["eleMas"],
+    "mainstats": {
+      "sands": ["eleMas"], 
+      "goblet": ["eleMas"], 
+      "circlet": ["eleMas"]
+    },
     "substats": ["eleMas"]
   }],
   "Xiangling": [{
     "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
-    "mainstats": ["atk_", "enerRech_", "pyro_dmg_", "critRate_", "critDMG_"],
+    "mainstats": {
+      "sands": ["enerRech_"],
+      "goblet": ["electro_dmg_"],
+      "circlet": ["critRate_", "critDMG_"]
+    },
     "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
   }],
   "Beidou": [{
     "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
-    "mainstats": ["enerRech_", "electro_dmg_", "critRate_", "critDMG_"],
+    "mainstats": {
+      "sands": ["enerRech_"], 
+      "goblet": ["electro_dmg_"], 
+      "circlet": ["critRate_", "critDMG_"]
+    },
     "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }],
   "Lisa": [{
     "build": "CRIT",
     "sets": ["EmblemOfSeveredFate", "NoblesseOblige", "ShimenawasReminiscence", "GladiatorsFinale"],
-    "mainstats": ["atk_", "electro_dmg_", "critRate_", "critDMG_"],
+    "mainstats": {
+      "sands": ["atk_"], 
+      "goblet": ["electro_dmg_"], 
+      "circlet": ["critRate_", "critDMG_"]
+    },
     "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
   }],
   "Charlotte": [{
     "build": "CRIT",
     "sets": ["EmblemOfSeveredFate", "GladiatorsFinale"],
-    "mainstats": ["enerRech_", "atk_", "critRate_", "critDMG_"],
+    "mainstats": {
+      "sands": ["enerRech_"], 
+      "goblet": ["atk_"], 
+      "circlet": ["critRate_"]
+    },
     "substats": ["enerRech_","critRate_","atk_"]
   }]
 }
