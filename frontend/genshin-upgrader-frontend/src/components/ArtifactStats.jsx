@@ -22,7 +22,7 @@ const statOrder = [
   'wastedSubstats',
 ];
 
-export default function ArtifactStats({ totalSubstats }) {
+export default function ArtifactStats({ totalSubstats, showCounter = true }) {
   // sort totalSubstats by statOrder
   const sortedSubstats = {};
   statOrder.forEach((stat) => {
@@ -44,8 +44,14 @@ export default function ArtifactStats({ totalSubstats }) {
           ))
         ))
       }
-      <div className="separator" />
-      <CounterPiece count={sortedSubstats.wastedSubstats} />
+      {
+        showCounter && (
+          <>
+            <div className="separator" />
+            <CounterPiece count={sortedSubstats.wastedSubstats} />
+          </>
+        )
+      }
     </div>
   );
 }

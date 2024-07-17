@@ -84,7 +84,13 @@ function getWastedSubstats(artifactData, totalValuableSubstats, impossibleSubsta
   const { rarity, level } = artifactData;
   const possibleStartRolls = rarity === 5 ? 4 : 3;
   const possibleRollsAtLevel = Math.floor(level / 4) + possibleStartRolls;
-  return possibleRollsAtLevel - totalValuableSubstats - impossibleSubstats;
+  const impossibleSubstatsAtLevel = Math.min(impossibleSubstats, possibleRollsAtLevel);
+  const wastedSubstats = possibleRollsAtLevel - totalValuableSubstats - impossibleSubstatsAtLevel;
+  if (wastedSubstats < 0) {
+    console.log('Warning: wasted substats is negative', possibleRollsAtLevel, totalValuableSubstats, impossibleSubstats, artifactData);
+    return 0;
+  }
+  return wastedSubstats;
 }
 
 function getUselessSubstatSlots(artifactData, characterBuild) {
@@ -157,7 +163,7 @@ export function evaluateArtifact(artifactData, characterBuild) {
 
   let missingRolls = maxRolls - valuableSubstats.total - impossibleSubstats - wastedSubstats;
   if (missingRolls < 0) {
-    console.log('Warning: missing rolls is negative');
+    console.log('Warning: missing rolls is negative', maxRolls, valuableSubstats.total, impossibleSubstats, wastedSubstats, artifactData);
     missingRolls = 0;
   }
   const missingRollChances = getMissingRollChances(missingRolls, impossibleSubstats);
