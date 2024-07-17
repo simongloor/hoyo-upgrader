@@ -12,7 +12,6 @@ function processJson(jsonData) {
         set: artifact.setKey,
         piece: artifact.slotKey,
         substatCounts: countSubstats(artifact),
-        tier: getArtifactTier(artifact),
       }));
   }
   return [];

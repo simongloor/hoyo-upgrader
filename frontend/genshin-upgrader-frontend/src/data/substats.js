@@ -137,6 +137,8 @@ function getMissingRollChances(missingRolls, impossibleSubstats) {
 }
 
 export function evaluateArtifact(artifactData, characterBuild) {
+  if (!artifactData) return {};
+
   const maxRolls = artifactData.rarity === 5 ? 9 : 8;
 
   const uselessSubstatSlots = getUselessSubstatSlots(artifactData, characterBuild);
@@ -169,19 +171,34 @@ export function evaluateArtifact(artifactData, characterBuild) {
   };
 }
 
-export function getArtifactTier(artifactData, valuableSubstats) {
+export function getArtifactTier(artifactData, evaluatedArtifactStats) {
   switch (artifactData.slotKey) {
     case 'flower':
     case 'plume': {
-      return '';
+      if (evaluatedArtifactStats.wastedSubstats <= 1) {
+        return 'S';
+      }
+      if (evaluatedArtifactStats.wastedSubstats <= 2) {
+        return 'A';
+      }
+      if (evaluatedArtifactStats.wastedSubstats <= 4) {
+        return 'B';
+      }
+      return 'C';
     }
     case 'sands':
     case 'goblet':
     case 'circlet': {
-      return '';
+      if (evaluatedArtifactStats.wastedSubstats <= 2) {
+        return 'S';
+      }
+      if (evaluatedArtifactStats.wastedSubstats <= 4) {
+        return 'A';
+      }
+      return 'B';
     }
     default: {
-      return '';
+      return '?';
     }
   }
 }

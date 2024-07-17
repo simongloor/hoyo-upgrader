@@ -29,7 +29,7 @@ export default function Home() {
         artifactData={artifacts.byCharacter}
       />
       <ArtifactOverview
-        artifacts={artifacts.asList}
+        artifactData={artifacts.asList}
       />
     </div>
   );

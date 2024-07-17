@@ -12,8 +12,7 @@ import paths from '../data/paths';
 
 export default function Filter() {
   // get artifacts
-  const artifacts = useSelector((state) => state.artifacts);
-  const { counts } = artifacts;
+  const { counts } = useSelector((state) => state.artifacts);
 
   // render
   return (

@@ -44,6 +44,7 @@ export default function ArtifactStats({ totalSubstats }) {
           ))
         ))
       }
+      <div className="separator" />
       <CounterPiece count={sortedSubstats.wastedSubstats} />
     </div>
   );

@@ -12,6 +12,7 @@ import ArtifactStats from './ArtifactStats';
 
 export default function CharacterOverview({
   characterName,
+  characterBuild,
   characterArtifacts,
   totalSubstats,
 }) {
@@ -21,11 +22,11 @@ export default function CharacterOverview({
     >
       <Character characterName={characterName} />
       <SpacerPiece />
-      <Artifact data={characterArtifacts.flower} />
-      <Artifact data={characterArtifacts.plume} />
-      <Artifact data={characterArtifacts.sands} />
-      <Artifact data={characterArtifacts.goblet} />
-      <Artifact data={characterArtifacts.circlet} />
+      <Artifact data={characterArtifacts.flower} characterBuild={characterBuild} />
+      <Artifact data={characterArtifacts.plume} characterBuild={characterBuild} />
+      <Artifact data={characterArtifacts.sands} characterBuild={characterBuild} />
+      <Artifact data={characterArtifacts.goblet} characterBuild={characterBuild} />
+      <Artifact data={characterArtifacts.circlet} characterBuild={characterBuild} />
       <SpacerPiece />
       <ArtifactStats totalSubstats={totalSubstats} />
     </div>

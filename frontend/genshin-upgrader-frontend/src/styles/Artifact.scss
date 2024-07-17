@@ -3,10 +3,24 @@
 .Artifact {
   position: relative;
   flex-shrink: 0;
+  overflow: hidden;
 
   h4, h6 {
     position: absolute;
     right: 14px;
     bottom: 3px;
+    // opacity: 0.6;
+    // color: #000;
+  }
+  .tier-backdrop {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 42px;
+    height: 38px;
+
+    background-color: #000;
+    opacity: 0.6;
+    border-top-left-radius: 16px;
   }
 }

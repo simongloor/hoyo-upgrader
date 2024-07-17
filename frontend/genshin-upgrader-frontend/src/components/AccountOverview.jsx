@@ -28,6 +28,20 @@ export default function AccountOverview({ characterData, artifactData }) {
     b.totalSubstats.wastedSubstats - a.totalSubstats.wastedSubstats
   ));
 
+  // Remove duplicate characters from the beginning of the list
+  const seenCharacters = {};
+  dataToDisplay.forEach((data) => {
+    seenCharacters[data.characterKey] = true;
+  });
+  for (let i = dataToDisplay.length - 1; i >= 0; i -= 1) {
+    if (seenCharacters[dataToDisplay[i].characterKey]) {
+      seenCharacters[dataToDisplay[i].characterKey] = false;
+    } else {
+      dataToDisplay.splice(i, 1);
+      i -= 1;
+    }
+  }
+
   // Render
   return (
     <Box
@@ -39,6 +53,7 @@ export default function AccountOverview({ characterData, artifactData }) {
           <CharacterOverview
             key={`${data.characterKey}-${data.characterBuild.build}`}
             characterName={data.characterKey}
+            characterBuild={data.characterBuild}
             characterArtifacts={data.characterArtifacts}
             totalSubstats={data.totalSubstats}
           />

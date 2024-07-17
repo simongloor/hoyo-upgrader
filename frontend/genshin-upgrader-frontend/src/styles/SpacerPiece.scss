@@ -7,4 +7,7 @@
   &.small {
     width: 24px;
   }
+  &.default {
+    width: $tile;
+  }
 }

@@ -7,8 +7,17 @@
 
   display: flex;
   flex-direction: row;
+  align-items: end;
+  justify-content: start;
   gap: 1px;
   padding: 2px;
+
+  .separator {
+    width: 2px;
+    height: 100%;
+    background-color: $onSurface-highEmphasis;
+    opacity: 0.4;
+  }
 
   .Substat:not(.impossibleSubstats) {
     border-top-left-radius: $border;
@@ -30,7 +39,7 @@
 
 
     &.impossibleSubstats {
-      opacity: 0.5;
+      opacity: 0.3;
     }
     &.wastedSubstats {
       opacity: 1;

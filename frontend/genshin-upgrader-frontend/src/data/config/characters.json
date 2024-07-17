@@ -27,5 +27,11 @@
     "sets": ["EmblemOfSeveredFate", "NoblesseOblige", "ShimenawasReminiscence", "GladiatorsFinale"],
     "mainstats": ["atk_", "electro_dmg_", "critRate_", "critDMG_"],
     "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
+  }],
+  "Charlotte": [{
+    "build": "CRIT",
+    "sets": ["EmblemOfSeveredFate", "GladiatorsFinale"],
+    "mainstats": ["enerRech_", "atk_", "critRate_", "critDMG_"],
+    "substats": ["enerRech_","critRate_","atk_"]
   }]
 }
