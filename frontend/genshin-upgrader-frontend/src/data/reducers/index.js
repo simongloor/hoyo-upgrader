@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 
-// import navigationReducer from './navigationReducer';
+import filterReducer from './filterReducer';
+import artifactReducer from './artifactReducer';
 
 const allReducer = combineReducers({
-  // navigation: navigationReducer,
+  filter: filterReducer,
+  artifacts: artifactReducer,
 });
 export default allReducer;

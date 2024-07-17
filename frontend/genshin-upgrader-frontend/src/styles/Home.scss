@@ -1,0 +1,10 @@
+@import "variables.scss";
+
+.Home {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 32px;
+  padding: 16px;
+}

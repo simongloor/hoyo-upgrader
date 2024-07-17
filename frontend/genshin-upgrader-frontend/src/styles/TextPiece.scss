@@ -1,0 +1,11 @@
+@import "variables.scss";
+
+.TextPiece {
+  height: $tile;
+  width: $tile;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-shrink: 0;
+}

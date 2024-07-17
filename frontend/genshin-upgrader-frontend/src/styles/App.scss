@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+@import "variables.scss";
+
+// // Scrollbar Shape
+// ::-webkit-scrollbar {
+//   width: 16px;
+// }
+// ::-webkit-scrollbar-thumb {
+//   border-radius: 6px;
+//   border: 4px solid;
+// }
+
+a {
+  text-decoration: none;
 }
 
-.App-logo {
-  height: 40vmin;
+h1, h2, h3, h4, h5, h6, span {
+  font-family: $title-family;
+  margin: 0;
   pointer-events: none;
 }
+h1, h2, h3, h4, h5, h6, span, input, textarea {
+  color: $onSurface-highEmphasis;
+}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+h2 {
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+h4 {
+  font-size: 32px;
+  font-weight: 700;
+}
+h6 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  min-height: calc(100vh + 1px);
+}
+
+button, input, textarea, iframe {
+  outline: none;
+  border-style: none;
+  padding: 0px;
+}
+button {
+  background: none;
+}
+
+.tile {
+  width: $tile;
+  height: $tile;
+  >img {
+    width: 100%;
+    height: 100%;
+    
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.row {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  // flex-wrap: wrap;
+  justify-content: start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

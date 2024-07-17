@@ -1,31 +1,31 @@
 {
-  "raiden": [{
+  "RaidenShogun": [{
     "build": "CRIT",
-    "sets": ["emblem"],
-    "mainstats": ["ATK", "ER", "DMG", "CR", "CD"],
-    "substats": ["ER","CR","CD","ATK"]
+    "sets": ["EmblemOfSeveredFate"],
+    "mainstats": ["atk_", "enerRech_", "electro_dmg_", "critRate_", "critDMG_"],
+    "substats": ["enerRech_","critRate_","CD","atk_"]
   }, {
     "build": "EM",
-    "sets": ["gilded", "paradise"],
-    "mainstats": ["EM"],
-    "substats": ["EM","ER"]
+    "sets": ["GildedDreams", "paradise"],
+    "mainstats": ["eleMas"],
+    "substats": ["eleMas","enerRech_"]
   }],
-  "xiangling": [{
+  "Xiangling": [{
     "build": "CRIT",
-    "sets": ["emblem"],
-    "mainstats": ["ATK", "ER", "DMG", "CR", "CD"],
-    "substats": ["ER","CR","CD","ATK", "EM"]
+    "sets": ["EmblemOfSeveredFate"],
+    "mainstats": ["atk_", "enerRech_", "pyro_dmg_", "critRate_", "critDMG_"],
+    "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
   }],
-  "beidou": [{
+  "Beidou": [{
     "build": "CRIT",
-    "sets": ["emblem"],
-    "mainstats": ["ER", "DMG", "CR", "CD"],
-    "substats": ["ER","CR","CD","ATK"]
+    "sets": ["EmblemOfSeveredFate"],
+    "mainstats": ["enerRech_", "electro_dmg_", "critRate_", "critDMG_"],
+    "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }],
-  "lisa": [{
+  "Lisa": [{
     "build": "CRIT",
-    "sets": ["emblem", "noblesse", "shimenawa", "gladiator"],
-    "mainstats": ["ATK", "DMG", "CR", "CD"],
-    "substats": ["ER","CR","CD","ATK", "EM"]
+    "sets": ["EmblemOfSeveredFate", "NoblesseOblige", "ShimenawasReminiscence", "GladiatorsFinale"],
+    "mainstats": ["atk_", "electro_dmg_", "critRate_", "critDMG_"],
+    "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
   }]
 }

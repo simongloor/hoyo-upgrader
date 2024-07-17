@@ -1,0 +1,10 @@
+@import "variables.scss";
+
+.SpacerPiece {
+  height: $tile;
+  width: $tile;
+  flex-shrink: 0;
+  &.small {
+    width: 24px;
+  }
+}
