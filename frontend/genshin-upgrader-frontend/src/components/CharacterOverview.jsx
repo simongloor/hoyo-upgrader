@@ -7,13 +7,10 @@ import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import Artifact from './Artifact';
 import ArtifactStats from './ArtifactStats';
-import CounterPiece from './CounterPiece';
 
 // import '../styles/CharacterOverview.scss';
 
 export default function CharacterOverview({ characterName, characterBuild, characterArtifacts }) {
-  console.log(characterName, characterBuild, characterArtifacts);
-  const totalSubstats = evaluateArtifactSet(characterArtifacts, characterBuild);
   return (
     <div
       className="CharacterOverview row"
@@ -26,8 +23,7 @@ export default function CharacterOverview({ characterName, characterBuild, chara
       <Artifact data={characterArtifacts.goblet} />
       <Artifact data={characterArtifacts.circlet} />
       <SpacerPiece />
-      <ArtifactStats data={totalSubstats} />
-      <CounterPiece count="???" />
+      <ArtifactStats totalSubstats={evaluateArtifactSet(characterArtifacts, characterBuild)} />
     </div>
   );
 }

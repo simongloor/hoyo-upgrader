@@ -1,0 +1,77 @@
+@import "variables.scss";
+
+.ArtifactStats {
+@import "variables.scss";
+  height: $tile;
+  // width: calc(10 * #{$tile});
+
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  padding: 2px;
+
+  .Substat:not(.impossibleSubstats) {
+    border-top-left-radius: $border;
+    border-bottom-left-radius: $border;
+  }
+  .Substat:not(.impossibleSubstats) ~ .Substat:not(.impossibleSubstats) {
+    border-radius: 0;
+  }
+
+  .Substat {
+    height: 100%;
+    width: 18px;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    &.impossibleSubstats {
+      opacity: 0.5;
+    }
+    &.wastedSubstats {
+      opacity: 1;
+    }
+    &.missingRolls100 {
+      background-color: $stat-missing;
+      height: 100%;
+    }
+    &.missingRolls75 {
+      background-color: $stat-missing;
+      height: 75%;
+    }
+    &.missingRolls50 {
+      background-color: $stat-missing;
+      height: 50%;
+    }
+    &.missingRolls25 {
+      background-color: $stat-missing;
+      height: 25%;
+    }
+    
+    &.enerRech_ {
+      background-color: $stat-enerRech;
+    }
+    &.critRate_ {
+      background-color: $stat-critRate;
+    }
+    &.critDMG_ {
+      background-color: $stat-critDMG;
+    }
+    &.atk_ {
+      background-color: $stat-atk;
+    }
+    &.hp_ {
+      background-color: $stat-hp;
+    }
+    &.def_ {
+      background-color: $stat-def;
+    }
+    &.eleMas {
+      background-color: $stat-eleMas;
+    }
+  }
+}

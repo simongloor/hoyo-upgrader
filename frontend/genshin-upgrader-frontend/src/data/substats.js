@@ -55,7 +55,7 @@ export function countSubstats(artifactData) {
   // How many valuable rolls?
   artifactData.substats.forEach((substat) => {
     const { key, value } = substat;
-    if (!Object.prototype.hasOwnProperty.call(possibleRolls.averages, key)) {
+    if (Object.prototype.hasOwnProperty.call(possibleRolls.averages, key)) {
       const foundRolls = Math.round(value / possibleRolls.averages[key]);
       foundSubstats[key] = foundRolls;
     }
@@ -67,7 +67,7 @@ export function countSubstats(artifactData) {
 //---------------------------------------------------------
 // data processing for displaying a single artifact
 
-export function getValuableSubstats(substats, characterBuild) {
+function getValuableSubstats(substats, characterBuild) {
   const valuableSubstatTypes = characterBuild.substats;
   const valuableArtifactSubstats = {
     total: 0,
@@ -80,24 +80,92 @@ export function getValuableSubstats(substats, characterBuild) {
   return valuableArtifactSubstats;
 }
 
-export function getImpossibleSubstats(artifactData, characterBuild) {
+function getWastedSubstats(artifactData, totalValuableSubstats, impossibleSubstats) {
+  const { rarity, level } = artifactData;
+  const possibleStartRolls = rarity === 5 ? 4 : 3;
+  const possibleRollsAtLevel = Math.floor(level / 4) + possibleStartRolls;
+  return possibleRollsAtLevel - totalValuableSubstats - impossibleSubstats;
+}
+
+function getUselessSubstatSlots(artifactData, characterBuild) {
   // Number of slots (max 4) that don't have a valuable substat
   // The slots can't roll into the mainstat
+  // Some characters can have more than 4 valuable substat types
   const valuableSubstatTypes = characterBuild.substats;
-  return 4 - valuableSubstatTypes.length + (artifactData.mainStat in valuableSubstatTypes ? 1 : 0);
+  const substatUsedByMainstat = valuableSubstatTypes.includes(artifactData.mainStatKey);
+  return Math.max(0, 4 - valuableSubstatTypes.length + (substatUsedByMainstat ? 1 : 0));
+}
+
+function getImpossibleSubstats(uselessSubstatSlots, maxRolls) {
+  const hasUsefulSubstats = uselessSubstatSlots < 4;
+  // console.log('hasUsefulSubstats', hasUsefulSubstats);
+  return hasUsefulSubstats ? uselessSubstatSlots : maxRolls;
+}
+
+function getMissingRollChances(missingRolls, impossibleSubstats) {
+  // The chance for missing rolls depends on the number of valuable substat types
+  const missingRollChances = {
+    missingRolls100: 0,
+    missingRolls75: 0,
+    missingRolls50: 0,
+    missingRolls25: 0,
+  };
+
+  switch (impossibleSubstats) {
+    case 0: {
+      missingRollChances.missingRolls100 = missingRolls;
+      break;
+    }
+    case 1: {
+      missingRollChances.missingRolls75 = missingRolls;
+      break;
+    }
+    case 2: {
+      missingRollChances.missingRolls50 = missingRolls;
+      break;
+    }
+    case 3: {
+      missingRollChances.missingRolls25 = missingRolls;
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
+  return missingRollChances;
 }
 
 export function evaluateArtifact(artifactData, characterBuild) {
-  const valuableSubstats = getValuableSubstats(artifactData.substats, characterBuild);
-  const impossibleSubstats = getImpossibleSubstats(artifactData, characterBuild);
   const maxRolls = artifactData.rarity === 5 ? 9 : 8;
-  const wastedSubstats = maxRolls - impossibleSubstats - valuableSubstats.total;
-  return {
-    ...artifactData,
-    valuableSubstats,
+
+  const uselessSubstatSlots = getUselessSubstatSlots(artifactData, characterBuild);
+  const impossibleSubstats = getImpossibleSubstats(uselessSubstatSlots, maxRolls);
+
+  const valuableSubstats = getValuableSubstats(
+    artifactData.substatCounts,
+    characterBuild,
+  );
+
+  const wastedSubstats = getWastedSubstats(
+    artifactData,
+    valuableSubstats.total,
     impossibleSubstats,
-    maxRolls,
+  );
+
+  let missingRolls = maxRolls - valuableSubstats.total - impossibleSubstats - wastedSubstats;
+  if (missingRolls < 0) {
+    console.log('Warning: missing rolls is negative');
+    missingRolls = 0;
+  }
+  const missingRollChances = getMissingRollChances(missingRolls, impossibleSubstats);
+
+  // return a flat object ready for display
+  return {
+    ...valuableSubstats.rolls,
+    impossibleSubstats,
     wastedSubstats,
+    ...missingRollChances,
   };
 }
 
@@ -121,26 +189,28 @@ export function getArtifactTier(artifactData, valuableSubstats) {
 //---------------------------------------------------------
 // data processing for displaying multiple artifacts
 
-export function combineSubstats(characterData) {
-  console.log(characterData);
+export function combineEvaluatedSubstats(evaluatedArtifactStats) {
   const foundSubstats = {};
-  // Accumulate all values of the substats
-  Object.keys(foundSubstats).forEach((key) => {
-    foundSubstats[key] = characterData.flower.substats[key]
-      + characterData.plume.substats[key]
-      + characterData.sands.substats[key]
-      + characterData.goblet.substats[key]
-      + characterData.circlet.substats[key];
+  // Accumulate all values of the artifacts
+  evaluatedArtifactStats.forEach((artifact) => {
+    // Add the valuable substats
+    Object.keys(artifact).forEach((key) => {
+      if (key in foundSubstats) {
+        foundSubstats[key] += artifact[key];
+      } else {
+        foundSubstats[key] = artifact[key];
+      }
+    });
   });
   return foundSubstats;
 }
 
 export function evaluateArtifactSet(characterArtifacts, characterBuild) {
-  // go through keys of characterArtifacts
-  const artifactSubstats = {};
-  Object.keys(characterArtifacts).forEach((key) => {
-    // artifactSubstats[key] = evaluateArtifact(characterArtifacts[key], characterBuild);
-  });
-
-  return combineSubstats(artifactSubstats);
+  return combineEvaluatedSubstats([
+    evaluateArtifact(characterArtifacts.flower, characterBuild),
+    evaluateArtifact(characterArtifacts.plume, characterBuild),
+    evaluateArtifact(characterArtifacts.sands, characterBuild),
+    evaluateArtifact(characterArtifacts.goblet, characterBuild),
+    evaluateArtifact(characterArtifacts.circlet, characterBuild),
+  ]);
 }

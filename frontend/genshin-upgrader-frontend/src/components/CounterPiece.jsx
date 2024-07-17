@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-// import '../styles/CounterPiece.scss';
+import '../styles/CounterPiece.scss';
 
-export default function CounterPiece({ children }) {
+export default function CounterPiece({ count }) {
   return (
     <div
-      className="CounterPiece"
+      className="CounterPiece tile"
     >
-      {children}
+      <h3>{count}</h3>
     </div>
   );
 }

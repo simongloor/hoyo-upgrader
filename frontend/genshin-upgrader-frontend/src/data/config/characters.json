@@ -3,12 +3,12 @@
     "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
     "mainstats": ["atk_", "enerRech_", "electro_dmg_", "critRate_", "critDMG_"],
-    "substats": ["enerRech_","critRate_","CD","atk_"]
+    "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }, {
     "build": "EM",
     "sets": ["GildedDreams", "paradise"],
     "mainstats": ["eleMas"],
-    "substats": ["eleMas","enerRech_"]
+    "substats": ["eleMas"]
   }],
   "Xiangling": [{
     "build": "CRIT",
