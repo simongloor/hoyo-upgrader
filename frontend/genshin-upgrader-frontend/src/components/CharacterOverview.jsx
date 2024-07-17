@@ -10,7 +10,11 @@ import ArtifactStats from './ArtifactStats';
 
 // import '../styles/CharacterOverview.scss';
 
-export default function CharacterOverview({ characterName, characterBuild, characterArtifacts }) {
+export default function CharacterOverview({
+  characterName,
+  characterArtifacts,
+  totalSubstats,
+}) {
   return (
     <div
       className="CharacterOverview row"
@@ -23,7 +27,7 @@ export default function CharacterOverview({ characterName, characterBuild, chara
       <Artifact data={characterArtifacts.goblet} />
       <Artifact data={characterArtifacts.circlet} />
       <SpacerPiece />
-      <ArtifactStats totalSubstats={evaluateArtifactSet(characterArtifacts, characterBuild)} />
+      <ArtifactStats totalSubstats={totalSubstats} />
     </div>
   );
 }
