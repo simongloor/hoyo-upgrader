@@ -2,12 +2,12 @@
 import React from 'react';
 // import '../styles/ArtifactStats.scss';
 
-export default function ArtifactStats({ children }) {
+export default function ArtifactStats({ totalSubstats }) {
   return (
     <div
       className="ArtifactStats"
     >
-      {children}
+      {}
     </div>
   );
 }

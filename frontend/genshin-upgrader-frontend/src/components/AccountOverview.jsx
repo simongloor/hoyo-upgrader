@@ -13,14 +13,17 @@ export default function AccountOverview({ characterData, artifactData }) {
     >
       <h2>Characters</h2>
       {
-        // go through character keys
         Object.keys(artifactData).map((characterKey) => (
-          <CharacterOverview
-            key={characterKey}
-            characterName={characterKey}
-            characterData={characterData[characterKey]}
-            artifactData={artifactData[characterKey]}
-          />
+          characterData[characterKey] ? (
+            characterData[characterKey].map((characterBuild) => (
+              <CharacterOverview
+                key={`${characterKey}-${characterBuild.build}`}
+                characterName={characterKey}
+                characterBuild={characterBuild}
+                characterArtifacts={artifactData[characterKey]}
+              />
+            ))
+          ) : null
         ))
       }
     </Box>

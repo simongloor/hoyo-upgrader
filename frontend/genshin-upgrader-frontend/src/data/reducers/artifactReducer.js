@@ -6,6 +6,7 @@ import { countSubstats, getArtifactTier } from '../substats';
 function processJson(jsonData) {
   if (jsonData.artifacts) {
     return jsonData.artifacts
+      .filter((artifact) => artifact.rarity >= 4)
       .map((artifact) => ({
         ...artifact,
         set: artifact.setKey,
@@ -24,7 +25,7 @@ function sortDataByCharacter(artifactData) {
       if (!byCharacter[artifact.location]) {
         byCharacter[artifact.location] = {
           flower: null,
-          feather: null,
+          plume: null,
           sands: null,
           goblet: null,
           circlet: null,
@@ -47,7 +48,7 @@ function countArtifactsBySet(artifactData) {
       counts.sets[artifact.set] = {
         total: 0,
         flower: 0,
-        feather: 0,
+        plume: 0,
         sands: 0,
         goblet: 0,
         circlet: 0,
