@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { getBuildsBySets } from '../data/characters';
 
@@ -10,6 +11,7 @@ import ArtifactEvaluation from './ArtifactEvaluation';
 
 export default function ArtifactOverview({ artifactData, characterData }) {
   const characterBuilds = getBuildsBySets(characterData);
+  const filter = useSelector((state) => state.filter);
 
   return (
     <Box
@@ -28,6 +30,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
               key={i}
               data={artifact}
               characterBuilds={characterBuilds[artifact.setKey] || []}
+              filteredCharacter={filter.character}
             />
           ))
       }

@@ -49,7 +49,7 @@ export default function Home() {
     if (filter.piece) {
       // Only Artifacts that belong to the piece should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
-        .filter((artifact) => artifact.pieceKey === filter.piece);
+        .filter((artifact) => artifact.slotKey === filter.piece);
     }
     if (filter.character && filter.build) {
       // Only Artifacts that can be used by the build should be displayed

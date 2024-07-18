@@ -13,10 +13,7 @@ import { evaluateArtifact } from '../data/substats';
 export default function ArtifactEvaluation({
   data,
   characterBuilds,
-  // piece = 'empty',
-  // set = 'generic',
-  // count = -1,
-  // showTier = true,
+  filteredCharacter,
 }) {
   // get matching builds
   let matchingBuilds = [];
@@ -47,19 +44,24 @@ export default function ArtifactEvaluation({
         data={data}
       />
       {
-        matchingBuilds.map((build, i) => (
-          <Fragment key={`${build.characterName}-${build.build}`}>
-            <SpacerPiece size="small" />
-            <Character
-              characterName={build.characterName}
-              buildName={build.build}
-            />
-            <ArtifactStats
-              totalSubstats={evaluateArtifact(data, build)}
-              showCounter={false}
-            />
-          </Fragment>
-        ))
+        matchingBuilds
+          .sort((a, b) => (
+            ((b.characterName === filteredCharacter) ? 1 : 0)
+            - ((a.characterName === filteredCharacter) ? 1 : 0)
+          ))
+          .map((build, i) => (
+            <Fragment key={`${build.characterName}-${build.build}`}>
+              <SpacerPiece size="small" />
+              <Character
+                characterName={build.characterName}
+                buildName={build.build}
+              />
+              <ArtifactStats
+                totalSubstats={evaluateArtifact(data, build)}
+                showCounter={false}
+              />
+            </Fragment>
+          ))
       }
     </div>
   );
