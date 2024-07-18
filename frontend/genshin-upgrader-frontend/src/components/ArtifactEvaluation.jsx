@@ -1,39 +1,30 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
+
 import Artifact from './Artifact';
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
-import paths from '../data/paths';
 import ArtifactStats from './ArtifactStats';
-import { evaluateArtifact } from '../data/substats';
+
 // import '../styles/ArtifactEvaluation.scss';
 
 export default function ArtifactEvaluation({
-  data,
-  characterBuilds,
+  evaluationData,
   filteredCharacter,
 }) {
-  // get matching builds
-  let matchingBuilds = [];
-  if (data.slotKey === paths.piece.flower || data.slotKey === paths.piece.plume) {
-    matchingBuilds = characterBuilds;
-  } else {
-    matchingBuilds = characterBuilds.filter((build) => (
-      build.mainstats[data.slotKey].includes(data.mainStatKey)
-    ));
-  }
-
-  // render
+  // console.log(evaluationData);
+  // return null;
   return (
     <div
       className="ArtifactEvaluation row"
     >
       {
-        data.location ? (
+        evaluationData.artifactData.location ? (
           <Character
-            characterName={data.location}
+            characterName={evaluationData.artifactData.location}
             // buildName={data.slotKey}
           />
         ) : (
@@ -41,23 +32,23 @@ export default function ArtifactEvaluation({
         )
       }
       <Artifact
-        data={data}
+        data={evaluationData.artifactData}
       />
       {
-        matchingBuilds
+        evaluationData.buildEvaluations
           .sort((a, b) => (
-            ((b.characterName === filteredCharacter) ? 1 : 0)
-            - ((a.characterName === filteredCharacter) ? 1 : 0)
+            ((b.build.characterName === filteredCharacter) ? 1 : 0)
+            - ((a.build.characterName === filteredCharacter) ? 1 : 0)
           ))
-          .map((build, i) => (
-            <Fragment key={`${build.characterName}-${build.build}`}>
+          .map((b) => (
+            <Fragment key={`${b.build.characterName}-${b.build.build}`}>
               <SpacerPiece size="small" />
               <Character
-                characterName={build.characterName}
-                buildName={build.build}
+                characterName={b.build.characterName}
+                buildName={b.build.build}
               />
               <ArtifactStats
-                totalSubstats={evaluateArtifact(data, build)}
+                totalSubstats={b.totalSubstats}
                 showCounter={false}
               />
             </Fragment>
