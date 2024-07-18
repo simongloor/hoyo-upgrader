@@ -36,10 +36,6 @@ export default function ArtifactEvaluation({
       />
       {
         evaluationData.buildEvaluations
-          .sort((a, b) => (
-            ((b.build.characterName === filteredCharacter) ? 1 : 0)
-            - ((a.build.characterName === filteredCharacter) ? 1 : 0)
-          ))
           .map((b) => (
             <Fragment key={`${b.build.characterName}-${b.build.build}`}>
               <SpacerPiece size="small" />

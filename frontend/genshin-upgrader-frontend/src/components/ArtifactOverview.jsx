@@ -14,7 +14,11 @@ import TextPiece from './TextPiece';
 
 // import '../styles/ArtifactOverview.scss';
 
-function getArtifactEvaluations(artifactData, characterBuilds) {
+function getArtifactEvaluations(
+  artifactData,
+  characterBuilds,
+  filteredCharacter,
+) {
   // get matching builds
   let matchingBuilds = [];
   if (artifactData.slotKey === paths.piece.flower || artifactData.slotKey === paths.piece.plume) {
@@ -33,8 +37,28 @@ function getArtifactEvaluations(artifactData, characterBuilds) {
         build,
         totalSubstats: evaluateArtifact(artifactData, build),
       }
-    )),
+    ))
+      .sort((a, b) => (
+        ((b.build.characterName === filteredCharacter) ? 1 : 0)
+        - ((a.build.characterName === filteredCharacter) ? 1 : 0)
+      )),
   };
+}
+
+function getArtifactSortValue(a, filteredCharacter) {
+  // artifacts without builds go to the bottom
+  if (a.buildEvaluations.length === 0) {
+    return 20;
+  }
+  // use the filtered character's build as the primary sort key
+  if (filteredCharacter) {
+    return a.buildEvaluations[0].totalSubstats.wastedSubstats;
+  }
+  // get the lowest wasted substats
+  return Math.min(...a.buildEvaluations.map((build) => (
+    // artifacts that don't have valuable substats go to the bottom
+    build.totalSubstats.impossibleSubstats >= 8 ? 10
+      : build.totalSubstats.wastedSubstats)));
 }
 
 export default function ArtifactOverview({ artifactData, characterData }) {
@@ -46,8 +70,16 @@ export default function ArtifactOverview({ artifactData, characterData }) {
   const evaluationData = artifactData
     // .slice(150, 200)
     .map((artifact) => (
-      getArtifactEvaluations(artifact, characterBuilds[artifact.setKey] || [])
+      getArtifactEvaluations(
+        artifact,
+        characterBuilds[artifact.setKey] || [],
+        filter.character,
+      )
+    ))
+    .sort((a, b) => (
+      getArtifactSortValue(a, filter.character) - getArtifactSortValue(b, filter.character)
     ));
+  // console.log(evaluationData);
 
   // render
   return (
