@@ -8,6 +8,7 @@ import Box from './Box';
 // import '../styles/AccountOverview.scss';
 
 export default function AccountOverview({ characterData, artifactData }) {
+  console.log(characterData, artifactData);
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
   const dataToDisplay = Object.keys(artifactData).map((characterKey) => (

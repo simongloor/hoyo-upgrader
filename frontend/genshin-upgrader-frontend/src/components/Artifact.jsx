@@ -15,6 +15,7 @@ export default function Artifact({
   // What to display
   const displayedSet = data ? data.set : set;
   const displayedPiece = data ? data.piece : piece;
+  console.log(displayedSet, displayedPiece, data);
 
   // Evaluate
   const [evaluation, setEvaluation] = React.useState(null);
@@ -29,7 +30,7 @@ export default function Artifact({
   // Render
   return (
     <div
-      className="Artifact tile"
+      className={`Artifact tile ${displayedSet} ${displayedPiece}`}
     >
       <img
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}

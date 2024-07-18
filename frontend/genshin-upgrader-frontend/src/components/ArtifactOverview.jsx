@@ -15,7 +15,10 @@ export default function ArtifactOverview({ artifactData, characterData }) {
     <Box
       className="ArtifactOverview row"
     >
-      <h2>Artifacts</h2>
+      <h2>
+        Artifacts
+        <span className="weak">{artifactData.length}</span>
+      </h2>
       {
         artifactData
           // .slice(150, 200)

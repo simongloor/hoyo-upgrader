@@ -1,0 +1,12 @@
+.ArtifactInventory {
+  button.filtered {
+    opacity: 0.4;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.3;
+    }
+    &:active {
+      opacity: 0.2;
+    }
+  }
+}

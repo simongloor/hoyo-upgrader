@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../data/paths';
 
@@ -8,10 +8,11 @@ import Artifact from './Artifact';
 import Box from './Box';
 import { toggleArtifactSetFilter } from '../data/actions/filter';
 
-// import '../styles/ArtifactInventory.scss';
+import '../styles/ArtifactInventory.scss';
 
 export default function ArtifactInventory({ counts }) {
   const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter);
 
   // event handlers
   const handleClickSet = (set) => {
@@ -33,6 +34,7 @@ export default function ArtifactInventory({ counts }) {
             .filter((set) => Object.keys(paths.set).includes(set))
             .map((set) => (
               <button
+                className={`button ${filter.set && filter.set !== set ? 'filtered' : ''}`}
                 type="button"
                 onClick={() => handleClickSet(set)}
                 alt={set}
