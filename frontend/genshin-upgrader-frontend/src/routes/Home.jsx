@@ -53,11 +53,17 @@ export default function Home() {
     }
     if (filter.character && filter.build) {
       // Only Artifacts that can be used by the build should be displayed
+      const buildData = characterJson[filter.character].find(
+        (build) => build.build === filter.build,
+      );
       artifactsToFilter.asList = artifactsToFilter.asList
         .filter((artifact) => (
-          characterJson[filter.character].find(
-            (build) => build.build === filter.build,
-          ).sets.includes(artifact.setKey)
+          buildData.sets.includes(artifact.setKey)
+          && (
+            artifact.slotKey === 'flower'
+            || artifact.slotKey === 'plume'
+            || buildData.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
+          )
         ));
 
       // Only the CharacterOverview that matches the build should be displayed
