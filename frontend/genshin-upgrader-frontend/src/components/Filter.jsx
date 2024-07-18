@@ -2,50 +2,60 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Box from './Box';
-import Artifact from './Artifact';
-import TextPiece from './TextPiece';
-import SpacerPiece from './SpacerPiece';
-
 import paths from '../data/paths';
+
+import FilterTile from './FilterTile';
+import Box from './Box';
+
 // import '../styles/Filter.scss';
 
 export default function Filter() {
-  // get artifacts
-  const { counts } = useSelector((state) => state.artifacts);
+  const filter = useSelector((state) => state.filter);
+  const characterFilter = filter.character;
+  const characterBuildFilter = filter.build;
+  const artifactSetFilter = filter.set;
+  const artifactPieceFilter = filter.piece;
 
   // render
   return (
     <Box
       className="Filter"
     >
-      <h2>Filter</h2>
-      <div className="piece row">
-        <TextPiece>piece</TextPiece>
-        <SpacerPiece />
-        <Artifact piece={paths.piece.flower} />
-        <Artifact piece={paths.piece.plume} />
-        <Artifact piece={paths.piece.sands} />
-        <Artifact piece={paths.piece.goblet} />
-        <Artifact piece={paths.piece.circlet} />
-      </div>
-      <div className="set row">
-        <TextPiece>set</TextPiece>
-        <SpacerPiece />
-        {
-          // iterate through paths.set
-          // render Artifact component for each set
-          counts.sortedSets
-            .filter((set) => Object.keys(paths.set).includes(set))
-            .map((set) => (
-              <Artifact
-                piece={paths.piece.flower}
-                set={set}
-                key={set}
-                count={counts.sets[set] ? counts.sets[set].total : 0}
-              />
-            ))
-        }
+      <div className="row">
+        <FilterTile
+          isCharacter
+          characterName={characterFilter}
+          characterBuildName={characterBuildFilter}
+        />
+        <FilterTile
+          isArtifactSet
+          artifactSetName={artifactSetFilter}
+        />
+        <FilterTile
+          isArtifactPiece
+          artifactPieceName={paths.piece.flower}
+          filteredArtifactPiece={artifactPieceFilter}
+        />
+        <FilterTile
+          isArtifactPiece
+          artifactPieceName={paths.piece.plume}
+          filteredArtifactPiece={artifactPieceFilter}
+        />
+        <FilterTile
+          isArtifactPiece
+          artifactPieceName={paths.piece.sands}
+          filteredArtifactPiece={artifactPieceFilter}
+        />
+        <FilterTile
+          isArtifactPiece
+          artifactPieceName={paths.piece.goblet}
+          filteredArtifactPiece={artifactPieceFilter}
+        />
+        <FilterTile
+          isArtifactPiece
+          artifactPieceName={paths.piece.circlet}
+          filteredArtifactPiece={artifactPieceFilter}
+        />
       </div>
     </Box>
   );

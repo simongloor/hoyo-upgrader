@@ -20,7 +20,10 @@ export default function CharacterOverview({
     <div
       className="CharacterOverview row"
     >
-      <Character characterName={characterName} />
+      <Character
+        characterName={characterName}
+        buildName={characterBuild.build}
+      />
       <SpacerPiece />
       <Artifact data={characterArtifacts.flower} characterBuild={characterBuild} />
       <Artifact data={characterArtifacts.plume} characterBuild={characterBuild} />

@@ -9,6 +9,7 @@ import loadGoodArtifacts from '../data/actions/artifacts';
 import Filter from '../components/Filter';
 import AccountOverview from '../components/AccountOverview';
 import ArtifactOverview from '../components/ArtifactOverview';
+import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
 
@@ -23,15 +24,16 @@ export default function Home() {
     <div
       className="Home"
     >
-      <Filter />
-      {/* <AccountOverview
+      <ArtifactInventory counts={artifacts.counts} />
+      <AccountOverview
         characterData={characterJson}
         artifactData={artifacts.byCharacter}
-      /> */}
+      />
       <ArtifactOverview
         characterData={characterJson}
         artifactData={artifacts.asList}
       />
+      <Filter />
     </div>
   );
 }

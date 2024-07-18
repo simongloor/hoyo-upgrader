@@ -1,11 +1,18 @@
-export default function applyArtifactFilter(character, set, piece) {
+export function toggleArtifactSetFilter(set) {
   return ({
-    type: 'APPLY_FILTER_ARTIFACT',
-    payload: { character, set, piece },
+    type: 'TOGGLE_ARTIFACT_SET',
+    payload: { set },
   });
 }
-export function clearArtifactFilter() {
+export function toggleArtifactPieceFilter(piece) {
   return ({
-    type: 'CLEAR_FILTER_ARTIFACT',
+    type: 'TOGGLE_ARTIFACT_PIECE',
+    payload: { piece },
+  });
+}
+export function toggleCharacterFilter(character, build) {
+  return ({
+    type: 'TOGGLE_CHARACTER',
+    payload: { character, build },
   });
 }
