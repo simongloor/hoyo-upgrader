@@ -102,13 +102,23 @@ function getUselessSubstatSlots(artifactData, characterBuild) {
   return Math.max(0, 4 - valuableSubstatTypes.length + (substatUsedByMainstat ? 1 : 0));
 }
 
+function getWastedSubstatSlots(artifactData, characterBuild) {
+  // Number of slots have rolled into a useless substat type
+  return artifactData.substats.reduce((acc, substat) => {
+    if (!characterBuild.substats.includes(substat.key)) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+}
+
 function getImpossibleSubstats(uselessSubstatSlots, maxRolls) {
   const hasUsefulSubstats = uselessSubstatSlots < 4;
   // console.log('hasUsefulSubstats', hasUsefulSubstats);
   return hasUsefulSubstats ? uselessSubstatSlots : maxRolls;
 }
 
-function getMissingRollChances(missingRolls, impossibleSubstats) {
+function getMissingRollChances(missingRolls, wastedSubstatSlots) {
   // The chance for missing rolls depends on the number of valuable substat types
   const missingRollChances = {
     missingRolls100: 0,
@@ -117,7 +127,7 @@ function getMissingRollChances(missingRolls, impossibleSubstats) {
     missingRolls25: 0,
   };
 
-  switch (impossibleSubstats) {
+  switch (wastedSubstatSlots) {
     case 0: {
       missingRollChances.missingRolls100 = missingRolls;
       break;
@@ -166,7 +176,9 @@ export function evaluateArtifact(artifactData, characterBuild) {
     console.log('Warning: missing rolls is negative', maxRolls, valuableSubstats.total, impossibleSubstats, wastedSubstats, artifactData);
     missingRolls = 0;
   }
-  const missingRollChances = getMissingRollChances(missingRolls, impossibleSubstats);
+
+  const wastedSubstatSlots = getWastedSubstatSlots(artifactData, characterBuild);
+  const missingRollChances = getMissingRollChances(missingRolls, wastedSubstatSlots);
 
   // return a flat object ready for display
   return {

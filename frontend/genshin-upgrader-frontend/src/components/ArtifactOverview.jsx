@@ -97,7 +97,6 @@ export default function ArtifactOverview({ artifactData, characterData }) {
               // eslint-disable-next-line react/no-array-index-key
               key={i}
               evaluationData={data}
-              filteredCharacter={filter.character}
             />
           ))
       }

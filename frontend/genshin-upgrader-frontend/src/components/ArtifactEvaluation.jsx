@@ -13,7 +13,6 @@ import ArtifactStats from './ArtifactStats';
 
 export default function ArtifactEvaluation({
   evaluationData,
-  filteredCharacter,
 }) {
   // console.log(evaluationData);
   // return null;
