@@ -8,4 +8,8 @@
   justify-content: start;
   align-items: center;
   flex-shrink: 0;
+
+  &.overflow {
+    width: auto;
+  }
 }

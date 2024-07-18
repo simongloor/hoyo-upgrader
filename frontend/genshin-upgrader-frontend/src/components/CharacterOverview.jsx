@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-import { evaluateArtifactSet } from '../data/substats';
-
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import Artifact from './Artifact';

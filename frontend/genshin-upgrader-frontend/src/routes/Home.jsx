@@ -67,11 +67,12 @@ export default function Home() {
         ));
 
       // Only the CharacterOverview that matches the build should be displayed
-      artifactsToFilter.byCharacter = {
-        [filter.character]: artifactsToFilter.byCharacter[filter.character],
-      };
+      if (artifactsToFilter.byCharacter[filter.character]) {
+        artifactsToFilter.byCharacter = {
+          [filter.character]: artifactsToFilter.byCharacter[filter.character],
+        };
+      }
     }
-    console.log(artifactsToFilter);
     setFilteredArtifacts(artifactsToFilter);
   }, [artifacts, filter]);
 

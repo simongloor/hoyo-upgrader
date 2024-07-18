@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
 export default function Character({
-  characterName,
+  characterName = 'generic',
   buildName,
 }) {
   const dispatch = useDispatch();

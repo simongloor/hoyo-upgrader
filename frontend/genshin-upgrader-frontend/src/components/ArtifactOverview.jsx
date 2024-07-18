@@ -6,6 +6,9 @@ import { getBuildsBySets } from '../data/characters';
 
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
+import Artifact from './Artifact';
+import SpacerPiece from './SpacerPiece';
+import TextPiece from './TextPiece';
 
 // import '../styles/ArtifactOverview.scss';
 
@@ -33,6 +36,16 @@ export default function ArtifactOverview({ artifactData, characterData }) {
               filteredCharacter={filter.character}
             />
           ))
+      }
+      {
+        artifactData.length === 0 && (
+          <div className="row">
+            <Artifact set="empty" piece="flower" />
+            <SpacerPiece />
+            <TextPiece canOverflow>No matching artifact found</TextPiece>
+            <SpacerPiece />
+          </div>
+        )
       }
     </Box>
   );

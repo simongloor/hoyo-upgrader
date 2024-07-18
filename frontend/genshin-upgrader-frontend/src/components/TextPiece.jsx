@@ -2,10 +2,10 @@
 import React from 'react';
 import '../styles/TextPiece.scss';
 
-export default function TextPiece({ children }) {
+export default function TextPiece({ canOverflow, children }) {
   return (
     <span
-      className="TextPiece"
+      className={`TextPiece ${canOverflow ? 'overflow' : ''}`}
     >
       {children}
     </span>

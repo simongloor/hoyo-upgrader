@@ -2,13 +2,18 @@
 import React from 'react';
 
 import { evaluateArtifactSet } from '../data/substats';
+
 import CharacterOverview from './CharacterOverview';
 import Box from './Box';
+import Character from './Character';
+import SpacerPiece from './SpacerPiece';
+import TextPiece from './TextPiece';
 
 // import '../styles/AccountOverview.scss';
 
 export default function AccountOverview({ characterData, artifactData }) {
-  console.log(characterData, artifactData);
+  // console.log(characterData, artifactData);
+
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
   const dataToDisplay = Object.keys(artifactData).map((characterKey) => (
@@ -59,6 +64,16 @@ export default function AccountOverview({ characterData, artifactData }) {
             totalSubstats={data.totalSubstats}
           />
         ))
+      }
+      {
+        dataToDisplay.length === 0 && (
+          <div className="row">
+            <Character />
+            <SpacerPiece />
+            <TextPiece canOverflow>No matching character found</TextPiece>
+            <SpacerPiece />
+          </div>
+        )
       }
     </Box>
   );
