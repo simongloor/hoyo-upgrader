@@ -7,13 +7,18 @@ import Character from './Character';
 import Artifact from './Artifact';
 
 import '../styles/FilterTile.scss';
+import ArtifactMultiSet from './ArtifactMultiSet';
 
 export default function FilterTile({
+  // character
   isCharacter,
   characterName,
   characterBuildName,
+  // set
   isArtifactSet,
   artifactSetName,
+  characterBuildSets,
+  // piece
   isArtifactPiece,
   artifactPieceName = 'flower',
   filteredArtifactPiece,
@@ -24,6 +29,9 @@ export default function FilterTile({
   const handleClickSet = () => {
     // console.log(`Artifact Set: ${artifactSetName}`);
     dispatch(toggleArtifactSetFilter(artifactSetName));
+  };
+  const handleClickSets = () => {
+    console.log(`Artifact Sets: ${characterBuildSets}`);
   };
   const handleClickPiece = () => {
     // console.log(`Artifact Piece: ${artifactPieceName}`);
@@ -36,6 +44,7 @@ export default function FilterTile({
       className={`FilterTile tile ${isCharacter ? 'character' : ''} ${isArtifactSet ? 'artifact-set' : ''} ${isArtifactPiece ? 'artifact-piece' : ''}`}
     >
       {
+        // Character filter or placeholder
         isCharacter && (
           <Character
             characterName={characterName || 'generic'}
@@ -44,7 +53,8 @@ export default function FilterTile({
         )
       }
       {
-        isArtifactSet && (
+        // Default set filter or placeholder
+        isArtifactSet && !characterBuildSets && (
           <button
             type="button"
             onClick={handleClickSet}
@@ -59,6 +69,21 @@ export default function FilterTile({
         )
       }
       {
+        // Character build set filter
+        isArtifactSet && characterBuildSets && (
+          <button
+            type="button"
+            onClick={handleClickSets}
+            alt="Filtered Artifact Set"
+          >
+            <ArtifactMultiSet
+              sets={characterBuildSets}
+            />
+          </button>
+        )
+      }
+      {
+        // Character build set filter
         isArtifactPiece && (
           <button
             className={filteredArtifactPiece && filteredArtifactPiece !== artifactPieceName ? 'filtered' : ''}

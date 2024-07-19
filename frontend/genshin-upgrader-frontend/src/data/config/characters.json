@@ -10,7 +10,7 @@
     "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }, {
     "build": "EM",
-    "sets": ["GildedDreams", "paradise"],
+    "sets": ["GildedDreams", "FlowerOfParadiseLost"],
     "mainstats": {
       "sands": ["eleMas"], 
       "goblet": ["eleMas"], 

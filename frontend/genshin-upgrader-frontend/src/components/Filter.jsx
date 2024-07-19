@@ -9,7 +9,7 @@ import Box from './Box';
 
 // import '../styles/Filter.scss';
 
-export default function Filter() {
+export default function Filter({ characterData }) {
   const filter = useSelector((state) => state.filter);
   const characterFilter = filter.character;
   const characterBuildFilter = filter.build;
@@ -30,6 +30,10 @@ export default function Filter() {
         <FilterTile
           isArtifactSet
           artifactSetName={artifactSetFilter}
+          characterBuildSets={
+            characterBuildFilter && characterData[characterFilter]
+              .find((build) => build.build === characterBuildFilter).sets
+          }
         />
         <FilterTile
           isArtifactPiece

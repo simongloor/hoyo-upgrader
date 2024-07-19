@@ -1,0 +1,21 @@
+@import "variables.scss";
+
+.ArtifactMultiSet {
+  position: relative;
+  width: $tile;
+  height: $tile;
+
+  >div {
+    position: absolute;
+    // width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: black;
+
+  }
+  .Artifact {
+  }
+}
