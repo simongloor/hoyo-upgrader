@@ -125,6 +125,7 @@ function getMissingRollChances(missingRolls, wastedSubstatSlots) {
     missingRolls75: 0,
     missingRolls50: 0,
     missingRolls25: 0,
+    missingRolls00: 0,
   };
 
   switch (wastedSubstatSlots) {
@@ -142,6 +143,10 @@ function getMissingRollChances(missingRolls, wastedSubstatSlots) {
     }
     case 3: {
       missingRollChances.missingRolls25 = missingRolls;
+      break;
+    }
+    case 4: {
+      missingRollChances.missingRolls00 = missingRolls;
       break;
     }
     default: {
@@ -189,6 +194,9 @@ export function evaluateArtifact(artifactData, characterBuild) {
   };
 }
 
+//---------------------------------------------------------
+// build quality analysis
+
 export function getArtifactTier(artifactData, evaluatedArtifactStats) {
   switch (artifactData.slotKey) {
     case 'flower':
@@ -219,6 +227,65 @@ export function getArtifactTier(artifactData, evaluatedArtifactStats) {
       return '?';
     }
   }
+}
+
+export function getBuildQualitySortValue(buildEvaluation) {
+}
+
+export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacter) {
+  // artifacts without builds go to the bottom
+  if (artifactEvaluation.buildEvaluations.length === 0) {
+    return 20;
+  }
+  // what build is sorted?
+  let sortedBuild = 0;
+  let lowestWastedSubstat = artifactEvaluation.buildEvaluations[0].totalSubstats.wastedSubstats;
+  // use the filtered character's build as the primary sort key
+  if (!filteredCharacter) {
+    // get the lowest wasted substats
+    artifactEvaluation.buildEvaluations.forEach((build, i) => {
+      if (build.totalSubstats.wastedSubstats < lowestWastedSubstat) {
+        sortedBuild = i;
+        lowestWastedSubstat = build.totalSubstats.wastedSubstats;
+      }
+    });
+  }
+
+  let sortValue = lowestWastedSubstat;
+
+  // artifacts that don't have valuable substats go to the bottom
+  // console.log(a.buildEvaluations, sortedBuild);
+  if (artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats.impossibleSubstats >= 8) {
+    return 10;
+  }
+
+  // add chance as decimal
+  const { missingRolls100 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
+  const { missingRolls75 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
+  const { missingRolls50 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
+  const { missingRolls25 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
+  const { missingRolls00 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
+  if (missingRolls100 > 0) {
+    sortValue -= 0.998;
+    // lowestWastedSubstat -= 0.05;
+  } else if (missingRolls75 > 0) {
+    sortValue -= 0.75 ** missingRolls75;
+    // lowestWastedSubstat -= 0.04;
+  } else if (missingRolls50 > 0) {
+    sortValue -= 0.5 ** missingRolls50;
+    // lowestWastedSubstat -= 0.03;
+  } else if (missingRolls25 > 0) {
+    sortValue -= 0.25 ** missingRolls25;
+    // lowestWastedSubstat -= 0.02;
+  } else if (missingRolls00 > 0) {
+    sortValue -= 0.00001;
+    // lowestWastedSubstat -= 0.01;
+  } else {
+    sortValue -= 1;
+  }
+  // console.log(lowestWastedSubstat);
+
+  return sortValue;
 }
 
 //---------------------------------------------------------

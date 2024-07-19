@@ -19,6 +19,7 @@ const statOrder = [
   'missingRolls75',
   'missingRolls50',
   'missingRolls25',
+  'missingRolls00',
   'wastedSubstats',
 ];
 

@@ -60,6 +60,10 @@
       background-color: $stat-missing;
       height: 25%;
     }
+    &.missingRolls00 {
+      background-color: $stat-missing;
+      height: 5%;
+    }
     
     &.enerRech_ {
       background-color: $stat-enerRech;

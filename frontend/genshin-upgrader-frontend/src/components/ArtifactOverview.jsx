@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import paths from '../data/paths';
 import { getBuildsBySets } from '../data/characters';
-import { evaluateArtifact } from '../data/substats';
+import { evaluateArtifact, getArtifactQualitySortValue } from '../data/substats';
 
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
@@ -38,49 +38,12 @@ function getArtifactEvaluations(
         totalSubstats: evaluateArtifact(artifactData, build),
       }
     ))
+      // sort by filtered character first and then by quality
       .sort((a, b) => (
         ((b.build.characterName === filteredCharacter) ? 1 : 0)
         - ((a.build.characterName === filteredCharacter) ? 1 : 0)
       )),
   };
-}
-
-function getArtifactSortValue(a, filteredCharacter) {
-  // artifacts without builds go to the bottom
-  if (a.buildEvaluations.length === 0) {
-    return 20;
-  }
-  // what build is sorted?
-  let sortedBuild = 0;
-  let lowestWastedSubstat = 10;
-  // use the filtered character's build as the primary sort key
-  if (!filteredCharacter) {
-    // get the lowest wasted substats
-    sortedBuild = a.buildEvaluations.forEach((build, i) => {
-      if (build.totalSubstats.wastedSubstats < lowestWastedSubstat) {
-        sortedBuild = i;
-        lowestWastedSubstat = build.totalSubstats.wastedSubstats;
-      }
-    });
-  }
-  
-  // artifacts that don't have valuable substats go to the bottom
-  if (a.buildEvaluations[sortedBuild].totalSubstats.impossibleSubstats >= 8) {
-    return 10;
-  }
-
-  // add chance as decimal
-  if (a.buildEvaluations[sortedBuild].totalSubstats.missingRolls100 > 0) {
-    lowestWastedSubstat - 0.9;
-  } else if (a.buildEvaluations[sortedBuild].totalSubstats.missingRolls75 > 0) {
-    lowestWastedSubstat - 0.75;
-  } else if (a.buildEvaluations[sortedBuild].totalSubstats.missingRolls50 > 0) {
-    lowestWastedSubstat - 0.5;
-  } else if (a.buildEvaluations[sortedBuild].totalSubstats.missingRolls25 > 0) {
-    lowestWastedSubstat - 0.25;
-  }
-  
-  return lowestWastedSubstat;
 }
 
 export default function ArtifactOverview({ artifactData, characterData }) {
@@ -99,7 +62,8 @@ export default function ArtifactOverview({ artifactData, characterData }) {
       )
     ))
     .sort((a, b) => (
-      getArtifactSortValue(a, filter.character) - getArtifactSortValue(b, filter.character)
+      getArtifactQualitySortValue(a, filter.character)
+        - getArtifactQualitySortValue(b, filter.character)
     ));
   // console.log(evaluationData);
 
