@@ -40,6 +40,7 @@ export default function CharacterOverview({
       <Character
         characterName={characterName}
         buildName={characterBuild.build}
+        sets={characterBuild.sets}
       />
       <SpacerPiece />
       { renderArtifact(characterArtifacts.flower) }

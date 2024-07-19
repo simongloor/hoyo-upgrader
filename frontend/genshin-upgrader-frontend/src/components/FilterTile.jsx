@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { toggleArtifactSetFilter, toggleArtifactPieceFilter } from '../data/actions/filter';
+import { toggleArtifactSetFilter, toggleArtifactPieceFilter, toggleArtifactSetsFilter } from '../data/actions/filter';
 import Character from './Character';
 import Artifact from './Artifact';
 
@@ -17,7 +17,7 @@ export default function FilterTile({
   // set
   isArtifactSet,
   artifactSetName,
-  characterBuildSets,
+  artifactSetNames,
   // piece
   isArtifactPiece,
   artifactPieceName = 'flower',
@@ -26,12 +26,9 @@ export default function FilterTile({
   const dispatch = useDispatch();
 
   // event handlers
-  const handleClickSet = () => {
-    // console.log(`Artifact Set: ${artifactSetName}`);
-    dispatch(toggleArtifactSetFilter(artifactSetName));
-  };
   const handleClickSets = () => {
-    console.log(`Artifact Sets: ${characterBuildSets}`);
+    // console.log(`Artifact Set: ${artifactSetName}`);
+    dispatch(toggleArtifactSetsFilter(artifactSetNames));
   };
   const handleClickPiece = () => {
     // console.log(`Artifact Piece: ${artifactPieceName}`);
@@ -41,7 +38,7 @@ export default function FilterTile({
   // render
   return (
     <div
-      className={`FilterTile tile ${isCharacter ? 'character' : ''} ${isArtifactSet ? 'artifact-set' : ''} ${isArtifactPiece ? 'artifact-piece' : ''}`}
+      className={`FilterTile ${isCharacter ? 'character' : ''} ${isArtifactSet ? 'artifact-set' : ''} ${isArtifactPiece ? 'artifact-piece' : ''}`}
     >
       {
         // Character filter or placeholder
@@ -49,35 +46,21 @@ export default function FilterTile({
           <Character
             characterName={characterName || 'generic'}
             buildName={characterBuildName || undefined}
+            sets={artifactSetNames}
           />
         )
       }
       {
-        // Default set filter or placeholder
-        isArtifactSet && !characterBuildSets && (
-          <button
-            type="button"
-            onClick={handleClickSet}
-            alt="Filtered Artifact Set"
-            disabled={!artifactSetName}
-          >
-            <Artifact
-              piece="flower"
-              set={artifactSetName || 'empty'}
-            />
-          </button>
-        )
-      }
-      {
         // Character build set filter
-        isArtifactSet && characterBuildSets && (
+        isArtifactSet && (
           <button
             type="button"
             onClick={handleClickSets}
             alt="Filtered Artifact Set"
+            disabled={!artifactSetNames}
           >
             <ArtifactMultiSet
-              sets={characterBuildSets}
+              sets={artifactSetNames}
             />
           </button>
         )

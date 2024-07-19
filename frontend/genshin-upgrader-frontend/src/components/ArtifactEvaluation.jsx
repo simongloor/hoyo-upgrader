@@ -23,7 +23,6 @@ export default function ArtifactEvaluation({
         evaluationData.artifactData.location ? (
           <Character
             characterName={evaluationData.artifactData.location}
-            // buildName={data.slotKey}
           />
         ) : (
           <SpacerPiece size="default" />
@@ -49,6 +48,7 @@ export default function ArtifactEvaluation({
               <Character
                 characterName={b.build.characterName}
                 buildName={b.build.build}
+                sets={b.build.sets}
               />
               <ArtifactStats
                 totalSubstats={b.totalSubstats}

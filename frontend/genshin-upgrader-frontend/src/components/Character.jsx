@@ -7,13 +7,14 @@ import { toggleCharacterFilter } from '../data/actions/filter';
 export default function Character({
   characterName = 'generic',
   buildName,
+  sets,
 }) {
   const dispatch = useDispatch();
 
   // event handlers
   const handleClick = () => {
     // console.log(`Character: ${characterName} ${buildName}`);
-    dispatch(toggleCharacterFilter(characterName, buildName));
+    dispatch(toggleCharacterFilter(characterName, buildName, sets));
   };
 
   // render

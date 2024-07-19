@@ -38,9 +38,7 @@ export default function Home() {
         artifactData={filteredArtifacts.asList}
       />
       <Pinboard />
-      <Filter
-        characterData={characterJson}
-      />
+      <Filter />
     </div>
   );
 }

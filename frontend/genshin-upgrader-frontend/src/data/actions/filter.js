@@ -1,7 +1,7 @@
-export function toggleArtifactSetFilter(set) {
+export function toggleArtifactSetsFilter(sets) {
   return ({
-    type: 'TOGGLE_ARTIFACT_SET',
-    payload: { set },
+    type: 'TOGGLE_ARTIFACT_SETS',
+    payload: { sets },
   });
 }
 export function toggleArtifactPieceFilter(piece) {
@@ -10,9 +10,17 @@ export function toggleArtifactPieceFilter(piece) {
     payload: { piece },
   });
 }
-export function toggleCharacterFilter(character, build) {
+export function toggleCharacterFilter(character, buildName, sets) {
   return ({
     type: 'TOGGLE_CHARACTER',
-    payload: { character, build },
+    payload: { character, buildName, sets },
+  });
+}
+
+// deprecated
+export function toggleArtifactSetFilter(set) {
+  return ({
+    type: 'TOGGLE_ARTIFACT_SET',
+    payload: { set },
   });
 }

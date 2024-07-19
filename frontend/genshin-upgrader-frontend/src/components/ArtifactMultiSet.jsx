@@ -10,7 +10,7 @@ export default function ArtifactMultiSet({ sets }) {
       className="ArtifactMultiSet"
     >
       {
-        sets.map((set, index) => (
+        sets && sets.map((set, index) => (
           <div style={{ width: `${84 * (1 - (index / sets.length))}px` }} key={set}>
             <Artifact
               set={set}
@@ -18,6 +18,19 @@ export default function ArtifactMultiSet({ sets }) {
             />
           </div>
         ))
+      }
+      {
+        // placeholder
+        !sets && (
+          <div
+            className="placeholder"
+          >
+            <Artifact
+              set="empty"
+              piece="flower"
+            />
+          </div>
+        )
       }
     </div>
   );
