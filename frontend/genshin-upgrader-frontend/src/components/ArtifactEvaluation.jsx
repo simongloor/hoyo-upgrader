@@ -13,9 +13,8 @@ import ArtifactStats from './ArtifactStats';
 
 export default function ArtifactEvaluation({
   evaluationData,
+  handleClickPinArtifact,
 }) {
-  // console.log(evaluationData);
-  // return null;
   return (
     <div
       className="ArtifactEvaluation row"
@@ -30,9 +29,18 @@ export default function ArtifactEvaluation({
           <SpacerPiece size="default" />
         )
       }
-      <Artifact
-        data={evaluationData.artifactData}
-      />
+      <button
+        type="button"
+        className="button pin"
+        alt="pin artifact"
+        onClick={() => handleClickPinArtifact
+          && handleClickPinArtifact(evaluationData.artifactData)}
+        disabled={!handleClickPinArtifact}
+      >
+        <Artifact
+          data={evaluationData.artifactData}
+        />
+      </button>
       {
         evaluationData.buildEvaluations
           .map((b) => (

@@ -1,0 +1,10 @@
+.Pinboard {
+  .SpacerPiece:not(:first-of-type) {
+    width: 12px;
+  }
+  .TextPiece {
+    span.bad {
+      opacity: 0.6;
+    }
+  }
+}

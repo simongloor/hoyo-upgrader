@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../data/paths';
 import { getBuildsBySets } from '../data/characters';
@@ -11,6 +11,7 @@ import ArtifactEvaluation from './ArtifactEvaluation';
 import Artifact from './Artifact';
 import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
+import togglePinnedArtifact from '../data/actions/pinboard';
 
 // import '../styles/ArtifactOverview.scss';
 
@@ -47,6 +48,8 @@ function getArtifactEvaluations(
 }
 
 export default function ArtifactOverview({ artifactData, characterData }) {
+  const dispatch = useDispatch();
+
   const characterBuilds = getBuildsBySets(characterData);
   const filter = useSelector((state) => state.filter);
 
@@ -67,6 +70,11 @@ export default function ArtifactOverview({ artifactData, characterData }) {
     ));
   // console.log(evaluationData);
 
+  // handle pinning artifact
+  const handleClickPinArtifact = (pinnedArtifactData) => {
+    dispatch(togglePinnedArtifact(pinnedArtifactData));
+  };
+
   // render
   return (
     <Box
@@ -83,6 +91,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
               // eslint-disable-next-line react/no-array-index-key
               key={i}
               evaluationData={data}
+              handleClickPinArtifact={handleClickPinArtifact}
             />
           ))
       }

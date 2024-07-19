@@ -3,13 +3,18 @@
 .TextPiece {
   height: $tile;
   width: $tile;
+
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: start;
-  align-items: center;
+  align-items: start;
   flex-shrink: 0;
+  gap: 4px;
 
   &.overflow {
     width: auto;
+  }
+  &.right {
+    text-align: right;
   }
 }

@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import togglePinnedArtifact from '../data/actions/pinboard';
 
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
@@ -14,6 +17,22 @@ export default function CharacterOverview({
   characterArtifacts,
   totalSubstats,
 }) {
+  const dispatch = useDispatch();
+
+  const renderArtifact = (data) => (
+    <button
+      type="button"
+      className="button pin"
+      alt="pin artifact"
+      onClick={() => dispatch(togglePinnedArtifact(data))}
+    >
+      <Artifact
+        data={data}
+        characterBuild={characterBuild}
+      />
+    </button>
+  );
+
   return (
     <div
       className="CharacterOverview row"
@@ -23,11 +42,11 @@ export default function CharacterOverview({
         buildName={characterBuild.build}
       />
       <SpacerPiece />
-      <Artifact data={characterArtifacts.flower} characterBuild={characterBuild} />
-      <Artifact data={characterArtifacts.plume} characterBuild={characterBuild} />
-      <Artifact data={characterArtifacts.sands} characterBuild={characterBuild} />
-      <Artifact data={characterArtifacts.goblet} characterBuild={characterBuild} />
-      <Artifact data={characterArtifacts.circlet} characterBuild={characterBuild} />
+      { renderArtifact(characterArtifacts.flower) }
+      { renderArtifact(characterArtifacts.plume) }
+      { renderArtifact(characterArtifacts.sands) }
+      { renderArtifact(characterArtifacts.goblet) }
+      { renderArtifact(characterArtifacts.circlet) }
       <SpacerPiece />
       <ArtifactStats totalSubstats={totalSubstats} />
     </div>

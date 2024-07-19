@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import characterJson from '../data/config/characters.json';
 import artifactsJson from '../data/mock/artifacts.json';
 import loadGoodArtifacts from '../data/actions/artifacts';
+import useFilter from '../hooks/useFilter';
 
 import Filter from '../components/Filter';
+import Pinboard from '../components/PinBoard';
 import AccountOverview from '../components/AccountOverview';
 import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
-import useFilter from '../hooks/useFilter';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export default function Home() {
         characterData={characterJson}
         artifactData={filteredArtifacts.asList}
       />
+      <Pinboard />
       <Filter />
     </div>
   );

@@ -316,3 +316,7 @@ export function evaluateArtifactSet(characterArtifacts, characterBuild) {
     evaluateArtifact(characterArtifacts.circlet, characterBuild),
   ]);
 }
+
+export function getSubstatIsAlwaysBad(substat) {
+  return substat === 'hp' || substat === 'def' || substat === 'atk';
+}
