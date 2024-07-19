@@ -6,18 +6,19 @@ import paths from '../data/paths';
 
 import Artifact from './Artifact';
 import Box from './Box';
-import { toggleArtifactSetFilter } from '../data/actions/filter';
+import { toggleArtifactSetsFilter } from '../data/actions/filter';
 
 import '../styles/ArtifactInventory.scss';
+import ArtifactMultiSet from './ArtifactMultiSet';
 
 export default function ArtifactInventory({ counts }) {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
 
   // event handlers
-  const handleClickSet = (set) => {
+  const handleClickSet = (sets) => {
     // console.log(`Artifact Set: ${set}`);
-    dispatch(toggleArtifactSetFilter(set));
+    dispatch(toggleArtifactSetsFilter(sets));
   };
 
   // render
@@ -28,15 +29,28 @@ export default function ArtifactInventory({ counts }) {
       <h2>Sets</h2>
       <div className="row">
         {
+          filter.characterSets && (
+            <button
+              type="button"
+              onClick={() => handleClickSet(filter.characterSets)}
+              alt="Filtered Artifact Set"
+            >
+              <ArtifactMultiSet
+                sets={filter.characterSets}
+              />
+            </button>
+          )
+        }
+        {
           // iterate through paths.set
           // render Artifact component for each set
           counts.sortedSets
             .filter((set) => Object.keys(paths.set).includes(set))
             .map((set) => (
               <button
-                className={`button ${filter.set && filter.set !== set ? 'filtered' : ''}`}
+                className={`button ${filter.sets && !filter.sets.includes(set) ? 'filtered' : ''}`}
                 type="button"
-                onClick={() => handleClickSet(set)}
+                onClick={() => handleClickSet([set])}
                 alt={set}
                 key={set}
               >

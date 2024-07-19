@@ -16,11 +16,3 @@ export function toggleCharacterFilter(character, buildName, sets) {
     payload: { character, buildName, sets },
   });
 }
-
-// deprecated
-export function toggleArtifactSetFilter(set) {
-  return ({
-    type: 'TOGGLE_ARTIFACT_SET',
-    payload: { set },
-  });
-}

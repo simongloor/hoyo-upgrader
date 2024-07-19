@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { toggleArtifactSetFilter, toggleArtifactPieceFilter, toggleArtifactSetsFilter } from '../data/actions/filter';
+import { toggleArtifactPieceFilter, toggleArtifactSetsFilter } from '../data/actions/filter';
 import Character from './Character';
 import Artifact from './Artifact';
 
@@ -16,7 +16,6 @@ export default function FilterTile({
   characterBuildName,
   // set
   isArtifactSet,
-  artifactSetName,
   artifactSetNames,
   // piece
   isArtifactPiece,
