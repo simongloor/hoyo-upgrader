@@ -6,19 +6,27 @@ import paths from '../data/paths';
 
 import Artifact from './Artifact';
 import Box from './Box';
-import { toggleArtifactSetsFilter } from '../data/actions/filter';
+import ArtifactMultiSet from './ArtifactMultiSet';
+import SpacerPiece from './SpacerPiece';
+import {
+  toggleCharacterSetsFilter,
+  toggleSpecificSetFilter,
+} from '../data/actions/filter';
 
 import '../styles/ArtifactInventory.scss';
-import ArtifactMultiSet from './ArtifactMultiSet';
 
 export default function ArtifactInventory({ counts }) {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
 
   // event handlers
-  const handleClickSet = (sets) => {
+  const handleClickSpecificSet = (sets) => {
     // console.log(`Artifact Set: ${set}`);
-    dispatch(toggleArtifactSetsFilter(sets));
+    dispatch(toggleSpecificSetFilter(sets));
+  };
+  const handleClickCharacterSets = () => {
+    // console.log('Character Sets');
+    dispatch(toggleCharacterSetsFilter());
   };
 
   // render
@@ -28,21 +36,15 @@ export default function ArtifactInventory({ counts }) {
     >
       <h2>Sets</h2>
       <div className="row">
-        {
-          filter.characterSets && (
-            <button
-              type="button"
-              onClick={() => handleClickSet(filter.characterSets)}
-              alt="Filtered Artifact Set"
-            >
-              <ArtifactMultiSet
-                characterFilter={filter.character}
-                characterSets={filter.characterSets}
-                buildFilterEnabled={filter.buildFilterEnabled}
-              />
-            </button>
-          )
-        }
+        <button
+          type="button"
+          onClick={() => handleClickCharacterSets()}
+          alt="Filtered Character Artifact Sets"
+          disabled={!filter.characterName}
+        >
+          <ArtifactMultiSet filter={filter} />
+        </button>
+        <SpacerPiece />
         {
           // iterate through paths.set
           // render Artifact component for each set
@@ -52,7 +54,7 @@ export default function ArtifactInventory({ counts }) {
               <button
                 className={`button ${filter.sets && !filter.sets.includes(set) ? 'filtered' : ''}`}
                 type="button"
-                onClick={() => handleClickSet([set])}
+                onClick={() => handleClickSpecificSet([set])}
                 alt={set}
                 key={set}
               >

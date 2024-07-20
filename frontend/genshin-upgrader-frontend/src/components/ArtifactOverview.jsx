@@ -61,12 +61,12 @@ export default function ArtifactOverview({ artifactData, characterData }) {
       getArtifactEvaluations(
         artifact,
         characterBuilds[artifact.setKey] || [],
-        filter.character,
+        filter.characterName,
       )
     ))
     .sort((a, b) => (
-      getArtifactQualitySortValue(a, filter.character)
-        - getArtifactQualitySortValue(b, filter.character)
+      getArtifactQualitySortValue(a, filter.characterName)
+        - getArtifactQualitySortValue(b, filter.characterName)
     ));
   // console.log(evaluationData);
 

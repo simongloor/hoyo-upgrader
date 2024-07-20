@@ -9,10 +9,10 @@ export default function useFilter(artifacts, characterJson) {
   // Filter artifacts
   useEffect(() => {
     const artifactsToFilter = { ...artifacts };
-    if (filter.set) {
+    if (filter.specificSet) {
       // Only Artifacts that belong to the set should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
-        .filter((artifact) => artifact.setKey === filter.set);
+        .filter((artifact) => artifact.setKey === filter.specificSet);
 
       // Only CharacterOverviews that want the set should be displayed
       artifactsToFilter.byCharacter = Object.keys(artifactsToFilter.byCharacter)
@@ -21,7 +21,7 @@ export default function useFilter(artifacts, characterJson) {
             Object.keys(characterJson).includes(character)
           ) {
             characterJson[character].forEach((build, i) => {
-              if (build.sets.includes(filter.set)) {
+              if (build.sets.includes(filter.specificSet)) {
                 acc[character] = artifactsToFilter.byCharacter[character];
               }
             });
@@ -29,14 +29,14 @@ export default function useFilter(artifacts, characterJson) {
           return acc;
         }, {});
     }
-    if (filter.piece) {
+    if (filter.specificPiece) {
       // Only Artifacts that belong to the piece should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
-        .filter((artifact) => artifact.slotKey === filter.piece);
+        .filter((artifact) => artifact.slotKey === filter.specificPiece);
     }
-    if (filter.character && filter.build) {
+    if (filter.characterName && filter.build) {
       // Only Artifacts that can be used by the build should be displayed
-      const buildData = characterJson[filter.character].find(
+      const buildData = characterJson[filter.characterName].find(
         (build) => build.build === filter.build,
       );
       artifactsToFilter.asList = artifactsToFilter.asList
@@ -50,9 +50,9 @@ export default function useFilter(artifacts, characterJson) {
         ));
 
       // Only the CharacterOverview that matches the build should be displayed
-      if (artifactsToFilter.byCharacter[filter.character]) {
+      if (artifactsToFilter.byCharacter[filter.characterName]) {
         artifactsToFilter.byCharacter = {
-          [filter.character]: artifactsToFilter.byCharacter[filter.character],
+          [filter.characterName]: artifactsToFilter.byCharacter[filter.characterName],
         };
       }
     }

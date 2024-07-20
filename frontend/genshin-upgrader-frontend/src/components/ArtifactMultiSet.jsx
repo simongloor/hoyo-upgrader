@@ -4,33 +4,19 @@ import React from 'react';
 import Artifact from './Artifact';
 import '../styles/ArtifactMultiSet.scss';
 
-export default function ArtifactMultiSet({
-  characterFilter,
-  characterSets,
-  buildFilterEnabled,
-}) {
+export default function ArtifactMultiSet({ filter }) {
   return (
     <div
       className="ArtifactMultiSet"
     >
       {
-        characterFilter ? (
-          // placeholder
-          <div
-            className="placeholder"
-          >
-            <Artifact
-              set="empty"
-              piece="flower"
-            />
-          </div>
-        ) : (
+        filter.filterCharacterSets ? (
           // build sets
-          characterSets.map((set, index) => (
+          filter.characterSets.map((set, index) => (
             <div
               key={set}
-              className={buildFilterEnabled ? 'active' : ''}
-              style={{ width: `${84 * (1 - (index / characterSets.length))}px` }}
+              className={filter.filterCharacterSets ? 'active' : ''}
+              style={{ width: `${84 * (1 - (index / filter.characterSets.length))}px` }}
             >
               <Artifact
                 set={set}
@@ -38,7 +24,16 @@ export default function ArtifactMultiSet({
               />
             </div>
           ))
-
+        ) : (
+          // placeholder
+          <div
+            className="placeholder"
+          >
+            <Artifact
+              set="empty"
+              piece="multi"
+            />
+          </div>
         )
       }
     </div>
