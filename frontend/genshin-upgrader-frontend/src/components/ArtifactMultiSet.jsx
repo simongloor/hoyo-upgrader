@@ -10,7 +10,7 @@ export default function ArtifactMultiSet({ filter }) {
       className="ArtifactMultiSet"
     >
       {
-        filter.filterCharacterSets ? (
+        filter.characterSets ? (
           // build sets
           filter.characterSets.map((set, index) => (
             <div

@@ -39,6 +39,13 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_ARTIFACT_CHARACTER_SETS': {
+      // can't filter for both build sets and specific sets
+      if (!state.filterCharacterSets) {
+        newState.filterSpecificSet = false;
+        newState.specificSet = null;
+      }
+
+      // apply data
       return {
         ...newState,
         filterCharacterSets: !state.filterCharacterSets,

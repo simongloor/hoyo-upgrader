@@ -37,6 +37,11 @@ export default function ArtifactInventory({ counts }) {
       <h2>Sets</h2>
       <div className="row">
         <button
+          className={`button ${
+            filter.filterCharacterSets // active filter should be highlighted
+            || !filter.characterSets // no sets should also be left at default
+              ? '' : 'filtered'
+          }`}
           type="button"
           onClick={() => handleClickCharacterSets()}
           alt="Filtered Character Artifact Sets"
@@ -52,7 +57,14 @@ export default function ArtifactInventory({ counts }) {
             .filter((set) => Object.keys(paths.set).includes(set))
             .map((set) => (
               <button
-                className={`button ${filter.sets && !filter.sets.includes(set) ? 'filtered' : ''}`}
+                className={`button ${
+                  (!filter.filterSpecificSet && !filter.filterCharacterSets)
+                  || (filter.filterCharacterSets
+                    && filter.characterSets && filter.characterSets.includes(set))
+                  || (filter.filterSpecificSet
+                    && filter.specificSet === set)
+                    ? '' : 'filtered'
+                }`}
                 type="button"
                 onClick={() => handleClickSpecificSet(set)}
                 alt={set}
