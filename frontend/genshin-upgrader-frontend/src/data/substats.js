@@ -229,27 +229,26 @@ export function getArtifactTier(artifactData, evaluatedArtifactStats) {
   }
 }
 
-export function getBuildQualitySortValue(build, filteredCharacterName) {
-  // filtered character build is always first in the list
-  if (filteredCharacterName && build.build.characterName === filteredCharacterName) {
-    return -100;
+export function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
+  // wasted substats is the biggest factor
+  let sortValue = totalSubstats.wastedSubstats;
+
+  // filtered character build is pushed to be the first build in the list
+  if (filteredCharacterName && build.characterName === filteredCharacterName) {
+    sortValue -= 100;
   }
 
-  // wasted substats is the biggest factor
-  let sortValue = build.totalSubstats.wastedSubstats;
-
   // artifacts that don't have valuable substats go to the bottom
-  // console.log(a.buildEvaluations, sortedBuild);
-  if (build.totalSubstats.impossibleSubstats >= 8) {
+  if (totalSubstats.impossibleSubstats >= 8) {
     return 10;
   }
 
   // add chance as decimal
-  const { missingRolls100 } = build.totalSubstats;
-  const { missingRolls75 } = build.totalSubstats;
-  const { missingRolls50 } = build.totalSubstats;
-  const { missingRolls25 } = build.totalSubstats;
-  const { missingRolls00 } = build.totalSubstats;
+  const { missingRolls100 } = totalSubstats;
+  const { missingRolls75 } = totalSubstats;
+  const { missingRolls50 } = totalSubstats;
+  const { missingRolls25 } = totalSubstats;
+  const { missingRolls00 } = totalSubstats;
   if (missingRolls100 > 0) {
     sortValue -= 0.998;
   } else if (missingRolls75 > 0) {
@@ -273,58 +272,7 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacte
     return 20;
   }
 
-  // // what build is sorted?
-  // let sortedBuild = 0;
-  // let lowestWastedSubstat = artifactEvaluation.buildEvaluations[0].totalSubstats.wastedSubstats;
-  // // use the filtered character's build as the primary sort key
-  // if (!filteredCharacter) {
-  //   // get the lowest wasted substats
-  //   artifactEvaluation.buildEvaluations.forEach((build, i) => {
-  //     if (build.totalSubstats.wastedSubstats < lowestWastedSubstat) {
-  //       sortedBuild = i;
-  //       lowestWastedSubstat = build.totalSubstats.wastedSubstats;
-  //     }
-  //   });
-  // }
-
-  // wasted substats is the biggest factor
-  const sortedBuild = 0;
-  let sortValue = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats.wastedSubstats;
-  // let sortValue = lowestWastedSubstat;
-
-  // artifacts that don't have valuable substats go to the bottom
-  // console.log(a.buildEvaluations, sortedBuild);
-  if (artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats.impossibleSubstats >= 8) {
-    return 10;
-  }
-
-  // add chance as decimal
-  const { missingRolls100 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
-  const { missingRolls75 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
-  const { missingRolls50 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
-  const { missingRolls25 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
-  const { missingRolls00 } = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats;
-  if (missingRolls100 > 0) {
-    sortValue -= 0.998;
-    // lowestWastedSubstat -= 0.05;
-  } else if (missingRolls75 > 0) {
-    sortValue -= 0.75 ** missingRolls75;
-    // lowestWastedSubstat -= 0.04;
-  } else if (missingRolls50 > 0) {
-    sortValue -= 0.5 ** missingRolls50;
-    // lowestWastedSubstat -= 0.03;
-  } else if (missingRolls25 > 0) {
-    sortValue -= 0.25 ** missingRolls25;
-    // lowestWastedSubstat -= 0.02;
-  } else if (missingRolls00 > 0) {
-    sortValue -= 0.00001;
-    // lowestWastedSubstat -= 0.01;
-  } else {
-    sortValue -= 1;
-  }
-  // console.log(lowestWastedSubstat);
-
-  return sortValue;
+  return artifactEvaluation.buildEvaluations[0].sortValue;
 }
 
 //---------------------------------------------------------

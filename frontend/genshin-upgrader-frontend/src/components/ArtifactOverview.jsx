@@ -33,17 +33,14 @@ function getArtifactEvaluations(
   // generate data required for rendering
   return {
     artifactData,
-    buildEvaluations: matchingBuilds.map((build) => (
-      {
+    buildEvaluations: matchingBuilds.map((build) => {
+      const totalSubstats = evaluateArtifact(artifactData, build);
+      return {
         build,
-        totalSubstats: evaluateArtifact(artifactData, build),
-      }
-    ))
-      // sort build by filtered character first and then by quality
-      .sort((a, b) => (
-        getBuildQualitySortValue(a, filteredCharacter)
-          - getBuildQualitySortValue(b, filteredCharacter)
-      )),
+        totalSubstats,
+        sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
+      };
+    }).sort((a, b) => (a.sortValue - b.sortValue)),
   };
 }
 
