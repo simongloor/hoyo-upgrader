@@ -15,9 +15,9 @@ export function toggleCharacterSetsFilter() {
     type: 'TOGGLE_ARTIFACT_CHARACTER_SETS',
   });
 }
-export function toggleCharacterFilter(characterName, buildName, characterSets) {
+export function toggleCharacterFilter(characterName, characterBuildName, characterSets) {
   return ({
     type: 'TOGGLE_CHARACTER',
-    payload: { characterName, buildName, characterSets },
+    payload: { characterName, characterBuildName, characterSets },
   });
 }

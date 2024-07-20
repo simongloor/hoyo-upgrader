@@ -52,8 +52,8 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_CHARACTER': {
-      const enableFilter = (state.characterName !== action.payload.character
-          && state.characterBuildName !== action.payload.buildName);
+      const enableFilter = (state.characterName !== action.payload.characterName
+          || state.characterBuildName !== action.payload.characterBuildName);
 
       // can't filter for both build sets and specific sets
       if (enableFilter && !state.filterSpecificSet) {
@@ -66,7 +66,7 @@ const filterReducer = (
       return enableFilter ? {
         ...newState,
         characterName: action.payload.characterName,
-        characterBuildName: action.payload.buildName,
+        characterBuildName: action.payload.characterBuildName,
         characterSets: action.payload.characterSets,
       } : {
         ...newState,
