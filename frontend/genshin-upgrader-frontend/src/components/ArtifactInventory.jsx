@@ -20,9 +20,9 @@ export default function ArtifactInventory({ counts }) {
   const filter = useSelector((state) => state.filter);
 
   // event handlers
-  const handleClickSpecificSet = (sets) => {
+  const handleClickSpecificSet = (set) => {
     // console.log(`Artifact Set: ${set}`);
-    dispatch(toggleSpecificSetFilter(sets));
+    dispatch(toggleSpecificSetFilter(set));
   };
   const handleClickCharacterSets = () => {
     // console.log('Character Sets');
@@ -54,7 +54,7 @@ export default function ArtifactInventory({ counts }) {
               <button
                 className={`button ${filter.sets && !filter.sets.includes(set) ? 'filtered' : ''}`}
                 type="button"
-                onClick={() => handleClickSpecificSet([set])}
+                onClick={() => handleClickSpecificSet(set)}
                 alt={set}
                 key={set}
               >

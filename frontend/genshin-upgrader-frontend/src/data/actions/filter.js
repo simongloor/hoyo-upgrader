@@ -4,10 +4,10 @@ export function toggleSpecificPieceFilter(piece) {
     payload: { piece },
   });
 }
-export function toggleSpecificSetFilter(set) {
+export function toggleSpecificSetFilter(specificSet) {
   return ({
     type: 'TOGGLE_ARTIFACT_SPECIFIC_SET',
-    payload: { set },
+    payload: { specificSet },
   });
 }
 export function toggleCharacterSetsFilter() {

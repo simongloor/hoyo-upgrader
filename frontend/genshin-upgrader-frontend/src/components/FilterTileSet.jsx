@@ -33,7 +33,7 @@ export default function FilterTileSet({ filter }) {
         type="button"
         onClick={handleClick}
         alt="Filtered Artifact Set"
-        disabled={!filter.characterName} // can't be clicked if no char
+        disabled={!filter.filterCharacterSets && !filter.filterSpecificSet} // can only be disabled
       >
         {
           filter.filterCharacterSets && (
@@ -44,6 +44,7 @@ export default function FilterTileSet({ filter }) {
           filter.filterSpecificSet && (
             <Artifact
               set={filter.specificSet}
+              piece="flower"
             />
           )
         }

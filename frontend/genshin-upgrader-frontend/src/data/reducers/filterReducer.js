@@ -24,8 +24,7 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_ARTIFACT_SPECIFIC_SET': {
-      const enableFilter = (state.specificSet && state.specificSet.toString())
-          === (action.payload.sets && action.payload.sets.toString());
+      const enableFilter = state.specificSet !== action.payload.specificSet;
 
       // can't filter for both build sets and specific sets
       newState.filterSpecificSet = enableFilter;
@@ -36,7 +35,7 @@ const filterReducer = (
       // apply data
       return {
         ...newState,
-        specificSet: enableFilter ? action.payload.sets : null,
+        specificSet: enableFilter ? action.payload.specificSet : null,
       };
     }
     case 'TOGGLE_ARTIFACT_CHARACTER_SETS': {
