@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../data/paths';
 import { getBuildsBySets } from '../data/characters';
-import { evaluateArtifact, getArtifactQualitySortValue } from '../data/substats';
+import { evaluateArtifact, getArtifactQualitySortValue, getBuildQualitySortValue } from '../data/substats';
 
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
@@ -39,10 +39,10 @@ function getArtifactEvaluations(
         totalSubstats: evaluateArtifact(artifactData, build),
       }
     ))
-      // sort by filtered character first and then by quality
+      // sort build by filtered character first and then by quality
       .sort((a, b) => (
-        ((b.build.characterName === filteredCharacter) ? 1 : 0)
-        - ((a.build.characterName === filteredCharacter) ? 1 : 0)
+        getBuildQualitySortValue(a, filteredCharacter)
+          - getBuildQualitySortValue(b, filteredCharacter)
       )),
   };
 }
@@ -64,6 +64,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
         filter.characterName,
       )
     ))
+    // sort artifacts by quality
     .sort((a, b) => (
       getArtifactQualitySortValue(a, filter.characterName)
         - getArtifactQualitySortValue(b, filter.characterName)

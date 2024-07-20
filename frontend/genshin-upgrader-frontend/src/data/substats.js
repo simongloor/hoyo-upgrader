@@ -229,7 +229,42 @@ export function getArtifactTier(artifactData, evaluatedArtifactStats) {
   }
 }
 
-export function getBuildQualitySortValue(buildEvaluation) {
+export function getBuildQualitySortValue(build, filteredCharacterName) {
+  // filtered character build is always first in the list
+  if (filteredCharacterName && build.build.characterName === filteredCharacterName) {
+    return -100;
+  }
+
+  // wasted substats is the biggest factor
+  let sortValue = build.totalSubstats.wastedSubstats;
+
+  // artifacts that don't have valuable substats go to the bottom
+  // console.log(a.buildEvaluations, sortedBuild);
+  if (build.totalSubstats.impossibleSubstats >= 8) {
+    return 10;
+  }
+
+  // add chance as decimal
+  const { missingRolls100 } = build.totalSubstats;
+  const { missingRolls75 } = build.totalSubstats;
+  const { missingRolls50 } = build.totalSubstats;
+  const { missingRolls25 } = build.totalSubstats;
+  const { missingRolls00 } = build.totalSubstats;
+  if (missingRolls100 > 0) {
+    sortValue -= 0.998;
+  } else if (missingRolls75 > 0) {
+    sortValue -= 0.75 ** missingRolls75;
+  } else if (missingRolls50 > 0) {
+    sortValue -= 0.5 ** missingRolls50;
+  } else if (missingRolls25 > 0) {
+    sortValue -= 0.25 ** missingRolls25;
+  } else if (missingRolls00 > 0) {
+    sortValue -= 0.00001;
+  } else {
+    sortValue -= 1;
+  }
+
+  return sortValue;
 }
 
 export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacter) {
@@ -237,21 +272,25 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacte
   if (artifactEvaluation.buildEvaluations.length === 0) {
     return 20;
   }
-  // what build is sorted?
-  let sortedBuild = 0;
-  let lowestWastedSubstat = artifactEvaluation.buildEvaluations[0].totalSubstats.wastedSubstats;
-  // use the filtered character's build as the primary sort key
-  if (!filteredCharacter) {
-    // get the lowest wasted substats
-    artifactEvaluation.buildEvaluations.forEach((build, i) => {
-      if (build.totalSubstats.wastedSubstats < lowestWastedSubstat) {
-        sortedBuild = i;
-        lowestWastedSubstat = build.totalSubstats.wastedSubstats;
-      }
-    });
-  }
 
-  let sortValue = lowestWastedSubstat;
+  // // what build is sorted?
+  // let sortedBuild = 0;
+  // let lowestWastedSubstat = artifactEvaluation.buildEvaluations[0].totalSubstats.wastedSubstats;
+  // // use the filtered character's build as the primary sort key
+  // if (!filteredCharacter) {
+  //   // get the lowest wasted substats
+  //   artifactEvaluation.buildEvaluations.forEach((build, i) => {
+  //     if (build.totalSubstats.wastedSubstats < lowestWastedSubstat) {
+  //       sortedBuild = i;
+  //       lowestWastedSubstat = build.totalSubstats.wastedSubstats;
+  //     }
+  //   });
+  // }
+
+  // wasted substats is the biggest factor
+  const sortedBuild = 0;
+  let sortValue = artifactEvaluation.buildEvaluations[sortedBuild].totalSubstats.wastedSubstats;
+  // let sortValue = lowestWastedSubstat;
 
   // artifacts that don't have valuable substats go to the bottom
   // console.log(a.buildEvaluations, sortedBuild);
