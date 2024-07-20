@@ -1,18 +1,23 @@
-export function toggleArtifactSetsFilter(sets) {
+export function toggleSpecificPieceFilter(piece) {
   return ({
-    type: 'TOGGLE_ARTIFACT_SETS',
-    payload: { sets },
-  });
-}
-export function toggleArtifactPieceFilter(piece) {
-  return ({
-    type: 'TOGGLE_ARTIFACT_PIECE',
+    type: 'TOGGLE_ARTIFACT_SPECIFIC_PIECE',
     payload: { piece },
   });
 }
-export function toggleCharacterFilter(character, buildName, sets) {
+export function toggleSpecificSetFilter(sets) {
+  return ({
+    type: 'TOGGLE_ARTIFACT_SPECIFIC_SET',
+    payload: { sets },
+  });
+}
+export function toggleCharacterSetsFilter() {
+  return ({
+    type: 'TOGGLE_ARTIFACT_CHARACTER_SETS',
+  });
+}
+export function toggleCharacterFilter(characterName, buildName, characterSets) {
   return ({
     type: 'TOGGLE_CHARACTER',
-    payload: { character, buildName, sets },
+    payload: { characterName, buildName, characterSets },
   });
 }

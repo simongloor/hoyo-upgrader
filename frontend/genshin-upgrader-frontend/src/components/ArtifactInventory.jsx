@@ -36,7 +36,9 @@ export default function ArtifactInventory({ counts }) {
               alt="Filtered Artifact Set"
             >
               <ArtifactMultiSet
-                sets={filter.characterSets}
+                characterFilter={filter.character}
+                characterSets={filter.characterSets}
+                buildFilterEnabled={filter.buildFilterEnabled}
               />
             </button>
           )
