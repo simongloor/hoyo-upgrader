@@ -34,10 +34,10 @@ export default function useFilter(artifacts, characterJson) {
       artifactsToFilter.asList = artifactsToFilter.asList
         .filter((artifact) => artifact.slotKey === filter.specificPiece);
     }
-    if (filter.characterName && filter.build) {
+    if (filter.characterName && filter.characterBuildName) {
       // Only Artifacts that can be used by the build should be displayed
       const buildData = characterJson[filter.characterName].find(
-        (build) => build.build === filter.build,
+        (build) => build.build === filter.characterBuildName,
       );
       artifactsToFilter.asList = artifactsToFilter.asList
         .filter((artifact) => (
