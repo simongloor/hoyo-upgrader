@@ -24,20 +24,19 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_ARTIFACT_SPECIFIC_SET': {
-      const enableSpecificSetFilter = !state.filterSpecificSet
-        || (state.specificSet && state.specificSet.toString())
+      const enableFilter = (state.specificSet && state.specificSet.toString())
           === (action.payload.sets && action.payload.sets.toString());
 
       // can't filter for both build sets and specific sets
-      newState.filterSpecificSet = enableSpecificSetFilter;
-      if (enableSpecificSetFilter) {
+      newState.filterSpecificSet = enableFilter;
+      if (enableFilter) {
         newState.filterCharacterSets = false;
       }
 
       // apply data
       return {
         ...newState,
-        specificSet: enableSpecificSetFilter ? action.payload.sets : null,
+        specificSet: enableFilter ? action.payload.sets : null,
       };
     }
     case 'TOGGLE_ARTIFACT_CHARACTER_SETS': {
@@ -47,23 +46,27 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_CHARACTER': {
-      const enableCharacterSetsFilter = !state.filterCharacterSets
-        || (state.characterName !== action.payload.character
+      const enableFilter = (state.characterName !== action.payload.character
           && state.characterBuildName !== action.payload.buildName);
 
       // can't filter for both build sets and specific sets
-      newState.filterCharacterSets = enableCharacterSetsFilter;
-      if (enableCharacterSetsFilter) {
-        newState.filterSpecificSet = false;
-        newState.specificSet = null;
+      if (enableFilter && !state.filterSpecificSet) {
+        newState.filterCharacterSets = enableFilter;
+      } else if (!enableFilter) {
+        newState.filterCharacterSets = false;
       }
 
       // apply data
-      return {
+      return enableFilter ? {
         ...newState,
-        characterName: enableCharacterSetsFilter ? action.payload.character : null,
-        characterBuildName: enableCharacterSetsFilter ? action.payload.buildName : null,
-        characterSets: enableCharacterSetsFilter ? action.payload.sets : state.characterSets,
+        characterName: action.payload.characterName,
+        characterBuildName: action.payload.buildName,
+        characterSets: action.payload.characterSets,
+      } : {
+        ...newState,
+        characterName: null,
+        characterBuildName: null,
+        characterSets: null,
       };
     }
     default: {

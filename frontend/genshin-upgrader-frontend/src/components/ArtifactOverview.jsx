@@ -99,7 +99,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
         // placeholder
         artifactData.length === 0 && (
           <div className="row">
-            <Artifact set="empty" piece="flower" />
+            <Artifact set="empty" />
             <SpacerPiece />
             <TextPiece canOverflow>No matching artifact found</TextPiece>
             <SpacerPiece />

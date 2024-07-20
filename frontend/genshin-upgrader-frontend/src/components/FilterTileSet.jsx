@@ -27,7 +27,7 @@ export default function FilterTileSet({ filter }) {
   // render
   return (
     <div
-      className="FilterTile artifact-set"
+      className={`FilterTile artifact-set ${filter.filterSpecificSet ? 'specific' : ''} ${filter.filterCharacterSets ? 'character' : ''}`}
     >
       <button
         type="button"
@@ -44,6 +44,13 @@ export default function FilterTileSet({ filter }) {
           filter.filterSpecificSet && (
             <Artifact
               set={filter.specificSet}
+            />
+          )
+        }
+        {
+          !filter.filterCharacterSets && !filter.filterSpecificSet && (
+            <Artifact
+              set="empty"
             />
           )
         }
