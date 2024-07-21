@@ -2,6 +2,10 @@ export default {
   DOCUMENTATION: 'documentation',
   EDIT_BUILDS: 'builds',
   IMPORT_ARTIFACTS: 'import',
+  localStorage: {
+    artifactsJson: 'artifactsJson',
+    buildsJson: 'buildsJson',
+  },
   piece: {
     flower: 'flower',
     plume: 'plume',

@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable default-param-last */
 
-import { countSubstats, getArtifactTier } from '../substats';
+import { loadStateFromStorage, saveStateToStorage, getDefaultLocalStorageState } from '../localStorage';
+import paths from '../paths';
+import { countSubstats } from '../substats';
 
 function processJson(jsonData) {
   if (jsonData.artifacts) {
@@ -77,12 +79,34 @@ const artifactReducer = (
   action,
 ) => {
   const newState = { ...state };
+
   switch (action.type) {
     case 'LOAD_ARTIFACTS_GOOD': {
+      let loadedJsonData = action.payload.jsonData;
+
+      // ensure that there is always data in the local storage
+      const localJsonData = loadStateFromStorage(
+        paths.localStorage.artifactsJson,
+        getDefaultLocalStorageState(),
+        '',
+      );
+      if (localJsonData.isSuccess && localJsonData.data) {
+        loadedJsonData = localJsonData.data;
+      } else {
+        saveStateToStorage(
+          paths.localStorage.artifactsJson,
+          {
+            data: JSON.stringify(action.payload.jsonData, 0, 2),
+            isSuccess: false,
+          },
+        );
+      }
+
+      // process
       newState.asList = processJson(action.payload.jsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
-      newState.jsonData = JSON.stringify(action.payload.jsonData);
+      // newState.jsonData = JSON.stringify(action.payload.jsonData);
       return newState;
     }
     default: {

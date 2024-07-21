@@ -6,16 +6,22 @@
   h2 {
     margin-bottom: 0px;
   }
-  .Box {
+  .artifacts {
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: stretch;
     align-content: stretch;
+    gap: 16px;
 
-    textarea {
+    .Box {
       flex-grow: 1;
       flex-shrink: 0;
+
+      textarea {
+        width: 100%;
+        height: 100%;
+      }
     }
     .sets {
       width: calc(6 * #{$tile});
