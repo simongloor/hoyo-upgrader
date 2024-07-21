@@ -7,6 +7,8 @@ import artifactsJson from '../data/mock/artifacts.json';
 import loadGoodArtifacts from '../data/actions/artifacts';
 import useFilter from '../hooks/useFilter';
 
+import SettingsRow from '../components/SettingsRow';
+import StatsCheatSheet from '../components/StatsCheatSheet';
 import Filter from '../components/Filter';
 import Pinboard from '../components/PinBoard';
 import AccountOverview from '../components/AccountOverview';
@@ -26,8 +28,10 @@ export default function Home() {
 
   return (
     <div
-      className="Home"
+      className="Home page"
     >
+      <StatsCheatSheet />
+      <SettingsRow />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
         characterData={characterJson}

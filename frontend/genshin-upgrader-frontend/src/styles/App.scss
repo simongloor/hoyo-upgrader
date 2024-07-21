@@ -46,6 +46,10 @@ h6 {
   font-size: 24px;
   font-weight: 700;
 }
+span {
+  font-size: 16px;
+  font-weight: 400;
+}
 
 * {
   box-sizing: border-box;
@@ -81,6 +85,42 @@ button {
     -o-user-drag: none;
     user-drag: none;
   }
+}
+button.primary, button.secondary {
+  border-radius: 12px;
+  padding: 8px 12px;
+  
+  border-style: solid;
+  border-width: 4px;
+  border-color: $elevation-minus2;
+  
+  span {
+    color: $onSurface-highEmphasis;
+  }
+}
+button.primary {
+  background-color: $elevation-minus2;
+
+}
+button.secondary {
+  span {
+    opacity: 0.8;
+  }
+}
+
+textarea {
+  background-color: rgba(0, 0, 0, 0.0);
+  font-size: 16px;
+}
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 32px;
+  padding: 16px;
 }
 
 .tile {

@@ -82,6 +82,7 @@ const artifactReducer = (
       newState.asList = processJson(action.payload.jsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
+      newState.jsonData = JSON.stringify(action.payload.jsonData);
       return newState;
     }
     default: {

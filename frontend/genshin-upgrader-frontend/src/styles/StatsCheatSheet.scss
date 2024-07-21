@@ -1,0 +1,49 @@
+@import "variables.scss";
+
+.StatsCheatSheet {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+
+  z-index: 1000;
+
+  >.row {
+    align-items: center;
+    justify-content: start;
+    gap: 4px;
+
+    .label {
+      width: $tile;
+      opacity: 0.8;
+    }
+    .stat {
+      color: $onElevation-highEmphasis;
+      background-color: magenta;
+
+      border-radius: 12px;
+      padding: 8px 12px;
+
+      &.enerRech_ {
+        background-color: $stat-enerRech;
+      }
+      &.critRate_ {
+        background-color: $stat-critRate;
+      }
+      &.critDMG_ {
+        background-color: $stat-critDMG;
+      }
+      &.atk_ {
+        background-color: $stat-atk;
+      }
+      &.def_ {
+        background-color: $stat-def;
+      }
+      &.hp_ {
+        background-color: $stat-hp;
+      }
+      &.eleMas_ {
+        background-color: $stat-eleMas;
+      }
+    }
+  }
+}

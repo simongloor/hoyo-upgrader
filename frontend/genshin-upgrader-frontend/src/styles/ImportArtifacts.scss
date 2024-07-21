@@ -1,0 +1,28 @@
+@import "variables.scss";
+
+.ImportArtifacts.page .Box {
+  gap: 24px;
+
+  h2 {
+    margin-bottom: 0px;
+  }
+  .Box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: stretch;
+    align-content: stretch;
+
+    textarea {
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+    .sets {
+      width: calc(6 * #{$tile});
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+  }
+}
