@@ -3,6 +3,7 @@ import React from 'react';
 import Box from './Box';
 
 import '../styles/StatsCheatSheet.scss';
+import SpacerPiece from './SpacerPiece';
 
 export default function StatsCheatSheet({ children }) {
   return (
@@ -11,6 +12,7 @@ export default function StatsCheatSheet({ children }) {
     >
       <div className="row">
         <span className="label">stats:</span>
+        <SpacerPiece />
         <span className="stat enerRech_">
           Energy Recharge
         </span>
