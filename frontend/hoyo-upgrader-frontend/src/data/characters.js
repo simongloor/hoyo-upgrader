@@ -32,3 +32,8 @@ export function getEmptyBuild() {
     substats: [],
   };
 }
+
+export function getBuildIndex(characterData, characterName, buildName) {
+  return characterData[characterName]
+    .findIndex((build) => build.substats.join('-') === buildName);
+}

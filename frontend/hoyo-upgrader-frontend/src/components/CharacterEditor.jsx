@@ -14,18 +14,27 @@ function CharacterBuild({
   characterName,
   build,
   onClickDeleteBuild,
+  onClickToggleSet,
+  onClickToggleMainstat,
+  onClickToggleSubstat,
 }) {
   const handleClickSet = (setName) => {
+    onClickToggleSet(characterName, build.substats.join('-'), setName);
   };
-  const handleClickStatSands = (statCategory, statName) => {
+  const handleClickMainStat = (statCategory, statName) => {
+    onClickToggleMainstat(characterName, build.substats.join('-'), statCategory, statName);
   };
-  const handleClickStatGoblet = (statCategory, statName) => {
-  };
-  const handleClickStatCirclet = (statCategory, statName) => {
-  };
-  const handleClickSubstat = (statCategory, statName) => {
+  const handleClickSubstat = (statName) => {
+    onClickToggleSubstat(characterName, build.substats.join('-'), statName);
   };
 
+  const sandsSettings = ['enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'];
+  const gobletDmgSettings = ['pyro_dmg_', 'cryo_dmg_', 'hydro_dmg_', 'anemo_dmg_', 'geo_dmg_', 'dendro_dmg_', 'physical_dmg_'];
+  const gobletSettings = ['atk_', 'hp_', 'def_', 'eleMas'];
+  const circletSettings = ['critRate_', 'critDMG_', 'atk_', 'hp_', 'def_', 'eleMas', 'heal_'];
+  const substatSettings = ['critRate_', 'critDMG_', 'enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'];
+
+  // render
   return (
     <Box>
       <div className="row header">
@@ -61,11 +70,16 @@ function CharacterBuild({
           set="generic"
         />
         <div className="statButtons row">
-          <SubstatButton statName="enerRech_" onClick={handleClickStatSands} isActive={build.mainstats.sands.includes('enerRech_')} />
-          <SubstatButton statName="atk_" onClick={handleClickStatSands} isActive={build.mainstats.sands.includes('atk_')} />
-          <SubstatButton statName="hp_" onClick={handleClickStatSands} isActive={build.mainstats.sands.includes('hp_')} />
-          <SubstatButton statName="def_" onClick={handleClickStatSands} isActive={build.mainstats.sands.includes('def_')} />
-          <SubstatButton statName="eleMas" onClick={handleClickStatSands} isActive={build.mainstats.sands.includes('eleMas')} />
+          {
+            sandsSettings.map((statName) => (
+              <SubstatButton
+                key={statName}
+                statName={statName}
+                onClick={() => handleClickMainStat('sands', statName)}
+                isActive={build.mainstats.sands.includes(statName)}
+              />
+            ))
+          }
         </div>
       </div>
       <div className="row">
@@ -75,19 +89,28 @@ function CharacterBuild({
         />
         <div className="column">
           <div className="statButtons elementalDmg row">
-            <SubstatButton statName="electro_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('electro_dmg_')} />
-            <SubstatButton statName="pyro_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('pyro_dmg_')} />
-            <SubstatButton statName="cryo_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('cryo_dmg_')} />
-            <SubstatButton statName="hydro_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('hydro_dmg_')} />
-            <SubstatButton statName="anemo_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('anemo_dmg_')} />
-            <SubstatButton statName="geo_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('geo_dmg_')} />
-            <SubstatButton statName="physical_dmg_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('physical_dmg_')} />
+            {
+              gobletDmgSettings.map((statName) => (
+                <SubstatButton
+                  key={statName}
+                  statName={statName}
+                  onClick={() => handleClickMainStat('goblet', statName)}
+                  isActive={build.mainstats.goblet.includes(statName)}
+                />
+              ))
+            }
           </div>
           <div className="statButtons row">
-            <SubstatButton statName="atk_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('atk_')} />
-            <SubstatButton statName="hp_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('hp_')} />
-            <SubstatButton statName="def_" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('def_')} />
-            <SubstatButton statName="eleMas" onClick={handleClickStatGoblet} isActive={build.mainstats.goblet.includes('eleMas')} />
+            {
+              gobletSettings.map((statName) => (
+                <SubstatButton
+                  key={statName}
+                  statName={statName}
+                  onClick={() => handleClickMainStat('goblet', statName)}
+                  isActive={build.mainstats.goblet.includes(statName)}
+                />
+              ))
+            }
           </div>
         </div>
       </div>
@@ -97,24 +120,30 @@ function CharacterBuild({
           set="generic"
         />
         <div className="statButtons row">
-          <SubstatButton statName="critRate_" onClick={handleClickStatCirclet} isActive={build.substats.includes('critRate_')} />
-          <SubstatButton statName="critDMG_" onClick={handleClickStatCirclet} isActive={build.substats.includes('critDMG_')} />
-          <SubstatButton statName="atk_" onClick={handleClickStatCirclet} isActive={build.substats.includes('atk_')} />
-          <SubstatButton statName="hp_" onClick={handleClickStatCirclet} isActive={build.substats.includes('hp_')} />
-          <SubstatButton statName="def_" onClick={handleClickStatCirclet} isActive={build.substats.includes('def_')} />
-          <SubstatButton statName="eleMas" onClick={handleClickStatCirclet} isActive={build.substats.includes('eleMas')} />
-          <SubstatButton statName="heal_" onClick={handleClickStatCirclet} isActive={build.substats.includes('heal_')} />
+          {
+            circletSettings.map((statName) => (
+              <SubstatButton
+                key={statName}
+                statName={statName}
+                onClick={() => handleClickMainStat('circlet', statName)}
+                isActive={build.mainstats.circlet.includes(statName)}
+              />
+            ))
+          }
         </div>
       </div>
       <span><strong>Substats</strong></span>
       <div className="statButtons row">
-        <SubstatButton statName="critRate_" onClick={handleClickSubstat} isActive={build.substats.includes('critRate_')} />
-        <SubstatButton statName="critDMG_" onClick={handleClickSubstat} isActive={build.substats.includes('critDMG_')} />
-        <SubstatButton statName="enerRech_" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('enerRech_')} />
-        <SubstatButton statName="atk_" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('atk_')} />
-        <SubstatButton statName="hp_" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('hp_')} />
-        <SubstatButton statName="def_" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('def_')} />
-        <SubstatButton statName="eleMas" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('eleMas')} />
+        {
+          substatSettings.map((statName) => (
+            <SubstatButton
+              key={statName}
+              statName={statName}
+              onClick={() => handleClickSubstat(statName)}
+              isActive={build.substats.includes(statName)}
+            />
+          ))
+        }
       </div>
       <button
         className="deleteBuild secondary"
@@ -132,6 +161,9 @@ export default function CharacterEditor({
   characterBuilds,
   onClickAddBuild,
   onClickDeleteBuild,
+  onClickToggleSet,
+  onClickToggleMainstat,
+  onClickToggleSubstat,
 }) {
   // handlers
   const handleClickAddBuild = () => {
@@ -149,6 +181,9 @@ export default function CharacterEditor({
             characterName={characterName}
             build={b}
             onClickDeleteBuild={onClickDeleteBuild}
+            onClickToggleSet={onClickToggleSet}
+            onClickToggleMainstat={onClickToggleMainstat}
+            onClickToggleSubstat={onClickToggleSubstat}
           />
         ))
       }

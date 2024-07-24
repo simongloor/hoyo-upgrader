@@ -13,7 +13,7 @@ import paths from '../data/paths';
 
 import '../styles/EditBuilds.scss';
 import { updateCharacters } from '../data/actions/characters';
-import { getEmptyBuild } from '../data/characters';
+import { getBuildIndex, getEmptyBuild } from '../data/characters';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
@@ -61,9 +61,42 @@ export default function EditBuilds() {
   };
   const handleDeleteBuild = (characterName, buildName) => {
     const newCharacterData = { ...characterData };
-    const index = newCharacterData[characterName]
-      .findIndex((build) => build.substats.join('-') === buildName);
+    const index = getBuildIndex(newCharacterData, characterName, buildName);
     newCharacterData[characterName].splice(index, 1);
+    setCharacterData(newCharacterData);
+  };
+
+  const handleToggleSet = (characterName, buildName, setName) => {
+    const newCharacterData = { ...characterData };
+    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    const build = newCharacterData[characterName][index];
+    if (build.sets.includes(setName)) {
+      build.sets = build.sets.filter((set) => set !== setName);
+    } else {
+      build.sets.push(setName);
+    }
+    setCharacterData(newCharacterData);
+  };
+  const handleToggleMainstat = (characterName, buildName, slot, stat) => {
+    const newCharacterData = { ...characterData };
+    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    const build = newCharacterData[characterName][index];
+    if (build.mainstats[slot].includes(stat)) {
+      build.mainstats[slot] = build.mainstats[slot].filter((s) => s !== stat);
+    } else {
+      build.mainstats[slot].push(stat);
+    }
+    setCharacterData(newCharacterData);
+  };
+  const handleToggleSubstat = (characterName, buildName, stat) => {
+    const newCharacterData = { ...characterData };
+    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    const build = newCharacterData[characterName][index];
+    if (build.substats.includes(stat)) {
+      build.substats = build.substats.filter((s) => s !== stat);
+    } else {
+      build.substats.push(stat);
+    }
     setCharacterData(newCharacterData);
   };
 
@@ -106,6 +139,9 @@ export default function EditBuilds() {
             characterBuilds={characterData[characterName]}
             onClickAddBuild={handleCreateBuild}
             onClickDeleteBuild={handleDeleteBuild}
+            onClickToggleSet={handleToggleSet}
+            onClickToggleMainstat={handleToggleMainstat}
+            onClickToggleSubstat={handleToggleSubstat}
           />
         ))
       }
