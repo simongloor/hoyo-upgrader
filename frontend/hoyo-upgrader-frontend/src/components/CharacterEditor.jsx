@@ -31,7 +31,7 @@ function CharacterBuild({ characterName, build }) {
           key={build}
           characterName={characterName}
         />
-        <h2>{ characterName }</h2>
+        <h2>{ paths.character[characterName] }</h2>
       </div>
       <span><strong>Sets</strong></span>
       <div className="artifacts row">
@@ -126,17 +126,19 @@ function CharacterBuild({ characterName, build }) {
 }
 
 export default function CharacterEditor({ characterName, characterBuilds }) {
+  // handlers
   const handleClickAddBuild = () => {
   };
 
+  // render
   return (
     <div
       className="CharacterEditor"
     >
       {
-        characterBuilds.map((b) => (
+        characterBuilds && characterBuilds.map((b) => (
           <CharacterBuild
-            key={b}
+            key={b.substats.join('-')}
             characterName={characterName}
             build={b}
           />

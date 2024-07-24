@@ -107,6 +107,7 @@ button.primary {
   background-color: $elevation-minus2;
 }
 button.secondary {
+  background-attachment: $surface;
   span {
     opacity: 0.8;
   }

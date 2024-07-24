@@ -20,7 +20,7 @@ export default function Character({
   // render
   return (
     <button
-      className="Character tile"
+      className={`Character tile ${characterName}`}
       type="button"
       disabled={buildName === undefined}
       onClick={handleClick}

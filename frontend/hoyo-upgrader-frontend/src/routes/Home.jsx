@@ -2,9 +2,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import characterJson from '../data/config/characters.json';
+import characterJson from '../data/mock/characters.json';
 import artifactsJson from '../data/mock/artifacts.json';
 import { loadArtifacts } from '../data/actions/artifacts';
+import { loadCharacters } from '../data/actions/characters';
 import useFilter from '../hooks/useFilter';
 
 import SettingsRow from '../components/SettingsRow';
@@ -21,9 +22,12 @@ export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
+    dispatch(loadCharacters(characterJson));
   }, [dispatch]);
 
   const artifacts = useSelector((state) => state.artifacts);
+  const characters = useSelector((state) => state.characters);
+  console.log(characterJson, characters);
   const filteredArtifacts = useFilter(artifacts, characterJson);
 
   return (
@@ -34,11 +38,11 @@ export default function Home() {
       <SettingsRow />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
-        characterData={characterJson}
+        characterData={characters}
         artifactData={filteredArtifacts.byCharacter}
       />
       <ArtifactOverview
-        characterData={characterJson}
+        characterData={characters}
         artifactData={filteredArtifacts.asList}
       />
       <Pinboard />

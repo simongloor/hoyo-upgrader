@@ -1,17 +1,35 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import characterJson from '../data/config/characters.json';
 
 import Box from '../components/Box';
 import WindowActions from '../components/WindowActions';
 import CharacterEditor from '../components/CharacterEditor';
 
+import { loadStateFromStorage } from '../data/localStorage';
+import paths from '../data/paths';
+
 import '../styles/EditBuilds.scss';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
+
+  const [characterData, setCharacterData] = useState({});
+
+  useEffect(() => {
+    // Get data from local storage
+    const jsonString = loadStateFromStorage(
+      paths.localStorage.charactersJson,
+      {},
+      '',
+    ).data;
+
+    // Split into sets to enable editing in tabs with invalid data
+    const jsonData = JSON.parse(jsonString);
+
+    setCharacterData(jsonData);
+  }, []);
 
   // handlers
   const handleClickSave = () => {
@@ -39,10 +57,11 @@ export default function EditBuilds() {
         hen you want to focus Bennett on healing, don’t select crit stats.
       </span>
       {
-        Object.keys(characterJson).map((characterName) => (
+        Object.keys(paths.character).map((characterName) => (
           <CharacterEditor
+            key={characterName}
             characterName={characterName}
-            characterBuilds={characterJson[characterName]}
+            characterBuilds={characterData[characterName]}
           />
         ))
       }
