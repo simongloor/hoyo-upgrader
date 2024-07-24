@@ -36,6 +36,17 @@ const characterReducer = (
 
       return newJsonData;
     }
+    case 'UPDATE_CHARACTERS': {
+      // save data to local storage
+      saveStateToStorage(
+        paths.localStorage.charactersJson,
+        {
+          data: JSON.stringify(action.payload.jsonData, 0, 2),
+        },
+      );
+
+      return action.payload.jsonData;
+    }
     default: {
       return state;
     }

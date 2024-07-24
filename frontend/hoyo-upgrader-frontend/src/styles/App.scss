@@ -99,15 +99,31 @@ button.primary, button.secondary {
   span {
     color: $onSurface-highEmphasis;
   }
-  &:disabled {
+  &:disabled span {
     opacity: 0.5;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+      span {
+        opacity: 0.4;
+      }
+    }
+    &:active {
+      opacity: 1;
+      span {
+        opacity: 0.2;
+      }
+    }
   }
 }
 button.primary {
   background-color: $elevation-minus2;
 }
 button.secondary {
-  background-attachment: $surface;
+  background-color: $surface;
   span {
     opacity: 0.8;
   }

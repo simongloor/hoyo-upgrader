@@ -148,6 +148,7 @@ export default function CharacterEditor({ characterName, characterBuilds }) {
         <Character
           characterName={characterName}
         />
+        <h2>{ paths.character[characterName] }</h2>
         <button
           className="addBuild primary"
           type="button"

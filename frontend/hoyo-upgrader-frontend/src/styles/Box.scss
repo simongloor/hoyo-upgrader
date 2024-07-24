@@ -15,6 +15,9 @@
   padding: 8px;
   gap: 0px;
 
+  >span, >ul, >ol {
+    max-width: $width-base;
+  }
   &.error {
     border-color: $error;
   }

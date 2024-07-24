@@ -13,6 +13,13 @@
     gap: 16px;
     align-items: center;
     justify-content: start;
+    flex-grow: 0;
+
+    h2 {
+      margin: 0;
+      min-width: 400px;
+      flex-grow: 1;
+    }
   }
 
   .deleteBuild {
