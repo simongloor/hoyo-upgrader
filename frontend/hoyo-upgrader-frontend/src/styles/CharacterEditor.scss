@@ -1,10 +1,24 @@
 .CharacterEditor {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
 
   .Box {
+    position: relative;
     gap: 16px;
+  }
+  .Box.row.right {
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .deleteBuild {
+    position: absolute;
+    top: 8px;
+    right: 8px;
   }
   
   .row {

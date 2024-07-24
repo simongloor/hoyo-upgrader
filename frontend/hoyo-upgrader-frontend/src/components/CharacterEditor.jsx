@@ -21,6 +21,8 @@ function CharacterBuild({ characterName, build }) {
   };
   const handleClickSubstat = (statCategory, statName) => {
   };
+  const handleDeleteBuild = () => {
+  };
 
   return (
     <Box>
@@ -112,11 +114,21 @@ function CharacterBuild({ characterName, build }) {
         <SubstatButton statName="def_" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('def_')} />
         <SubstatButton statName="eleMas" onClick={handleClickSubstat} isActive={build.mainstats.circlet.includes('eleMas')} />
       </div>
+      <button
+        className="deleteBuild secondary"
+        type="button"
+        onClick={handleDeleteBuild}
+      >
+        <span>delete build</span>
+      </button>
     </Box>
   );
 }
 
 export default function CharacterEditor({ characterName, characterBuilds }) {
+  const handleClickAddBuild = () => {
+  };
+
   return (
     <div
       className="CharacterEditor"
@@ -130,6 +142,18 @@ export default function CharacterEditor({ characterName, characterBuilds }) {
           />
         ))
       }
+      <Box className="row right">
+        <Character
+          characterName={characterName}
+        />
+        <button
+          className="addBuild primary"
+          type="button"
+          onClick={handleClickAddBuild}
+        >
+          <span>+add build</span>
+        </button>
+      </Box>
     </div>
   );
 }
