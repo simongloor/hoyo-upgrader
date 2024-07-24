@@ -39,7 +39,7 @@ export default function CharacterOverview({
     >
       <Character
         characterName={characterName}
-        buildName={characterBuild.build}
+        buildName={characterBuild.substats.join('-')}
         sets={characterBuild.sets}
       />
       <SpacerPiece />

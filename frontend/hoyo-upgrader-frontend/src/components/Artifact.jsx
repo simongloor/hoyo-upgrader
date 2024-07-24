@@ -12,6 +12,8 @@ export default function Artifact({
   count = -1,
   showTier = true,
 }) {
+  console.log(data);
+
   // What to display
   const displayedSet = data ? data.set : set;
   const displayedPiece = data ? data.piece : piece;
@@ -35,6 +37,11 @@ export default function Artifact({
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}
         alt={displayedPiece}
       />
+      {
+        (data && data.slotKey !== 'flower' && data.slotKey !== 'plume') && (
+          <div className={`mainstat-backdrop ${data.mainStatKey}`} />
+        )
+      }
       {
         showTier && evaluation && (
           <>

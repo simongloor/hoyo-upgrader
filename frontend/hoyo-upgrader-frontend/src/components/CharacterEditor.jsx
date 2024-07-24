@@ -29,7 +29,7 @@ function CharacterBuild({
   };
 
   const sandsSettings = ['enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'];
-  const gobletDmgSettings = ['pyro_dmg_', 'cryo_dmg_', 'hydro_dmg_', 'anemo_dmg_', 'geo_dmg_', 'dendro_dmg_', 'physical_dmg_'];
+  const gobletDmgSettings = ['electro_dmg_', 'pyro_dmg_', 'cryo_dmg_', 'hydro_dmg_', 'anemo_dmg_', 'geo_dmg_', 'dendro_dmg_', 'physical_dmg_'];
   const gobletSettings = ['atk_', 'hp_', 'def_', 'eleMas'];
   const circletSettings = ['critRate_', 'critDMG_', 'atk_', 'hp_', 'def_', 'eleMas', 'heal_'];
   const substatSettings = ['critRate_', 'critDMG_', 'enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'];

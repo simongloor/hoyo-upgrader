@@ -27,7 +27,7 @@ export default function Home() {
 
   const artifacts = useSelector((state) => state.artifacts);
   const characters = useSelector((state) => state.characters);
-  const filteredArtifacts = useFilter(artifacts, characterJson);
+  const filteredArtifacts = useFilter(artifacts, characters);
 
   return (
     <div

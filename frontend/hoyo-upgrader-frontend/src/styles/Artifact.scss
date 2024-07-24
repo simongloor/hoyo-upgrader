@@ -12,7 +12,7 @@
     // opacity: 0.6;
     // color: #000;
   }
-  .tier-backdrop {
+  .tier-backdrop, .mainstat-backdrop {
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -22,5 +22,32 @@
     background-color: #000;
     opacity: 0.6;
     border-top-left-radius: 16px;
+    border-bottom-right-radius: 20px;
+  }
+  .mainstat-backdrop {
+    background-color: white;
+    opacity: 1;
+
+    &.enerRech_ {
+      background-color: $stat-enerRech;
+    }
+    &.critRate_ {
+      background-color: $stat-critRate;
+    }
+    &.critDMG_ {
+      background-color: $stat-critDMG;
+    }
+    &.atk_ {
+      background-color: $stat-atk;
+    }
+    &.hp_ {
+      background-color: $stat-hp;
+    }
+    &.def_ {
+      background-color: $stat-def;
+    }
+    &.eleMas {
+      background-color: $stat-eleMas;
+    }
   }
 }

@@ -16,7 +16,7 @@ export default function FilterTilePiece({ filter, artifactPieceName = 'flower' }
       className="FilterTile artifact-piece"
     >
       <button
-        className={filter.filteredArtifactPiece && filter.filteredArtifactPiece !== artifactPieceName ? 'filtered' : ''}
+        className={filter.specificPiece && filter.specificPiece !== artifactPieceName ? 'filtered' : ''}
         type="button"
         onClick={() => dispatch(toggleSpecificPieceFilter(artifactPieceName))}
         alt="Filtered Artifact Piece"
