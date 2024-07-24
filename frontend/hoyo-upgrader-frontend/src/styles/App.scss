@@ -13,12 +13,12 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6, span {
+h1, h2, h3, h4, h5, h6, span, ul, ol, li {
   font-family: $title-family;
   margin: 0;
   pointer-events: none;
 }
-h1, h2, h3, h4, h5, h6, span, input, textarea {
+h1, h2, h3, h4, h5, h6, span, input, textarea, li {
   color: $onSurface-highEmphasis;
 }
 
@@ -50,7 +50,9 @@ span {
   font-size: 16px;
   font-weight: 400;
 }
-
+li {
+  margin: 8px 0;
+}
 * {
   box-sizing: border-box;
 }
@@ -151,4 +153,58 @@ textarea {
   // flex-wrap: wrap;
   justify-content: start;
   align-items: start;
+}
+.column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.stat {
+  color: $onElevation-highEmphasis;
+  background-color: magenta;
+
+  border-radius: 12px;
+  padding: 8px 12px;
+
+  &.inactive {
+    opacity: 0.4;
+  }
+
+  &.enerRech_ {
+    background-color: $stat-enerRech;
+  }
+  &.critRate_ {
+    background-color: $stat-critRate;
+  }
+  &.critDMG_ {
+    background-color: $stat-critDMG;
+  }
+  &.atk_ {
+    background-color: $stat-atk;
+  }
+  &.def_ {
+    background-color: $stat-def;
+  }
+  &.hp_ {
+    background-color: $stat-hp;
+  }
+  &.eleMas_ {
+    background-color: $stat-eleMas;
+  }
+  &.heal_ {
+    background-color: $stat-heal;
+  }
+  &.electro_dmg_,
+  &.pyro_dmg_,
+  &.cryo_dmg_,
+  &.hydro_dmg_,
+  &.anemo_dmg_,
+  &.geo_dmg_,
+  &.dendro_dmg_,
+  &.physical_dmg_ {
+    background-color: $stat-Dmg;
+  }
 }

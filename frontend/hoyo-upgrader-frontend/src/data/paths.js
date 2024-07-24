@@ -82,6 +82,7 @@ export default {
     hydro_dmg_: 'Hydro DMG Bonus%',
     anemo_dmg_: 'Anemo DMG Bonus%',
     geo_dmg_: 'Geo DMG Bonus%',
+    dendro_dmg_: 'Dendro DMG Bonus%',
     physical_dmg_: 'Physical DMG Bonus%',
     atk: 'ATK',
     def: 'DEF',

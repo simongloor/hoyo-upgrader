@@ -1,0 +1,21 @@
+@import "variables.scss";
+
+.StatsCheatSheet {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+
+  z-index: 1000;
+
+  >.row {
+    align-items: center;
+    justify-content: start;
+    gap: 4px;
+
+    .label {
+      width: $tile;
+      text-align: right;
+      opacity: 0.8;
+    }
+  }
+}

@@ -4,8 +4,8 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - /volume1/docker/genshin-upgrader/frontend/genshin-upgrader-frontend:/usr/share/nginx/html
-      - /volume1/docker/genshin-upgrader/frontend/site.conf:/etc/nginx/conf.d/default.conf
+      - /volume1/docker/hoyo-upgrader/frontend/hoyo-upgrader-frontend:/usr/share/nginx/html
+      - /volume1/docker/hoyo-upgrader/frontend/site.conf:/etc/nginx/conf.d/default.conf
       - /usr/local/share/acme.sh/*.pillars.ch:/etc/nginx/certs
     networks:
       - default
@@ -19,7 +19,7 @@ services:
   php:
     image: php:7-fpm
     volumes:
-      - /volume1/docker/genshin-upgrader/frontend/genshin-upgrader-frontend:/usr/share/nginx/html
+      - /volume1/docker/hoyo-upgrader/frontend/hoyo-upgrader-frontend:/usr/share/nginx/html
     networks:
       - default
 

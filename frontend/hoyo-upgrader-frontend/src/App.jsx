@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import paths from './data/paths';
 
@@ -16,21 +16,26 @@ function App() {
       <Route
         exact
         path="/"
+        element={<Navigate to="/genshin/" />}
+      />
+      <Route
+        exact
+        path="/genshin/"
         element={<Home />}
       />
       <Route
         exact
-        path={`/${paths.DOCUMENTATION}`}
+        path={`/genshin/${paths.DOCUMENTATION}`}
         element={<Documentation />}
       />
       <Route
         exact
-        path={`/${paths.IMPORT_ARTIFACTS}`}
+        path={`/genshin/${paths.IMPORT_ARTIFACTS}`}
         element={<ImportArtifacts />}
       />
       <Route
         exact
-        path={`/${paths.EDIT_BUILDS}`}
+        path={`/genshin/${paths.EDIT_BUILDS}`}
         element={<EditBuilds />}
       />
     </Routes>

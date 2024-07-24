@@ -23,7 +23,7 @@
     "sets": ["EmblemOfSeveredFate"],
     "mainstats": {
       "sands": ["enerRech_"],
-      "goblet": ["electro_dmg_"],
+      "goblet": ["pyro_dmg_"],
       "circlet": ["critRate_", "critDMG_"]
     },
     "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]

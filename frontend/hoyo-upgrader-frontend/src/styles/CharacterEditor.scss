@@ -1,0 +1,42 @@
+.CharacterEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .Box {
+    gap: 16px;
+  }
+  
+  .row {
+    align-items: center;
+  }
+  .column {
+    gap: 4px;
+  }
+
+  .header {
+    gap: 24px;
+    h2 {
+      margin: 0;
+    }
+  }
+  .artifacts {
+    flex-wrap: wrap;
+
+    .artifact.inactive {
+      opacity: 0.5;
+    }
+  }
+
+  .statButtons {
+    align-items: center;
+    justify-content: start;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .SubstatButton {
+    flex-shrink: 0;
+    height: 34px;
+  }
+}
