@@ -57,7 +57,7 @@ export default function AccountOverview({ characterData, artifactData }) {
       {
         dataToDisplay.map((data) => (
           <CharacterOverview
-            key={`${data.characterKey}-${data.characterBuild.build}`}
+            key={`${data.characterKey}-${data.characterBuild.substats.join('-')}`}
             characterName={data.characterKey}
             characterBuild={data.characterBuild}
             characterArtifacts={data.characterArtifacts}

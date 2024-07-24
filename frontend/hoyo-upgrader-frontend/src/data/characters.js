@@ -20,3 +20,15 @@ export function getBuildsBySets(characterData) {
 
   return builds;
 }
+
+export function getEmptyBuild() {
+  return {
+    sets: [],
+    mainstats: {
+      sands: [],
+      goblet: [],
+      circlet: [],
+    },
+    substats: [],
+  };
+}

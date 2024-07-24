@@ -10,7 +10,11 @@ import SubstatButton from './SubstatButton';
 
 import '../styles/CharacterEditor.scss';
 
-function CharacterBuild({ characterName, build }) {
+function CharacterBuild({
+  characterName,
+  build,
+  onClickDeleteBuild,
+}) {
   const handleClickSet = (setName) => {
   };
   const handleClickStatSands = (statCategory, statName) => {
@@ -20,8 +24,6 @@ function CharacterBuild({ characterName, build }) {
   const handleClickStatCirclet = (statCategory, statName) => {
   };
   const handleClickSubstat = (statCategory, statName) => {
-  };
-  const handleDeleteBuild = () => {
   };
 
   return (
@@ -117,7 +119,7 @@ function CharacterBuild({ characterName, build }) {
       <button
         className="deleteBuild secondary"
         type="button"
-        onClick={handleDeleteBuild}
+        onClick={() => onClickDeleteBuild(characterName, build.substats.join('-'))}
       >
         <span>delete build</span>
       </button>
@@ -125,7 +127,12 @@ function CharacterBuild({ characterName, build }) {
   );
 }
 
-export default function CharacterEditor({ characterName, characterBuilds }) {
+export default function CharacterEditor({
+  characterName,
+  characterBuilds,
+  onClickAddBuild,
+  onClickDeleteBuild,
+}) {
   // handlers
   const handleClickAddBuild = () => {
   };
@@ -141,6 +148,7 @@ export default function CharacterEditor({ characterName, characterBuilds }) {
             key={b.substats.join('-')}
             characterName={characterName}
             build={b}
+            onClickDeleteBuild={onClickDeleteBuild}
           />
         ))
       }
@@ -152,7 +160,7 @@ export default function CharacterEditor({ characterName, characterBuilds }) {
         <button
           className="addBuild primary"
           type="button"
-          onClick={handleClickAddBuild}
+          onClick={() => onClickAddBuild(characterName)}
         >
           <span>+add build</span>
         </button>

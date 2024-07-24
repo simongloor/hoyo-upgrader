@@ -43,11 +43,11 @@ export default function ArtifactEvaluation({
       {
         evaluationData.buildEvaluations
           .map((b) => (
-            <Fragment key={`${b.build.characterName}-${b.build.build}`}>
+            <Fragment key={`${b.build.characterName}-${b.build.substats.join('-')}`}>
               <SpacerPiece size="small" />
               <Character
                 characterName={b.build.characterName}
-                buildName={b.build.build}
+                buildName={b.build.substats.join('-')}
                 sets={b.build.sets}
               />
               <ArtifactStats

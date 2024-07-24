@@ -37,7 +37,7 @@ export default function useFilter(artifacts, characterJson) {
     if (filter.characterName && filter.characterBuildName) {
       // Only Artifacts that can be used by the build should be displayed
       const buildData = characterJson[filter.characterName].find(
-        (build) => build.build === filter.characterBuildName,
+        (build) => build.substats.join('-') === filter.characterBuildName,
       );
       artifactsToFilter.asList = artifactsToFilter.asList
         .filter((artifact) => (

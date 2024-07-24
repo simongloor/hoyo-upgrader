@@ -1,6 +1,5 @@
 {
   "RaidenShogun": [{
-    "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
     "mainstats": {
       "sands": ["atk_", "enerRech_"], 
@@ -9,7 +8,6 @@
     },
     "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }, {
-    "build": "EM",
     "sets": ["GildedDreams", "FlowerOfParadiseLost"],
     "mainstats": {
       "sands": ["eleMas"], 
@@ -19,7 +17,6 @@
     "substats": ["eleMas"]
   }],
   "Xiangling": [{
-    "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
     "mainstats": {
       "sands": ["enerRech_"],
@@ -29,7 +26,6 @@
     "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
   }],
   "Beidou": [{
-    "build": "CRIT",
     "sets": ["EmblemOfSeveredFate"],
     "mainstats": {
       "sands": ["enerRech_"], 
@@ -39,7 +35,6 @@
     "substats": ["enerRech_","critRate_","critDMG_","atk_"]
   }],
   "Lisa": [{
-    "build": "CRIT",
     "sets": ["EmblemOfSeveredFate", "NoblesseOblige", "ShimenawasReminiscence", "GladiatorsFinale"],
     "mainstats": {
       "sands": ["atk_"], 
@@ -49,7 +44,6 @@
     "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
   }],
   "Charlotte": [{
-    "build": "CRIT",
     "sets": ["EmblemOfSeveredFate", "GladiatorsFinale"],
     "mainstats": {
       "sands": ["enerRech_"], 

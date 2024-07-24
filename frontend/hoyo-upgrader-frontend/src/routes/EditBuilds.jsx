@@ -13,6 +13,7 @@ import paths from '../data/paths';
 
 import '../styles/EditBuilds.scss';
 import { updateCharacters } from '../data/actions/characters';
+import { getEmptyBuild } from '../data/characters';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
@@ -48,6 +49,22 @@ export default function EditBuilds() {
     } catch (error) {
       setJsonIsValid(false);
     }
+  };
+
+  const handleCreateBuild = (characterName) => {
+    const newCharacterData = { ...characterData };
+    if (!newCharacterData[characterName]) {
+      newCharacterData[characterName] = [];
+    }
+    newCharacterData[characterName].push(getEmptyBuild());
+    setCharacterData(newCharacterData);
+  };
+  const handleDeleteBuild = (characterName, buildName) => {
+    const newCharacterData = { ...characterData };
+    const index = newCharacterData[characterName]
+      .findIndex((build) => build.substats.join('-') === buildName);
+    newCharacterData[characterName].splice(index, 1);
+    setCharacterData(newCharacterData);
   };
 
   const handleClickSave = () => {
@@ -87,6 +104,8 @@ export default function EditBuilds() {
             key={characterName}
             characterName={characterName}
             characterBuilds={characterData[characterName]}
+            onClickAddBuild={handleCreateBuild}
+            onClickDeleteBuild={handleDeleteBuild}
           />
         ))
       }
