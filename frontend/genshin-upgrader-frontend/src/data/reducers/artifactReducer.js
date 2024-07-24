@@ -81,32 +81,45 @@ const artifactReducer = (
   const newState = { ...state };
 
   switch (action.type) {
-    case 'LOAD_ARTIFACTS_GOOD': {
-      let loadedJsonData = action.payload.jsonData;
-
+    case 'LOAD_ARTIFACTS': {
       // ensure that there is always data in the local storage
       const localJsonData = loadStateFromStorage(
         paths.localStorage.artifactsJson,
         getDefaultLocalStorageState(),
         '',
       );
-      if (localJsonData.isSuccess && localJsonData.data) {
-        loadedJsonData = localJsonData.data;
-      } else {
+
+      // no local data yet?
+      if (!localJsonData.isSuccess || !localJsonData.data) {
         saveStateToStorage(
           paths.localStorage.artifactsJson,
           {
-            data: JSON.stringify(action.payload.jsonData, 0, 2),
+            data: JSON.stringify(action.payload.exampleJsonData, 0, 2),
             isSuccess: false,
           },
         );
       }
 
       // process
+      newState.asList = processJson(action.payload.exampleJsonData);
+      newState.byCharacter = sortDataByCharacter(newState.asList);
+      newState.counts = countArtifactsBySet(newState.asList);
+      return newState;
+    }
+    case 'UPDATE_ARTIFACTS': {
+      // save to local storage
+      saveStateToStorage(
+        paths.localStorage.jsonData,
+        {
+          data: JSON.stringify(action.payload.jsonData, 0, 2),
+          isSuccess: true,
+        },
+      );
+
+      // process
       newState.asList = processJson(action.payload.jsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
-      // newState.jsonData = JSON.stringify(action.payload.jsonData);
       return newState;
     }
     default: {

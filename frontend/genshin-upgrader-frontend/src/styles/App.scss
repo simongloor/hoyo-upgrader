@@ -107,6 +107,16 @@ button.secondary {
     opacity: 0.8;
   }
 }
+button.filtered {
+  opacity: 0.4;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.3;
+  }
+  &:active {
+    opacity: 0.2;
+  }
+}
 
 textarea {
   background-color: rgba(0, 0, 0, 0.0);

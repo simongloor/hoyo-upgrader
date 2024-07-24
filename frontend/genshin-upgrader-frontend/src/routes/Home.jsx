@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import characterJson from '../data/config/characters.json';
 import artifactsJson from '../data/mock/artifacts.json';
-import loadGoodArtifacts from '../data/actions/artifacts';
+import { loadArtifacts } from '../data/actions/artifacts';
 import useFilter from '../hooks/useFilter';
 
 import SettingsRow from '../components/SettingsRow';
@@ -20,7 +20,7 @@ import '../styles/Home.scss';
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadGoodArtifacts(artifactsJson));
+    dispatch(loadArtifacts(artifactsJson));
   }, [dispatch]);
 
   const artifacts = useSelector((state) => state.artifacts);
