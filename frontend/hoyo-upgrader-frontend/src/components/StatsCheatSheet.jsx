@@ -11,7 +11,7 @@ export default function StatsCheatSheet({ children }) {
       className="StatsCheatSheet"
     >
       <div className="row">
-        <span className="label">stats:</span>
+        <span className="label">stat colors:</span>
         <SpacerPiece />
         <span className="stat enerRech_">
           Energy Recharge
