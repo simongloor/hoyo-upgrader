@@ -2,7 +2,11 @@
 import React from 'react';
 import '../styles/WindowActions.scss';
 
-export default function WindowActions({ onClickCancel, onClickSave }) {
+export default function WindowActions({
+  onClickCancel,
+  onClickSave,
+  isValid,
+}) {
   return (
     <div
       className="WindowActions"
@@ -18,6 +22,7 @@ export default function WindowActions({ onClickCancel, onClickSave }) {
         className="primary"
         type="button"
         onClick={onClickSave}
+        disabled={!isValid}
       >
         <span>save & close</span>
       </button>

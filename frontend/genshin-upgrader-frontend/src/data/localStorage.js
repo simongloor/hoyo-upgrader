@@ -1,9 +1,9 @@
-export const getDefaultLocalStorageState = () => (
-  {
-    data: [],
-    isSuccess: false,
-  }
-);
+// export const getDefaultLocalStorageState = () => (
+//   {
+//     data: [],
+//     isSuccess: false,
+//   }
+// );
 
 export function loadStateFromStorage(key, state, defaultValue) {
   const newState = { ...state };
@@ -13,6 +13,7 @@ export function loadStateFromStorage(key, state, defaultValue) {
 
   // Missing?
   if (localDataString === null || localDataString === 0) {
+    // console.log('No local data found for key:', key);
     newState.data = defaultValue;
     return newState;
   }

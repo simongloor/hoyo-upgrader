@@ -14,4 +14,8 @@
 
   padding: 8px;
   gap: 0px;
+
+  &.error {
+    border-color: $error;
+  }
 }

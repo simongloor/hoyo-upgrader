@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable default-param-last */
 
-import { loadStateFromStorage, saveStateToStorage, getDefaultLocalStorageState } from '../localStorage';
+import { loadStateFromStorage, saveStateToStorage } from '../localStorage';
 import paths from '../paths';
 import { countSubstats } from '../substats';
 
@@ -82,26 +82,30 @@ const artifactReducer = (
 
   switch (action.type) {
     case 'LOAD_ARTIFACTS': {
+      // prepare data to be processed
+      let newJsonData = action.payload.exampleJsonData;
+
       // ensure that there is always data in the local storage
       const localJsonData = loadStateFromStorage(
         paths.localStorage.artifactsJson,
-        getDefaultLocalStorageState(),
+        {},
         '',
       );
 
       // no local data yet?
-      if (!localJsonData.isSuccess || !localJsonData.data) {
+      if (!localJsonData.data) {
         saveStateToStorage(
           paths.localStorage.artifactsJson,
           {
             data: JSON.stringify(action.payload.exampleJsonData, 0, 2),
-            isSuccess: false,
           },
         );
+      } else {
+        newJsonData = JSON.parse(localJsonData.data);
       }
 
       // process
-      newState.asList = processJson(action.payload.exampleJsonData);
+      newState.asList = processJson(newJsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
       return newState;
@@ -109,17 +113,23 @@ const artifactReducer = (
     case 'UPDATE_ARTIFACTS': {
       // save to local storage
       saveStateToStorage(
-        paths.localStorage.jsonData,
+        paths.localStorage.artifactsJson,
         {
           data: JSON.stringify(action.payload.jsonData, 0, 2),
-          isSuccess: true,
         },
       );
+      const saved = loadStateFromStorage(
+        paths.localStorage.artifactsJson,
+        {},
+        '',
+      );
+      // console.log('loaded from local storage', saved.data);
 
       // process
       newState.asList = processJson(action.payload.jsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
+
       return newState;
     }
     default: {
