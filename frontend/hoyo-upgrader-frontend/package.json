@@ -2,7 +2,7 @@
   "name": "genshin-upgrader-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://genshin-upgrader.pillars.ch",
+  "homepage": "https://hoyo-upgrader.pillars.ch",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.0"
   },
