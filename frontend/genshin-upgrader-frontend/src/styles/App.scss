@@ -97,10 +97,12 @@ button.primary, button.secondary {
   span {
     color: $onSurface-highEmphasis;
   }
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 button.primary {
   background-color: $elevation-minus2;
-
 }
 button.secondary {
   span {
