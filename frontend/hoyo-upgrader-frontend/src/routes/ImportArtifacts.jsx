@@ -64,6 +64,16 @@ export default function ImportArtifacts({ children }) {
       };
     });
 
+    // Add empty sets for missing sets
+    Object.keys(paths.set).forEach((set) => {
+      if (!dataState.sets[set]) {
+        dataState.sets[set] = {
+          jsonString: setToExtractedJsonString([]),
+          isValidJson: true,
+        };
+      }
+    });
+
     setArtifactData(dataState);
   }, []);
 
@@ -205,7 +215,7 @@ export default function ImportArtifacts({ children }) {
           </Box>
           <div className="sets">
             {
-              Object.keys(artifactData.sets).map((set) => (
+              Object.keys(paths.set).map((set) => (
                 <button
                   className={selectedSet === '' || selectedSet === set ? '' : 'filtered'}
                   key={set}
