@@ -95,11 +95,9 @@ function getWastedSubstats(artifactData, totalValuableSubstats, impossibleSubsta
   const possibleRollsAtLevel = Math.floor(level / 4) + possibleStartRolls;
   const impossibleSubstatsAtLevel = Math.min(impossibleSubstats, possibleRollsAtLevel);
   const wastedSubstats = possibleRollsAtLevel - totalValuableSubstats - impossibleSubstatsAtLevel;
-  if (wastedSubstats < 0) {
-    console.log('Warning: wasted substats is negative', possibleRollsAtLevel, totalValuableSubstats, impossibleSubstats, artifactData);
-    return 0;
-  }
-  return wastedSubstats;
+
+  // 3* artifacts with few valuable substats can have negative wasted substats
+  return Math.max(0, wastedSubstats);
 }
 
 function getUselessSubstatSlots(artifactData, characterBuild) {
