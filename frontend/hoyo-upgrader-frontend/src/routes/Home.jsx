@@ -33,7 +33,6 @@ export default function Home() {
     <div
       className="Home page"
     >
-      <StatsCheatSheet />
       <SettingsRow />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview

@@ -6,11 +6,12 @@ import paths from '../data/paths';
 
 import Box from './Box';
 import '../styles/SettingsRow.scss';
+import SpacerPiece from './SpacerPiece';
 
 export default function SettingsRow({ children }) {
   const navigate = useNavigate();
   return (
-    <Box
+    <div
       className="SettingsRow"
     >
       <div className="row">
@@ -36,6 +37,6 @@ export default function SettingsRow({ children }) {
           <span>Edit Character Builds</span>
         </button>
       </div>
-    </Box>
+    </div>
   );
 }
