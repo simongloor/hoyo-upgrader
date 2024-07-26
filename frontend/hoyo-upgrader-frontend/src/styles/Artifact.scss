@@ -5,12 +5,27 @@
   flex-shrink: 0;
   overflow: hidden;
 
-  h6 {
+  h6.missingStat-label {
+    position: absolute;
+    left: $border;
+    bottom: 4px;
+  }
+  .missingStat-backdrop {
+    position: absolute;
+    left: 0px;
+    bottom: 1px;
+    width: 32px;
+    height: 28px;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    border-top-right-radius: $border;
+    border-bottom-left-radius: $border;
+  }
+
+  h6.tier-label {
     position: absolute;
     right: $border;
     bottom: 4px;
-    // opacity: 0.6;
-    // color: #000;
   }
   .tier-backdrop {
     position: absolute;

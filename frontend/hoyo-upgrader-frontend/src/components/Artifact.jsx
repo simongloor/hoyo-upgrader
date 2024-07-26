@@ -11,6 +11,7 @@ export default function Artifact({
   set = 'generic',
   count = -1,
   showTier = true,
+  showMissingSlots = false,
 }) {
   // console.log(data);
 
@@ -36,7 +37,7 @@ export default function Artifact({
     label = (
       <>
         <div className={`tier-backdrop mainstat ${data.mainStatKey}`} />
-        <h6>{evaluation.tier}</h6>
+        <h6 className="tier-label">{evaluation.tier}</h6>
       </>
     );
   } else if (validMainstat) {
@@ -47,7 +48,18 @@ export default function Artifact({
     label = (
       <>
         <div className="tier-backdrop" />
-        <h6>{evaluation.tier}</h6>
+        <h6 className="tier-label">{evaluation.tier}</h6>
+      </>
+    );
+  }
+
+  // render missing slots
+  let missingStat = null;
+  if (showMissingSlots && data && data.substats.length < 4) {
+    missingStat = (
+      <>
+        <div className="missingStat-backdrop" />
+        <h6 className="missingStat-label">?</h6>
       </>
     );
   }
@@ -61,6 +73,7 @@ export default function Artifact({
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}
         alt={displayedPiece}
       />
+      { missingStat }
       { label }
       {
         count !== -1 && (

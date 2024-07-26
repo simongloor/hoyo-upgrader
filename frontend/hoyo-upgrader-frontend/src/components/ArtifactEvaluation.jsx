@@ -39,6 +39,7 @@ export default function ArtifactEvaluation({
       >
         <Artifact
           data={evaluationData.artifactData}
+          showMissingSlots
         />
       </button>
       {
