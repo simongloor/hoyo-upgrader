@@ -12,8 +12,9 @@ import Artifact from './Artifact';
 import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
 import togglePinnedArtifact from '../data/actions/pinboard';
+import getRecommendation from '../data/artifactValue';
 
-// import '../styles/ArtifactOverview.scss';
+import '../styles/ArtifactOverview.scss';
 
 function getArtifactEvaluations(
   artifactData,
@@ -73,9 +74,13 @@ export default function ArtifactOverview({ artifactData, characterData }) {
     ));
   // console.log(evaluationData);
 
-  // handle pinning artifact
+  // event handlers
   const handleClickPinArtifact = (pinnedArtifactData) => {
     dispatch(togglePinnedArtifact(pinnedArtifactData));
+  };
+
+  const handleClickGetRecommendations = () => {
+    getRecommendation(evaluationData[0]);
   };
 
   // render
@@ -87,6 +92,13 @@ export default function ArtifactOverview({ artifactData, characterData }) {
         Artifacts
         <span className="weak">{artifactData.length}</span>
       </h2>
+      <button
+        className="primary"
+        onClick={handleClickGetRecommendations}
+        type="button"
+      >
+        <span>get recommendations</span>
+      </button>
       {
         evaluationData
           .map((data, i) => (
