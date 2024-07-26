@@ -10,7 +10,7 @@ import SpacerPiece from './SpacerPiece';
 import ArtifactStats from './ArtifactStats';
 import { getBuildKey } from '../data/actions/characters';
 
-// import '../styles/ArtifactEvaluation.scss';
+import '../styles/ArtifactEvaluation.scss';
 
 export default function ArtifactEvaluation({
   evaluationData,
