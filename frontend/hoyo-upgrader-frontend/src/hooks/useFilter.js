@@ -82,18 +82,20 @@ export default function useFilter(artifacts, characterJson) {
 
       // Artifacts
       // Only Artifacts that can be used by the build should be displayed
-      const buildData = characterJson[filter.characterName].find(
-        (build) => build.substats.join('-') === filter.characterBuildName,
-      );
-      artifactsToFilter.asList = artifactsToFilter.asList
-        .filter((artifact) => (
-          buildData.sets.includes(artifact.setKey)
-          && (
-            artifact.slotKey === 'flower'
-            || artifact.slotKey === 'plume'
-            || buildData.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
-          )
-        ));
+      if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
+        const buildData = characterJson[filter.characterName].find(
+          (build) => build.substats.join('-') === filter.characterBuildName,
+        );
+        artifactsToFilter.asList = artifactsToFilter.asList
+          .filter((artifact) => (
+            buildData.sets.includes(artifact.setKey)
+            && (
+              artifact.slotKey === 'flower'
+              || artifact.slotKey === 'plume'
+              || buildData.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
+            )
+          ));
+      }
     }
     setFilteredArtifacts(artifactsToFilter);
   }, [artifacts, filter]);
