@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../data/paths';
 
@@ -11,14 +11,30 @@ import Box from './Box';
 import FilterStats from './FilterStats';
 
 import '../styles/Filter.scss';
+import { toggleShowOffpieces } from '../data/actions/filter';
 
 export default function Filter() {
+  const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
 
   return (
     <div
       className="Filter"
     >
+      {
+        filter.specificPiece && (
+          <Box className="offpiece row">
+            <button
+              type="button"
+              onClick={() => {
+                dispatch(toggleShowOffpieces());
+              }}
+            >
+              <span className={`stat ${!filter.showOffpieces ? 'filtered' : ''}`}>show offpieces</span>
+            </button>
+          </Box>
+        )
+      }
       <FilterStats piece={filter.specificPiece} filter={filter} />
       <Box className="row">
         <FilterTileCharacterBuild filter={filter} />

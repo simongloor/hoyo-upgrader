@@ -60,7 +60,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,
-        filter.mainstat[artifact.slotKey]
+        filter.showOffpieces
           ? allCharacterBuilds
           : characterBuildsBySet[artifact.setKey] || [],
         filter.characterName,

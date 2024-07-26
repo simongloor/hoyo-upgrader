@@ -18,15 +18,22 @@ const filterReducer = (
       goblet: null,
       circlet: null,
     },
+    showOffpieces: false,
   },
   action,
 ) => {
   const newState = state;
   switch (action.type) {
     case 'TOGGLE_ARTIFACT_SPECIFIC_PIECE': {
+      const enableFilter = state.specificPiece !== action.payload.specificPiece;
+
+      if (!enableFilter) {
+        newState.showOffpieces = false;
+      }
+
       return {
         ...newState,
-        specificPiece: state.specificPiece === action.payload.piece ? null : action.payload.piece,
+        specificPiece: enableFilter ? action.payload.specificPiece : null,
       };
     }
     case 'TOGGLE_ARTIFACT_SPECIFIC_SET': {
@@ -89,6 +96,12 @@ const filterReducer = (
           [action.payload.piece]: state.mainstat[action.payload.piece] === action.payload.stat
             ? null : action.payload.stat,
         },
+      };
+    }
+    case 'TOGGLE_SHOW_OFFPIECES': {
+      return {
+        ...newState,
+        showOffpieces: !state.showOffpieces,
       };
     }
     default: {

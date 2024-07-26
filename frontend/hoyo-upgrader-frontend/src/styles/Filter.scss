@@ -4,7 +4,22 @@
   display: flex;
   flex-direction: column;
   gap: $space-minus3;
-
+  
+  .offpiece {
+    justify-content: end;
+    
+    button {
+      height: 27px;
+      
+      span {
+        background-color: white;
+        
+        &.filtered {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
   .FilterStats {
     justify-content: end;
     gap: $space-minus3;
@@ -14,5 +29,6 @@
 
     padding-top: $space-minus1;
     padding-bottom: $space-minus1;
+
   }
 }

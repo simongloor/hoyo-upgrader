@@ -70,7 +70,7 @@ export default function useFilter(artifacts, characterJson) {
       }
     }
 
-    // Filter by main stat
+    // Filter by character
     if (filter.characterName && filter.characterBuildName) {
       // CharacterOverviews
       // Only the CharacterOverview that matches the build should be displayed
@@ -88,7 +88,7 @@ export default function useFilter(artifacts, characterJson) {
         );
         artifactsToFilter.asList = artifactsToFilter.asList
           .filter((artifact) => (
-            buildData.sets.includes(artifact.setKey)
+            (filter.showOffpieces || buildData.sets.includes(artifact.setKey))
             && (
               artifact.slotKey === 'flower'
               || artifact.slotKey === 'plume'

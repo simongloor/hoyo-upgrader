@@ -16,7 +16,7 @@ export default function ArtifactMultiSet({ filter }) {
             <div
               key={set}
               className={filter.filterCharacterSets ? 'active' : ''}
-              style={{ width: `${84 * (1 - (index / filter.characterSets.length))}px` }}
+              style={{ width: `${56 * (1 - (index / filter.characterSets.length))}px` }}
             >
               <Artifact
                 set={set}

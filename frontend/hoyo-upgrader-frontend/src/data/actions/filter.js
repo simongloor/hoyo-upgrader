@@ -1,7 +1,7 @@
-export function toggleSpecificPieceFilter(piece) {
+export function toggleSpecificPieceFilter(specificPiece) {
   return ({
     type: 'TOGGLE_ARTIFACT_SPECIFIC_PIECE',
-    payload: { piece },
+    payload: { specificPiece },
   });
 }
 export function toggleSpecificSetFilter(specificSet) {
@@ -25,5 +25,10 @@ export function toggleMainstatFilter(piece, stat) {
   return ({
     type: 'TOGGLE_MAINSTAT',
     payload: { piece, stat },
+  });
+}
+export function toggleShowOffpieces() {
+  return ({
+    type: 'TOGGLE_SHOW_OFFPIECES',
   });
 }
