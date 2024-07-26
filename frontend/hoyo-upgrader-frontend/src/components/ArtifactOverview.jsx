@@ -18,6 +18,7 @@ import togglePinnedArtifact from '../data/actions/pinboard';
 function getArtifactEvaluations(
   artifactData,
   characterBuilds,
+  characterArtifacts,
   filteredCharacter,
 ) {
   // get matching builds
@@ -37,9 +38,14 @@ function getArtifactEvaluations(
     artifactData,
     buildEvaluations: matchingBuilds.map((build) => {
       const totalSubstats = evaluateArtifact(artifactData, build);
+      let competingArtifact = null;
+      if (characterArtifacts[build.characterName]) {
+        competingArtifact = characterArtifacts[build.characterName][artifactData.slotKey];
+      }
       return {
         build,
         totalSubstats,
+        competingArtifact,
         sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
       };
     }).sort((a, b) => (a.sortValue - b.sortValue)),
@@ -48,6 +54,7 @@ function getArtifactEvaluations(
 
 export default function ArtifactOverview({ artifactData, characterData }) {
   const dispatch = useDispatch();
+  const artifactsByCharacter = useSelector((state) => state.artifacts.byCharacter);
 
   const characterBuildsBySet = getBuildsBySets(characterData);
   const allCharacterBuilds = getBuildsCompact(characterData);
@@ -56,13 +63,14 @@ export default function ArtifactOverview({ artifactData, characterData }) {
   // generate artifact evaluation data
   // this is required to sort the artifacts by quality
   const evaluationData = artifactData
-    // .slice(150, 200)
+    .slice(150, 200)
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,
         filter.showOffpieces
           ? allCharacterBuilds
           : characterBuildsBySet[artifact.setKey] || [],
+        artifactsByCharacter,
         filter.characterName,
       )
     ))

@@ -16,6 +16,7 @@ export default function ArtifactEvaluation({
   evaluationData,
   handleClickPinArtifact,
 }) {
+  console.log(evaluationData);
   return (
     <div
       className="ArtifactEvaluation row"
@@ -61,6 +62,11 @@ export default function ArtifactEvaluation({
                   b.build.substats,
                 )}
                 sets={b.build.sets}
+                // upgradePotential={
+                //   b.competingArtifact
+                //   && b.competingArtifact.substatCounts.wastedSubstats
+                //   - b.totalSubstats.wastedSubstats
+                // }
               />
               <ArtifactStats
                 totalSubstats={b.totalSubstats}
