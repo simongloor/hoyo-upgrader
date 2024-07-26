@@ -23,7 +23,15 @@ const statOrder = [
   'wastedSubstats',
 ];
 
-export default function ArtifactStats({ totalSubstats, showCounter = true }) {
+export default function ArtifactStats({ totalSubstats, uniformSubststCount, showCounter = true }) {
+  let fillerSubstatCount = 0;
+  if (uniformSubststCount) {
+    const totalSubstatsCount = totalSubstats
+      ? Object.values(totalSubstats).reduce((acc, cur) => acc + cur, 0)
+      : 0;
+    fillerSubstatCount = uniformSubststCount ? uniformSubststCount - totalSubstatsCount : 0;
+  }
+
   // sort totalSubstats by statOrder
   const sortedSubstats = {};
   statOrder.forEach((stat) => {
@@ -37,6 +45,12 @@ export default function ArtifactStats({ totalSubstats, showCounter = true }) {
     <div
       className="ArtifactStats"
     >
+      {
+        Array(fillerSubstatCount).fill().map((_, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={i} className="filler" />
+        ))
+      }
       {
         Object.keys(sortedSubstats).map((stat) => (
           Array(sortedSubstats[stat]).fill().map((_, i) => (

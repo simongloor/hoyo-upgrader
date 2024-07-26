@@ -1,7 +1,6 @@
 @import "variables.scss";
 
 .ArtifactStats {
-@import "variables.scss";
   height: $tile;
   // width: calc(10 * #{$tile});
 
@@ -27,12 +26,13 @@
     border-radius: 0;
   }
 
-  .Substat {
+  .Substat, .filler {
     height: 100%;
-    width: 18px;
+    width: $space-minus2;
     flex-grow: 1;
     flex-shrink: 1;
-
+  }
+  .Substat {
     display: flex;
     justify-content: center;
     align-items: center;

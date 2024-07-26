@@ -1,9 +1,11 @@
+@import 'variables.scss';
+
 .CounterPiece {
   display: flex;
   justify-content: center;
   align-items: center;
 
   > * {
-    transform: translateY(-4px);
+    transform: translateY(-$space-minus4);
   }
 }

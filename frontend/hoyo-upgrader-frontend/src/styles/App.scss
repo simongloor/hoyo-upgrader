@@ -25,30 +25,30 @@ h1, h2, h3, h4, h5, h6, span, input, textarea, li {
 h1, h2, h3, h4, h5, h6 {
   >span {
     opacity: 0.4;
-    margin: 0 24px;
+    margin: 0 $space;
   } 
 }
 
 h2 {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 400;
-  margin-bottom: 16px;
+  margin-bottom: $space-minus1;
 
   >span.weak {
-    font-size: 40px;
+    font-size: 24px;
     font-weight: 400;
   }
 }
 h3 {
-  font-size: 40px;
-  font-weight: 700;
-}
-h4 {
   font-size: 24px;
   font-weight: 700;
 }
+// h4 {
+//   font-size: 24px;
+//   font-weight: 700;
+// }
 h6 {
-  font-size: 24px;
+  font-size:16px;
   font-weight: 700;
 }
 span {
@@ -56,7 +56,7 @@ span {
   font-weight: 400;
 }
 li {
-  margin: 8px 0;
+  margin: $space-minus3 0;
 }
 * {
   box-sizing: border-box;
@@ -94,8 +94,8 @@ button {
   }
 }
 button.primary, button.secondary {
-  border-radius: 12px;
-  padding: 8px 12px;
+  border-radius: $space-minus2;
+  padding: $space-minus3 $space-minus2;
   
   border-style: solid;
   border-width: 4px;
@@ -156,7 +156,7 @@ textarea {
   justify-content: start;
   align-items: start;
   gap: 32px;
-  padding: 16px;
+  padding: $space-minus1;
 }
 
 .tile {
@@ -188,8 +188,8 @@ textarea {
   color: $onElevation-highEmphasis;
   background-color: magenta;
 
-  border-radius: 12px;
-  padding: 8px 12px;
+  border-radius: $space-minus2;
+  padding: $space-minus3 $space-minus2;
 
   &.inactive {
     opacity: 0.4;

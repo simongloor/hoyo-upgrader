@@ -47,36 +47,46 @@ export default function Pinboard() {
       className="Pinboard"
     >
       <div className="row">
-        <button
-          type="button"
-          className="button pin"
-          alt="pin artifact"
-          onClick={() => dispatch(togglePinnedArtifact(pinnedArtifactData))}
-        >
-          <Artifact
-            data={pinnedArtifactData}
-          />
-        </button>
+        <div className="column">
+          <button
+            type="button"
+            className="button pin"
+            alt="pin artifact"
+            onClick={() => dispatch(togglePinnedArtifact(pinnedArtifactData))}
+          >
+            <Artifact
+              data={pinnedArtifactData}
+            />
+          </button>
+          {
+            (
+              pinnedArtifactData.piece === paths.piece.goblet
+              || pinnedArtifactData.mainStatKey === 'heal_'
+            ) && (
+              <span>{paths.statsShort[pinnedArtifactData.mainStatKey]}</span>
+            )
+          }
+        </div>
         <SpacerPiece />
         <TextPiece canOverflow>
           {getStatRolls(pinnedArtifactData.substats, 0, pinnedArtifactData.substatCounts)}
           {getStatRolls(pinnedArtifactData.substats, 1, pinnedArtifactData.substatCounts)}
           {getStatRolls(pinnedArtifactData.substats, 2, pinnedArtifactData.substatCounts)}
-          {getStatRolls(pinnedArtifactData.substats, 3, pinnedArtifactData.substatCounts)}
+          {getStatRolls(pinnedArtifactData.substats, 3, pinnedArtifactData.substatCounts) || '\u00A0'}
         </TextPiece>
         <SpacerPiece />
         <TextPiece canOverflow>
           {getStatType(pinnedArtifactData.substats, 0)}
           {getStatType(pinnedArtifactData.substats, 1)}
           {getStatType(pinnedArtifactData.substats, 2)}
-          {getStatType(pinnedArtifactData.substats, 3)}
+          {getStatType(pinnedArtifactData.substats, 3) || '\u00A0'}
         </TextPiece>
         <SpacerPiece />
         <TextPiece canOverflow alignRight>
           {getStatValue(pinnedArtifactData.substats, 0)}
           {getStatValue(pinnedArtifactData.substats, 1)}
           {getStatValue(pinnedArtifactData.substats, 2)}
-          {getStatValue(pinnedArtifactData.substats, 3)}
+          {getStatValue(pinnedArtifactData.substats, 3) || '\u00A0'}
         </TextPiece>
         <SpacerPiece />
       </div>

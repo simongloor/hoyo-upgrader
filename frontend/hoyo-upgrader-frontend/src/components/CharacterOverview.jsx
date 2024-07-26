@@ -49,7 +49,7 @@ export default function CharacterOverview({
       { renderArtifact(characterArtifacts.goblet) }
       { renderArtifact(characterArtifacts.circlet) }
       <SpacerPiece />
-      <ArtifactStats totalSubstats={totalSubstats} />
+      <ArtifactStats totalSubstats={totalSubstats} uniformSubststCount={45} />
     </div>
   );
 }

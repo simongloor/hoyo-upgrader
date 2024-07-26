@@ -9,6 +9,7 @@ $stat-eleMas: #ff42f7;
 
 $stat-Dmg: #ffffff;
 $stat-heal: #ffffff;
+$stat-potency: #ffffff;
 
 $stat-missing: #3c3c3c;
 
@@ -59,14 +60,6 @@ $title-family: 'Inter', sans-serif;
 $subtitle-family: 'Inter', sans-serif;
 $runningText-family: 'Inter', sans-serif;
 
-// Tile
-$tile: 84px;
-
-// Shape
-$border-minus2: 2px;
-$border: 20px;
-$border-plus2: 8px;
-
 // Effects
 $shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
 $shadow-minus2: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
@@ -78,15 +71,15 @@ $shadow-minus2: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
 
 // // Keys
 // @function keyType-gradient($color) {
-//   @return linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, change-color($color, $alpha: 0.3) 30%, #FFFFFF 100%);
-// }
-// $key-inKey: keyType-gradient(#ffffff);
-// $key-major: keyType-gradient(#ff7a00);
-// $key-minor: keyType-gradient(#00ffd1);
-// $key-diminished: keyType-gradient(#42ff00);
-// $key-offKey: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 78.12%, rgba(255, 255, 255, 0.504762) 94.27%, #FFFFFF 100%);
-
-// @function key-gradient($color, $up, $down) {
+  //   @return linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, change-color($color, $alpha: 0.3) 30%, #FFFFFF 100%);
+  // }
+  // $key-inKey: keyType-gradient(#ffffff);
+  // $key-major: keyType-gradient(#ff7a00);
+  // $key-minor: keyType-gradient(#00ffd1);
+  // $key-diminished: keyType-gradient(#42ff00);
+  // $key-offKey: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 78.12%, rgba(255, 255, 255, 0.504762) 94.27%, #FFFFFF 100%);
+  
+  // @function key-gradient($color, $up, $down) {
 //   @return linear-gradient(180deg, change-color($color, $alpha: $up) 0%, change-color($color, $alpha: $down) 100%);
 // }
 // $key-highEmphasis: key-gradient(white, 0, 0.9);
@@ -96,16 +89,29 @@ $shadow-minus2: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
 // $key-primary: key-gradient(white, 0, 0.9);
 // $key-primary-inverted: key-gradient(white, 0.9, 0);
 
+// Tile
+$tile: 56px;
+$space: 20px;
+$space-minus1: 15px;
+$space-minus2: 10px;
+$space-minus3: 5px;
+$space-minus4: 2px;
+
+// Shape
+// $border-minus1: 12px;
+$border: 12px;
+// $border-plus2: 8px;
+
 // Layout
 $width-base: 646px;
 
-$breakpoint-desktop: 824px;
+// $breakpoint-desktop: 824px;
 
-$header-height-mobile: 240px;
-$content-width-mobile: 414px;
+// $header-height-mobile: 240px;
+// $content-width-mobile: 414px;
 
-$header-height-desktop: 648px;
-$content-width-desktop: 824px;
+// $header-height-desktop: 648px;
+// $content-width-desktop: 824px;
 
-$column-width: 57px;
-$column-gap: 16px;
+// $column-width: 57px;
+// $column-gap: 16px;

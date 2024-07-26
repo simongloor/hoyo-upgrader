@@ -1,6 +1,8 @@
+@import 'variables.scss';
+
 .SettingsRow {
   .row {
     align-items: center;
-    gap: 4px;
+    gap: $space-minus4;
   }
 }

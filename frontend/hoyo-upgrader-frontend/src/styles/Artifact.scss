@@ -5,24 +5,63 @@
   flex-shrink: 0;
   overflow: hidden;
 
-  h4, h6 {
+  h6 {
     position: absolute;
-    right: 14px;
-    bottom: 3px;
+    right: $border;
+    bottom: 4px;
     // opacity: 0.6;
     // color: #000;
   }
-  .tier-backdrop, .mainstat-backdrop {
+  .tier-backdrop {
+    position: absolute;
+    right: 1.5px;
+    bottom: 1px;
+    width: 32px;
+    height: 28px;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    border-top-left-radius: $space-minus1;
+    border-bottom-right-radius: $border;
+  }
+  .tier-backdrop.mainstat {
+    border-right-style: solid;
+    border-right-color: $stat-potency;
+    border-right-width: 4px;
+
+    &.enerRech_ {
+      border-right-color: $stat-enerRech;
+    }
+    &.critRate_ {
+      border-right-color: $stat-critRate;
+    }
+    &.critDMG_ {
+      border-right-color: $stat-critDMG;
+    }
+    &.atk_ {
+      border-right-color: $stat-atk;
+    }
+    &.hp_ {
+      border-right-color: $stat-hp;
+    }
+    &.def_ {
+      border-right-color: $stat-def;
+    }
+    &.eleMas {
+      border-right-color: $stat-eleMas;
+    }
+  }
+  .mainstat-backdrop {
     position: absolute;
     right: 0px;
     bottom: 0px;
-    width: 42px;
-    height: 38px;
+    height: $border;
+    width: #{$border + $space-minus2};
+    border-top-left-radius: $border;
+    border-bottom-right-radius: $border;
 
-    background-color: #000;
-    opacity: 0.6;
-    border-top-left-radius: 16px;
-    border-bottom-right-radius: 20px;
+    border-style: solid;
+    border-color: $surface;
+    border-width: 1px;
   }
   .mainstat-backdrop {
     background-color: white;

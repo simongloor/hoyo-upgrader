@@ -9,7 +9,7 @@
   justify-content: start;
   align-items: start;
   flex-shrink: 0;
-  gap: 4px;
+  gap: $space-minus4;
 
   &.overflow {
     width: auto;

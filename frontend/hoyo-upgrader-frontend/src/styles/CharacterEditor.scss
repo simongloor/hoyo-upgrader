@@ -1,16 +1,18 @@
+@import "variables.scss";
+
 .CharacterEditor {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: $space-minus1;
 
   .Box {
     position: relative;
-    gap: 16px;
+    gap: $space-minus1;
   }
   .Box.row.right {
     flex-direction: row;
-    gap: 16px;
+    gap: $space-minus1;
     align-items: center;
     justify-content: start;
     flex-grow: 0;
@@ -24,19 +26,19 @@
 
   .deleteBuild {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: $space-minus3;
+    right: $space-minus3;
   }
   
   .row {
     align-items: center;
   }
   .column {
-    gap: 4px;
+    gap: $space-minus4;
   }
 
   .header {
-    gap: 24px;
+    gap: $space;
     h2 {
       margin: 0;
     }
@@ -52,7 +54,7 @@
   .statButtons {
     align-items: center;
     justify-content: start;
-    gap: 4px;
+    gap: $space-minus4;
     flex-wrap: wrap;
   }
 

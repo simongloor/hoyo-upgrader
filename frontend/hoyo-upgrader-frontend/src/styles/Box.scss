@@ -5,15 +5,15 @@
   border-radius: $border;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.2);
-  border-width: 4px;
+  border-width: $space-minus4;
 
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
 
-  padding: 8px;
-  gap: 0px;
+  padding: $space-minus3;
+  gap: 0;
 
   >span, >ul, >ol {
     max-width: $width-base;

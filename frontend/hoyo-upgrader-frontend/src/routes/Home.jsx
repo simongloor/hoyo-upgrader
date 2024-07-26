@@ -11,7 +11,7 @@ import useFilter from '../hooks/useFilter';
 import SettingsRow from '../components/SettingsRow';
 import StatsCheatSheet from '../components/StatsCheatSheet';
 import Filter from '../components/Filter';
-import Pinboard from '../components/PinBoard';
+import Pinboard from '../components/Pinboard';
 import AccountOverview from '../components/AccountOverview';
 import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';

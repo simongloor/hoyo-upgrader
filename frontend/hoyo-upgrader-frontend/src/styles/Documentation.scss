@@ -1,11 +1,13 @@
+@import "variables.scss";
+
 .Documentation.page .Box {
-  gap: 24px;
+  gap: $space;
 
   .right {
     width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: $space-minus1;
     justify-content: end;
   }
 }

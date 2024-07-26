@@ -2,15 +2,15 @@
 
 .StatsCheatSheet {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: $space-minus1;
+  left: $space-minus1;
 
   z-index: 1000;
 
   >.row {
     align-items: center;
     justify-content: start;
-    gap: 4px;
+    gap: $space-minus4;
 
     .label {
       width: $tile;

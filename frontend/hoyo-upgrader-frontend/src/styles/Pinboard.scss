@@ -1,6 +1,19 @@
+@import "variables.scss";
+
 .Pinboard {
+  .column {
+    gap: $space-minus3;
+    align-items: center;
+  }
+  .row {
+    height: auto;
+    padding: $space-minus2 0;
+    .TextPiece {
+      height: auto;
+    }
+  }
   .SpacerPiece:not(:first-of-type) {
-    width: 12px;
+    width: $space-minus2;
   }
   .TextPiece {
     span.bad {

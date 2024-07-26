@@ -12,13 +12,13 @@ export default function Artifact({
   count = -1,
   showTier = true,
 }) {
-  console.log(data);
+  // console.log(data);
 
   // What to display
   const displayedSet = data ? data.set : set;
   const displayedPiece = data ? data.piece : piece;
 
-  // Evaluate
+  // evaluate
   const [evaluation, setEvaluation] = React.useState(null);
   useEffect(() => {
     if (data && characterBuild) {
@@ -28,7 +28,31 @@ export default function Artifact({
     }
   }, [data]);
 
-  // Render
+  // render label
+  const validTier = showTier && evaluation;
+  const validMainstat = data && data.slotKey !== 'flower' && data.slotKey !== 'plume';
+  let label = null;
+  if (validTier && validMainstat) {
+    label = (
+      <>
+        <div className={`tier-backdrop mainstat ${data.mainStatKey}`} />
+        <h6>{evaluation.tier}</h6>
+      </>
+    );
+  } else if (validMainstat) {
+    label = (
+      <div className={`mainstat-backdrop ${data.mainStatKey}`} />
+    );
+  } else if (validTier) {
+    label = (
+      <>
+        <div className="tier-backdrop" />
+        <h6>{evaluation.tier}</h6>
+      </>
+    );
+  }
+
+  // render
   return (
     <div
       className={`Artifact tile ${displayedSet} ${displayedPiece}`}
@@ -37,19 +61,7 @@ export default function Artifact({
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}
         alt={displayedPiece}
       />
-      {
-        (data && data.slotKey !== 'flower' && data.slotKey !== 'plume') && (
-          <div className={`mainstat-backdrop ${data.mainStatKey}`} />
-        )
-      }
-      {
-        showTier && evaluation && (
-          <>
-            <div className="tier-backdrop" />
-            <h4>{evaluation.tier}</h4>
-          </>
-        )
-      }
+      { label }
       {
         count !== -1 && (
           <h6>{count}</h6>

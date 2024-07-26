@@ -4,7 +4,7 @@
   padding-bottom: 80px;
 
   .Box {
-    gap: 24px;
+    gap: $space;
   }
 
   .Box.json {
@@ -19,7 +19,7 @@
 
   .return {
     position: fixed;
-    bottom: 16px;
-    right: 16px;
+    bottom: $space-minus1;
+    right: $space-minus1;
   }
 }

@@ -6,7 +6,7 @@
   width: $tile;
   flex-shrink: 0;
   &.small {
-    width: 24px;
+    width: $space;
   }
   &.default {
     width: $tile;
