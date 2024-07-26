@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../data/paths';
-import { getBuildsBySets } from '../data/characters';
+import { getBuildsBySets, getBuildsCompact } from '../data/characters';
 import { evaluateArtifact, getArtifactQualitySortValue, getBuildQualitySortValue } from '../data/substats';
 
 import Box from './Box';
@@ -23,8 +23,10 @@ function getArtifactEvaluations(
   // get matching builds
   let matchingBuilds = [];
   if (artifactData.slotKey === paths.piece.flower || artifactData.slotKey === paths.piece.plume) {
+    // flower and plume can be used by any character
     matchingBuilds = characterBuilds;
   } else {
+    // if no main stat is set, show all builds that can use the artifact
     matchingBuilds = characterBuilds.filter((build) => (
       build.mainstats[artifactData.slotKey].includes(artifactData.mainStatKey)
     ));
@@ -47,7 +49,8 @@ function getArtifactEvaluations(
 export default function ArtifactOverview({ artifactData, characterData }) {
   const dispatch = useDispatch();
 
-  const characterBuilds = getBuildsBySets(characterData);
+  const characterBuildsBySet = getBuildsBySets(characterData);
+  const allCharacterBuilds = getBuildsCompact(characterData);
   const filter = useSelector((state) => state.filter);
 
   // generate artifact evaluation data
@@ -57,7 +60,9 @@ export default function ArtifactOverview({ artifactData, characterData }) {
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,
-        characterBuilds[artifact.setKey] || [],
+        filter.mainstat[artifact.slotKey]
+          ? allCharacterBuilds
+          : characterBuildsBySet[artifact.setKey] || [],
         filter.characterName,
       )
     ))

@@ -21,6 +21,20 @@ export function getBuildsBySets(characterData) {
   return builds;
 }
 
+export function getBuildsCompact(characterData) {
+  const builds = [];
+  Object.keys(characterData).forEach((characterName) => {
+    characterData[characterName].forEach((build) => {
+      builds.push({
+        characterName,
+        ...build,
+      });
+    });
+  });
+
+  return builds;
+}
+
 export function getEmptyBuild() {
   return {
     sets: [],
