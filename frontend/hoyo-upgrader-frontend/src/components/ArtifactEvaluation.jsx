@@ -8,6 +8,7 @@ import Artifact from './Artifact';
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import ArtifactStats from './ArtifactStats';
+import { getBuildKey } from '../data/actions/characters';
 
 // import '../styles/ArtifactEvaluation.scss';
 
@@ -43,11 +44,21 @@ export default function ArtifactEvaluation({
       {
         evaluationData.buildEvaluations
           .map((b) => (
-            <Fragment key={`${b.build.characterName}-${b.build.substats.join('-')}`}>
+            <Fragment key={
+              getBuildKey(
+                b.build.characterName,
+                b.build.mainstats,
+                b.build.substats,
+              )
+            }>
               <SpacerPiece size="small" />
               <Character
                 characterName={b.build.characterName}
-                buildName={b.build.substats.join('-')}
+                buildName={getBuildKey(
+                  b.build.characterName,
+                  b.build.mainstats,
+                  b.build.substats,
+                )}
                 sets={b.build.sets}
               />
               <ArtifactStats

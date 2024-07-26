@@ -59,16 +59,16 @@ export default function EditBuilds() {
     newCharacterData[characterName].push(getEmptyBuild());
     setCharacterData(newCharacterData);
   };
-  const handleDeleteBuild = (characterName, buildName) => {
+  const handleDeleteBuild = (characterName, index) => {
     const newCharacterData = { ...characterData };
-    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    // const index = getBuildIndex(newCharacterData, characterName, index);
     newCharacterData[characterName].splice(index, 1);
     setCharacterData(newCharacterData);
   };
 
-  const handleToggleSet = (characterName, buildName, setName) => {
+  const handleToggleSet = (characterName, index, setName) => {
     const newCharacterData = { ...characterData };
-    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    // const index = getBuildIndex(newCharacterData, characterName, index);
     const build = newCharacterData[characterName][index];
     if (build.sets.includes(setName)) {
       build.sets = build.sets.filter((set) => set !== setName);
@@ -77,9 +77,10 @@ export default function EditBuilds() {
     }
     setCharacterData(newCharacterData);
   };
-  const handleToggleMainstat = (characterName, buildName, slot, stat) => {
+  const handleToggleMainstat = (characterName, index, slot, stat) => {
+    // console.log(index);
     const newCharacterData = { ...characterData };
-    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    // const index = getBuildIndex(newCharacterData, characterName, index);
     const build = newCharacterData[characterName][index];
     if (build.mainstats[slot].includes(stat)) {
       build.mainstats[slot] = build.mainstats[slot].filter((s) => s !== stat);
@@ -88,9 +89,9 @@ export default function EditBuilds() {
     }
     setCharacterData(newCharacterData);
   };
-  const handleToggleSubstat = (characterName, buildName, stat) => {
+  const handleToggleSubstat = (characterName, index, stat) => {
     const newCharacterData = { ...characterData };
-    const index = getBuildIndex(newCharacterData, characterName, buildName);
+    // const index = getBuildIndex(newCharacterData, characterName, index);
     const build = newCharacterData[characterName][index];
     if (build.substats.includes(stat)) {
       build.substats = build.substats.filter((s) => s !== stat);
@@ -132,7 +133,7 @@ export default function EditBuilds() {
         />
       </Box>
       {
-        Object.keys(paths.character).map((characterName) => (
+        Object.keys(paths.character).map((characterName, i) => (
           <CharacterEditor
             key={characterName}
             characterName={characterName}

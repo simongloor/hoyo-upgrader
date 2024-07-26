@@ -10,23 +10,27 @@ import SubstatButton from './SubstatButton';
 
 import '../styles/CharacterEditor.scss';
 import { possibleStats } from '../data/substats';
+import { getBuildKey } from '../data/actions/characters';
 
 function CharacterBuild({
   characterName,
   build,
+  index,
   onClickDeleteBuild,
   onClickToggleSet,
   onClickToggleMainstat,
   onClickToggleSubstat,
 }) {
+  // console.log(build);
+  // const buildKey = getBuildKey(characterName, build.mainstats, build.substats);
   const handleClickSet = (setName) => {
-    onClickToggleSet(characterName, build.substats.join('-'), setName);
+    onClickToggleSet(characterName, index, setName);
   };
   const handleClickMainStat = (statCategory, statName) => {
-    onClickToggleMainstat(characterName, build.substats.join('-'), statCategory, statName);
+    onClickToggleMainstat(characterName, index, statCategory, statName);
   };
   const handleClickSubstat = (statName) => {
-    onClickToggleSubstat(characterName, build.substats.join('-'), statName);
+    onClickToggleSubstat(characterName, index, statName);
   };
 
   // render
@@ -143,7 +147,10 @@ function CharacterBuild({
       <button
         className="deleteBuild secondary"
         type="button"
-        onClick={() => onClickDeleteBuild(characterName, build.substats.join('-'))}
+        onClick={() => onClickDeleteBuild(
+          characterName,
+          getBuildKey(characterName, build.mainstats, build.substats),
+        )}
       >
         <span>delete build</span>
       </button>
@@ -160,9 +167,7 @@ export default function CharacterEditor({
   onClickToggleMainstat,
   onClickToggleSubstat,
 }) {
-  // handlers
-  const handleClickAddBuild = () => {
-  };
+  // console.log(characterBuilds);
 
   // render
   return (
@@ -170,11 +175,12 @@ export default function CharacterEditor({
       className="CharacterEditor"
     >
       {
-        characterBuilds && characterBuilds.map((b) => (
+        characterBuilds && characterBuilds.map((b, i) => (
           <CharacterBuild
-            key={b.substats.join('-')}
+            key={getBuildKey(characterName, b.mainstats, b.substats)}
             characterName={characterName}
             build={b}
+            index={i}
             onClickDeleteBuild={onClickDeleteBuild}
             onClickToggleSet={onClickToggleSet}
             onClickToggleMainstat={onClickToggleMainstat}

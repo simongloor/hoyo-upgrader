@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getBuildKey } from '../data/actions/characters';
 
 export default function useFilter(artifacts, characterJson) {
   const filter = useSelector((state) => state.filter);
@@ -84,7 +85,11 @@ export default function useFilter(artifacts, characterJson) {
       // Only Artifacts that can be used by the build should be displayed
       if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
         const buildData = characterJson[filter.characterName].find(
-          (build) => build.substats.join('-') === filter.characterBuildName,
+          (build) => getBuildKey(
+            filter.characterName,
+            build.mainstats,
+            build.substats,
+          ) === filter.characterBuildName,
         );
         artifactsToFilter.asList = artifactsToFilter.asList
           .filter((artifact) => (

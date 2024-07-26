@@ -8,6 +8,7 @@ import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import Artifact from './Artifact';
 import ArtifactStats from './ArtifactStats';
+import { getBuildKey } from '../data/actions/characters';
 
 // import '../styles/CharacterOverview.scss';
 
@@ -39,7 +40,7 @@ export default function CharacterOverview({
     >
       <Character
         characterName={characterName}
-        buildName={characterBuild.substats.join('-')}
+        buildName={getBuildKey(characterName, characterBuild.mainstats, characterBuild.substats)}
         sets={characterBuild.sets}
       />
       <SpacerPiece />

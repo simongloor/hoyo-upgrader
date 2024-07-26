@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export function loadCharacters(exampleJsonData) {
   return ({
     type: 'LOAD_CHARACTERS',
@@ -9,4 +10,7 @@ export function updateCharacters(jsonData) {
     type: 'UPDATE_CHARACTERS',
     payload: { jsonData },
   });
+}
+export function getBuildKey(characterName, mainstats, substats) {
+  return `${characterName}-${JSON.stringify(mainstats)}`;
 }

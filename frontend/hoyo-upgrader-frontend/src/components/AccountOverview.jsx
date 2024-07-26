@@ -8,6 +8,7 @@ import Box from './Box';
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
+import { getBuildKey } from '../data/actions/characters';
 
 // import '../styles/AccountOverview.scss';
 
@@ -55,7 +56,11 @@ export default function AccountOverview({ characterData, artifactData }) {
       {
         dataToDisplay.map((data) => (
           <CharacterOverview
-            key={`${data.characterKey}-${data.characterBuild.substats.join('-')}`}
+            key={getBuildKey(
+              data.characterKey,
+              data.characterBuild.mainstats,
+              data.characterBuild.substats,
+            )}
             characterName={data.characterKey}
             characterBuild={data.characterBuild}
             characterArtifacts={data.characterArtifacts}
