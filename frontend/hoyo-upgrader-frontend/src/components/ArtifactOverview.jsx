@@ -76,7 +76,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
   // render
   return (
     <Box
-      className="ArtifactOverview row"
+      className="ArtifactOverview"
     >
       <h2>
         Artifacts

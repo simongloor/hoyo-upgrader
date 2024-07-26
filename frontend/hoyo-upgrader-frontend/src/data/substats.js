@@ -46,6 +46,15 @@ const possibleRolls = {
   },
 };
 
+export const possibleStats = {
+  substat: ['critRate_', 'critDMG_', 'enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'],
+  sands: ['enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'],
+  goblet: ['atk_', 'hp_', 'def_', 'eleMas', 'electro_dmg_', 'pyro_dmg_', 'cryo_dmg_', 'hydro_dmg_', 'anemo_dmg_', 'geo_dmg_', 'dendro_dmg_', 'physical_dmg_'],
+  gobletPrimary: ['atk_', 'hp_', 'def_', 'eleMas'],
+  gobletDmg: ['electro_dmg_', 'pyro_dmg_', 'cryo_dmg_', 'hydro_dmg_', 'anemo_dmg_', 'geo_dmg_', 'dendro_dmg_', 'physical_dmg_'],
+  circlet: ['critRate_', 'critDMG_', 'atk_', 'hp_', 'def_', 'eleMas', 'heal_'],
+};
+
 //---------------------------------------------------------
 // initial data processing
 

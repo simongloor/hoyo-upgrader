@@ -21,3 +21,9 @@ export function toggleCharacterFilter(characterName, characterBuildName, charact
     payload: { characterName, characterBuildName, characterSets },
   });
 }
+export function toggleMainstatFilter(piece, stat) {
+  return ({
+    type: 'TOGGLE_MAINSTAT',
+    payload: { piece, stat },
+  });
+}

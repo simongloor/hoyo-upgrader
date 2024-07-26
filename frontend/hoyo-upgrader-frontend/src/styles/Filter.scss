@@ -1,0 +1,18 @@
+@import "variables.scss";
+
+.Filter {
+  display: flex;
+  flex-direction: column;
+  gap: $space-minus3;
+
+  .FilterStats {
+    justify-content: end;
+    gap: $space-minus3;
+
+    max-width: 406px;
+    flex-wrap: wrap;
+
+    padding-top: $space-minus1;
+    padding-bottom: $space-minus1;
+  }
+}

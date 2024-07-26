@@ -8,17 +8,19 @@ import FilterTileCharacterBuild from './FilterTileCharacterBuild';
 import FilterTilePiece from './FilterTilePiece';
 import FilterTileSet from './FilterTileSet';
 import Box from './Box';
+import FilterStats from './FilterStats';
 
-// import '../styles/Filter.scss';
+import '../styles/Filter.scss';
 
 export default function Filter() {
   const filter = useSelector((state) => state.filter);
 
   return (
-    <Box
+    <div
       className="Filter"
     >
-      <div className="row">
+      <FilterStats piece={filter.specificPiece} filter={filter} />
+      <Box className="row">
         <FilterTileCharacterBuild filter={filter} />
         <FilterTileSet filter={filter} />
         <FilterTilePiece artifactPieceName={paths.piece.flower} filter={filter} />
@@ -26,7 +28,7 @@ export default function Filter() {
         <FilterTilePiece artifactPieceName={paths.piece.sands} filter={filter} />
         <FilterTilePiece artifactPieceName={paths.piece.goblet} filter={filter} />
         <FilterTilePiece artifactPieceName={paths.piece.circlet} filter={filter} />
-      </div>
-    </Box>
+      </Box>
+    </div>
   );
 }

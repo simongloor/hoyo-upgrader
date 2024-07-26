@@ -9,6 +9,7 @@ import Artifact from './Artifact';
 import SubstatButton from './SubstatButton';
 
 import '../styles/CharacterEditor.scss';
+import { possibleStats } from '../data/substats';
 
 function CharacterBuild({
   characterName,
@@ -27,12 +28,6 @@ function CharacterBuild({
   const handleClickSubstat = (statName) => {
     onClickToggleSubstat(characterName, build.substats.join('-'), statName);
   };
-
-  const sandsSettings = ['enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'];
-  const gobletDmgSettings = ['electro_dmg_', 'pyro_dmg_', 'cryo_dmg_', 'hydro_dmg_', 'anemo_dmg_', 'geo_dmg_', 'dendro_dmg_', 'physical_dmg_'];
-  const gobletSettings = ['atk_', 'hp_', 'def_', 'eleMas'];
-  const circletSettings = ['critRate_', 'critDMG_', 'atk_', 'hp_', 'def_', 'eleMas', 'heal_'];
-  const substatSettings = ['critRate_', 'critDMG_', 'enerRech_', 'atk_', 'hp_', 'def_', 'eleMas'];
 
   // render
   return (
@@ -71,7 +66,7 @@ function CharacterBuild({
         />
         <div className="statButtons row">
           {
-            sandsSettings.map((statName) => (
+            possibleStats.sands.map((statName) => (
               <SubstatButton
                 key={statName}
                 statName={statName}
@@ -90,7 +85,7 @@ function CharacterBuild({
         <div className="column">
           <div className="statButtons elementalDmg row">
             {
-              gobletDmgSettings.map((statName) => (
+              possibleStats.gobletDmg.map((statName) => (
                 <SubstatButton
                   key={statName}
                   statName={statName}
@@ -102,7 +97,7 @@ function CharacterBuild({
           </div>
           <div className="statButtons row">
             {
-              gobletSettings.map((statName) => (
+              possibleStats.gobletPrimary.map((statName) => (
                 <SubstatButton
                   key={statName}
                   statName={statName}
@@ -121,7 +116,7 @@ function CharacterBuild({
         />
         <div className="statButtons row">
           {
-            circletSettings.map((statName) => (
+            possibleStats.circlet.map((statName) => (
               <SubstatButton
                 key={statName}
                 statName={statName}
@@ -135,7 +130,7 @@ function CharacterBuild({
       <span><strong>Substats</strong></span>
       <div className="statButtons row">
         {
-          substatSettings.map((statName) => (
+          possibleStats.substat.map((statName) => (
             <SubstatButton
               key={statName}
               statName={statName}

@@ -12,6 +12,12 @@ const filterReducer = (
     filterSpecificSet: false, // build sets enabled?
     // piece
     specificPiece: null, // "flower"
+    // mainstat
+    mainstat: {
+      sands: null,
+      goblet: null,
+      circlet: null,
+    },
   },
   action,
 ) => {
@@ -73,6 +79,16 @@ const filterReducer = (
         characterName: null,
         characterBuildName: null,
         characterSets: null,
+      };
+    }
+    case 'TOGGLE_MAINSTAT': {
+      return {
+        ...newState,
+        mainstat: {
+          ...state.mainstat,
+          [action.payload.piece]: state.mainstat[action.payload.piece] === action.payload.stat
+            ? null : action.payload.stat,
+        },
       };
     }
     default: {

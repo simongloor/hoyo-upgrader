@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-.Box {
+.Box {  
   background-color: black;
   border-radius: $border;
   border-style: solid;
@@ -20,5 +20,8 @@
   }
   &.error {
     border-color: $error;
+  }
+  &.row {
+    flex-direction: row;
   }
 }
