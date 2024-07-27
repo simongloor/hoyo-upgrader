@@ -34,22 +34,31 @@ function getArtifactEvaluations(
   }
 
   // generate data required for rendering
+  let highestUpgradePotential = 0;
+  const buildEvaluations = matchingBuilds.map((build) => {
+    const totalSubstats = evaluateArtifact(artifactData, build);
+    let competingArtifact = null;
+    let upgradePotential = 0;
+    if (equippedEvaluations[build.characterName]) {
+      // eslint-disable-next-line max-len
+      competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
+      upgradePotential = competingArtifact.wastedSubstats - totalSubstats.wastedSubstats;
+      highestUpgradePotential = Math.max(highestUpgradePotential, upgradePotential);
+    }
+    return {
+      build,
+      totalSubstats,
+      competingArtifact,
+      upgradePotential,
+      sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
+    };
+  }).sort((a, b) => (a.sortValue - b.sortValue));
+
+  // return data
   return {
     artifactData,
-    buildEvaluations: matchingBuilds.map((build) => {
-      const totalSubstats = evaluateArtifact(artifactData, build);
-      let competingArtifact = null;
-      if (equippedEvaluations[build.characterName]) {
-        // eslint-disable-next-line max-len
-        competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
-      }
-      return {
-        build,
-        totalSubstats,
-        competingArtifact,
-        sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
-      };
-    }).sort((a, b) => (a.sortValue - b.sortValue)),
+    buildEvaluations,
+    highestUpgradePotential,
   };
 }
 
@@ -67,7 +76,7 @@ export default function ArtifactOverview({
   // generate artifact evaluation data
   // this is required to sort the artifacts by quality
   const evaluationData = artifactData
-    .slice(150, 200)
+    // .slice(150, 200)
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,

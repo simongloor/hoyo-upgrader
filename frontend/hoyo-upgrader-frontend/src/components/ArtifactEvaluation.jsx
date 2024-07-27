@@ -41,6 +41,9 @@ export default function ArtifactEvaluation({
         <Artifact
           data={evaluationData.artifactData}
           showMissingSlots
+          upgradePotential={
+            evaluationData.artifactData.location ? -1 : evaluationData.highestUpgradePotential
+          }
         />
       </button>
       {
@@ -54,11 +57,7 @@ export default function ArtifactEvaluation({
                 characterName={b.build.characterName}
                 buildName={getBuildKey(b.build)}
                 sets={b.build.sets}
-                upgradePotential={
-                  b.competingArtifact
-                  && b.competingArtifact.wastedSubstats
-                  - b.totalSubstats.wastedSubstats
-                }
+                upgradePotential={b.upgradePotential}
               />
               <ArtifactStats
                 totalSubstats={b.totalSubstats}

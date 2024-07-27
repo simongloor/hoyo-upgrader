@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import { evaluateArtifact, getArtifactTier } from '../data/substats';
 
+import iconUpgrade from '../theme/upgrade.svg';
+import iconWasted from '../theme/wasted.svg';
 import '../styles/Artifact.scss';
 
 export default function Artifact({
@@ -12,8 +14,10 @@ export default function Artifact({
   count = -1,
   showTier = true,
   showMissingSlots = false,
+  upgradePotential = -1,
 }) {
   // console.log(data);
+  // console.log(upgradePotential);
 
   // What to display
   const displayedSet = data ? data.set : set;
@@ -36,19 +40,19 @@ export default function Artifact({
   if (validTier && validMainstat) {
     label = (
       <>
-        <div className={`tier-backdrop mainstat ${data.mainStatKey}`} />
-        <h6 className="tier-label">{evaluation.tier}</h6>
+        <div className={`tier mainstat ${data.mainStatKey}`} />
+        <h6 className="tier">{evaluation.tier}</h6>
       </>
     );
   } else if (validMainstat) {
     label = (
-      <div className={`mainstat-backdrop ${data.mainStatKey}`} />
+      <div className={`mainstat ${data.mainStatKey}`} />
     );
   } else if (validTier) {
     label = (
       <>
-        <div className="tier-backdrop" />
-        <h6 className="tier-label">{evaluation.tier}</h6>
+        <div className="tier" />
+        <h6 className="tier">{evaluation.tier}</h6>
       </>
     );
   }
@@ -58,9 +62,29 @@ export default function Artifact({
   if (showMissingSlots && data && data.substats.length < 4) {
     missingStat = (
       <>
-        <div className="missingStat-backdrop" />
-        <h6 className="missingStat-label">?</h6>
+        <div className="missingStat" />
+        <h6 className="missingStat">?</h6>
       </>
+    );
+  }
+
+  // render warning that there is no upgrade potential
+  let noUpgradePotential = null;
+  if (upgradePotential === 0) {
+    // console.log('no upgrade potential');
+    noUpgradePotential = (
+      <div className="no-upgrade">
+        <img
+          className="upgrade"
+          src={iconUpgrade}
+          alt="upgrade"
+        />
+        <img
+          className="wasted"
+          src={iconWasted}
+          alt="wasted"
+        />
+      </div>
     );
   }
 
@@ -73,7 +97,7 @@ export default function Artifact({
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}
         alt={displayedPiece}
       />
-      { missingStat }
+      { noUpgradePotential || missingStat }
       { label }
       {
         count !== -1 && (

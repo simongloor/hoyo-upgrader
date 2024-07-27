@@ -5,12 +5,26 @@
   flex-shrink: 0;
   overflow: hidden;
 
-  h6.missingStat-label {
+  .no-upgrade {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .wasted {
+      position: absolute;
+      left: 50%;
+      // bottom: $space-minus3;
+      // transform: translateX(-50%);
+      top: 60%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  h6.missingStat {
     position: absolute;
     left: $border;
     bottom: 4px;
   }
-  .missingStat-backdrop {
+  div.missingStat {
     position: absolute;
     left: 0px;
     bottom: 1px;
@@ -22,12 +36,12 @@
     border-bottom-left-radius: $border;
   }
 
-  h6.tier-label {
+  h6.tier {
     position: absolute;
     right: $border;
     bottom: $space-minus3;
   }
-  .tier-backdrop {
+  div.tier {
     position: absolute;
     right: 1.5px;
     bottom: 1px;
@@ -38,7 +52,7 @@
     border-top-left-radius: $space-minus1;
     border-bottom-right-radius: $border;
   }
-  .tier-backdrop.mainstat {
+  div.tier.mainstat {
     border-right-style: solid;
     border-right-color: $stat-potency;
     border-right-width: 4px;
@@ -65,7 +79,7 @@
       border-right-color: $stat-eleMas;
     }
   }
-  .mainstat-backdrop {
+  div.mainstat {
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -78,7 +92,7 @@
     border-color: $surface;
     border-width: 1px;
   }
-  .mainstat-backdrop {
+  div.mainstat {
     background-color: white;
     opacity: 1;
 
