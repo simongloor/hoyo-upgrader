@@ -42,7 +42,10 @@ function getArtifactEvaluations(
     if (equippedEvaluations[build.characterName]) {
       // eslint-disable-next-line max-len
       competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
-      upgradePotential = competingArtifact.wastedSubstats - totalSubstats.wastedSubstats;
+      upgradePotential = Math.max(
+        0,
+        competingArtifact.wastedSubstats - totalSubstats.wastedSubstats,
+      );
       highestUpgradePotential = Math.max(highestUpgradePotential, upgradePotential);
     }
     return {
