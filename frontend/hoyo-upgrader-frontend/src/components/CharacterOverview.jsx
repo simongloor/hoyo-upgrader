@@ -40,7 +40,7 @@ export default function CharacterOverview({
     >
       <Character
         characterName={characterName}
-        buildName={getBuildKey(characterName, characterBuild.mainstats, characterBuild.substats)}
+        buildName={getBuildKey(characterBuild)}
         sets={characterBuild.sets}
       />
       <SpacerPiece />

@@ -4,10 +4,13 @@ import '../styles/Character.scss';
 import { useDispatch } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
+import iconUpgrade from '../theme/upgrade.svg';
+
 export default function Character({
   characterName = 'generic',
   buildName,
   sets,
+  upgradePotential = 0,
 }) {
   const dispatch = useDispatch();
 
@@ -29,6 +32,18 @@ export default function Character({
         src={`${process.env.PUBLIC_URL}/genshin/characters/${characterName}.png`}
         alt={characterName}
       />
+      {
+        upgradePotential > 0 && (
+          <div className="upgrade">
+            <img
+              className="icon"
+              src={iconUpgrade}
+              alt="upgrade"
+            />
+            <h4>{ upgradePotential }</h4>
+          </div>
+        )
+      }
     </button>
   );
 }

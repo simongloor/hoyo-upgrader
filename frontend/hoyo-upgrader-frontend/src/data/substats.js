@@ -165,6 +165,7 @@ function getMissingRollChances(missingRolls, wastedSubstatSlots) {
 }
 
 export function evaluateArtifact(artifactData, characterBuild) {
+  // console.log(artifactData, characterBuild);
   if (!artifactData) return {};
 
   const maxRolls = artifactData.rarity === 5 ? 9 : 8;
@@ -283,6 +284,28 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacte
 }
 
 //---------------------------------------------------------
+// data processing for global reference data
+
+export function evaluateEquippedArtifacts(artifactsByCharacter, characters) {
+  const evaluations = {};
+  Object.keys(artifactsByCharacter).forEach((characterName) => {
+    evaluations[characterName] = [];
+    characters[characterName].forEach((build, iBuild) => {
+      evaluations[characterName][iBuild] = {};
+      Object.keys(artifactsByCharacter[characterName]).forEach((slot) => {
+        // console.log(characterName, iBuild, slot);
+        evaluations[characterName][iBuild][slot] = evaluateArtifact(
+          artifactsByCharacter[characterName][slot],
+          build,
+        );
+      });
+    });
+  });
+  // console.log(evaluations);
+  return evaluations;
+}
+
+//---------------------------------------------------------
 // data processing for displaying multiple artifacts
 
 export function combineEvaluatedSubstats(evaluatedArtifactStats) {
@@ -301,13 +324,13 @@ export function combineEvaluatedSubstats(evaluatedArtifactStats) {
   return foundSubstats;
 }
 
-export function evaluateArtifactSet(characterArtifacts, characterBuild) {
+export function evaluateArtifactSet(equippedEvaluations, characterName, buildIndex) {
   return combineEvaluatedSubstats([
-    evaluateArtifact(characterArtifacts.flower, characterBuild),
-    evaluateArtifact(characterArtifacts.plume, characterBuild),
-    evaluateArtifact(characterArtifacts.sands, characterBuild),
-    evaluateArtifact(characterArtifacts.goblet, characterBuild),
-    evaluateArtifact(characterArtifacts.circlet, characterBuild),
+    equippedEvaluations[characterName][buildIndex].flower,
+    equippedEvaluations[characterName][buildIndex].plume,
+    equippedEvaluations[characterName][buildIndex].sands,
+    equippedEvaluations[characterName][buildIndex].goblet,
+    equippedEvaluations[characterName][buildIndex].circlet,
   ]);
 }
 

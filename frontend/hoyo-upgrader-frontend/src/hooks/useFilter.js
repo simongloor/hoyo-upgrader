@@ -85,11 +85,7 @@ export default function useFilter(artifacts, characterJson) {
       // Only Artifacts that can be used by the build should be displayed
       if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
         const buildData = characterJson[filter.characterName].find(
-          (build) => getBuildKey(
-            filter.characterName,
-            build.mainstats,
-            build.substats,
-          ) === filter.characterBuildName,
+          (build) => getBuildKey(build) === filter.characterBuildName,
         );
         artifactsToFilter.asList = artifactsToFilter.asList
           .filter((artifact) => (

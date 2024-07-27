@@ -18,7 +18,7 @@ import togglePinnedArtifact from '../data/actions/pinboard';
 function getArtifactEvaluations(
   artifactData,
   characterBuilds,
-  characterArtifacts,
+  equippedEvaluations,
   filteredCharacter,
 ) {
   // get matching builds
@@ -39,8 +39,9 @@ function getArtifactEvaluations(
     buildEvaluations: matchingBuilds.map((build) => {
       const totalSubstats = evaluateArtifact(artifactData, build);
       let competingArtifact = null;
-      if (characterArtifacts[build.characterName]) {
-        competingArtifact = characterArtifacts[build.characterName][artifactData.slotKey];
+      if (equippedEvaluations[build.characterName]) {
+        // eslint-disable-next-line max-len
+        competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
       }
       return {
         build,
@@ -52,9 +53,12 @@ function getArtifactEvaluations(
   };
 }
 
-export default function ArtifactOverview({ artifactData, characterData }) {
+export default function ArtifactOverview({
+  artifactData,
+  characterData,
+  equippedEvaluations,
+}) {
   const dispatch = useDispatch();
-  const artifactsByCharacter = useSelector((state) => state.artifacts.byCharacter);
 
   const characterBuildsBySet = getBuildsBySets(characterData);
   const allCharacterBuilds = getBuildsCompact(characterData);
@@ -70,7 +74,7 @@ export default function ArtifactOverview({ artifactData, characterData }) {
         filter.showOffpieces
           ? allCharacterBuilds
           : characterBuildsBySet[artifact.setKey] || [],
-        artifactsByCharacter,
+        equippedEvaluations,
         filter.characterName,
       )
     ))

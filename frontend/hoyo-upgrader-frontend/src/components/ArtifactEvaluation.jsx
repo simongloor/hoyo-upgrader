@@ -16,7 +16,7 @@ export default function ArtifactEvaluation({
   evaluationData,
   handleClickPinArtifact,
 }) {
-  console.log(evaluationData);
+  // console.log(evaluationData);
   return (
     <div
       className="ArtifactEvaluation row"
@@ -47,26 +47,18 @@ export default function ArtifactEvaluation({
         evaluationData.buildEvaluations
           .map((b) => (
             <Fragment key={
-              getBuildKey(
-                b.build.characterName,
-                b.build.mainstats,
-                b.build.substats,
-              )
+              getBuildKey(b.build)
             }>
               <SpacerPiece size="small" />
               <Character
                 characterName={b.build.characterName}
-                buildName={getBuildKey(
-                  b.build.characterName,
-                  b.build.mainstats,
-                  b.build.substats,
-                )}
+                buildName={getBuildKey(b.build)}
                 sets={b.build.sets}
-                // upgradePotential={
-                //   b.competingArtifact
-                //   && b.competingArtifact.substatCounts.wastedSubstats
-                //   - b.totalSubstats.wastedSubstats
-                // }
+                upgradePotential={
+                  b.competingArtifact
+                  && b.competingArtifact.wastedSubstats
+                  - b.totalSubstats.wastedSubstats
+                }
               />
               <ArtifactStats
                 totalSubstats={b.totalSubstats}

@@ -11,6 +11,6 @@ export function updateCharacters(jsonData) {
     payload: { jsonData },
   });
 }
-export function getBuildKey(characterName, mainstats, substats) {
-  return `${characterName}-${JSON.stringify(mainstats)}`;
+export function getBuildKey(build) {
+  return `${build.characterName}-${build.index}`;
 }

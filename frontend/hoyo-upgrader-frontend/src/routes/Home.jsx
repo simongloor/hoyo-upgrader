@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import characterJson from '../data/mock/characters.json';
@@ -17,17 +17,28 @@ import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
+import { evaluateArtifact, evaluateEquippedArtifacts } from '../data/substats';
 
 export default function Home() {
   const dispatch = useDispatch();
+
+  const artifacts = useSelector((state) => state.artifacts);
+  const characters = useSelector((state) => state.characters);
+  const filteredArtifacts = useFilter(artifacts, characters);
+  const [equippedEvaluations, setEquippedEvaluations] = useState({});
+
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
 
-  const artifacts = useSelector((state) => state.artifacts);
-  const characters = useSelector((state) => state.characters);
-  const filteredArtifacts = useFilter(artifacts, characters);
+  useEffect(() => {
+    if (artifacts && characters) {
+      setEquippedEvaluations(
+        evaluateEquippedArtifacts(artifacts.byCharacter, characters),
+      );
+    }
+  }, [artifacts, characters]);
 
   return (
     <div
@@ -38,10 +49,12 @@ export default function Home() {
       <AccountOverview
         characterData={characters}
         artifactData={filteredArtifacts.byCharacter}
+        equippedEvaluations={equippedEvaluations}
       />
       <ArtifactOverview
         characterData={characters}
         artifactData={filteredArtifacts.asList}
+        equippedEvaluations={equippedEvaluations}
       />
       <Pinboard />
       <Filter />

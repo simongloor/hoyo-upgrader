@@ -22,7 +22,6 @@ function CharacterBuild({
   onClickToggleSubstat,
 }) {
   // console.log(build);
-  // const buildKey = getBuildKey(characterName, build.mainstats, build.substats);
   const handleClickSet = (setName) => {
     onClickToggleSet(characterName, index, setName);
   };
@@ -149,7 +148,7 @@ function CharacterBuild({
         type="button"
         onClick={() => onClickDeleteBuild(
           characterName,
-          getBuildKey(characterName, build.mainstats, build.substats),
+          getBuildKey(build),
         )}
       >
         <span>delete build</span>
@@ -177,7 +176,7 @@ export default function CharacterEditor({
       {
         characterBuilds && characterBuilds.map((b, i) => (
           <CharacterBuild
-            key={getBuildKey(characterName, b.mainstats, b.substats)}
+            key={getBuildKey(b)}
             characterName={characterName}
             build={b}
             index={i}

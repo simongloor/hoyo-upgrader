@@ -12,17 +12,17 @@ import { getBuildKey } from '../data/actions/characters';
 
 // import '../styles/AccountOverview.scss';
 
-export default function AccountOverview({ characterData, artifactData }) {
+export default function AccountOverview({ characterData, artifactData, equippedEvaluations }) {
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
-  const dataToDisplay = Object.keys(artifactData).map((characterKey) => (
-    characterData[characterKey] ? (
-      characterData[characterKey].map((characterBuild) => (
+  const dataToDisplay = Object.keys(artifactData).map((characterName) => (
+    characterData[characterName] ? (
+      characterData[characterName].map((characterBuild, iBuild) => (
         {
-          characterKey,
+          characterName,
           characterBuild,
-          characterArtifacts: artifactData[characterKey],
-          totalSubstats: evaluateArtifactSet(artifactData[characterKey], characterBuild),
+          characterArtifacts: artifactData[characterName],
+          totalSubstats: evaluateArtifactSet(equippedEvaluations, characterName, iBuild),
         }
       ))
     ) : null
@@ -36,11 +36,11 @@ export default function AccountOverview({ characterData, artifactData }) {
   // Remove duplicate characters from the beginning of the list
   const seenCharacters = {};
   dataToDisplay.forEach((data) => {
-    seenCharacters[data.characterKey] = true;
+    seenCharacters[data.characterName] = true;
   });
   for (let i = dataToDisplay.length - 1; i >= 0; i -= 1) {
-    if (seenCharacters[dataToDisplay[i].characterKey]) {
-      seenCharacters[dataToDisplay[i].characterKey] = false;
+    if (seenCharacters[dataToDisplay[i].characterName]) {
+      seenCharacters[dataToDisplay[i].characterName] = false;
     } else {
       dataToDisplay.splice(i, 1);
       i -= 1;
@@ -56,12 +56,8 @@ export default function AccountOverview({ characterData, artifactData }) {
       {
         dataToDisplay.map((data) => (
           <CharacterOverview
-            key={getBuildKey(
-              data.characterKey,
-              data.characterBuild.mainstats,
-              data.characterBuild.substats,
-            )}
-            characterName={data.characterKey}
+            key={getBuildKey(data.characterBuild)}
+            characterName={data.characterName}
             characterBuild={data.characterBuild}
             characterArtifacts={data.characterArtifacts}
             totalSubstats={data.totalSubstats}
