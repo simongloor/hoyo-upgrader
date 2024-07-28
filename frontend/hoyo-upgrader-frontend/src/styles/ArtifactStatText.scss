@@ -16,6 +16,8 @@
     opacity: 0.9;
   }
   .missing {
+    margin-bottom: 1px;
+    
     opacity: 1;
     background-color: $elevation;
     color: $onElevation-highEmphasis;
