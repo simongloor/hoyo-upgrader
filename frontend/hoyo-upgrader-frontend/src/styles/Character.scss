@@ -3,19 +3,4 @@
 .Character {
   position: relative;
   flex-shrink: 0;
-
-  .upgrade {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    h2, h3, h4 {
-      position: absolute;
-      left: 50%;
-      // bottom: $space-minus3;
-      // transform: translateX(-50%);
-      top: 60%;
-      transform: translate(-50%, -50%);
-    }
-  }
 }

@@ -168,7 +168,7 @@ export function evaluateArtifact(artifactData, characterBuild) {
   // console.log(artifactData, characterBuild);
   if (!artifactData) return {};
 
-  const maxRolls = artifactData.rarity === 5 ? 9 : 8;
+  const maxRolls = artifactData.rarity === 5 ? 9 : 7;
 
   const uselessSubstatSlots = getUselessSubstatSlots(artifactData, characterBuild);
   const impossibleSubstats = getImpossibleSubstats(uselessSubstatSlots, maxRolls);
