@@ -2,8 +2,7 @@
 import React, { useEffect } from 'react';
 import { evaluateArtifact, getArtifactTier } from '../data/substats';
 
-import iconUpgrade from '../theme/upgrade.svg';
-import iconWasted from '../theme/wasted.svg';
+import iconTrash from '../theme/trash.svg';
 import '../styles/Artifact.scss';
 
 export default function Artifact({
@@ -12,8 +11,7 @@ export default function Artifact({
   piece = 'empty',
   set = 'generic',
   count = -1,
-  showTier = true,
-  showMissingSlots = false,
+  showTier = false,
   upgradePotential = -1,
 }) {
   // console.log(data);
@@ -34,59 +32,40 @@ export default function Artifact({
   }, [data]);
 
   // render label
-  const validTier = showTier && evaluation;
-  const validMainstat = data && data.slotKey !== 'flower' && data.slotKey !== 'plume';
-  let label = null;
-  if (validTier && validMainstat) {
+  let label = '';
+
+  // tier?
+  if (showTier && evaluation) {
     label = (
-      <>
-        <div className={`tier mainstat ${data.mainStatKey}`} />
-        <h6 className="tier">{evaluation.tier}</h6>
-      </>
-    );
-  } else if (validMainstat) {
-    label = (
-      <div className={`mainstat ${data.mainStatKey}`} />
-    );
-  } else if (validTier) {
-    label = (
-      <>
-        <div className="tier" />
-        <h6 className="tier">{evaluation.tier}</h6>
-      </>
+      <h6 className="tier">{evaluation.tier}</h6>
     );
   }
 
-  // render missing slots
-  let missingStat = null;
-  if (showMissingSlots && data && data.substats.length < 4) {
-    missingStat = (
-      <>
-        <div className="missingStat" />
-        <h6 className="missingStat">?</h6>
-      </>
-    );
+  // upgrade potential?
+  switch (upgradePotential) {
+    case 0: {
+      label = (
+        <img className="trash" src={iconTrash} alt="wasted" />
+      );
+      break;
+    }
+    case -1: {
+      break;
+    }
+    default: {
+      label = (
+        <h6 className="upgrade">{`↑${upgradePotential}`}</h6>
+      );
+    }
   }
 
-  // render warning that there is no upgrade potential
-  let noUpgradePotential = null;
-  if (upgradePotential === 0) {
-    // console.log('no upgrade potential');
-    noUpgradePotential = (
-      <div className="no-upgrade">
-        <img
-          className="upgrade"
-          src={iconUpgrade}
-          alt="upgrade"
-        />
-        <img
-          className="wasted"
-          src={iconWasted}
-          alt="wasted"
-        />
-      </div>
-    );
-  }
+  // add widget around label
+  const widget = label ? (
+    <div className={`tier tile-marker ${showTier ? 'heavy' : ''}`}>
+      <div className={`${data.piece === 'flower' || data.piece === 'plume' ? 'generic' : data.mainStatKey}`} />
+      {label}
+    </div>
+  ) : null;
 
   // render
   return (
@@ -97,8 +76,7 @@ export default function Artifact({
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}
         alt={displayedPiece}
       />
-      { noUpgradePotential || missingStat }
-      { label }
+      { widget }
       {
         count !== -1 && (
           <h6>{count}</h6>

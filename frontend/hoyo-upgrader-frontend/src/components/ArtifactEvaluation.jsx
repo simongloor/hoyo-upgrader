@@ -11,6 +11,7 @@ import ArtifactStats from './ArtifactStats';
 import { getBuildKey } from '../data/actions/characters';
 
 import '../styles/ArtifactEvaluation.scss';
+import ArtifactStatText from './ArtifactStatText';
 
 export default function ArtifactEvaluation({
   evaluationData,
@@ -40,12 +41,13 @@ export default function ArtifactEvaluation({
       >
         <Artifact
           data={evaluationData.artifactData}
-          showMissingSlots
           upgradePotential={
             evaluationData.artifactData.location ? -1 : evaluationData.highestUpgradePotential
           }
         />
       </button>
+      {/* <SpacerPiece size="small" /> */}
+      <ArtifactStatText artifactData={evaluationData.artifactData} />
       {
         evaluationData.buildEvaluations
           .map((b) => (

@@ -13,17 +13,17 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6, span, ul, ol, li {
+h1, h2, h3, h4, h5, h6, p, span, ul, ol, li {
   font-family: $title-family;
   margin: 0;
   pointer-events: none;
 }
-h1, h2, h3, h4, h5, h6, span, input, textarea, li {
+h1, h2, h3, h4, h5, h6, p, span, input, textarea, li {
   color: $onSurface-highEmphasis;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  >span {
+  >span, >p {
     opacity: 0.4;
     margin: 0 $space;
   } 
@@ -34,7 +34,7 @@ h2 {
   font-weight: 400;
   margin-bottom: $space-minus1;
 
-  >span.weak {
+  >span.weak, >p.weak {
     font-size: 24px;
     font-weight: 400;
   }
@@ -51,7 +51,7 @@ h6 {
   font-size:16px;
   font-weight: 700;
 }
-div, span {
+div, span, p {
   font-size: 16px;
   font-weight: 400;
 }
@@ -101,7 +101,7 @@ button.primary, button.secondary {
   border-width: 4px;
   border-color: $elevation-minus2;
   
-  span {
+  span, p {
     color: $onSurface-highEmphasis;
   }
   &:disabled span {
@@ -112,7 +112,7 @@ button.primary, button.secondary {
     &:hover {
       cursor: pointer;
       opacity: 1;
-      span {
+      span, p {
         opacity: 0.4;
       }
     }
@@ -166,6 +166,31 @@ textarea {
     width: 100%;
     height: 100%;
     
+  }
+}
+.tile-marker {
+  h6, img {
+    position: absolute;
+    right: $space-minus2;
+    bottom: $space-minus3;
+  }
+  img {
+    right: 8px;
+    bottom: 4px;
+  }
+  div {
+    position: absolute;
+    right: 1.5px;
+    bottom: 1px;
+    width: 32px;
+    height: 28px;
+
+    background-color: rgba(0, 0, 0, 0.7);
+    border-top-left-radius: $space-minus1;
+    border-bottom-right-radius: $border;
+
+    border-right-color: $stat-potency;
+    border-right-width: 4px;
   }
 }
 

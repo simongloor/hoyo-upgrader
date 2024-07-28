@@ -1,4 +1,4 @@
-export default {
+const paths = {
   DOCUMENTATION: 'documentation',
   EDIT_BUILDS: 'builds',
   IMPORT_ARTIFACTS: 'import',
@@ -158,8 +158,8 @@ export default {
   },
   stats: {
     enerRech_: 'Energy Recharge%',
-    critDMG_: 'Crit DMG%',
-    critRate_: 'Crit Rate%',
+    critDMG_: 'CRIT DMG%',
+    critRate_: 'CRIT Rate%',
     eleMas: 'Elemental Mastery',
     atk_: 'ATK%',
     def_: 'DEF%',
@@ -199,3 +199,19 @@ export default {
     hp: 'HP',
   },
 };
+export default paths;
+
+const statValueParts = Object.keys(paths.stats).reduce((acc, stat) => {
+  // does the stat end with a %?
+  const isPercent = paths.stats[stat].endsWith('%');
+  acc[stat] = {
+    name: isPercent ? paths.stats[stat].slice(0, -1) : paths.stats[stat],
+    unit: isPercent ? '%' : '',
+  };
+  return acc;
+}, {});
+
+export function getStatText({ key, value }) {
+  const { name, unit } = statValueParts[key];
+  return `${name}+${value}${unit}`;
+}

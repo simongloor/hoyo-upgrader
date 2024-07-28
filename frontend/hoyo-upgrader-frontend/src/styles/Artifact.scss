@@ -5,117 +5,39 @@
   flex-shrink: 0;
   overflow: hidden;
 
-  .no-upgrade {
-    position: absolute;
-    top: 0;
-    right: 0;
+  .tier {
+    &.heavy h6 {
+      // font-weight: 700;
+      opacity: 1.0;
+    }
 
-    .wasted {
-      position: absolute;
-      left: 50%;
-      // bottom: $space-minus3;
-      // transform: translateX(-50%);
-      top: 60%;
-      transform: translate(-50%, -50%);
-    }
-  }
-  h6.missingStat {
-    position: absolute;
-    left: $border;
-    bottom: 4px;
-  }
-  div.missingStat {
-    position: absolute;
-    left: 0px;
-    bottom: 1px;
-    width: 32px;
-    height: 28px;
+    div {
+      border-right-style: solid;
 
-    background-color: rgba(0, 0, 0, 0.6);
-    border-top-right-radius: $border;
-    border-bottom-left-radius: $border;
-  }
-
-  h6.tier {
-    position: absolute;
-    right: $border;
-    bottom: $space-minus3;
-  }
-  div.tier {
-    position: absolute;
-    right: 1.5px;
-    bottom: 1px;
-    width: 32px;
-    height: 28px;
-
-    background-color: rgba(0, 0, 0, 0.6);
-    border-top-left-radius: $space-minus1;
-    border-bottom-right-radius: $border;
-  }
-  div.tier.mainstat {
-    border-right-style: solid;
-    border-right-color: $stat-potency;
-    border-right-width: 4px;
-
-    &.enerRech_ {
-      border-right-color: $stat-enerRech;
-    }
-    &.critRate_ {
-      border-right-color: $stat-critRate;
-    }
-    &.critDMG_ {
-      border-right-color: $stat-critDMG;
-    }
-    &.atk_ {
-      border-right-color: $stat-atk;
-    }
-    &.hp_ {
-      border-right-color: $stat-hp;
-    }
-    &.def_ {
-      border-right-color: $stat-def;
-    }
-    &.eleMas {
-      border-right-color: $stat-eleMas;
-    }
-  }
-  div.mainstat {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    height: $border;
-    width: #{$border + $space-minus2};
-    border-top-left-radius: $border;
-    border-bottom-right-radius: $border;
-
-    border-style: solid;
-    border-color: $surface;
-    border-width: 1px;
-  }
-  div.mainstat {
-    background-color: white;
-    opacity: 1;
-
-    &.enerRech_ {
-      background-color: $stat-enerRech;
-    }
-    &.critRate_ {
-      background-color: $stat-critRate;
-    }
-    &.critDMG_ {
-      background-color: $stat-critDMG;
-    }
-    &.atk_ {
-      background-color: $stat-atk;
-    }
-    &.hp_ {
-      background-color: $stat-hp;
-    }
-    &.def_ {
-      background-color: $stat-def;
-    }
-    &.eleMas {
-      background-color: $stat-eleMas;
+      &.generic {
+        border-right-style: none;
+      }
+      &.enerRech_ {
+        border-right-color: $stat-enerRech;
+      }
+      &.critRate_ {
+        border-right-color: $stat-critRate;
+      }
+      &.critDMG_ {
+        border-right-color: $stat-critDMG;
+      }
+      &.atk_ {
+        border-right-color: $stat-atk;
+      }
+      &.hp_ {
+        border-right-color: $stat-hp;
+      }
+      &.def_ {
+        border-right-color: $stat-def;
+      }
+      &.eleMas {
+        border-right-color: $stat-eleMas;
+      }
     }
   }
 }

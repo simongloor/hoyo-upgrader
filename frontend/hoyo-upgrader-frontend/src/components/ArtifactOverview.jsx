@@ -42,10 +42,19 @@ function getArtifactEvaluations(
     if (equippedEvaluations[build.characterName]) {
       // eslint-disable-next-line max-len
       competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
-      upgradePotential = Math.max(
-        0,
-        competingArtifact.wastedSubstats - totalSubstats.wastedSubstats,
-      );
+      if (competingArtifact.wastedSubstats) {
+        upgradePotential = Math.max(
+          0,
+          competingArtifact.wastedSubstats - totalSubstats.wastedSubstats,
+        );
+      } else {
+        // no artifact equipped, count all possible substats
+        const maxRolls = artifactData.rarity === 5 ? 9 : 7;
+        upgradePotential = Math.max(
+          0,
+          maxRolls - totalSubstats.impossibleSubstats - totalSubstats.wastedSubstats,
+        );
+      }
       highestUpgradePotential = Math.max(highestUpgradePotential, upgradePotential);
     }
     return {
@@ -79,7 +88,7 @@ export default function ArtifactOverview({
   // generate artifact evaluation data
   // this is required to sort the artifacts by quality
   const evaluationData = artifactData
-    // .slice(150, 200)
+    // .slice(200, 400)
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,
@@ -95,7 +104,6 @@ export default function ArtifactOverview({
       getArtifactQualitySortValue(a, filter.characterName)
         - getArtifactQualitySortValue(b, filter.characterName)
     ));
-  // console.log(evaluationData);
 
   // handle pinning artifact
   const handleClickPinArtifact = (pinnedArtifactData) => {

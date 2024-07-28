@@ -1,0 +1,25 @@
+@import 'variables.scss';
+
+.ArtifactStatText.row{
+  margin-left: $space-minus3;
+  height: $tile;
+  gap: $space-minus3;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+  white-space: pre;
+  span, p {
+    width: 110px;
+    font-size: 10px;
+    line-height: 1.2;
+    opacity: 0.9;
+  }
+  .missing {
+    opacity: 1;
+    background-color: $elevation;
+    color: $onElevation-highEmphasis;
+    text-align: center;
+    border-radius: 4px;
+  }
+}

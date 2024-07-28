@@ -4,8 +4,6 @@ import '../styles/Character.scss';
 import { useDispatch } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
-import iconUpgrade from '../theme/upgrade.svg';
-
 export default function Character({
   characterName = 'generic',
   buildName,
@@ -34,13 +32,9 @@ export default function Character({
       />
       {
         upgradePotential > 0 && (
-          <div className="upgrade">
-            <img
-              className="icon"
-              src={iconUpgrade}
-              alt="upgrade"
-            />
-            <h4>{ upgradePotential }</h4>
+          <div className="upgrade tile-marker">
+            <div />
+            <h6>{ `↑${upgradePotential}` }</h6>
           </div>
         )
       }

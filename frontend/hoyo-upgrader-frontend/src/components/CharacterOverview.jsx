@@ -30,6 +30,7 @@ export default function CharacterOverview({
       <Artifact
         data={data}
         characterBuild={characterBuild}
+        showTier
       />
     </button>
   );

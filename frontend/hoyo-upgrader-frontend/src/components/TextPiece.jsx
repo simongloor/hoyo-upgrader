@@ -2,10 +2,15 @@
 import React from 'react';
 import '../styles/TextPiece.scss';
 
-export default function TextPiece({ canOverflow, alignRight, children }) {
+export default function TextPiece({
+  canOverflow,
+  alignRight,
+  children,
+  className,
+}) {
   return (
     <span
-      className={`TextPiece ${canOverflow ? 'overflow' : ''} ${alignRight ? 'right' : ''}`}
+      className={`TextPiece ${className || ''} ${canOverflow ? 'overflow' : ''} ${alignRight ? 'right' : ''}`}
     >
       {children}
     </span>
