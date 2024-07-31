@@ -178,7 +178,7 @@ export function evaluateArtifact(artifactData, characterBuild) {
     characterBuild,
   );
 
-  const wastedSubstats = getWastedSubstats(
+  let wastedSubstats = getWastedSubstats(
     artifactData,
     valuableSubstats.total,
     impossibleSubstats,
@@ -192,6 +192,8 @@ export function evaluateArtifact(artifactData, characterBuild) {
 
   const wastedSubstatSlots = getWastedSubstatSlots(artifactData, characterBuild);
   const missingRollChances = getMissingRollChances(missingRolls, wastedSubstatSlots);
+  wastedSubstats += missingRollChances.missingRolls00;
+  delete missingRollChances.missingRolls00;
 
   // return a flat object ready for display
   return {
