@@ -65,7 +65,7 @@ function getArtifactEvaluations(
       upgradePotential,
       sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
     };
-  }).sort((a, b) => (a.sortValue - b.sortValue));
+  }).sort((a, b) => (a.sortValue - b.sortValue)); // sort builds by quality
 
   // return data
   return {

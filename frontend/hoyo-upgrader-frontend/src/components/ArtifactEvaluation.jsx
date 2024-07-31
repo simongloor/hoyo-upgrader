@@ -57,6 +57,10 @@ export default function ArtifactEvaluation({
       <ArtifactStatText artifactData={evaluationData.artifactData} />
       {
         evaluationData.buildEvaluations
+          .filter((b) => (
+            b.upgradePotential > 0
+            || b.build.characterName === evaluationData.artifactData.location
+          ))
           .map((b) => (
             <Fragment key={
               getBuildKey(b.build)
