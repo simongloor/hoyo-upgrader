@@ -39,12 +39,19 @@ export default function ArtifactEvaluation({
           && handleClickPinArtifact(evaluationData.artifactData)}
         disabled={!handleClickPinArtifact}
       >
-        <Artifact
-          data={evaluationData.artifactData}
-          upgradePotential={
-            evaluationData.artifactData.location ? -1 : evaluationData.highestUpgradePotential
-          }
-        />
+        {
+          evaluationData.artifactData.location ? (
+            <Artifact
+              data={evaluationData.artifactData}
+              showTier
+          />
+          ) : (
+            <Artifact
+              data={evaluationData.artifactData}
+              upgradePotential={evaluationData.highestUpgradePotential}
+            />
+          )
+        }
       </button>
       {/* <SpacerPiece size="small" /> */}
       <ArtifactStatText artifactData={evaluationData.artifactData} />

@@ -16,6 +16,7 @@ export default function Artifact({
 }) {
   // console.log(data);
   // console.log(upgradePotential);
+  // console.log(characterBuild);
 
   // What to display
   const displayedSet = data ? data.set : set;
@@ -28,11 +29,12 @@ export default function Artifact({
       const substats = evaluateArtifact(data, characterBuild);
       const tier = getArtifactTier(data, substats);
       setEvaluation({ substats, tier });
+      // console.log(substats, tier);
     }
   }, [data]);
 
   // render label
-  let label = '';
+  let label = null;
 
   // tier?
   if (showTier && evaluation) {
@@ -60,8 +62,8 @@ export default function Artifact({
   }
 
   // add widget around label
-  const widget = label ? (
-    <div className={`tier tile-marker ${showTier ? 'heavy' : ''}`}>
+  const widget = data && (label || showTier) ? (
+    <div className={`tier tile-marker ${showTier ? 'heavy' : ''} ${label ? '' : 'empty'}`}>
       <div className={`${data.piece === 'flower' || data.piece === 'plume' ? 'generic' : data.mainStatKey}`} />
       {label}
     </div>

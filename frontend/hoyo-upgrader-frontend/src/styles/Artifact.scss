@@ -10,6 +10,9 @@
       // font-weight: 700;
       opacity: 1.0;
     }
+    &.empty div {
+      width: $border;
+    }
 
     div {
       border-right-style: solid;

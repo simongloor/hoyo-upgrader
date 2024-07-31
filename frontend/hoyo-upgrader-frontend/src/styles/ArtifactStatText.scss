@@ -1,9 +1,9 @@
 @import 'variables.scss';
 
-.ArtifactStatText.row{
+.ArtifactStatText{
   margin-left: $space-minus3;
   height: $tile;
-  gap: $space-minus3;
+  // gap: $space-minus3;
   align-items: center;
   align-content: center;
   justify-content: center;

@@ -190,9 +190,23 @@ export default function ImportArtifacts({ children }) {
       <Box>
         <h2>Import Artifacts</h2>
         <span>
-          1. Scan your artifacts or export a database from Genshin Optimizer.
-          Here are some great scanners:
-          https://frzyc.github.io/genshin-optimizer/#/scanner
+          1. Scan your artifacts or export a database from Genshin Optimizer:
+          <br />
+          <a
+            href="https://artiscan.ninjabay.org/#/artifacts/help"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Artiscan
+          </a>
+          /
+          <a
+            href="https://frzyc.github.io/genshin-optimizer/#/scanner"
+            target="_blank"
+            rel="noreferrer"
+          >
+            More Scanners
+          </a>
           <br />
           <br />
           2. Either replace the whole data set directly in the text box below,

@@ -252,11 +252,14 @@ export function getBuildQualitySortValue(build, totalSubstats, filteredCharacter
   }
 
   // add chance as decimal
-  const { missingRolls100 } = totalSubstats;
-  const { missingRolls75 } = totalSubstats;
-  const { missingRolls50 } = totalSubstats;
-  const { missingRolls25 } = totalSubstats;
-  const { missingRolls00 } = totalSubstats;
+  const {
+    missingRolls100,
+    missingRolls75,
+    missingRolls50,
+    missingRolls25,
+    missingRolls00,
+  } = totalSubstats;
+
   if (missingRolls100 > 0) {
     sortValue -= 0.998;
   } else if (missingRolls75 > 0) {
@@ -325,13 +328,20 @@ export function combineEvaluatedSubstats(evaluatedArtifactStats) {
 }
 
 export function evaluateArtifactSet(equippedEvaluations, characterName, buildIndex) {
-  return combineEvaluatedSubstats([
-    equippedEvaluations[characterName][buildIndex].flower,
-    equippedEvaluations[characterName][buildIndex].plume,
-    equippedEvaluations[characterName][buildIndex].sands,
-    equippedEvaluations[characterName][buildIndex].goblet,
-    equippedEvaluations[characterName][buildIndex].circlet,
-  ]);
+  if (
+    equippedEvaluations
+    && equippedEvaluations[characterName]
+    && equippedEvaluations[characterName][buildIndex]
+  ) {
+    return combineEvaluatedSubstats([
+      equippedEvaluations[characterName][buildIndex].flower,
+      equippedEvaluations[characterName][buildIndex].plume,
+      equippedEvaluations[characterName][buildIndex].sands,
+      equippedEvaluations[characterName][buildIndex].goblet,
+      equippedEvaluations[characterName][buildIndex].circlet,
+    ]);
+  }
+  return [];
 }
 
 export function getSubstatIsAlwaysBad(substat) {

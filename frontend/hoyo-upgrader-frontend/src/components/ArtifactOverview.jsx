@@ -42,7 +42,8 @@ function getArtifactEvaluations(
     if (equippedEvaluations[build.characterName]) {
       // eslint-disable-next-line max-len
       competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
-      if (competingArtifact.wastedSubstats) {
+      // Any substats found?
+      if (Object.keys(competingArtifact).some((key) => competingArtifact[key] !== 0)) {
         upgradePotential = Math.max(
           0,
           competingArtifact.wastedSubstats - totalSubstats.wastedSubstats,
@@ -88,7 +89,7 @@ export default function ArtifactOverview({
   // generate artifact evaluation data
   // this is required to sort the artifacts by quality
   const evaluationData = artifactData
-    // .slice(200, 400)
+    // .slice(200, 250)
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,
