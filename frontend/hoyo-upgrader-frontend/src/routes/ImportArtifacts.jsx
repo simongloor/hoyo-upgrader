@@ -196,6 +196,7 @@ export default function ImportArtifacts({ children }) {
             href="https://artiscan.ninjabay.org/#/artifacts/help"
             target="_blank"
             rel="noreferrer"
+            style={{ marginRight: '8px' }}
           >
             Artiscan
           </a>
@@ -204,8 +205,9 @@ export default function ImportArtifacts({ children }) {
             href="https://frzyc.github.io/genshin-optimizer/#/scanner"
             target="_blank"
             rel="noreferrer"
+            style={{ marginLeft: '8px' }}
           >
-            More Scanners
+            more scanners
           </a>
           <br />
           <br />
