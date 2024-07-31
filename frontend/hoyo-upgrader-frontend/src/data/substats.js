@@ -259,7 +259,6 @@ export function getBuildQualitySortValue(build, totalSubstats, filteredCharacter
     missingRolls75,
     missingRolls50,
     missingRolls25,
-    missingRolls00,
   } = totalSubstats;
 
   if (missingRolls100 > 0) {
@@ -270,8 +269,6 @@ export function getBuildQualitySortValue(build, totalSubstats, filteredCharacter
     sortValue -= 0.5 ** missingRolls50;
   } else if (missingRolls25 > 0) {
     sortValue -= 0.25 ** missingRolls25;
-  } else if (missingRolls00 > 0) {
-    sortValue -= 0.00001;
   } else {
     sortValue -= 1;
   }
