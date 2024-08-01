@@ -16,6 +16,7 @@ import ArtifactStatText from './ArtifactStatText';
 export default function ArtifactEvaluation({
   evaluationData,
   handleClickPinArtifact,
+  filteredCharacter,
 }) {
   // console.log(evaluationData);
   return (
@@ -59,6 +60,7 @@ export default function ArtifactEvaluation({
         evaluationData.buildEvaluations
           .filter((b) => (
             b.upgradePotential > 0
+            || b.build.characterName === filteredCharacter
             || b.build.characterName === evaluationData.artifactData.location
           ))
           .map((b) => (

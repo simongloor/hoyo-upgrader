@@ -84,6 +84,13 @@ export default function Artifact({
           <h6>{count}</h6>
         )
       }
+      {
+        data
+        && ((data.rarity === 5 && data.level !== 20) || (data.rarity === 4 && data.level !== 16))
+        && (
+          <span className="level fine">{ data.level }</span>
+        )
+      }
     </div>
   );
 }

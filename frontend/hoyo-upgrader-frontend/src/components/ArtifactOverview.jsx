@@ -128,6 +128,7 @@ export default function ArtifactOverview({
               key={i}
               evaluationData={data}
               handleClickPinArtifact={handleClickPinArtifact}
+              filteredCharacter={filter.characterName}
             />
           ))
       }

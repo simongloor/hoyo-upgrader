@@ -17,12 +17,12 @@ export default function ArtifactStatText({ artifactData }) {
 
   return (
     <div className="ArtifactStatText">
-      <p>
+      <p className="fine">
         {stats.join('\n')}
       </p>
       {
         Array.from({ length: 4 - slotCount }, (_, index) => (
-          <p className="missing" key={index}>
+          <p className="missing fine" key={index}>
             missing
           </p>
         ))

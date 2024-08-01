@@ -5,6 +5,14 @@
   flex-shrink: 0;
   overflow: hidden;
 
+  .level {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    // opacity: 0.8;
+    color: $onElevation-highEmphasis;
+  }
+
   .tier {
     &.heavy h6 {
       // font-weight: 700;

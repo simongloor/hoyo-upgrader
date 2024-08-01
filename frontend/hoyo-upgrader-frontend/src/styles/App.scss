@@ -60,6 +60,9 @@ div, span, p {
   font-size: 16px;
   font-weight: 400;
 }
+span.fine, p.fine {
+  font-size: 10px;
+}
 li {
   margin: $space-minus3 0;
 }
