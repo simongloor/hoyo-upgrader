@@ -67,6 +67,79 @@ function countArtifactsBySet(artifactData) {
   return counts;
 }
 
+function countArtifactsByGroup(artifactData) {
+  const groupCounts = {};
+  artifactData.forEach((artifact) => {
+    switch (artifact.slotKey) {
+      case 'flower':
+      case 'plume': {
+        const group = `${artifact.set}-${artifact.slotKey}`; // e.g. 'gladiator-flower'
+        if (!groupCounts[group]) {
+          groupCounts[group] = {
+            piece: artifact.slotKey,
+            set: artifact.set,
+            stat: '',
+            count: 1,
+          };
+        } else {
+          groupCounts[group].count += 1;
+        }
+        break;
+      }
+      case 'sands': {
+        const group = `${artifact.set}-${artifact.slotKey}-${artifact.mainStatKey}`; // e.g. 'gladiator-sands-ATK%'
+        if (!groupCounts[group]) {
+          groupCounts[group] = {
+            piece: artifact.slotKey,
+            set: artifact.set,
+            stat: artifact.mainStatKey,
+            count: 1,
+          };
+        } else {
+          groupCounts[group].count += 1;
+        }
+        break;
+      }
+      case 'goblet': {
+        const group = `${artifact.slotKey}-${artifact.mainStatKey}`; // e.g. 'goblet-Physical DMG Bonus'
+        if (!groupCounts[group]) {
+          groupCounts[group] = {
+            piece: artifact.slotKey,
+            set: 'generic',
+            stat: artifact.mainStatKey,
+            count: 1,
+          };
+        } else {
+          groupCounts[group].count += 1;
+        }
+        break;
+      }
+      case 'circlet': {
+        const group = `${artifact.set}-${artifact.slotKey}-${artifact.mainStatKey}`; // e.g. 'gladiator-circlet-CRIT DMG'
+        if (!groupCounts[group]) {
+          groupCounts[group] = {
+            piece: artifact.slotKey,
+            set: artifact.set,
+            stat: artifact.mainStatKey,
+            count: 1,
+          };
+        } else {
+          groupCounts[group].count += 1;
+        }
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  });
+  return {
+    sortedGroups: Object.keys(groupCounts)
+      .sort((a, b) => groupCounts[b].count - groupCounts[a].count),
+    groups: groupCounts,
+  };
+}
+
 const artifactReducer = (
   state = {
     asList: [],
@@ -74,6 +147,10 @@ const artifactReducer = (
     counts: {
       sortedSets: [],
       sets: {},
+    },
+    groupCounts: {
+      sortedGroups: [],
+      groups: {},
     },
   },
   action,
@@ -108,6 +185,7 @@ const artifactReducer = (
       newState.asList = processJson(newJsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
+      newState.groupCounts = countArtifactsByGroup(newState.asList);
       return newState;
     }
     case 'UPDATE_ARTIFACTS': {
@@ -129,7 +207,7 @@ const artifactReducer = (
       newState.asList = processJson(action.payload.jsonData);
       newState.byCharacter = sortDataByCharacter(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
-
+      newState.groupCounts = countArtifactsByGroup(newState.asList);
       return newState;
     }
     default: {
