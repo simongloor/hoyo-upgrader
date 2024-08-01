@@ -5,6 +5,25 @@
   flex-shrink: 0;
   overflow: hidden;
 
+  .count {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    // opacity: 0.8;
+    color: $onSurface-highEmphasis;
+
+    div {
+      width: 36px;
+      height: 24px;
+      // opacity: 0.6;
+    }
+    h6 {
+      right: 8px;
+      bottom: 4px;
+      // opacity: 0.8;
+      // font-weight: 400;
+    }
+  }
   .level {
     position: absolute;
     top: 4px;

@@ -11,6 +11,7 @@ export default function Artifact({
   piece = 'empty',
   set = 'generic',
   count = -1,
+  mainstat,
   showTier = false,
   upgradePotential = -1,
 }) {
@@ -81,7 +82,10 @@ export default function Artifact({
       { widget }
       {
         count !== -1 && (
-          <h6>{count}</h6>
+          <div className={`count tile-marker ${mainstat && 'tier'}`}>
+            <div className={`${mainstat || ''}`} />
+            <h6 className="fine">{count}</h6>
+          </div>
         )
       }
       {

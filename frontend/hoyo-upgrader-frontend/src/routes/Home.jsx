@@ -18,6 +18,7 @@ import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
 import { evaluateArtifact, evaluateEquippedArtifacts } from '../data/substats';
+import ArtifactGroupCounts from '../components/ArtifactGroupCounts';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ export default function Home() {
       className="Home page"
     >
       <SettingsRow />
+      <ArtifactGroupCounts counts={artifacts.groupCounts} />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
         characterData={characters}

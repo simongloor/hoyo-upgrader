@@ -1,25 +1,27 @@
 /* eslint-disable default-param-last */
 
-const filterReducer = (
-  state = {
-    // character
-    characterName: null, // "RaidenShogun"
-    characterBuildName: null, // "CRIT"
-    characterSets: null, // ["Gilded..., Paradise..."]
-    // set
-    specificSet: null, // "Gilded..."
-    filterCharacterSets: false, // specific set enabled?
-    filterSpecificSet: false, // build sets enabled?
-    // piece
-    specificPiece: null, // "flower"
-    // mainstat
-    mainstat: {
-      sands: null,
-      goblet: null,
-      circlet: null,
-    },
-    showOffpieces: false,
+const emptyFilter = {
+  // character
+  characterName: null, // "RaidenShogun"
+  characterBuildName: null, // "CRIT"
+  characterSets: null, // ["Gilded..., Paradise..."]
+  // set
+  specificSet: null, // "Gilded..."
+  filterCharacterSets: false, // specific set enabled?
+  filterSpecificSet: false, // build sets enabled?
+  // piece
+  specificPiece: null, // "flower"
+  // mainstat
+  mainstat: {
+    sands: null,
+    goblet: null,
+    circlet: null,
   },
+  showOffpieces: false,
+};
+
+const filterReducer = (
+  state = { ...emptyFilter },
   action,
 ) => {
   const newState = state;
@@ -102,6 +104,16 @@ const filterReducer = (
       return {
         ...newState,
         showOffpieces: !state.showOffpieces,
+      };
+    }
+    case 'APPLY_FILTER': {
+      return {
+        ...emptyFilter,
+        ...action.payload.filter,
+        mainstat: {
+          ...emptyFilter.mainstat,
+          ...action.payload.filter.mainstat,
+        },
       };
     }
     default: {

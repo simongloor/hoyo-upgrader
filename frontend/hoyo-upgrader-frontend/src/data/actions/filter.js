@@ -32,3 +32,9 @@ export function toggleShowOffpieces() {
     type: 'TOGGLE_SHOW_OFFPIECES',
   });
 }
+export function applyFilter(filter) {
+  return ({
+    type: 'APPLY_FILTER',
+    payload: { filter },
+  });
+}
