@@ -79,6 +79,7 @@ function countArtifactsByGroup(artifactData) {
             piece: artifact.slotKey,
             set: artifact.set,
             stat: '',
+            offpieces: false,
             count: 1,
           };
         } else {
@@ -93,6 +94,7 @@ function countArtifactsByGroup(artifactData) {
             piece: artifact.slotKey,
             set: artifact.set,
             stat: artifact.mainStatKey,
+            offpieces: false,
             count: 1,
           };
         } else {
@@ -105,8 +107,9 @@ function countArtifactsByGroup(artifactData) {
         if (!groupCounts[group]) {
           groupCounts[group] = {
             piece: artifact.slotKey,
-            set: 'generic',
+            set: artifact.mainStatKey,
             stat: artifact.mainStatKey,
+            offpieces: true,
             count: 1,
           };
         } else {
@@ -121,6 +124,7 @@ function countArtifactsByGroup(artifactData) {
             piece: artifact.slotKey,
             set: artifact.set,
             stat: artifact.mainStatKey,
+            offpieces: false,
             count: 1,
           };
         } else {

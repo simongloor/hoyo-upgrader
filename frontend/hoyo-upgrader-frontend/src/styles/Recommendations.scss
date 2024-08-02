@@ -1,0 +1,7 @@
+@import 'variables.scss';
+
+.Recommendations.Box {
+  > span {
+    margin-bottom: $space-minus3;
+  }
+}

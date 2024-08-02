@@ -1,24 +1,45 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import paths from '../data/paths';
+import { applyFilter } from '../data/actions/filter';
 
 import Artifact from './Artifact';
 import Box from './Box';
 import ArtifactMultiSet from './ArtifactMultiSet';
 import SpacerPiece from './SpacerPiece';
-// import '../styles/ArtifactGroupCounts.scss';
+import '../styles/Recommendations.scss';
 
-export default function ArtifactGroupCounts({ counts }) {
+export default function Recommendations({ counts }) {
+  const dispatch = useDispatch();
   // event handlers
   const handleClickGroup = (group) => {
-    console.log(`Artifact Group: ${group}`);
+    const {
+      set,
+      piece,
+      stat,
+      offpieces,
+    } = counts.groups[group];
+    const setIsValid = Object.keys(paths.set).includes(set);
+    dispatch(applyFilter({
+      specificPiece: piece,
+      filterSpecificSet: setIsValid,
+      specificSet: setIsValid ? set : null,
+      mainstat: {
+        sands: piece === 'sands' ? stat : null,
+        goblet: piece === 'goblet' ? stat : null,
+        circlet: piece === 'circlet' ? stat : null,
+      },
+      showOffpieces: offpieces,
+    }));
   };
   return (
     <Box
-      className="ArtifactInventory"
+      className="Recommendations"
     >
-      <h2>Most Artifact Types</h2>
+      <h2>Recommendations</h2>
+      <span>Work on these types of artifacts:</span>
       <div className="row">
         {
           // iterate through paths.set
