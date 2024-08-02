@@ -17,7 +17,7 @@ import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
-import { evaluateArtifact, evaluateEquippedArtifacts } from '../data/substats';
+import { evaluateEquippedArtifacts } from '../data/substats';
 import Recommendations from '../components/Recommendations';
 
 export default function Home() {

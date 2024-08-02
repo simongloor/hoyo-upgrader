@@ -38,7 +38,7 @@ export default function Recommendations({ counts }) {
     <Box
       className="Recommendations"
     >
-      <h2>Recommendations</h2>
+      <h2>Build Recommendations</h2>
       <span>Work on these types of artifacts:</span>
       <div className="row">
         {

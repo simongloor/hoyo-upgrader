@@ -14,7 +14,7 @@ export default function useFilter(artifacts, characterJson) {
     if (filter.specificSet) {
       // CharacterOverviews
       // Only CharacterOverviews that want the set should be displayed
-      artifactsToFilter.byCharacter = Object.keys(artifactsToFilter.byCharacter)
+      artifactsToFilter.byCharacter = Object.keys(characterJson)
         .reduce((acc, character) => {
           if (
             Object.keys(characterJson).includes(character)

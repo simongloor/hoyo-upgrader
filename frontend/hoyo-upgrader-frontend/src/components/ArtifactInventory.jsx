@@ -54,7 +54,7 @@ export default function ArtifactInventory({ counts }) {
           // iterate through paths.set
           // render Artifact component for each set
           counts.sortedSets
-            .filter((set) => Object.keys(paths.set).includes(set))
+            .filter((set) => Object.keys(paths.set).includes(set)) // ensure set is known
             .map((set) => (
               <button
                 className={`button ${
