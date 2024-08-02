@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 
+import paths from './paths';
+
 //---------------------------------------------------------
 // data
 
@@ -244,7 +246,7 @@ export function getBuildQualitySortValue(build, totalSubstats, filteredCharacter
   let sortValue = totalSubstats.wastedSubstats;
 
   // filtered character build is pushed to be the first build in the list
-  if (filteredCharacterName && build.characterName === filteredCharacterName) {
+  if (filteredCharacterName && build.artifactWearer === filteredCharacterName) {
     sortValue -= 100;
   }
 
@@ -291,16 +293,13 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacte
 export function evaluateEquippedArtifacts(artifactsByCharacter, characters) {
   const evaluations = {};
   Object.keys(artifactsByCharacter).forEach((characterName) => {
-    evaluations[characterName] = [];
-    characters[characterName].forEach((build, iBuild) => {
-      evaluations[characterName][iBuild] = {};
-      Object.keys(artifactsByCharacter[characterName]).forEach((slot) => {
-        // console.log(characterName, iBuild, slot);
-        evaluations[characterName][iBuild][slot] = evaluateArtifact(
-          artifactsByCharacter[characterName][slot],
-          build,
-        );
-      });
+    evaluations[characterName] = {};
+    Object.keys(artifactsByCharacter[characterName]).forEach((slot) => {
+      // console.log(artifactsByCharacter[characterName]);
+      evaluations[characterName][slot] = evaluateArtifact(
+        artifactsByCharacter[characterName][slot],
+        characters[characterName],
+      );
     });
   });
   // console.log(evaluations);
@@ -326,18 +325,18 @@ export function combineEvaluatedSubstats(evaluatedArtifactStats) {
   return foundSubstats;
 }
 
-export function evaluateArtifactSet(equippedEvaluations, characterName, buildIndex) {
+export function evaluateArtifactSet(equippedEvaluations, characterName) {
   if (
     equippedEvaluations
     && equippedEvaluations[characterName]
-    && equippedEvaluations[characterName][buildIndex]
+    && equippedEvaluations[characterName]
   ) {
     return combineEvaluatedSubstats([
-      equippedEvaluations[characterName][buildIndex].flower,
-      equippedEvaluations[characterName][buildIndex].plume,
-      equippedEvaluations[characterName][buildIndex].sands,
-      equippedEvaluations[characterName][buildIndex].goblet,
-      equippedEvaluations[characterName][buildIndex].circlet,
+      equippedEvaluations[characterName].flower,
+      equippedEvaluations[characterName].plume,
+      equippedEvaluations[characterName].sands,
+      equippedEvaluations[characterName].goblet,
+      equippedEvaluations[characterName].circlet,
     ]);
   }
   return [];
@@ -345,4 +344,67 @@ export function evaluateArtifactSet(equippedEvaluations, characterName, buildInd
 
 export function getSubstatIsAlwaysBad(substat) {
   return substat === 'hp' || substat === 'def' || substat === 'atk';
+}
+
+export function getArtifactEvaluations(
+  artifactData,
+  characterBuilds,
+  equippedEvaluations,
+  filteredCharacter,
+) {
+  // get matching builds
+  let matchingBuilds = [];
+  if (artifactData.slotKey === paths.piece.flower || artifactData.slotKey === paths.piece.plume) {
+    // flower and plume can be used by any character
+    matchingBuilds = characterBuilds;
+  } else {
+    // if no main stat is set, show all builds that can use the artifact
+    matchingBuilds = characterBuilds.filter((build) => (
+      build.mainstats[artifactData.slotKey].includes(artifactData.mainStatKey)
+    ));
+  }
+  // console.log(matchingBuilds);
+
+  // generate data required for rendering
+  let highestUpgradePotential = 0;
+  const buildEvaluations = matchingBuilds.map((build) => {
+    // console.log(build);
+    const totalSubstats = evaluateArtifact(artifactData, build);
+    let competingArtifact = null;
+    if (equippedEvaluations[build.artifactWearer]) {
+      let upgradePotential = 0;
+      // eslint-disable-next-line max-len
+      competingArtifact = equippedEvaluations[build.artifactWearer][artifactData.slotKey];
+
+      // Any substats found?
+      if (Object.keys(competingArtifact).some((key) => competingArtifact[key] !== 0)) {
+        upgradePotential = Math.max(
+          0,
+          competingArtifact.wastedSubstats - totalSubstats.wastedSubstats,
+        );
+      } else {
+        // no artifact equipped, count all possible substats
+        const maxRolls = artifactData.rarity === 5 ? 9 : 7;
+        upgradePotential = Math.max(
+          0,
+          maxRolls - totalSubstats.impossibleSubstats - totalSubstats.wastedSubstats,
+        );
+      }
+      highestUpgradePotential = Math.max(highestUpgradePotential, upgradePotential);
+    }
+    return {
+      build,
+      totalSubstats,
+      competingArtifact,
+      upgradePotential: highestUpgradePotential,
+      sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
+    };
+  }).sort((a, b) => (a.sortValue - b.sortValue)); // sort builds by quality
+
+  // return data
+  return {
+    artifactData,
+    buildEvaluations,
+    highestUpgradePotential,
+  };
 }

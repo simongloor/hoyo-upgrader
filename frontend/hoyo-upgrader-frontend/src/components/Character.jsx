@@ -6,7 +6,6 @@ import { toggleCharacterFilter } from '../data/actions/filter';
 
 export default function Character({
   characterName = 'generic',
-  buildName,
   sets,
   upgradePotential = 0,
 }) {
@@ -15,7 +14,7 @@ export default function Character({
   // event handlers
   const handleClick = () => {
     // console.log(`Character: ${characterName} ${buildName}`);
-    dispatch(toggleCharacterFilter(characterName, buildName, sets));
+    dispatch(toggleCharacterFilter(characterName, sets));
   };
 
   // render
@@ -23,7 +22,6 @@ export default function Character({
     <button
       className={`Character tile ${characterName}`}
       type="button"
-      disabled={buildName === undefined}
       onClick={handleClick}
     >
       <img

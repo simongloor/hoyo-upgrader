@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getBuildKey } from '../data/actions/characters';
 
 const emptyArtifactData = {
   flower: null,
@@ -87,7 +86,7 @@ export default function useFilter(artifacts, characterJson) {
     }
 
     // Filter by character
-    if (filter.characterName && filter.characterBuildName) {
+    if (filter.characterName) {
       // CharacterOverviews
       // Only the CharacterOverview that matches the build should be displayed
       if (artifactsToFilter.byCharacter[filter.characterName]) {
@@ -99,9 +98,7 @@ export default function useFilter(artifacts, characterJson) {
       // Artifacts
       // Only Artifacts that can be used by the build should be displayed
       if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
-        const buildData = characterJson[filter.characterName].find(
-          (build) => getBuildKey(build) === filter.characterBuildName,
-        );
+        const buildData = characterJson[filter.characterName];
         artifactsToFilter.asList = artifactsToFilter.asList
           .filter((artifact) => (
             (filter.showOffpieces || buildData.sets.includes(artifact.setKey))

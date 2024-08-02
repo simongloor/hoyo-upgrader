@@ -2,9 +2,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import paths from '../data/paths';
 import { getBuildsBySets, getBuildsCompact } from '../data/characters';
-import { evaluateArtifact, getArtifactQualitySortValue, getBuildQualitySortValue } from '../data/substats';
+import { getArtifactEvaluations, getArtifactQualitySortValue } from '../data/substats';
 
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
@@ -15,85 +14,22 @@ import togglePinnedArtifact from '../data/actions/pinboard';
 
 // import '../styles/ArtifactOverview.scss';
 
-function getArtifactEvaluations(
-  artifactData,
-  characterBuilds,
-  equippedEvaluations,
-  filteredCharacter,
-) {
-  // get matching builds
-  let matchingBuilds = [];
-  if (artifactData.slotKey === paths.piece.flower || artifactData.slotKey === paths.piece.plume) {
-    // flower and plume can be used by any character
-    matchingBuilds = characterBuilds;
-  } else {
-    // if no main stat is set, show all builds that can use the artifact
-    matchingBuilds = characterBuilds.filter((build) => (
-      build.mainstats[artifactData.slotKey].includes(artifactData.mainStatKey)
-    ));
-  }
-  // console.log(matchingBuilds);
-
-  // generate data required for rendering
-  let highestUpgradePotential = 0;
-  const buildEvaluations = matchingBuilds.map((build) => {
-    const totalSubstats = evaluateArtifact(artifactData, build);
-    let competingArtifact = null;
-    if (equippedEvaluations[build.characterName]) {
-      let upgradePotential = 0;
-      // eslint-disable-next-line max-len
-      competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
-
-      // Any substats found?
-      if (Object.keys(competingArtifact).some((key) => competingArtifact[key] !== 0)) {
-        upgradePotential = Math.max(
-          0,
-          competingArtifact.wastedSubstats - totalSubstats.wastedSubstats,
-        );
-      } else {
-        // no artifact equipped, count all possible substats
-        const maxRolls = artifactData.rarity === 5 ? 9 : 7;
-        upgradePotential = Math.max(
-          0,
-          maxRolls - totalSubstats.impossibleSubstats - totalSubstats.wastedSubstats,
-        );
-      }
-      highestUpgradePotential = Math.max(highestUpgradePotential, upgradePotential);
-    }
-    return {
-      build,
-      totalSubstats,
-      competingArtifact,
-      upgradePotential: highestUpgradePotential,
-      sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
-    };
-  }).sort((a, b) => (a.sortValue - b.sortValue)); // sort builds by quality
-
-  // return data
-  return {
-    artifactData,
-    buildEvaluations,
-    highestUpgradePotential,
-  };
-}
-
 export default function ArtifactOverview({
   artifactData,
   characterData,
-  equippedEvaluations, // !!!!!! Alhaitham missing!
+  equippedEvaluations,
 }) {
   // console.log(equippedEvaluations);
   const dispatch = useDispatch();
 
   const characterBuildsBySet = getBuildsBySets(characterData);
   const allCharacterBuilds = getBuildsCompact(characterData);
-  // console.log(characterBuildsBySet, allCharacterBuilds);
   const filter = useSelector((state) => state.filter);
 
   // generate artifact evaluation data
   // this is required to sort the artifacts by quality
   const evaluationData = artifactData
-    // .slice(200, 250)
+    .slice(200, 250)
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,

@@ -12,7 +12,6 @@ export default function FilterTileCharacterBuild({ filter }) {
     >
       <Character
         characterName={filter.characterName || 'generic'}
-        buildName={filter.characterBuildName || undefined}
         sets={filter.characterSets}
       />
     </div>

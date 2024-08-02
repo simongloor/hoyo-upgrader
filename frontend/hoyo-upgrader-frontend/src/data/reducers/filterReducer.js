@@ -3,7 +3,6 @@
 const emptyFilter = {
   // character
   characterName: null, // "RaidenShogun"
-  characterBuildName: null, // "CRIT"
   characterSets: null, // ["Gilded..., Paradise..."]
   // set
   specificSet: null, // "Gilded..."
@@ -67,8 +66,7 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_CHARACTER': {
-      const enableFilter = (state.characterName !== action.payload.characterName
-          || state.characterBuildName !== action.payload.characterBuildName);
+      const enableFilter = (state.characterName !== action.payload.characterName);
 
       // can't filter for both build sets and specific sets
       if (enableFilter && !state.filterSpecificSet) {
@@ -81,12 +79,10 @@ const filterReducer = (
       return enableFilter ? {
         ...newState,
         characterName: action.payload.characterName,
-        characterBuildName: action.payload.characterBuildName,
         characterSets: action.payload.characterSets,
       } : {
         ...newState,
         characterName: null,
-        characterBuildName: null,
         characterSets: null,
       };
     }

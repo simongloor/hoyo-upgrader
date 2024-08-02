@@ -11,6 +11,3 @@ export function updateCharacters(jsonData) {
     payload: { jsonData },
   });
 }
-export function getBuildKey(build) {
-  return `${build.characterName}-${build.index}`;
-}

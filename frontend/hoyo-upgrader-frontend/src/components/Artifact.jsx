@@ -27,6 +27,7 @@ export default function Artifact({
   const [evaluation, setEvaluation] = React.useState(null);
   useEffect(() => {
     if (data && characterBuild) {
+      // console.log(data, characterBuild);
       const substats = evaluateArtifact(data, characterBuild);
       const tier = getArtifactTier(data, substats);
       setEvaluation({ substats, tier });

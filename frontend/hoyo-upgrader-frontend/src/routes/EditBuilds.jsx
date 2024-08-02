@@ -13,7 +13,8 @@ import paths from '../data/paths';
 
 import '../styles/EditBuilds.scss';
 import { updateCharacters } from '../data/actions/characters';
-import { getBuildIndex, getEmptyBuild } from '../data/characters';
+import { getEmptyBuild } from '../data/characters';
+import { sortBuildsByOwner } from '../data/builds';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
@@ -21,7 +22,10 @@ export default function EditBuilds() {
 
   const [jsonString, setJsonString] = useState('');
   const [jsonIsValid, setJsonIsValid] = useState(true);
-  const [characterData, setCharacterData] = useState({});
+  const [characterData, setCharacterData] = useState({
+    byWearer: {},
+    byOwner: {},
+  });
 
   // Get data from local storage
   useEffect(() => {
@@ -30,12 +34,15 @@ export default function EditBuilds() {
       {},
       '',
     ).data;
-
-    // Split into sets to enable editing in tabs with invalid data
-    const jsonData = JSON.parse(newJsonString);
-
-    setCharacterData(jsonData);
     setJsonString(newJsonString);
+
+    const jsonData = JSON.parse(newJsonString);
+    const byOwner = sortBuildsByOwner(jsonData);
+
+    setCharacterData({
+      byWearer: jsonData,
+      byOwner,
+    });
   }, []);
 
   // handlers
@@ -44,32 +51,37 @@ export default function EditBuilds() {
 
     try {
       const jsonData = JSON.parse(e.target.value);
-      setCharacterData(jsonData);
+      const byOwner = sortBuildsByOwner(jsonData);
+      setCharacterData({
+        byWearer: jsonData,
+        byOwner,
+      });
       setJsonIsValid(true);
     } catch (error) {
       setJsonIsValid(false);
     }
   };
+  console.log(characterData);
 
-  const handleCreateBuild = (characterName) => {
-    const newCharacterData = { ...characterData };
-    if (!newCharacterData[characterName]) {
-      newCharacterData[characterName] = [];
+  const handleCreateBuild = (buildOwner) => {
+    const newCharacterData = { ...characterData.byWearer };
+    if (!newCharacterData[buildOwner]) {
+      newCharacterData[buildOwner] = [];
     }
-    newCharacterData[characterName].push(getEmptyBuild());
+    newCharacterData[buildOwner].push(getEmptyBuild());
     setCharacterData(newCharacterData);
   };
-  const handleDeleteBuild = (characterName, index) => {
-    const newCharacterData = { ...characterData };
-    // const index = getBuildIndex(newCharacterData, characterName, index);
-    newCharacterData[characterName].splice(index, 1);
+  const handleDeleteBuild = (buildOwner, index) => {
+    const newCharacterData = { ...characterData.byWearer };
+    const { artifactWearer } = characterData.byOwner[buildOwner][index];
+    delete newCharacterData[artifactWearer];
     setCharacterData(newCharacterData);
   };
 
-  const handleToggleSet = (characterName, index, setName) => {
-    const newCharacterData = { ...characterData };
-    // const index = getBuildIndex(newCharacterData, characterName, index);
-    const build = newCharacterData[characterName][index];
+  const handleToggleSet = (buildOwner, index, setName) => {
+    const newCharacterData = { ...characterData.byWearer };
+    const { artifactWearer } = characterData.byOwner[buildOwner][index];
+    const build = newCharacterData[artifactWearer];
     if (build.sets.includes(setName)) {
       build.sets = build.sets.filter((set) => set !== setName);
     } else {
@@ -77,11 +89,11 @@ export default function EditBuilds() {
     }
     setCharacterData(newCharacterData);
   };
-  const handleToggleMainstat = (characterName, index, slot, stat) => {
+  const handleToggleMainstat = (buildOwner, index, slot, stat) => {
     // console.log(index);
-    const newCharacterData = { ...characterData };
-    // const index = getBuildIndex(newCharacterData, characterName, index);
-    const build = newCharacterData[characterName][index];
+    const newCharacterData = { ...characterData.byWearer };
+    const { artifactWearer } = characterData.byOwner[buildOwner][index];
+    const build = newCharacterData[artifactWearer];
     if (build.mainstats[slot].includes(stat)) {
       build.mainstats[slot] = build.mainstats[slot].filter((s) => s !== stat);
     } else {
@@ -89,10 +101,10 @@ export default function EditBuilds() {
     }
     setCharacterData(newCharacterData);
   };
-  const handleToggleSubstat = (characterName, index, stat) => {
-    const newCharacterData = { ...characterData };
-    // const index = getBuildIndex(newCharacterData, characterName, index);
-    const build = newCharacterData[characterName][index];
+  const handleToggleSubstat = (buildOwner, index, stat) => {
+    const newCharacterData = { ...characterData.byWearer };
+    const { artifactWearer } = characterData.byOwner[buildOwner][index];
+    const build = newCharacterData[artifactWearer];
     if (build.substats.includes(stat)) {
       build.substats = build.substats.filter((s) => s !== stat);
     } else {
@@ -133,11 +145,11 @@ export default function EditBuilds() {
         />
       </Box>
       {
-        Object.keys(paths.character).map((characterName, i) => (
+        Object.keys(paths.character).map((buildOwner, i) => (
           <CharacterEditor
-            key={characterName}
-            characterName={characterName}
-            characterBuilds={characterData[characterName]}
+            key={buildOwner}
+            buildOwner={buildOwner}
+            characterBuilds={characterData.byOwner[buildOwner]}
             onClickAddBuild={handleCreateBuild}
             onClickDeleteBuild={handleDeleteBuild}
             onClickToggleSet={handleToggleSet}

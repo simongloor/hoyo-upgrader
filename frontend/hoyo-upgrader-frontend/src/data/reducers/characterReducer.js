@@ -37,24 +37,15 @@ const characterReducer = (
       return newJsonData;
     }
     case 'UPDATE_CHARACTERS': {
-      // embed the build index into the build data
-      const newJsonData = action.payload.jsonData;
-      Object.keys(newJsonData).forEach((characterName) => {
-        newJsonData[characterName].forEach((build, index) => {
-          newJsonData[characterName][index].characterName = characterName;
-          newJsonData[characterName][index].index = index;
-        });
-      });
-
       // save data to local storage
       saveStateToStorage(
         paths.localStorage.charactersJson,
         {
-          data: JSON.stringify(newJsonData, 0, 2),
+          data: JSON.stringify(action.payload.jsonData, 0, 2),
         },
       );
 
-      return newJsonData;
+      return action.payload.jsonData;
     }
     default: {
       return state;

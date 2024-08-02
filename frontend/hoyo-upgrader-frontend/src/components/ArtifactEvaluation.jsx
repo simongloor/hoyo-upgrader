@@ -8,7 +8,6 @@ import Artifact from './Artifact';
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import ArtifactStats from './ArtifactStats';
-import { getBuildKey } from '../data/actions/characters';
 
 import '../styles/ArtifactEvaluation.scss';
 import ArtifactStatText from './ArtifactStatText';
@@ -62,18 +61,15 @@ export default function ArtifactEvaluation({
             // show with upgrade potential
             b.upgradePotential > 0
             // show for the selected character
-            || b.build.characterName === filteredCharacter
+            || b.build.artifactWearer === filteredCharacter
             // show for the artifact's wearer
-            || b.build.characterName === evaluationData.artifactData.location
+            || b.build.artifactWearer === evaluationData.artifactData.location
           ))
           .map((b) => (
-            <Fragment key={
-              getBuildKey(b.build)
-            }>
+            <Fragment key={b.build.artifactWearer}>
               <SpacerPiece size="small" />
               <Character
-                characterName={b.build.characterName}
-                buildName={getBuildKey(b.build)}
+                characterName={b.build.artifactWearer}
                 sets={b.build.sets}
                 upgradePotential={b.upgradePotential}
               />

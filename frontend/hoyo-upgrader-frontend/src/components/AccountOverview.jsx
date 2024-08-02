@@ -8,24 +8,19 @@ import Box from './Box';
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
-import { getBuildKey } from '../data/actions/characters';
 
 import '../styles/AccountOverview.scss';
 
 export default function AccountOverview({ characterData, artifactData, equippedEvaluations }) {
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
-  const dataToDisplay = Object.keys(artifactData).map((characterName) => (
-    characterData[characterName] ? (
-      characterData[characterName].map((characterBuild, iBuild) => (
-        {
-          characterName,
-          characterBuild,
-          characterArtifacts: artifactData[characterName],
-          totalSubstats: evaluateArtifactSet(equippedEvaluations, characterName, iBuild),
-        }
-      ))
-    ) : null
+  const dataToDisplay = Object.keys(artifactData).map((artifactWearer) => (
+    characterData[artifactWearer] ? {
+      artifactWearer,
+      characterBuild: characterData[artifactWearer],
+      characterArtifacts: artifactData[artifactWearer],
+      totalSubstats: evaluateArtifactSet(equippedEvaluations, artifactWearer),
+    } : null
   )).filter((data) => data !== null).flat();
 
   // Sort by wasted substats
@@ -36,11 +31,11 @@ export default function AccountOverview({ characterData, artifactData, equippedE
   // Remove duplicate characters from the beginning of the list
   const seenCharacters = {};
   dataToDisplay.forEach((data) => {
-    seenCharacters[data.characterName] = true;
+    seenCharacters[data.artifactWearer] = true;
   });
   for (let i = dataToDisplay.length - 1; i >= 0; i -= 1) {
-    if (seenCharacters[dataToDisplay[i].characterName]) {
-      seenCharacters[dataToDisplay[i].characterName] = false;
+    if (seenCharacters[dataToDisplay[i].artifactWearer]) {
+      seenCharacters[dataToDisplay[i].artifactWearer] = false;
     } else {
       dataToDisplay.splice(i, 1);
       i -= 1;
@@ -56,8 +51,8 @@ export default function AccountOverview({ characterData, artifactData, equippedE
       {
         dataToDisplay.map((data) => (
           <CharacterOverview
-            key={getBuildKey(data.characterBuild)}
-            characterName={data.characterName}
+            key={data.artifactWearer}
+            characterName={data.artifactWearer}
             characterBuild={data.characterBuild}
             characterArtifacts={data.characterArtifacts}
             totalSubstats={data.totalSubstats}

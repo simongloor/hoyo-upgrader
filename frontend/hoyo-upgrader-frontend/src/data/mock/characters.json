@@ -1,55 +1,1116 @@
 {
-  "RaidenShogun": [{
-    "sets": ["EmblemOfSeveredFate"],
+  "RaidenShogun": {
+    "buildOwner": "RaidenShogun",
+    "sets": [
+      "GildedDreams",
+      "FlowerOfParadiseLost"
+    ],
     "mainstats": {
-      "sands": ["atk_", "enerRech_"], 
-      "goblet": ["electro_dmg_"], 
-      "circlet": ["critRate_", "critDMG_"]
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
     },
-    "substats": ["enerRech_","critRate_","critDMG_","atk_"]
-  }, {
-    "sets": ["GildedDreams", "FlowerOfParadiseLost"],
+    "substats": [
+      "eleMas"
+    ],
+    "artifactWearer": "RaidenShogun"
+  },
+  "Xiangling": {
+    "buildOwner": "Xiangling",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
     "mainstats": {
-      "sands": ["eleMas"], 
-      "goblet": ["eleMas"], 
-      "circlet": ["eleMas"]
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "pyro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
     },
-    "substats": ["eleMas"]
-  }],
-  "Xiangling": [{
-    "sets": ["EmblemOfSeveredFate"],
+    "substats": [
+      "enerRech_",
+      "critRate_",
+      "critDMG_",
+      "atk_",
+      "eleMas"
+    ],
+    "artifactWearer": "Xiangling"
+  },
+  "Beidou": {
+    "buildOwner": "Beidou",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
     "mainstats": {
-      "sands": ["enerRech_"],
-      "goblet": ["pyro_dmg_"],
-      "circlet": ["critRate_", "critDMG_"]
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "electro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
     },
-    "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
-  }],
-  "Beidou": [{
-    "sets": ["EmblemOfSeveredFate"],
+    "substats": [
+      "enerRech_",
+      "critRate_",
+      "critDMG_",
+      "atk_"
+    ],
+    "artifactWearer": "Beidou"
+  },
+  "Lisa": {
+    "buildOwner": "Lisa",
+    "sets": [
+      "EmblemOfSeveredFate",
+      "NoblesseOblige",
+      "ShimenawasReminiscence",
+      "GladiatorsFinale"
+    ],
     "mainstats": {
-      "sands": ["enerRech_"], 
-      "goblet": ["electro_dmg_"], 
-      "circlet": ["critRate_", "critDMG_"]
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "electro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
     },
-    "substats": ["enerRech_","critRate_","critDMG_","atk_"]
-  }],
-  "Lisa": [{
-    "sets": ["EmblemOfSeveredFate", "NoblesseOblige", "ShimenawasReminiscence", "GladiatorsFinale"],
+    "substats": [
+      "enerRech_",
+      "critRate_",
+      "critDMG_",
+      "atk_",
+      "eleMas"
+    ],
+    "artifactWearer": "Lisa"
+  },
+  "Charlotte": {
+    "buildOwner": "Charlotte",
+    "sets": [
+      "EmblemOfSeveredFate",
+      "GladiatorsFinale"
+    ],
     "mainstats": {
-      "sands": ["atk_"], 
-      "goblet": ["electro_dmg_"], 
-      "circlet": ["critRate_", "critDMG_"]
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "atk_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
     },
-    "substats": ["enerRech_","critRate_","critDMG_","atk_", "eleMas"]
-  }],
-  "Charlotte": [{
-    "sets": ["EmblemOfSeveredFate", "GladiatorsFinale"],
+    "substats": [
+      "enerRech_",
+      "critRate_",
+      "atk_"
+    ],
+    "artifactWearer": "Charlotte"
+  },
+  "Keqing": {
+    "buildOwner": "Keqing",
+    "sets": [
+      "ShimenawasReminiscence",
+      "GladiatorsFinale"
+    ],
     "mainstats": {
-      "sands": ["enerRech_"], 
-      "goblet": ["atk_"], 
-      "circlet": ["critRate_"]
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "electro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
     },
-    "substats": ["enerRech_","critRate_","atk_"]
-  }]
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "atk_"
+    ],
+    "artifactWearer": "Keqing"
+  },
+  "Rosaria": {
+    "buildOwner": "Rosaria",
+    "sets": [
+      "WanderersTroupe",
+      "GildedDreams",
+      "NoblesseOblige",
+      "GladiatorsFinale"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "cryo_dmg_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "eleMas",
+      "enerRech_"
+    ],
+    "artifactWearer": "Rosaria"
+  },
+  "YaeMiko": null,
+  "Wanderer": {
+    "buildOwner": "Wanderer",
+    "sets": [
+      "ShimenawasReminiscence"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "anemo_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Wanderer"
+  },
+  "Bennett": {
+    "buildOwner": "Bennett",
+    "sets": [
+      "NoblesseOblige"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "heal_",
+        "hp_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Bennett"
+  },
+  "Gorou": {
+    "buildOwner": "Gorou",
+    "sets": [
+      "TheExile"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "def_",
+        "geo_dmg_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Gorou"
+  },
+  "Yelan": {
+    "buildOwner": "Yelan",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_"
+      ],
+      "goblet": [
+        "hydro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "hp_"
+    ],
+    "artifactWearer": "Yelan"
+  },
+  "Xingqiu": {
+    "buildOwner": "Xingqiu",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "hydro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Xingqiu"
+  },
+  "Kaeya": {
+    "buildOwner": "Kaeya",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "cryo_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Kaeya"
+  },
+  "Candace": {
+    "buildOwner": "Candace",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_"
+      ],
+      "goblet": [
+        "hydro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "hp_"
+    ],
+    "artifactWearer": "Candace"
+  },
+  "Yanfei": {
+    "buildOwner": "Yanfei",
+    "sets": [
+      "WanderersTroupe"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_",
+        "eleMas"
+      ],
+      "goblet": [
+        "pyro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "eleMas",
+      "atk_"
+    ],
+    "artifactWearer": "Yanfei"
+  },
+  "KukiShinobu": {
+    "buildOwner": "KukiShinobu",
+    "sets": [
+      "GildedDreams"
+    ],
+    "mainstats": {
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
+    },
+    "substats": [
+      "eleMas",
+      "hp_"
+    ],
+    "artifactWearer": "KukiShinobu"
+  },
+  "SangonomiyaKokomi": {
+    "buildOwner": "SangonomiyaKokomi",
+    "sets": [
+      "OceanHuedClam",
+      "GildedDreams"
+    ],
+    "mainstats": {
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "enerRech_",
+      "eleMas"
+    ],
+    "artifactWearer": "SangonomiyaKokomi"
+  },
+  "Nilou": {
+    "buildOwner": "Nilou",
+    "sets": [
+      "TenacityOfTheMillelith",
+      "VourukashasGlow"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "hp_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "eleMas"
+    ],
+    "artifactWearer": "Nilou"
+  },
+  "Layla": {
+    "buildOwner": "Layla",
+    "sets": [
+      "TenacityOfTheMillelith"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "hp_"
+      ]
+    },
+    "substats": [
+      "enerRech_",
+      "critRate_",
+      "hp_"
+    ],
+    "artifactWearer": "Layla"
+  },
+  "Baizhu": {
+    "buildOwner": "Baizhu",
+    "sets": [
+      "OceanHuedClam"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "hp_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Baizhu"
+  },
+  "Xianyun": {
+    "buildOwner": "Xianyun",
+    "sets": [
+      "ViridescentVenerer"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "atk_"
+      ],
+      "goblet": [
+        "atk_"
+      ],
+      "circlet": [
+        "atk_",
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Xianyun"
+  },
+  "KaedeharaKazuha": {
+    "buildOwner": "KaedeharaKazuha",
+    "sets": [
+      "ViridescentVenerer"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
+    },
+    "substats": [
+      "eleMas",
+      "enerRech_"
+    ],
+    "artifactWearer": "KaedeharaKazuha"
+  },
+  "Sucrose": {
+    "buildOwner": "Sucrose",
+    "sets": [
+      "ViridescentVenerer"
+    ],
+    "mainstats": {
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
+    },
+    "substats": [
+      "eleMas",
+      "enerRech_",
+      "critRate_"
+    ],
+    "artifactWearer": "Sucrose"
+  },
+  "Sayu": {
+    "buildOwner": "Jean",
+    "sets": [
+      "ViridescentVenerer"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
+    },
+    "substats": [
+      "enerRech_",
+      "eleMas",
+      "critRate_"
+    ],
+    "artifactWearer": "Jean"
+  },
+  "Noelle": {
+    "buildOwner": "Noelle",
+    "sets": [],
+    "mainstats": {
+      "sands": [
+        "def_"
+      ],
+      "goblet": [
+        "geo_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "def_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Noelle"
+  },
+  "Navia": {
+    "buildOwner": "Navia",
+    "sets": [
+      "MarechausseeHunter"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "atk_"
+      ],
+      "goblet": [
+        "geo_dmg_"
+      ],
+      "circlet": [
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Navia"
+  },
+  "Neuvillette": {
+    "buildOwner": "Neuvillette",
+    "sets": [
+      "MarechausseeHunter"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_"
+      ],
+      "goblet": [
+        "hp_",
+        "hydro_dmg_"
+      ],
+      "circlet": [
+        "hp_",
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "critDMG_",
+      "critRate_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Neuvillette"
+  },
+  "Gaming": {
+    "buildOwner": "Gaming",
+    "sets": [
+      "MarechausseeHunter"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "eleMas"
+      ],
+      "goblet": [
+        "pyro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "atk_",
+      "eleMas",
+      "enerRech_"
+    ],
+    "artifactWearer": "Gaming"
+  },
+  "Furina": {
+    "buildOwner": "Furina",
+    "sets": [
+      "GoldenTroupe"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_",
+        "enerRech_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "critRate_",
+      "critDMG_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Furina"
+  },
+  "Fischl": {
+    "buildOwner": "Fischl",
+    "sets": [
+      "GoldenTroupe"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "electro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "atk_"
+    ],
+    "artifactWearer": "Fischl"
+  },
+  "Nahida": {
+    "buildOwner": "Nahida",
+    "sets": [
+      "DeepwoodMemories"
+    ],
+    "mainstats": {
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas",
+        "dendro_dmg_"
+      ],
+      "circlet": [
+        "eleMas",
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "eleMas"
+    ],
+    "artifactWearer": "Nahida"
+  },
+  "Dehya": {
+    "buildOwner": "Dehya",
+    "sets": [
+      "Instructor"
+    ],
+    "mainstats": {
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "eleMas"
+      ],
+      "circlet": [
+        "eleMas"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "enerRech_",
+      "eleMas"
+    ],
+    "artifactWearer": "Dehya"
+  },
+  "Yaoyao": {
+    "buildOwner": "Yaoyao",
+    "sets": [
+      "Instructor"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_",
+        "enerRech_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "hp_",
+        "heal_"
+      ]
+    },
+    "substats": [
+      "enerRech_",
+      "critRate_",
+      "hp_"
+    ],
+    "artifactWearer": "Yaoyao"
+  },
+  "Faruzan": {
+    "buildOwner": "Faruzan",
+    "sets": [
+      "TheExile"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "atk_"
+      ],
+      "goblet": [
+        "anemo_dmg_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Faruzan"
+  },
+  "GMC": {
+    "buildOwner": "GMC",
+    "sets": [
+      "EmblemOfSeveredFate",
+      "NoblesseOblige",
+      "GladiatorsFinale",
+      "ShimenawasReminiscence"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_",
+        "enerRech_"
+      ],
+      "goblet": [
+        "geo_dmg_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "GMC"
+  },
+  "Collei": {
+    "buildOwner": "Collei",
+    "sets": [
+      "DeepwoodMemories",
+      "GildedDreams",
+      "TenacityOfTheMillelith"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "eleMas"
+      ],
+      "goblet": [
+        "dendro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "atk_"
+      ]
+    },
+    "substats": [
+      "enerRech_",
+      "critDMG_",
+      "critRate_",
+      "eleMas"
+    ],
+    "artifactWearer": "Collei"
+  },
+  "Mona": {
+    "buildOwner": "Mona",
+    "sets": [
+      "NoblesseOblige"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "hydro_dmg_",
+        "atk_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Mona"
+  },
+  "Kaveh": {
+    "buildOwner": "Alhaitham",
+    "sets": [
+      "GildedDreams"
+    ],
+    "mainstats": {
+      "sands": [
+        "eleMas"
+      ],
+      "goblet": [
+        "dendro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "eleMas"
+    ],
+    "artifactWearer": "Alhaitham"
+  },
+  "Wriothesley": null,
+  "Diona": {
+    "buildOwner": "Shenhe",
+    "sets": [
+      "NoblesseOblige"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "atk_",
+        "cryo_dmg_"
+      ],
+      "circlet": [
+        "critRate_"
+      ]
+    },
+    "substats": [
+      "enerRech_",
+      "atk_",
+      "critDMG_",
+      "critRate_"
+    ],
+    "artifactWearer": "Shenhe"
+  },
+  "Xinyan": {
+    "buildOwner": "Bennett",
+    "sets": [
+      "NoblesseOblige"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_"
+      ],
+      "goblet": [
+        "hp_"
+      ],
+      "circlet": [
+        "hp_",
+        "heal_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Xinyan"
+  },
+  "Barbara": {
+    "buildOwner": "SangonomiyaKokomi",
+    "sets": [
+      "OceanHuedClam"
+    ],
+    "mainstats": {
+      "sands": [
+        "hp_"
+      ],
+      "goblet": [
+        "hydro_dmg_"
+      ],
+      "circlet": [
+        "heal_"
+      ]
+    },
+    "substats": [
+      "hp_",
+      "enerRech_"
+    ],
+    "artifactWearer": "Barbara"
+  },
+  "AratakiItto": null,
+  "Razor": {
+    "buildOwner": "RaidenShogun",
+    "sets": [
+      "EmblemOfSeveredFate"
+    ],
+    "mainstats": {
+      "sands": [
+        "enerRech_",
+        "atk_"
+      ],
+      "goblet": [
+        "electro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_"
+    ],
+    "artifactWearer": "Razor"
+  },
+  "Dori": {
+    "buildOwner": "YaeMiko",
+    "sets": [
+      "GoldenTroupe"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "electro_dmg_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "atk_",
+      "eleMas"
+    ],
+    "artifactWearer": "Dori"
+  },
+  "Ningguang": {
+    "buildOwner": "Noelle",
+    "sets": [
+      "GladiatorsFinale"
+    ],
+    "mainstats": {
+      "sands": [
+        "def_"
+      ],
+      "goblet": [
+        "def_"
+      ],
+      "circlet": [
+        "critRate_",
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "enerRech_",
+      "def_"
+    ],
+    "artifactWearer": "Ningguang"
+  },
+  "Chongyun": {
+    "buildOwner": "Wriothesley",
+    "sets": [
+      "MarechausseeHunter"
+    ],
+    "mainstats": {
+      "sands": [
+        "atk_"
+      ],
+      "goblet": [
+        "cryo_dmg_"
+      ],
+      "circlet": [
+        "critDMG_"
+      ]
+    },
+    "substats": [
+      "critRate_",
+      "critDMG_",
+      "atk_",
+      "eleMas"
+    ],
+    "artifactWearer": "Chongyun"
+  }
 }
