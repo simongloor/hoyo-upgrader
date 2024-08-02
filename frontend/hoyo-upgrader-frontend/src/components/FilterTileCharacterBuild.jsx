@@ -8,7 +8,7 @@ import '../styles/FilterTile.scss';
 export default function FilterTileCharacterBuild({ filter }) {
   return (
     <div
-      className="FilterTile character"
+      className={`FilterTile character ${filter.characterName ? 'active' : 'placeholder'}`}
     >
       <Character
         characterName={filter.characterName || 'generic'}

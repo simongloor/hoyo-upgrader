@@ -42,6 +42,9 @@ function CharacterBuild({
         />
         <h2>{ paths.character[characterName] }</h2>
       </div>
+      <span><strong>Wearer</strong></span>
+      <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
+      <Character />
       <span><strong>Sets</strong></span>
       <div className="artifacts row">
         {

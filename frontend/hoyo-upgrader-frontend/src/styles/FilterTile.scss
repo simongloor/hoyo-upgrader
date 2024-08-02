@@ -2,4 +2,8 @@
 
 .FilterTile {
   height: $tile;
+
+  &.character.placeholder {
+    opacity: 0.2;
+  }
 }

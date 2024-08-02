@@ -10,7 +10,7 @@ import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
 import { getBuildKey } from '../data/actions/characters';
 
-// import '../styles/AccountOverview.scss';
+import '../styles/AccountOverview.scss';
 
 export default function AccountOverview({ characterData, artifactData, equippedEvaluations }) {
   // Prepare data for rendering
@@ -66,7 +66,7 @@ export default function AccountOverview({ characterData, artifactData, equippedE
       }
       {
         dataToDisplay.length === 0 && (
-          <div className="row">
+          <div className="row placeholder">
             <Character />
             <SpacerPiece />
             <TextPiece canOverflow>No matching character found</TextPiece>
