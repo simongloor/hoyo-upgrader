@@ -41,7 +41,9 @@ export default function CharacterBuildEditor({
       </div>
       <span><strong>Wearer</strong></span>
       <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
-      <Character />
+      <Character
+        characterName={build.artifactWearer}
+      />
       <span><strong>Sets</strong></span>
       <div className="artifacts row">
         {
