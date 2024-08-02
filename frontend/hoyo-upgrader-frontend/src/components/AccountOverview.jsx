@@ -12,14 +12,6 @@ import { getBuildKey } from '../data/actions/characters';
 
 // import '../styles/AccountOverview.scss';
 
-const emptyArtifactData = {
-  flower: null,
-  plume: null,
-  sands: null,
-  goblet: null,
-  circlet: null,
-};
-
 export default function AccountOverview({ characterData, artifactData, equippedEvaluations }) {
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
@@ -29,7 +21,7 @@ export default function AccountOverview({ characterData, artifactData, equippedE
         {
           characterName,
           characterBuild,
-          characterArtifacts: artifactData[characterName] || { ...emptyArtifactData },
+          characterArtifacts: artifactData[characterName],
           totalSubstats: evaluateArtifactSet(equippedEvaluations, characterName, iBuild),
         }
       ))

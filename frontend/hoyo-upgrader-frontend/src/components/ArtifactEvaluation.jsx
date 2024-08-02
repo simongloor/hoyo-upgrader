@@ -59,8 +59,11 @@ export default function ArtifactEvaluation({
       {
         evaluationData.buildEvaluations
           .filter((b) => (
+            // show with upgrade potential
             b.upgradePotential > 0
+            // show for the selected character
             || b.build.characterName === filteredCharacter
+            // show for the artifact's wearer
             || b.build.characterName === evaluationData.artifactData.location
           ))
           .map((b) => (

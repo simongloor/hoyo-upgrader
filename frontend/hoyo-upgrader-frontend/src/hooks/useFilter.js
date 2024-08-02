@@ -3,12 +3,27 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getBuildKey } from '../data/actions/characters';
 
+const emptyArtifactData = {
+  flower: null,
+  plume: null,
+  sands: null,
+  goblet: null,
+  circlet: null,
+};
+
 export default function useFilter(artifacts, characterJson) {
   const filter = useSelector((state) => state.filter);
   const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
 
   useEffect(() => {
     const artifactsToFilter = { ...artifacts };
+
+    // Add missing artifact byCharacter entries
+    Object.keys(characterJson).forEach((character) => {
+      if (!artifactsToFilter.byCharacter[character]) {
+        artifactsToFilter.byCharacter[character] = { ...emptyArtifactData };
+      }
+    });
 
     // Filter by set
     if (filter.specificSet) {

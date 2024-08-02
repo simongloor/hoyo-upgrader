@@ -32,16 +32,18 @@ function getArtifactEvaluations(
       build.mainstats[artifactData.slotKey].includes(artifactData.mainStatKey)
     ));
   }
+  // console.log(matchingBuilds);
 
   // generate data required for rendering
   let highestUpgradePotential = 0;
   const buildEvaluations = matchingBuilds.map((build) => {
     const totalSubstats = evaluateArtifact(artifactData, build);
     let competingArtifact = null;
-    let upgradePotential = 0;
     if (equippedEvaluations[build.characterName]) {
+      let upgradePotential = 0;
       // eslint-disable-next-line max-len
       competingArtifact = equippedEvaluations[build.characterName][build.index][artifactData.slotKey];
+
       // Any substats found?
       if (Object.keys(competingArtifact).some((key) => competingArtifact[key] !== 0)) {
         upgradePotential = Math.max(
@@ -62,7 +64,7 @@ function getArtifactEvaluations(
       build,
       totalSubstats,
       competingArtifact,
-      upgradePotential,
+      upgradePotential: highestUpgradePotential,
       sortValue: getBuildQualitySortValue(build, totalSubstats, filteredCharacter),
     };
   }).sort((a, b) => (a.sortValue - b.sortValue)); // sort builds by quality
@@ -78,12 +80,14 @@ function getArtifactEvaluations(
 export default function ArtifactOverview({
   artifactData,
   characterData,
-  equippedEvaluations,
+  equippedEvaluations, // !!!!!! Alhaitham missing!
 }) {
+  // console.log(equippedEvaluations);
   const dispatch = useDispatch();
 
   const characterBuildsBySet = getBuildsBySets(characterData);
   const allCharacterBuilds = getBuildsCompact(characterData);
+  // console.log(characterBuildsBySet, allCharacterBuilds);
   const filter = useSelector((state) => state.filter);
 
   // generate artifact evaluation data
