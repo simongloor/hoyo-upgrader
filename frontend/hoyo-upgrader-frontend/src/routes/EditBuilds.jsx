@@ -14,7 +14,7 @@ import paths from '../data/paths';
 import '../styles/EditBuilds.scss';
 import { updateCharacters } from '../data/actions/characters';
 import { getEmptyBuild } from '../data/characters';
-import { sortBuildsByOwner } from '../data/builds';
+import { getFreeWearers, sortBuildsByOwner } from '../data/builds';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
@@ -61,14 +61,16 @@ export default function EditBuilds() {
       setJsonIsValid(false);
     }
   };
-  console.log(characterData);
 
+  // create and delete functions
   const handleCreateBuild = (buildOwner) => {
     const newCharacterData = { ...characterData.byWearer };
     if (!newCharacterData[buildOwner]) {
       newCharacterData[buildOwner] = [];
     }
-    newCharacterData[buildOwner].push(getEmptyBuild());
+    const newBuild = getEmptyBuild();
+    newBuild.artifactWearer = getFreeWearer(buildOwner, newCharacterData);
+    newCharacterData[buildOwner].push(newBuild);
     setCharacterData(newCharacterData);
   };
   const handleDeleteBuild = (buildOwner, index) => {
@@ -77,7 +79,15 @@ export default function EditBuilds() {
     delete newCharacterData[artifactWearer];
     setCharacterData(newCharacterData);
   };
+  const handleSetWearer = (buildOwner, index, newWearer) => {
+    const newCharacterData = { ...characterData.byWearer };
+    const { artifactWearer } = characterData.byOwner[buildOwner][index];
+    newCharacterData[newWearer] = newCharacterData[artifactWearer];
+    delete newCharacterData[artifactWearer];
+    setCharacterData(newCharacterData);
+  };
 
+  // toggle functions
   const handleToggleSet = (buildOwner, index, setName) => {
     const newCharacterData = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
@@ -90,7 +100,6 @@ export default function EditBuilds() {
     setCharacterData(newCharacterData);
   };
   const handleToggleMainstat = (buildOwner, index, slot, stat) => {
-    // console.log(index);
     const newCharacterData = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
     const build = newCharacterData[artifactWearer];
@@ -117,6 +126,8 @@ export default function EditBuilds() {
     dispatch(updateCharacters(characterData));
     navigate('/genshin');
   };
+
+  const freeWearers = getFreeWearers(characterData.byOwner);
 
   // render
   return (
@@ -150,8 +161,10 @@ export default function EditBuilds() {
             key={buildOwner}
             buildOwner={buildOwner}
             characterBuilds={characterData.byOwner[buildOwner]}
+            freeWearers={freeWearers}
             onClickAddBuild={handleCreateBuild}
             onClickDeleteBuild={handleDeleteBuild}
+            onClickSetWearer={handleSetWearer}
             onClickToggleSet={handleToggleSet}
             onClickToggleMainstat={handleToggleMainstat}
             onClickToggleSubstat={handleToggleSubstat}

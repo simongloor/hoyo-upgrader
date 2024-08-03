@@ -14,11 +14,15 @@ export default function CharacterBuildEditor({
   build,
   index,
   onClickDeleteBuild,
+  onClickSetWearer,
   onClickToggleSet,
   onClickToggleMainstat,
   onClickToggleSubstat,
 }) {
   // console.log(build);
+  const handleClickWearer = (characterName) => {
+    onClickSetWearer(buildOwner, index, characterName);
+  }
   const handleClickSet = (setName) => {
     onClickToggleSet(buildOwner, index, setName);
   };
@@ -41,9 +45,21 @@ export default function CharacterBuildEditor({
       </div>
       <span><strong>Wearer</strong></span>
       <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
-      <Character
-        characterName={build.artifactWearer}
-      />
+      {
+        Object.keys(paths.character).map((characterName) => (
+          <button
+            key={characterName}
+            className={`character ${characterName} ${build.artifactWearer === characterName ? 'active' : 'inactive'}`}
+            type="button"
+            onClick={() => handleClickWearer(characterName)}
+            alt={characterName}
+          >
+            <Character
+              characterName={characterName}
+            />
+          </button>
+        ))
+      }
       <span><strong>Sets</strong></span>
       <div className="artifacts row">
         {
