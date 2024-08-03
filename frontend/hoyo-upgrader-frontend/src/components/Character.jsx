@@ -8,21 +8,29 @@ export default function Character({
   characterName = 'generic',
   sets,
   upgradePotential = 0,
+  onClick,
+  inactive,
+  disabled,
 }) {
   const dispatch = useDispatch();
 
   // event handlers
   const handleClick = () => {
     // console.log(`Character: ${characterName} ${buildName}`);
-    dispatch(toggleCharacterFilter(characterName, sets));
+    if (onClick) {
+      onClick(characterName);
+    } else {
+      dispatch(toggleCharacterFilter(characterName, sets));
+    }
   };
 
   // render
   return (
     <button
-      className={`Character tile ${characterName}`}
+      className={`Character tile ${characterName} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
       type="button"
       onClick={handleClick}
+      disabled={disabled}
     >
       <img
         src={`${process.env.PUBLIC_URL}/genshin/characters/${characterName}.png`}

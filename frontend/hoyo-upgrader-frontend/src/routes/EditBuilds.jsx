@@ -14,7 +14,7 @@ import paths from '../data/paths';
 import '../styles/EditBuilds.scss';
 import { updateCharacters } from '../data/actions/characters';
 import { getEmptyBuild } from '../data/characters';
-import { getFreeWearers, sortBuildsByOwner } from '../data/builds';
+import { getWearerStates, sortBuildsByOwner, sortBuildsByWearer } from '../data/builds';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
@@ -26,6 +26,23 @@ export default function EditBuilds() {
     byWearer: {},
     byOwner: {},
   });
+
+  const setCharacterDataByWearer = (newDataByWearer) => {
+    const byOwner = sortBuildsByOwner(newDataByWearer);
+    setCharacterData({
+      byWearer: newDataByWearer,
+      byOwner,
+    });
+    setJsonString(JSON.stringify(newDataByWearer, null, 2));
+  };
+  const setCharacterDataByOwner = (newDataByOwner) => {
+    const byWearer = sortBuildsByWearer(newDataByOwner);
+    setCharacterData({
+      byWearer,
+      byOwner: newDataByOwner,
+    });
+    setJsonString(JSON.stringify(byWearer, null, 2));
+  };
 
   // Get data from local storage
   useEffect(() => {
@@ -45,17 +62,15 @@ export default function EditBuilds() {
     });
   }, []);
 
+  const wearerStates = getWearerStates(characterData.byOwner);
+
   // handlers
   const handleChangeJson = (e) => {
     setJsonString(e.target.value);
 
     try {
       const jsonData = JSON.parse(e.target.value);
-      const byOwner = sortBuildsByOwner(jsonData);
-      setCharacterData({
-        byWearer: jsonData,
-        byOwner,
-      });
+      setCharacterDataByWearer(jsonData);
       setJsonIsValid(true);
     } catch (error) {
       setJsonIsValid(false);
@@ -64,62 +79,65 @@ export default function EditBuilds() {
 
   // create and delete functions
   const handleCreateBuild = (buildOwner) => {
-    const newCharacterData = { ...characterData.byWearer };
-    if (!newCharacterData[buildOwner]) {
-      newCharacterData[buildOwner] = [];
+    const newDataByOwner = { ...characterData.byOwner };
+    if (!newDataByOwner[buildOwner]) {
+      newDataByOwner[buildOwner] = [];
     }
     const newBuild = getEmptyBuild();
-    newBuild.artifactWearer = getFreeWearer(buildOwner, newCharacterData);
-    newCharacterData[buildOwner].push(newBuild);
-    setCharacterData(newCharacterData);
+    console.log(wearerStates.free);
+    newBuild.artifactWearer = newDataByOwner[buildOwner].length === 0
+      ? buildOwner
+      : wearerStates.free[0];
+    newDataByOwner[buildOwner].push(newBuild);
+    setCharacterDataByOwner(newDataByOwner);
   };
   const handleDeleteBuild = (buildOwner, index) => {
-    const newCharacterData = { ...characterData.byWearer };
+    const newDataByWearer = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    delete newCharacterData[artifactWearer];
-    setCharacterData(newCharacterData);
+    delete newDataByWearer[artifactWearer];
+    setCharacterDataByWearer(newDataByWearer);
   };
   const handleSetWearer = (buildOwner, index, newWearer) => {
-    const newCharacterData = { ...characterData.byWearer };
+    const newDataByWearer = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    newCharacterData[newWearer] = newCharacterData[artifactWearer];
-    delete newCharacterData[artifactWearer];
-    setCharacterData(newCharacterData);
+    newDataByWearer[newWearer] = newDataByWearer[artifactWearer];
+    delete newDataByWearer[artifactWearer];
+    setCharacterDataByWearer(newDataByWearer);
   };
 
   // toggle functions
   const handleToggleSet = (buildOwner, index, setName) => {
-    const newCharacterData = { ...characterData.byWearer };
+    const newDataByWearer = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    const build = newCharacterData[artifactWearer];
+    const build = newDataByWearer[artifactWearer];
     if (build.sets.includes(setName)) {
       build.sets = build.sets.filter((set) => set !== setName);
     } else {
       build.sets.push(setName);
     }
-    setCharacterData(newCharacterData);
+    setCharacterDataByWearer(newDataByWearer);
   };
   const handleToggleMainstat = (buildOwner, index, slot, stat) => {
-    const newCharacterData = { ...characterData.byWearer };
+    const newDataByWearer = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    const build = newCharacterData[artifactWearer];
+    const build = newDataByWearer[artifactWearer];
     if (build.mainstats[slot].includes(stat)) {
       build.mainstats[slot] = build.mainstats[slot].filter((s) => s !== stat);
     } else {
       build.mainstats[slot].push(stat);
     }
-    setCharacterData(newCharacterData);
+    setCharacterDataByWearer(newDataByWearer);
   };
   const handleToggleSubstat = (buildOwner, index, stat) => {
-    const newCharacterData = { ...characterData.byWearer };
+    const newDataByWearer = { ...characterData.byWearer };
     const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    const build = newCharacterData[artifactWearer];
+    const build = newDataByWearer[artifactWearer];
     if (build.substats.includes(stat)) {
       build.substats = build.substats.filter((s) => s !== stat);
     } else {
       build.substats.push(stat);
     }
-    setCharacterData(newCharacterData);
+    setCharacterDataByWearer(newDataByWearer);
   };
 
   const handleClickSave = () => {
@@ -127,7 +145,7 @@ export default function EditBuilds() {
     navigate('/genshin');
   };
 
-  const freeWearers = getFreeWearers(characterData.byOwner);
+  // console.log(characterData.byOwner);
 
   // render
   return (
@@ -160,8 +178,8 @@ export default function EditBuilds() {
           <CharacterEditor
             key={buildOwner}
             buildOwner={buildOwner}
-            characterBuilds={characterData.byOwner[buildOwner]}
-            freeWearers={freeWearers}
+            characterBuilds={characterData.byOwner[buildOwner] || []}
+            wearerStates={wearerStates}
             onClickAddBuild={handleCreateBuild}
             onClickDeleteBuild={handleDeleteBuild}
             onClickSetWearer={handleSetWearer}

@@ -13,6 +13,7 @@ export default function CharacterBuildEditor({
   buildOwner,
   build,
   index,
+  wearerStates,
   onClickDeleteBuild,
   onClickSetWearer,
   onClickToggleSet,
@@ -22,7 +23,7 @@ export default function CharacterBuildEditor({
   // console.log(build);
   const handleClickWearer = (characterName) => {
     onClickSetWearer(buildOwner, index, characterName);
-  }
+  };
   const handleClickSet = (setName) => {
     onClickToggleSet(buildOwner, index, setName);
   };
@@ -45,21 +46,24 @@ export default function CharacterBuildEditor({
       </div>
       <span><strong>Wearer</strong></span>
       <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
-      {
-        Object.keys(paths.character).map((characterName) => (
-          <button
-            key={characterName}
-            className={`character ${characterName} ${build.artifactWearer === characterName ? 'active' : 'inactive'}`}
-            type="button"
-            onClick={() => handleClickWearer(characterName)}
-            alt={characterName}
-          >
+      <div className="wearers row">
+        {
+          Object.keys(paths.character).map((characterName) => (
             <Character
+              key={characterName}
               characterName={characterName}
+              onClick={() => handleClickWearer(characterName)}
+              inactive={
+                characterName !== build.artifactWearer
+              }
+              disabled={
+                characterName !== build.artifactWearer
+                && !wearerStates.free.includes(characterName)
+              }
             />
-          </button>
-        ))
-      }
+          ))
+        }
+      </div>
       <span><strong>Sets</strong></span>
       <div className="artifacts row">
         {

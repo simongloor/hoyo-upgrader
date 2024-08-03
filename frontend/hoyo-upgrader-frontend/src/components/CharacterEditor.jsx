@@ -12,7 +12,7 @@ import '../styles/CharacterEditor.scss';
 export default function CharacterEditor({
   buildOwner,
   characterBuilds,
-  freeWearers,
+  wearerStates,
   onClickAddBuild,
   onClickDeleteBuild,
   onClickSetWearer,
@@ -21,6 +21,10 @@ export default function CharacterEditor({
   onClickToggleSubstat,
 }) {
   // console.log(characterBuilds);
+
+  if (!characterBuilds) {
+    return null;
+  }
 
   // disable the button if the owner is already occupied by another build
   const useOfOwner = characterBuilds.filter((b) => b.artifactWearer === buildOwner);
@@ -38,6 +42,7 @@ export default function CharacterEditor({
             buildOwner={buildOwner}
             build={b}
             index={i}
+            wearerStates={wearerStates}
             onClickDeleteBuild={onClickDeleteBuild}
             onClickSetWearer={onClickSetWearer}
             onClickToggleSet={onClickToggleSet}
@@ -55,14 +60,16 @@ export default function CharacterEditor({
           className="addBuild primary"
           type="button"
           onClick={() => onClickAddBuild(buildOwner)}
-          disabled={canCreateBuild}
+          disabled={!canCreateBuild}
         >
           <span>+add build</span>
         </button>
         {
           !canCreateBuild && (
             <span className="used">
-              This character currently wears the artifact set of {useOfOwner.map((u) => u.owner).join(', ')}.
+              This character currently wears the artifact set of
+              {wearerStates.busy.find((w) => w.wearer === buildOwner).buildOwner}
+              .
             </span>
           )
         }

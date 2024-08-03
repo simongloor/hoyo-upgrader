@@ -43,11 +43,25 @@
       margin: 0;
     }
   }
-  .artifacts {
+  .artifacts, .wearers {
     flex-wrap: wrap;
 
-    .artifact.inactive {
+    .artifact.inactive, .Character.inactive {
       opacity: 0.5;
+
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.2;
+      }
+    }
+    .Character.disabled {
+      opacity: 0.2;
+
+      &:hover {
+        opacity: 0.2;
+      }
     }
   }
 
