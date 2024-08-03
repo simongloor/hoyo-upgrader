@@ -99,9 +99,11 @@ export default function EditBuilds() {
   };
   const handleSetWearer = (buildOwner, index, newWearer) => {
     const newDataByWearer = { ...characterData.byWearer };
-    const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    newDataByWearer[newWearer] = newDataByWearer[artifactWearer];
-    delete newDataByWearer[artifactWearer];
+    const currentWearer = characterData.byOwner[buildOwner][index].artifactWearer;
+    newDataByWearer[newWearer] = newDataByWearer[currentWearer];
+    console.log(newDataByWearer[newWearer], newDataByWearer, currentWearer);
+    newDataByWearer[newWearer].artifactWearer = newWearer;
+    // delete newDataByWearer[currentWearer];
     setCharacterDataByWearer(newDataByWearer);
   };
 
