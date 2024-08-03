@@ -2,40 +2,40 @@
 
 import paths from './paths';
 
-// jsonData is structured like this:
-// { artifactWearer: { buildOwner: characterName, ... }}
-// We want to structure it like this:
-// { buildOwner: [{ artifactWearer: characterName, ... }] }
-// This way, we can easily add new builds to a character
-export function sortBuildsByOwner(byWearer) {
-  const byOwner = {};
-  Object.keys(byWearer).forEach((artifactWearer) => {
-    if (byWearer[artifactWearer]) {
-      const ownerName = byWearer[artifactWearer].buildOwner;
-      if (!byOwner[ownerName]) {
-        byOwner[ownerName] = [];
-      }
-      byOwner[ownerName].push({
-        artifactWearer,
-        ...byWearer[artifactWearer],
-      });
-    }
-  });
-  return byOwner;
-}
+// // jsonData is structured like this:
+// // { artifactWearer: { buildOwner: characterName, ... }}
+// // We want to structure it like this:
+// // { buildOwner: [{ artifactWearer: characterName, ... }] }
+// // This way, we can easily add new builds to a character
+// export function sortBuildsByOwner(byWearer) {
+//   const byOwner = {};
+//   Object.keys(byWearer).forEach((artifactWearer) => {
+//     if (byWearer[artifactWearer]) {
+//       const ownerName = byWearer[artifactWearer].buildOwner;
+//       if (!byOwner[ownerName]) {
+//         byOwner[ownerName] = [];
+//       }
+//       byOwner[ownerName].push({
+//         artifactWearer,
+//         ...byWearer[artifactWearer],
+//       });
+//     }
+//   });
+//   return byOwner;
+// }
 
-export function sortBuildsByWearer(byOwner) {
-  const byWearer = {};
-  Object.keys(byOwner).forEach((buildOwner) => {
-    byOwner[buildOwner].forEach((build) => {
-      byWearer[build.artifactWearer] = {
-        buildOwner,
-        ...build,
-      };
-    });
-  });
-  return byWearer;
-}
+// export function sortBuildsByWearer(byOwner) {
+//   const byWearer = {};
+//   Object.keys(byOwner).forEach((buildOwner) => {
+//     byOwner[buildOwner].forEach((build) => {
+//       byWearer[build.artifactWearer] = {
+//         buildOwner,
+//         ...build,
+//       };
+//     });
+//   });
+//   return byWearer;
+// }
 
 // function getWearerIsOccupied(buildOwner, byOwner) {
 //   // if (!byOwner[buildOwner]) {

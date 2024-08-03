@@ -84,7 +84,7 @@ export default function EditBuilds() {
       newDataByOwner[buildOwner] = [];
     }
     const newBuild = getEmptyBuild();
-    console.log(wearerStates.free);
+    // console.log(wearerStates.free);
     newBuild.artifactWearer = newDataByOwner[buildOwner].length === 0
       ? buildOwner
       : wearerStates.free[0];

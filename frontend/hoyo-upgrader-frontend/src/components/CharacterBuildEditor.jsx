@@ -34,7 +34,7 @@ export default function CharacterBuildEditor({
     onClickToggleSubstat(buildOwner, index, statName);
   };
 
-  console.log(build.buildOwner, build.artifactWearer);
+  // console.log(build.buildOwner, build.artifactWearer);
 
   // render
   return (
