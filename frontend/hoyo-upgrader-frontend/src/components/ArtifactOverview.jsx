@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getBuildsBySets, getBuildsCompact } from '../data/characters';
+import { getBuildsBySets } from '../data/characters';
 import { getArtifactEvaluations, getArtifactQualitySortValue } from '../data/substats';
 
 import Box from './Box';
@@ -23,18 +23,17 @@ export default function ArtifactOverview({
   const dispatch = useDispatch();
 
   const characterBuildsBySet = getBuildsBySets(characterData);
-  const allCharacterBuilds = getBuildsCompact(characterData);
   const filter = useSelector((state) => state.filter);
 
   // generate artifact evaluation data
   // this is required to sort the artifacts by quality
   const evaluationData = artifactData
-    .slice(200, 250)
+    // .slice(200, 250)
     .map((artifact) => (
       getArtifactEvaluations(
         artifact,
         filter.showOffpieces
-          ? allCharacterBuilds
+          ? characterData
           : characterBuildsBySet[artifact.setKey] || [],
         equippedEvaluations,
         filter.characterName,

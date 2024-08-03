@@ -5,7 +5,7 @@ import { loadStateFromStorage, saveStateToStorage } from '../localStorage';
 import paths from '../paths';
 
 const characterReducer = (
-  state = {},
+  state = [],
   action,
 ) => {
   const newState = { ...state };

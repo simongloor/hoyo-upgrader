@@ -18,9 +18,9 @@ export default function useFilter(artifacts, characterJson) {
     const artifactsToFilter = { ...artifacts };
 
     // Add missing artifact byCharacter entries
-    Object.keys(characterJson).forEach((character) => {
-      if (!artifactsToFilter.byCharacter[character]) {
-        artifactsToFilter.byCharacter[character] = { ...emptyArtifactData };
+    characterJson.forEach((build) => {
+      if (!artifactsToFilter.byCharacter[build.artifactWearer]) {
+        artifactsToFilter.byCharacter[build.artifactWearer] = { ...emptyArtifactData };
       }
     });
 
@@ -28,16 +28,10 @@ export default function useFilter(artifacts, characterJson) {
     if (filter.specificSet) {
       // CharacterOverviews
       // Only CharacterOverviews that want the set should be displayed
-      artifactsToFilter.byCharacter = Object.keys(characterJson)
-        .reduce((acc, character) => {
-          if (
-            Object.keys(characterJson).includes(character)
-          ) {
-            characterJson[character].forEach((build, i) => {
-              if (build.sets.includes(filter.specificSet)) {
-                acc[character] = artifactsToFilter.byCharacter[character];
-              }
-            });
+      artifactsToFilter.byCharacter = characterJson
+        .reduce((acc, build) => {
+          if (build.sets.includes(filter.specificSet)) {
+            acc[build.artifactWearer] = artifactsToFilter.byCharacter[build.artifactWearer];
           }
           return acc;
         }, {});
@@ -69,16 +63,12 @@ export default function useFilter(artifacts, characterJson) {
         Object.keys(artifactsToFilter.byCharacter).forEach(
           // remove characters that don't want the same main stat for the piece
           (character) => {
+            const build = characterJson.find((b) => b.artifactWearer === character);
             if (
-              Object.keys(characterJson).includes(character)
+              build
+              && !build.mainstats[filter.specificPiece].includes(specificMainStat)
             ) {
-              characterJson[character].forEach((build, i) => {
-                if (
-                  !build.mainstats[filter.specificPiece].includes(specificMainStat)
-                ) {
-                  delete artifactsToFilter.byCharacter[character];
-                }
-              });
+              delete artifactsToFilter.byCharacter[character];
             }
           },
         );
@@ -98,14 +88,14 @@ export default function useFilter(artifacts, characterJson) {
       // Artifacts
       // Only Artifacts that can be used by the build should be displayed
       if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
-        const buildData = characterJson[filter.characterName];
+        const build = characterJson.find((b) => b.artifactWearer === filter.characterName);
         artifactsToFilter.asList = artifactsToFilter.asList
           .filter((artifact) => (
-            (filter.showOffpieces || buildData.sets.includes(artifact.setKey))
+            (filter.showOffpieces || build.sets.includes(artifact.setKey))
             && (
               artifact.slotKey === 'flower'
               || artifact.slotKey === 'plume'
-              || buildData.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
+              || build.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
             )
           ));
       }

@@ -42,7 +42,7 @@ export default function CharacterBuildEditor({
       <div className="row header">
         <Character
           key={build}
-          characterName={buildOwner}
+          artifactWearer={buildOwner}
         />
         <h2>{ paths.character[buildOwner] }</h2>
       </div>
@@ -53,7 +53,7 @@ export default function CharacterBuildEditor({
           Object.keys(paths.character).map((characterName) => (
             <Character
               key={characterName}
-              characterName={characterName}
+              artifactWearer={characterName}
               onClick={() => handleClickWearer(characterName)}
               inactive={
                 characterName !== build.artifactWearer

@@ -53,7 +53,7 @@ export default function CharacterEditor({
       }
       <Box className="row right">
         <Character
-          characterName={buildOwner}
+          artifactWearer={buildOwner}
         />
         <h2>{ paths.character[buildOwner] }</h2>
         <button

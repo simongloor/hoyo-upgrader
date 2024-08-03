@@ -11,7 +11,7 @@ export default function FilterTileCharacterBuild({ filter }) {
       className={`FilterTile character ${filter.characterName ? 'active' : 'placeholder'}`}
     >
       <Character
-        characterName={filter.characterName || 'generic'}
+        artifactWearer={filter.characterName || 'generic'}
         sets={filter.characterSets}
       />
     </div>

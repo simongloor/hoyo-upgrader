@@ -290,15 +290,15 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacte
 //---------------------------------------------------------
 // data processing for global reference data
 
-export function evaluateEquippedArtifacts(artifactsByCharacter, characters) {
+export function evaluateEquippedArtifacts(artifactsByCharacter, builds) {
   const evaluations = {};
-  Object.keys(artifactsByCharacter).forEach((characterName) => {
-    evaluations[characterName] = {};
-    Object.keys(artifactsByCharacter[characterName]).forEach((slot) => {
+  Object.keys(artifactsByCharacter).forEach((artifactWearer) => {
+    evaluations[artifactWearer] = {};
+    Object.keys(artifactsByCharacter[artifactWearer]).forEach((slot) => {
       // console.log(artifactsByCharacter[characterName]);
-      evaluations[characterName][slot] = evaluateArtifact(
-        artifactsByCharacter[characterName][slot],
-        characters[characterName],
+      evaluations[artifactWearer][slot] = evaluateArtifact(
+        artifactsByCharacter[artifactWearer][slot],
+        builds.find((b) => b.artifactWearer === artifactWearer),
       );
     });
   });

@@ -3,31 +3,16 @@
 
 export function getBuildsBySets(characterData) {
   const builds = {};
-  Object.keys(characterData).forEach((artifactWearer) => {
-    if (characterData[artifactWearer]) {
-      const { sets } = characterData[artifactWearer];
-      sets.forEach((set) => {
-        if (!builds[set]) {
-          builds[set] = [];
-        }
-        builds[set].push({
-          ...characterData[artifactWearer],
-        });
+  characterData.forEach((build) => {
+    const { sets } = build;
+    sets.forEach((set) => {
+      if (!builds[set]) {
+        builds[set] = [];
+      }
+      builds[set].push({
+        ...build,
       });
-    }
-  });
-
-  return builds;
-}
-
-export function getBuildsCompact(characterData) {
-  const builds = [];
-  Object.keys(characterData).forEach((artifactWearer) => {
-    if (characterData[artifactWearer]) {
-      builds.push({
-        ...characterData[artifactWearer],
-      });
-    }
+    });
   });
 
   return builds;
@@ -35,6 +20,8 @@ export function getBuildsCompact(characterData) {
 
 export function getEmptyBuild() {
   return {
+    artifactWearer: '',
+    buildOwner: '',
     sets: [],
     mainstats: {
       sands: [],

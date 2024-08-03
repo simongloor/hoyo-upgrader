@@ -23,6 +23,7 @@ function sortDataByCharacter(artifactData) {
   const byCharacter = {};
   artifactData.forEach((artifact) => {
     if (artifact.location) {
+      // console.log(artifact.location);
       if (!byCharacter[artifact.location]) {
         byCharacter[artifact.location] = {
           flower: null,
@@ -35,6 +36,7 @@ function sortDataByCharacter(artifactData) {
       byCharacter[artifact.location][artifact.slotKey] = artifact;
     }
   });
+  // console.log(byCharacter);
   return byCharacter;
 }
 

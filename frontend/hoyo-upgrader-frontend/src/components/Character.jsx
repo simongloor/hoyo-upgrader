@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
 export default function Character({
-  characterName = 'generic',
+  artifactWearer = 'generic',
+  buildOwner,
   sets,
   upgradePotential = 0,
   onClick,
@@ -18,23 +19,23 @@ export default function Character({
   const handleClick = () => {
     // console.log(`Character: ${characterName} ${buildName}`);
     if (onClick) {
-      onClick(characterName);
+      onClick(artifactWearer);
     } else {
-      dispatch(toggleCharacterFilter(characterName, sets));
+      dispatch(toggleCharacterFilter(artifactWearer, sets));
     }
   };
 
   // render
   return (
     <button
-      className={`Character tile ${characterName} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
+      className={`Character tile ${artifactWearer} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
       type="button"
       onClick={handleClick}
       disabled={disabled}
     >
       <img
-        src={`${process.env.PUBLIC_URL}/genshin/characters/${characterName}.png`}
-        alt={characterName}
+        src={`${process.env.PUBLIC_URL}/genshin/characters/${artifactWearer}.png`}
+        alt={artifactWearer}
       />
       {
         upgradePotential > 0 && (

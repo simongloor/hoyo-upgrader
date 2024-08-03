@@ -12,7 +12,6 @@ import ArtifactStats from './ArtifactStats';
 // import '../styles/CharacterOverview.scss';
 
 export default function CharacterOverview({
-  characterName,
   characterBuild,
   characterArtifacts,
   totalSubstats,
@@ -39,7 +38,8 @@ export default function CharacterOverview({
       className="CharacterOverview row"
     >
       <Character
-        characterName={characterName}
+        artifactWearer={characterBuild.artifactWearer}
+        buildOwner={characterBuild.buildOwner}
         sets={characterBuild.sets}
       />
       <SpacerPiece />

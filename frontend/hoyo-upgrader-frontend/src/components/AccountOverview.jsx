@@ -14,14 +14,15 @@ import '../styles/AccountOverview.scss';
 export default function AccountOverview({ characterData, artifactData, equippedEvaluations }) {
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
-  const dataToDisplay = Object.keys(artifactData).map((artifactWearer) => (
-    characterData[artifactWearer] ? {
+  const dataToDisplay = Object.keys(artifactData).map((artifactWearer) => {
+    const build = characterData.find((b) => b.artifactWearer === artifactWearer);
+    return build ? {
       artifactWearer,
-      characterBuild: characterData[artifactWearer],
+      characterBuild: build,
       characterArtifacts: artifactData[artifactWearer],
       totalSubstats: evaluateArtifactSet(equippedEvaluations, artifactWearer),
-    } : null
-  )).filter((data) => data !== null).flat();
+    } : null;
+  }).filter((data) => data !== null).flat();
 
   // Sort by wasted substats
   dataToDisplay.sort((a, b) => (
@@ -52,7 +53,6 @@ export default function AccountOverview({ characterData, artifactData, equippedE
         dataToDisplay.map((data) => (
           <CharacterOverview
             key={data.artifactWearer}
-            characterName={data.artifactWearer}
             characterBuild={data.characterBuild}
             characterArtifacts={data.characterArtifacts}
             totalSubstats={data.totalSubstats}
