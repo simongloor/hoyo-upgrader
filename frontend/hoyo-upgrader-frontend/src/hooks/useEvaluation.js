@@ -14,6 +14,7 @@ function evaluateArtifact(artifact, build) {
   const relevantSubstats = getRelevantSubstatsOfArtifact(artifact, build);
   return {
     artifactWearer: build.artifactWearer,
+    buildOwner: build.buildOwner,
     relevantSubstats,
     sortValue: getBuildQualitySortValue(relevantSubstats),
     tier: getArtifactTier(artifact, relevantSubstats),
@@ -47,8 +48,7 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
         ...evaluation,
         upgradePotential: getUpgradePotential(evaluation.relevantSubstats, competingArtifact),
       };
-    }
-    ),
+    }),
   };
 }
 

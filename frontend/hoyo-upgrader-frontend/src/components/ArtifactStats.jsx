@@ -22,20 +22,24 @@ const statOrder = [
   'wastedSubstats',
 ];
 
-export default function ArtifactStats({ totalSubstats, uniformSubststCount, showCounter = true }) {
+export default function ArtifactStats({
+  relevantSubstats,
+  uniformSubststCount,
+  showCounter = true,
+}) {
   let fillerSubstatCount = 0;
   if (uniformSubststCount) {
-    const totalSubstatsCount = totalSubstats
-      ? Object.values(totalSubstats).reduce((acc, cur) => acc + cur, 0)
+    const relevantSubstatsCount = relevantSubstats
+      ? Object.values(relevantSubstats).reduce((acc, cur) => acc + cur, 0)
       : 0;
-    fillerSubstatCount = uniformSubststCount ? uniformSubststCount - totalSubstatsCount : 0;
+    fillerSubstatCount = uniformSubststCount ? uniformSubststCount - relevantSubstatsCount : 0;
   }
 
-  // sort totalSubstats by statOrder
+  // sort relevantSubstats by statOrder
   const sortedSubstats = {};
   statOrder.forEach((stat) => {
-    if (Object.prototype.hasOwnProperty.call(totalSubstats, stat)) {
-      sortedSubstats[stat] = totalSubstats[stat];
+    if (Object.prototype.hasOwnProperty.call(relevantSubstats, stat)) {
+      sortedSubstats[stat] = relevantSubstats[stat];
     }
   });
 

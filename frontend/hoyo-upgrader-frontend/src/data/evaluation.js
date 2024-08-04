@@ -108,7 +108,9 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredArtifact
 // data enhancement
 
 function getBuildOfWearer(artifact) {
-  return artifact.buildEvaluations[artifact.artifactData.location];
+  return artifact.buildEvaluations.find((evaluation) => (
+    evaluation.artifactWearer === artifact.artifactData.location
+  ));
 }
 
 export function getUpgradePotential(
@@ -118,7 +120,7 @@ export function getUpgradePotential(
   if (!evaluatedCompetingArtifact) {
     return 0;
   }
-  const competingBuild = getBuildOfWearer(evaluatedCompetingArtifact);
-  return competingBuild.relevantSubstats.wastedSubstats
+  const competingBuildEvaluation = getBuildOfWearer(evaluatedCompetingArtifact);
+  return competingBuildEvaluation.relevantSubstats.wastedSubstats
     - relevantSubstats.wastedSubstats;
 }

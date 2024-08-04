@@ -7,7 +7,6 @@ import { toggleCharacterFilter } from '../data/actions/filter';
 export default function Character({
   character = 'generic',
   secondaryCharacter,
-  sets,
   upgradePotential = 0,
   onClick,
   inactive,
@@ -20,7 +19,7 @@ export default function Character({
     if (onClick) {
       onClick(character);
     } else {
-      dispatch(toggleCharacterFilter(character, secondaryCharacter, sets));
+      dispatch(toggleCharacterFilter(character, secondaryCharacter));
     }
   };
 

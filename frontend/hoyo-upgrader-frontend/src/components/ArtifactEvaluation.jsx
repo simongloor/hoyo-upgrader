@@ -17,8 +17,6 @@ export default function ArtifactEvaluation({
   handleClickPinArtifact,
   filteredCharacter,
 }) {
-  console.log(artifact);
-  // return null;
   return (
     <div
       className="ArtifactEvaluation row"
@@ -62,21 +60,20 @@ export default function ArtifactEvaluation({
             // show with upgrade potential
             b.upgradePotential > 0
             // show for the selected character
-            || b.build.artifactWearer === filteredCharacter
+            || b.artifactWearer === filteredCharacter
             // show for the artifact's wearer
-            || b.build.artifactWearer === artifact.artifactData.location
+            || b.artifactWearer === artifact.artifactData.location
           ))
           .map((b) => (
-            <Fragment key={b.build.artifactWearer}>
+            <Fragment key={b.artifactWearer}>
               <SpacerPiece size="small" />
               <Character
-                character={b.build.buildOwner}
-                secondaryCharacter={b.build.artifactWearer}
-                sets={b.build.sets}
+                character={b.buildOwner}
+                secondaryCharacter={b.artifactWearer}
                 upgradePotential={b.upgradePotential}
               />
               <ArtifactStats
-                totalSubstats={b.totalSubstats}
+                relevantSubstats={b.relevantSubstats}
                 showCounter={false}
                 uniformSubststCount={9}
               />

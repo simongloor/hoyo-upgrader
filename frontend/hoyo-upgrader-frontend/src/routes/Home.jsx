@@ -30,9 +30,7 @@ export default function Home() {
 
   const evaluatedArtifacts = useEvaluation(artifacts, characters);
   const filteredBuilds = useBuildFilter(characters);
-  console.log(filteredBuilds);
   const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters, filteredBuilds);
-  console.log(filteredArtifacts);
 
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
