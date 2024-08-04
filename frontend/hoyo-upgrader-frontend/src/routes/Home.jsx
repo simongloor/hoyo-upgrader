@@ -27,9 +27,10 @@ export default function Home() {
 
   const artifacts = useSelector((state) => state.artifacts);
   const characters = useSelector((state) => state.characters);
-  const evaluatedArtifacts = useEvaluation(artifacts, characters);
 
-  // const filteredBuilds = useBuildFilter(artifacts, characters);
+  const evaluatedArtifacts = useEvaluation(artifacts, characters);
+  const filteredBuilds = useBuildFilter(characters);
+
   // const filteredArtifacts = useArtifactFilter(artifacts, characters);
 
   useEffect(() => {
