@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getBuildsBySets } from '../data/characters';
-import { applyUpgradePotential, getArtifactQualitySortValue } from '../data/evaluation';
+import { getArtifactQualitySortValue } from '../data/evaluation';
 
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
@@ -15,10 +15,9 @@ import togglePinnedArtifact from '../data/actions/pinboard';
 // import '../styles/ArtifactOverview.scss';
 
 export default function ArtifactOverview({
-  characterData,
   artifactsAsList,
 }) {
-  // console.log(equippedEvaluations);
+  // console.log(artifactsAsList);
   const dispatch = useDispatch();
 
   // const characterBuildsBySet = getBuildsBySets(characterData);
@@ -26,29 +25,11 @@ export default function ArtifactOverview({
 
   // // generate artifact evaluation data
   // // this is required to sort the artifacts by quality
-  const sortedArtifacts = Object.values(artifactsAsList)
+  const sortedArtifacts = artifactsAsList
     .sort((a, b) => (
       getArtifactQualitySortValue(a, filter.artifactWearer)
         - getArtifactQualitySortValue(b, filter.artifactWearer)
     ));
-
-  // const evaluationData = artifactData
-  //   // .slice(200, 250)
-  //   .map((artifact) => (
-  //     applyUpgradePotential(
-  //       artifact,
-  //       filter.showOffpieces
-  //         ? characterData
-  //         : characterBuildsBySet[artifact.setKey] || [],
-  //       relevantSubstatsByWearer,
-  //       filter.artifactWearer,
-  //     )
-  //   ))
-  //   // sort artifacts by quality
-  //   .sort((a, b) => (
-  //     getArtifactQualitySortValue(a, filter.artifactWearer)
-  //       - getArtifactQualitySortValue(b, filter.artifactWearer)
-  //   ));
 
   // handle pinning artifact
   const handleClickPinArtifact = (pinnedArtifactData) => {
@@ -70,7 +51,7 @@ export default function ArtifactOverview({
             <ArtifactEvaluation
               // eslint-disable-next-line react/no-array-index-key
               key={i}
-              evaluationData={data}
+              artifact={data}
               handleClickPinArtifact={handleClickPinArtifact}
               filteredCharacter={filter.artifactWearer}
             />

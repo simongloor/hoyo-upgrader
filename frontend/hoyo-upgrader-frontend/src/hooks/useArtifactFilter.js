@@ -2,17 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-const emptyArtifactData = {
-  flower: null,
-  plume: null,
-  sands: null,
-  goblet: null,
-  circlet: null,
-};
-
-export default function useArtifactFilter(artifacts, characterJson) {
+export default function useArtifactFilter(artifacts, characterJson, filteredBuilds) {
   const filter = useSelector((state) => state.filter);
-  const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
+  const [filteredArtifacts, setFilteredArtifacts] = useState({ ...artifacts });
 
   useEffect(() => {
     const artifactsToFilter = { ...artifacts };
@@ -22,7 +14,7 @@ export default function useArtifactFilter(artifacts, characterJson) {
       // Artifacts
       // Only Artifacts that belong to the set should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
-        .filter((artifact) => artifact.setKey === filter.specificSet);
+        .filter((artifact) => artifact.artifactData.setKey === filter.specificSet);
     }
 
     // Filter by piece
@@ -32,11 +24,11 @@ export default function useArtifactFilter(artifacts, characterJson) {
       // Artifacts
       // Only Artifacts that belong to the piece should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
-        .filter((artifact) => artifact.slotKey === filter.specificPiece);
+        .filter((artifact) => artifact.artifactData.slotKey === filter.specificPiece);
       // Also filter by main stat
       if (specificMainStat) {
         artifactsToFilter.asList = artifactsToFilter.asList
-          .filter((artifact) => specificMainStat === artifact.mainStatKey);
+          .filter((artifact) => specificMainStat === artifact.artifactData.mainStatKey);
       }
     }
 
@@ -50,15 +42,45 @@ export default function useArtifactFilter(artifacts, characterJson) {
           .filter((artifact) => (
             (filter.showOffpieces || build.sets.includes(artifact.setKey))
             && (
-              artifact.slotKey === 'flower'
-              || artifact.slotKey === 'plume'
-              || build.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
+              artifact.artifactData.slotKey === 'flower'
+              || artifact.artifactData.slotKey === 'plume'
+              || build.mainstats[artifact.artifactData.slotKey]
+                .includes(artifact.artifactData.mainStatKey)
             )
           ));
       }
     }
+
+    // Filter the evaluations
+    artifactsToFilter.asList = artifactsToFilter.asList
+      .map((a) => ({
+        ...a,
+        buildEvaluations: Object.keys(a.buildEvaluations).reduce((acc, wearer) => {
+          if (filteredBuilds.find((build) => build.artifactWearer === wearer)) {
+            acc[wearer] = a.buildEvaluations[wearer];
+          }
+          return acc;
+        }, {}),
+      }));
+
+    // Add highest upgrade potential
+    artifactsToFilter.asList.forEach((artifact, iArtifact) => {
+      const highestUpgradePotential = Object.keys(artifact.buildEvaluations)
+        .reduce((acc, wearer) => {
+          if (artifact.buildEvaluations[wearer].upgradePotential > acc) {
+            return artifact.buildEvaluations[wearer].upgradePotential;
+          }
+          return acc;
+        }, 0);
+      artifactsToFilter.asList[iArtifact].highestUpgradePotential = highestUpgradePotential;
+    });
+
+    // DEBUGGING
+    artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
+
     setFilteredArtifacts(artifactsToFilter);
   }, [artifacts, filter]);
 
+  // console.log(filteredArtifacts);
   return filteredArtifacts;
 }

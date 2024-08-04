@@ -13,19 +13,20 @@ import '../styles/ArtifactEvaluation.scss';
 import ArtifactStatText from './ArtifactStatText';
 
 export default function ArtifactEvaluation({
-  evaluationData,
+  artifact,
   handleClickPinArtifact,
   filteredCharacter,
 }) {
-  // console.log(evaluationData);
+  console.log(artifact);
+  // return null;
   return (
     <div
       className="ArtifactEvaluation row"
     >
       {
-        evaluationData.artifactData.location ? (
+        artifact.artifactData.location ? (
           <Character
-            character={evaluationData.artifactData.location}
+            character={artifact.artifactData.location}
           />
         ) : (
           <SpacerPiece size="default" />
@@ -36,34 +37,34 @@ export default function ArtifactEvaluation({
         className="button pin"
         alt="pin artifact"
         onClick={() => handleClickPinArtifact
-          && handleClickPinArtifact(evaluationData.artifactData)}
+          && handleClickPinArtifact(artifact.artifactData)}
         disabled={!handleClickPinArtifact}
       >
         {
-          evaluationData.artifactData.location ? (
+          artifact.artifactData.location ? (
             <Artifact
-              data={evaluationData.artifactData}
+              data={artifact.artifactData}
               showTier
           />
           ) : (
             <Artifact
-              data={evaluationData.artifactData}
-              upgradePotential={evaluationData.highestUpgradePotential}
+              data={artifact.artifactData}
+              upgradePotential={artifact.highestUpgradePotential}
             />
           )
         }
       </button>
       {/* <SpacerPiece size="small" /> */}
-      <ArtifactStatText artifactData={evaluationData.artifactData} />
+      <ArtifactStatText artifactData={artifact.artifactData} />
       {
-        evaluationData.buildEvaluations
+        artifact.buildEvaluations // !!!!!! evaluation should include wearer as property: convert object to array!
           .filter((b) => (
             // show with upgrade potential
             b.upgradePotential > 0
             // show for the selected character
             || b.build.artifactWearer === filteredCharacter
             // show for the artifact's wearer
-            || b.build.artifactWearer === evaluationData.artifactData.location
+            || b.build.artifactWearer === artifact.artifactData.location
           ))
           .map((b) => (
             <Fragment key={b.build.artifactWearer}>

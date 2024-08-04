@@ -14,19 +14,12 @@ function evaluateArtifact(artifact, build) {
   const relevantSubstats = getRelevantSubstatsOfArtifact(artifact, build);
   return {
     relevantSubstats,
-    sortValue: getBuildQualitySortValue(build, relevantSubstats),
+    sortValue: getBuildQualitySortValue(relevantSubstats),
     tier: getArtifactTier(artifact, relevantSubstats),
   };
 }
 
 //---------------------------------------------------------
-
-// function evaluateArtifactsForBuild(artifacts, build) {
-//   return Object.keys(artifacts).reduce((acc, key) => {
-//     acc[key] = evaluateArtifact(artifacts[key], build);
-//     return acc;
-//   }, {});
-// }
 
 function evaluateArtifactForAllBuilds(artifact, builds) {
   // we need to evaluate all artifacts for all builds to support all filter options
@@ -66,6 +59,8 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
   };
 }
 
+// ---------------------------------------------------------
+
 export default function useEvaluation(artifacts, builds) {
   const [evaluatedArtifacts, setEvaluatedArtifacts] = useState({ ...artifacts });
 
@@ -95,6 +90,6 @@ export default function useEvaluation(artifacts, builds) {
     }
   }, [artifacts, builds]);
 
-  console.log(evaluatedArtifacts);
+  // console.log(evaluatedArtifacts);
   return evaluatedArtifacts;
 }

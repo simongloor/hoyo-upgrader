@@ -205,25 +205,6 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
 }
 
 //---------------------------------------------------------
-// data processing for global reference data
-
-// export function getRelevantSubstatsByWearer(artifactsByWearer, builds) {
-//   const artifactsSubstats = {};
-//   Object.keys(artifactsByWearer).forEach((artifactWearer) => {
-//     artifactsSubstats[artifactWearer] = {};
-//     Object.keys(artifactsByWearer[artifactWearer]).forEach((slot) => {
-//       // console.log(artifactsByWearer[characterName]);
-//       artifactsSubstats[artifactWearer][slot] = getRelevantSubstatsOfArtifact(
-//         artifactsByWearer[artifactWearer][slot],
-//         builds.find((b) => b.artifactWearer === artifactWearer),
-//       );
-//     });
-//   });
-//   // console.log(evaluations);
-//   return artifactsSubstats;
-// }
-
-//---------------------------------------------------------
 // data processing for displaying multiple artifacts
 
 export function combineRelevantSubstats(relevantSubstats) {

@@ -30,21 +30,14 @@ export default function Home() {
 
   const evaluatedArtifacts = useEvaluation(artifacts, characters);
   const filteredBuilds = useBuildFilter(characters);
-
-  // const filteredArtifacts = useArtifactFilter(artifacts, characters);
+  console.log(filteredBuilds);
+  const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters, filteredBuilds);
+  console.log(filteredArtifacts);
 
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (artifacts && characters) {
-  //     setRelevantSubstatsByWearer(
-  //       getRelevantSubstatsByWearer(artifacts.byWearer, characters),
-  //     );
-  //   }
-  // }, [artifacts, characters]);
 
   return (
     <div
@@ -53,14 +46,13 @@ export default function Home() {
       <SettingsRow />
       <Recommendations counts={artifacts.groupCounts} />
       <ArtifactInventory counts={artifacts.counts} />
-      {/* <AccountOverview
+      <AccountOverview
         characterData={characters}
         artifactsByWearer={filteredBuilds}
       />
       <ArtifactOverview
-        characterData={characters}
-        artifactsAsList={filteredArtifacts}
-      /> */}
+        artifactsAsList={filteredArtifacts.asList}
+      />
       <Pinboard />
       <Filter />
     </div>
