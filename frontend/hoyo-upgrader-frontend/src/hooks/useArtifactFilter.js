@@ -55,20 +55,17 @@ export default function useArtifactFilter(artifacts, characterJson, filteredBuil
     artifactsToFilter.asList = artifactsToFilter.asList
       .map((a) => ({
         ...a,
-        buildEvaluations: Object.keys(a.buildEvaluations).reduce((acc, wearer) => {
-          if (filteredBuilds.find((build) => build.artifactWearer === wearer)) {
-            acc[wearer] = a.buildEvaluations[wearer];
-          }
-          return acc;
-        }, {}),
+        buildEvaluations: a.buildEvaluations.filter((evaluation) => (
+          filteredBuilds.find((build) => build.artifactWearer === evaluation.artifactWearer)
+        )),
       }));
 
     // Add highest upgrade potential
     artifactsToFilter.asList.forEach((artifact, iArtifact) => {
-      const highestUpgradePotential = Object.keys(artifact.buildEvaluations)
-        .reduce((acc, wearer) => {
-          if (artifact.buildEvaluations[wearer].upgradePotential > acc) {
-            return artifact.buildEvaluations[wearer].upgradePotential;
+      const highestUpgradePotential = artifact.buildEvaluations
+        .reduce((acc, evaluation) => {
+          if (evaluation.upgradePotential > acc) {
+            return evaluation.upgradePotential;
           }
           return acc;
         }, 0);

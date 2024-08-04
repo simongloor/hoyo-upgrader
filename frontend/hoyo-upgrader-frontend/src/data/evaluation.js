@@ -93,12 +93,14 @@ export function getArtifactQualitySortValue(artifactEvaluation, filteredArtifact
 
   // filtered character build is used when the filter is active
   if (filteredArtifactWearer) {
-    return artifactEvaluation.buildEvaluations[filteredArtifactWearer].sortValue;
+    return artifactEvaluation.buildEvaluations.find((evaluation) => (
+      evaluation.artifactData.location === filteredArtifactWearer
+    )).sortValue;
   }
 
   // return the lowest sort value of all builds
   return Math.min(
-    ...Object.values(artifactEvaluation.buildEvaluations).map((evaluation) => evaluation.sortValue),
+    ...artifactEvaluation.buildEvaluations.map((evaluation) => evaluation.sortValue),
   );
 }
 

@@ -57,7 +57,7 @@ export default function ArtifactEvaluation({
       {/* <SpacerPiece size="small" /> */}
       <ArtifactStatText artifactData={artifact.artifactData} />
       {
-        artifact.buildEvaluations // !!!!!! evaluation should include wearer as property: convert object to array!
+        artifact.buildEvaluations
           .filter((b) => (
             // show with upgrade potential
             b.upgradePotential > 0

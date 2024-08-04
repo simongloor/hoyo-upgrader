@@ -13,6 +13,7 @@ function evaluateArtifact(artifact, build) {
   // console.log(artifact, build);
   const relevantSubstats = getRelevantSubstatsOfArtifact(artifact, build);
   return {
+    artifactWearer: build.artifactWearer,
     relevantSubstats,
     sortValue: getBuildQualitySortValue(relevantSubstats),
     tier: getArtifactTier(artifact, relevantSubstats),
@@ -24,13 +25,7 @@ function evaluateArtifact(artifact, build) {
 function evaluateArtifactForAllBuilds(artifact, builds) {
   // we need to evaluate all artifacts for all builds to support all filter options
   // even flowers can be viewed unfiltered (by slot with offpieces)
-  return Object.keys(builds).reduce((acc, key) => {
-    acc[builds[key].artifactWearer] = evaluateArtifact(
-      artifact,
-      builds[key],
-    );
-    return acc;
-  }, {});
+  return builds.map((build) => evaluateArtifact(artifact, build));
 }
 
 function findCompetingArtifact(artifact, evaluatedArtifacts) {
@@ -46,16 +41,14 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
   return {
     ...artifact,
     // go through all builds and add the upgradePotential
-    buildEvaluations: Object.keys(artifact.buildEvaluations).reduce((acc, wearer) => ({
-      ...acc,
-      [wearer]: {
-        ...artifact.buildEvaluations[wearer],
-        upgradePotential: getUpgradePotential(
-          artifact.buildEvaluations[wearer].relevantSubstats,
-          findCompetingArtifact(artifact, evaluatedArtifacts),
-        ),
-      },
-    }), {}),
+    buildEvaluations: artifact.buildEvaluations.map((evaluation) => {
+      const competingArtifact = findCompetingArtifact(artifact, evaluatedArtifacts);
+      return {
+        ...evaluation,
+        upgradePotential: getUpgradePotential(evaluation.relevantSubstats, competingArtifact),
+      };
+    }
+    ),
   };
 }
 
