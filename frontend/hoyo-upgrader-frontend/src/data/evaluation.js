@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 
-import { getArtifactSubstats } from './substats';
+import { getRelevantSubstatsOfArtifact } from './substats';
 import paths from './paths';
 
 // ---------------------------------------------------------
@@ -54,9 +55,9 @@ export function getArtifactQualitySortValue(artifactEvaluation) {
   return artifactEvaluation.buildEvaluations[0].sortValue;
 }
 
-function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
+export function getBuildQualitySortValue(build, relevantSubstats, filteredCharacterName) {
   // wasted substats is the biggest factor
-  let sortValue = totalSubstats.wastedSubstats;
+  let sortValue = relevantSubstats.wastedSubstats;
 
   // filtered character build is pushed to be the first build in the list
   if (filteredCharacterName && build.artifactWearer === filteredCharacterName) {
@@ -64,7 +65,7 @@ function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
   }
 
   // artifacts that don't have valuable substats go to the bottom
-  if (totalSubstats.impossibleSubstats >= 8) {
+  if (relevantSubstats.impossibleSubstats >= 8) {
     return 10;
   }
 
@@ -74,7 +75,7 @@ function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
     missingRolls75,
     missingRolls50,
     missingRolls25,
-  } = totalSubstats;
+  } = relevantSubstats;
 
   if (missingRolls100 > 0) {
     sortValue -= 0.998;
@@ -94,7 +95,23 @@ function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
 // ---------------------------------------------------------
 // data enhancement
 
-export function applyUpgradePotential(
+function getBuildOfWearer(artifact) {
+  return artifact.buildEvaluations[artifact.artifactData.location];
+}
+
+export function getUpgradePotential(
+  relevantSubstats,
+  evaluatedCompetingArtifact,
+) {
+  if (!evaluatedCompetingArtifact) {
+    return 0;
+  }
+  const competingBuild = getBuildOfWearer(evaluatedCompetingArtifact);
+  return competingBuild.relevantSubstats.wastedSubstats
+    - relevantSubstats.wastedSubstats;
+}
+
+function applyUpgradePotential(
   artifactData,
   characterBuilds,
   equippedArtifactsSubstats,
@@ -117,7 +134,7 @@ export function applyUpgradePotential(
   let highestUpgradePotential = 0;
   const buildEvaluations = matchingBuilds.map((build) => {
     // console.log(build);
-    const totalSubstats = getArtifactSubstats(artifactData, build);
+    const totalSubstats = getRelevantSubstatsOfArtifact(artifactData, build);
     let competingArtifact = null;
     if (equippedArtifactsSubstats[build.artifactWearer]) {
       let upgradePotential = 0;

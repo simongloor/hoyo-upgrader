@@ -15,35 +15,40 @@ import togglePinnedArtifact from '../data/actions/pinboard';
 // import '../styles/ArtifactOverview.scss';
 
 export default function ArtifactOverview({
-  artifactData,
   characterData,
-  relevantSubstatsByWearer,
+  artifactsAsList,
 }) {
   // console.log(equippedEvaluations);
   const dispatch = useDispatch();
 
-  const characterBuildsBySet = getBuildsBySets(characterData);
+  // const characterBuildsBySet = getBuildsBySets(characterData);
   const filter = useSelector((state) => state.filter);
 
-  // generate artifact evaluation data
-  // this is required to sort the artifacts by quality
-  const evaluationData = artifactData
-    // .slice(200, 250)
-    .map((artifact) => (
-      applyUpgradePotential(
-        artifact,
-        filter.showOffpieces
-          ? characterData
-          : characterBuildsBySet[artifact.setKey] || [],
-        relevantSubstatsByWearer,
-        filter.artifactWearer,
-      )
-    ))
-    // sort artifacts by quality
+  // // generate artifact evaluation data
+  // // this is required to sort the artifacts by quality
+  const sortedArtifacts = Object.values(artifactsAsList)
     .sort((a, b) => (
       getArtifactQualitySortValue(a, filter.artifactWearer)
         - getArtifactQualitySortValue(b, filter.artifactWearer)
     ));
+
+  // const evaluationData = artifactData
+  //   // .slice(200, 250)
+  //   .map((artifact) => (
+  //     applyUpgradePotential(
+  //       artifact,
+  //       filter.showOffpieces
+  //         ? characterData
+  //         : characterBuildsBySet[artifact.setKey] || [],
+  //       relevantSubstatsByWearer,
+  //       filter.artifactWearer,
+  //     )
+  //   ))
+  //   // sort artifacts by quality
+  //   .sort((a, b) => (
+  //     getArtifactQualitySortValue(a, filter.artifactWearer)
+  //       - getArtifactQualitySortValue(b, filter.artifactWearer)
+  //   ));
 
   // handle pinning artifact
   const handleClickPinArtifact = (pinnedArtifactData) => {
@@ -57,10 +62,10 @@ export default function ArtifactOverview({
     >
       <h2>
         Artifacts
-        <span className="weak">{artifactData.length}</span>
+        <span className="weak">{sortedArtifacts.length}</span>
       </h2>
       {
-        evaluationData
+        sortedArtifacts
           .map((data, i) => (
             <ArtifactEvaluation
               // eslint-disable-next-line react/no-array-index-key
@@ -73,7 +78,7 @@ export default function ArtifactOverview({
       }
       {
         // placeholder
-        artifactData.length === 0 && (
+        sortedArtifacts.length === 0 && (
           <div className="row">
             <Artifact set="empty" />
             <SpacerPiece />

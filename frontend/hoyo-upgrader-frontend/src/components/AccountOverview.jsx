@@ -12,25 +12,18 @@ import TextPiece from './TextPiece';
 import '../styles/AccountOverview.scss';
 import { getArtifactTier } from '../data/evaluation';
 
-function getDataToDisplay(artifactDataByWearer, relevantSubstatsByWearer, characterData) {
-  return Object.keys(artifactDataByWearer).map((artifactWearer) => {
+function getDataToDisplay(
+  artifactsByWearer,
+  characterData,
+) {
+  return Object.keys(artifactsByWearer).map((artifactWearer) => {
     const build = characterData.find((b) => b.artifactWearer === artifactWearer);
     return build ? {
       artifactWearer,
       characterBuild: build,
-      characterArtifacts: {
-        artifactData: artifactDataByWearer[artifactWearer],
-        usedSubstats: relevantSubstatsByWearer[artifactWearer],
-        tier: Object.keys(artifactDataByWearer[artifactWearer]).reduce((acc, slot) => ({
-          ...acc,
-          [slot]: getArtifactTier(
-            artifactDataByWearer[artifactWearer][slot],
-            relevantSubstatsByWearer[artifactWearer][slot],
-          ),
-        }), {}),
-      },
-      totalSubstats: relevantSubstatsByWearer && relevantSubstatsByWearer[artifactWearer]
-        ? getCharactersTotalSubstats(relevantSubstatsByWearer[artifactWearer])
+      characterArtifacts: artifactsByWearer[artifactWearer],
+      totalSubstats: artifactsByWearer && artifactsByWearer[artifactWearer]
+        ? getCharactersTotalSubstats(artifactsByWearer[artifactWearer])
         : [],
     } : null;
   }).filter((data) => data !== null).flat();
@@ -38,14 +31,12 @@ function getDataToDisplay(artifactDataByWearer, relevantSubstatsByWearer, charac
 
 export default function AccountOverview({
   characterData,
-  artifactDataByWearer,
-  relevantSubstatsByWearer,
+  artifactsByWearer,
 }) {
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
   const dataToDisplay = getDataToDisplay(
-    artifactDataByWearer,
-    relevantSubstatsByWearer,
+    artifactsByWearer,
     characterData,
   );
 

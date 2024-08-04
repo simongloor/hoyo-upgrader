@@ -19,26 +19,26 @@ function processJson(jsonData) {
   return [];
 }
 
-function sortArtifactsByWearer(artifactData) {
-  const byWearer = {};
-  artifactData.forEach((artifact) => {
-    if (artifact.location) {
-      // console.log(artifact.location);
-      if (!byWearer[artifact.location]) {
-        byWearer[artifact.location] = {
-          flower: null,
-          plume: null,
-          sands: null,
-          goblet: null,
-          circlet: null,
-        };
-      }
-      byWearer[artifact.location][artifact.slotKey] = artifact;
-    }
-  });
-  // console.log(byWearer);
-  return byWearer;
-}
+// function sortArtifactsByWearer(artifactData) {
+//   const byWearer = {};
+//   artifactData.forEach((artifact) => {
+//     if (artifact.location) {
+//       // console.log(artifact.location);
+//       if (!byWearer[artifact.location]) {
+//         byWearer[artifact.location] = {
+//           flower: null,
+//           plume: null,
+//           sands: null,
+//           goblet: null,
+//           circlet: null,
+//         };
+//       }
+//       byWearer[artifact.location][artifact.slotKey] = artifact;
+//     }
+//   });
+//   // console.log(byWearer);
+//   return byWearer;
+// }
 
 function countArtifactsBySet(artifactData) {
   const counts = {
@@ -149,7 +149,7 @@ function countArtifactsByGroup(artifactData) {
 const artifactReducer = (
   state = {
     asList: [],
-    byWearer: {},
+    // byWearer: {},
     counts: {
       sortedSets: [],
       sets: {},
@@ -189,7 +189,7 @@ const artifactReducer = (
 
       // process
       newState.asList = processJson(newJsonData);
-      newState.byWearer = sortArtifactsByWearer(newState.asList);
+      // newState.byWearer = sortArtifactsByWearer(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
       newState.groupCounts = countArtifactsByGroup(newState.asList);
       return newState;
@@ -211,7 +211,7 @@ const artifactReducer = (
 
       // process
       newState.asList = processJson(action.payload.jsonData);
-      newState.byWearer = sortArtifactsByWearer(newState.asList);
+      // newState.byWearer = sortArtifactsByWearer(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
       newState.groupCounts = countArtifactsByGroup(newState.asList);
       return newState;

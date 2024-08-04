@@ -15,31 +15,35 @@ import AccountOverview from '../components/AccountOverview';
 import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
 
-import '../styles/Home.scss';
-import { getRelevantSubstatsByWearer } from '../data/substats';
+// import { getRelevantSubstatsByWearer } from '../data/substats';
+import useEvaluation from '../hooks/useEvaluation';
+import useBuildFilter from '../hooks/useBuildFilter';
+import useArtifactFilter from '../hooks/useArtifactFilter';
 import Recommendations from '../components/Recommendations';
+import '../styles/Home.scss';
 
 export default function Home() {
   const dispatch = useDispatch();
 
   const artifacts = useSelector((state) => state.artifacts);
   const characters = useSelector((state) => state.characters);
-  const filteredArtifacts = useFilter(artifacts, characters);
-  // console.log(filteredArtifacts);
-  const [relevantSubstatsByWearer, setRelevantSubstatsByWearer] = useState({});
+  const evaluatedArtifacts = useEvaluation(artifacts, characters);
+
+  // const filteredBuilds = useBuildFilter(artifacts, characters);
+  // const filteredArtifacts = useArtifactFilter(artifacts, characters);
 
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (artifacts && characters) {
-      setRelevantSubstatsByWearer(
-        getRelevantSubstatsByWearer(artifacts.byWearer, characters),
-      );
-    }
-  }, [artifacts, characters]);
+  // useEffect(() => {
+  //   if (artifacts && characters) {
+  //     setRelevantSubstatsByWearer(
+  //       getRelevantSubstatsByWearer(artifacts.byWearer, characters),
+  //     );
+  //   }
+  // }, [artifacts, characters]);
 
   return (
     <div
@@ -48,16 +52,14 @@ export default function Home() {
       <SettingsRow />
       <Recommendations counts={artifacts.groupCounts} />
       <ArtifactInventory counts={artifacts.counts} />
-      <AccountOverview
+      {/* <AccountOverview
         characterData={characters}
-        artifactDataByWearer={filteredArtifacts.byWearer}
-        relevantSubstatsByWearer={relevantSubstatsByWearer}
+        artifactsByWearer={filteredBuilds}
       />
       <ArtifactOverview
         characterData={characters}
-        artifactData={filteredArtifacts.asList}
-        relevantSubstatsByWearer={relevantSubstatsByWearer}
-      />
+        artifactsAsList={filteredArtifacts}
+      /> */}
       <Pinboard />
       <Filter />
     </div>

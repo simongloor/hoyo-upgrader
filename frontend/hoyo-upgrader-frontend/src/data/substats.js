@@ -164,7 +164,7 @@ function getMissingRollChances(missingRolls, wastedSubstatSlots) {
   return missingRollChances;
 }
 
-export function getArtifactSubstats(artifactData, characterBuild) {
+export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
   // console.log(artifactData, characterBuild);
   if (!artifactData) return {};
 
@@ -207,29 +207,29 @@ export function getArtifactSubstats(artifactData, characterBuild) {
 //---------------------------------------------------------
 // data processing for global reference data
 
-export function getRelevantSubstatsByWearer(artifactsByWearer, builds) {
-  const artifactsSubstats = {};
-  Object.keys(artifactsByWearer).forEach((artifactWearer) => {
-    artifactsSubstats[artifactWearer] = {};
-    Object.keys(artifactsByWearer[artifactWearer]).forEach((slot) => {
-      // console.log(artifactsByWearer[characterName]);
-      artifactsSubstats[artifactWearer][slot] = getArtifactSubstats(
-        artifactsByWearer[artifactWearer][slot],
-        builds.find((b) => b.artifactWearer === artifactWearer),
-      );
-    });
-  });
-  // console.log(evaluations);
-  return artifactsSubstats;
-}
+// export function getRelevantSubstatsByWearer(artifactsByWearer, builds) {
+//   const artifactsSubstats = {};
+//   Object.keys(artifactsByWearer).forEach((artifactWearer) => {
+//     artifactsSubstats[artifactWearer] = {};
+//     Object.keys(artifactsByWearer[artifactWearer]).forEach((slot) => {
+//       // console.log(artifactsByWearer[characterName]);
+//       artifactsSubstats[artifactWearer][slot] = getRelevantSubstatsOfArtifact(
+//         artifactsByWearer[artifactWearer][slot],
+//         builds.find((b) => b.artifactWearer === artifactWearer),
+//       );
+//     });
+//   });
+//   // console.log(evaluations);
+//   return artifactsSubstats;
+// }
 
 //---------------------------------------------------------
 // data processing for displaying multiple artifacts
 
-export function combineEvaluatedSubstats(evaluatedArtifactStats) {
+export function combineRelevantSubstats(relevantSubstats) {
   const foundSubstats = {};
   // Accumulate all values of the artifacts
-  evaluatedArtifactStats.forEach((artifact) => {
+  relevantSubstats.forEach((artifact) => {
     // Add the valuable substats
     Object.keys(artifact).forEach((key) => {
       if (key in foundSubstats) {
@@ -243,12 +243,12 @@ export function combineEvaluatedSubstats(evaluatedArtifactStats) {
 }
 
 export function getCharactersTotalSubstats(artifactsSubstats) {
-  return combineEvaluatedSubstats([
-    artifactsSubstats.flower,
-    artifactsSubstats.plume,
-    artifactsSubstats.sands,
-    artifactsSubstats.goblet,
-    artifactsSubstats.circlet,
+  return combineRelevantSubstats([
+    artifactsSubstats.flower.relevantSubstats,
+    artifactsSubstats.plume.relevantSubstats,
+    artifactsSubstats.sands.relevantSubstats,
+    artifactsSubstats.goblet.relevantSubstats,
+    artifactsSubstats.circlet.relevantSubstats,
   ]);
 }
 
