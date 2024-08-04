@@ -36,13 +36,13 @@ export default function ArtifactOverview({
           ? characterData
           : characterBuildsBySet[artifact.setKey] || [],
         equippedEvaluations,
-        filter.characterName,
+        filter.artifactWearer,
       )
     ))
     // sort artifacts by quality
     .sort((a, b) => (
-      getArtifactQualitySortValue(a, filter.characterName)
-        - getArtifactQualitySortValue(b, filter.characterName)
+      getArtifactQualitySortValue(a, filter.artifactWearer)
+        - getArtifactQualitySortValue(b, filter.artifactWearer)
     ));
 
   // handle pinning artifact
@@ -67,7 +67,7 @@ export default function ArtifactOverview({
               key={i}
               evaluationData={data}
               handleClickPinArtifact={handleClickPinArtifact}
-              filteredCharacter={filter.characterName}
+              filteredCharacter={filter.artifactWearer}
             />
           ))
       }

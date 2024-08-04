@@ -2,7 +2,8 @@
 
 const emptyFilter = {
   // character
-  characterName: null, // "RaidenShogun"
+  artifactWearer: null, // "KujouSara"
+  buildOwner: null, // "RaidenShogun"
   characterSets: null, // ["Gilded..., Paradise..."]
   // set
   specificSet: null, // "Gilded..."
@@ -66,7 +67,7 @@ const filterReducer = (
       };
     }
     case 'TOGGLE_CHARACTER': {
-      const enableFilter = (state.characterName !== action.payload.characterName);
+      const enableFilter = (state.artifactWearer !== action.payload.artifactWearer);
 
       // can't filter for both build sets and specific sets
       if (enableFilter && !state.filterSpecificSet) {
@@ -78,11 +79,13 @@ const filterReducer = (
       // apply data
       return enableFilter ? {
         ...newState,
-        characterName: action.payload.characterName,
+        artifactWearer: action.payload.artifactWearer,
+        buildOwner: action.payload.buildOwner,
         characterSets: action.payload.characterSets,
       } : {
         ...newState,
-        characterName: null,
+        artifactWearer: null,
+        buildOwner: null,
         characterSets: null,
       };
     }

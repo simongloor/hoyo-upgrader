@@ -39,7 +39,7 @@ export default function CharacterOverview({
     >
       <Character
         character={characterBuild.artifactWearer}
-        buildOwner={characterBuild.buildOwner}
+        secondaryCharacter={characterBuild.buildOwner}
         sets={characterBuild.sets}
       />
       <SpacerPiece />

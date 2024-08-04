@@ -8,10 +8,11 @@ import '../styles/FilterTile.scss';
 export default function FilterTileCharacterBuild({ filter }) {
   return (
     <div
-      className={`FilterTile character ${filter.characterName ? 'active' : 'placeholder'}`}
+      className={`FilterTile character ${filter.artifactWearer ? 'active' : 'placeholder'}`}
     >
       <Character
-        character={filter.characterName || 'generic'}
+        character={filter.artifactWearer || 'generic'}
+        secondaryCharacter={filter.buildOwner}
         sets={filter.characterSets}
       />
     </div>

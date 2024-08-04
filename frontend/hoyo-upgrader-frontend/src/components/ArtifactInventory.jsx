@@ -45,7 +45,7 @@ export default function ArtifactInventory({ counts }) {
           type="button"
           onClick={() => handleClickCharacterSets()}
           alt="Filtered Character Artifact Sets"
-          disabled={!filter.characterName}
+          disabled={!filter.artifactWearer}
         >
           <ArtifactMultiSet filter={filter} />
         </button>

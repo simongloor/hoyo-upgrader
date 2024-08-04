@@ -17,11 +17,10 @@ export default function Character({
 
   // event handlers
   const handleClick = () => {
-    // console.log(`Character: ${characterName} ${buildName}`);
     if (onClick) {
       onClick(character);
     } else {
-      dispatch(toggleCharacterFilter(character, sets));
+      dispatch(toggleCharacterFilter(character, secondaryCharacter, sets));
     }
   };
 
@@ -37,6 +36,18 @@ export default function Character({
         src={`${process.env.PUBLIC_URL}/genshin/characters/${character}.png`}
         alt={character}
       />
+      {
+        secondaryCharacter && character !== secondaryCharacter && (
+          <>
+            <img
+              className="secondary"
+              src={`${process.env.PUBLIC_URL}/genshin/characters/${secondaryCharacter}.png`}
+              alt={secondaryCharacter}
+            />
+            <div className="separator" />
+          </>
+        )
+      }
       {
         upgradePotential > 0 && (
           <div className="upgrade tile-marker">

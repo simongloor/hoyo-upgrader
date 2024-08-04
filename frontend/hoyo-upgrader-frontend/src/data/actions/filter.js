@@ -15,10 +15,10 @@ export function toggleCharacterSetsFilter() {
     type: 'TOGGLE_ARTIFACT_CHARACTER_SETS',
   });
 }
-export function toggleCharacterFilter(characterName, characterSets) {
+export function toggleCharacterFilter(artifactWearer, buildOwner, characterSets) {
   return ({
     type: 'TOGGLE_CHARACTER',
-    payload: { characterName, characterSets },
+    payload: { artifactWearer, buildOwner, characterSets },
   });
 }
 export function toggleMainstatFilter(piece, stat) {

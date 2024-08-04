@@ -76,19 +76,19 @@ export default function useFilter(artifacts, characterJson) {
     }
 
     // Filter by character
-    if (filter.characterName) {
+    if (filter.artifactWearer) {
       // CharacterOverviews
       // Only the CharacterOverview that matches the build should be displayed
-      if (artifactsToFilter.byCharacter[filter.characterName]) {
+      if (artifactsToFilter.byCharacter[filter.artifactWearer]) {
         artifactsToFilter.byCharacter = {
-          [filter.characterName]: artifactsToFilter.byCharacter[filter.characterName],
+          [filter.artifactWearer]: artifactsToFilter.byCharacter[filter.artifactWearer],
         };
       }
 
       // Artifacts
       // Only Artifacts that can be used by the build should be displayed
       if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
-        const build = characterJson.find((b) => b.artifactWearer === filter.characterName);
+        const build = characterJson.find((b) => b.artifactWearer === filter.artifactWearer);
         artifactsToFilter.asList = artifactsToFilter.asList
           .filter((artifact) => (
             (filter.showOffpieces || build.sets.includes(artifact.setKey))
