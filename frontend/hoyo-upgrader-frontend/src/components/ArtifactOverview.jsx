@@ -17,7 +17,7 @@ import togglePinnedArtifact from '../data/actions/pinboard';
 export default function ArtifactOverview({
   artifactData,
   characterData,
-  equippedArtifactsSubstats,
+  relevantSubstatsByWearer,
 }) {
   // console.log(equippedEvaluations);
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function ArtifactOverview({
         filter.showOffpieces
           ? characterData
           : characterBuildsBySet[artifact.setKey] || [],
-        equippedArtifactsSubstats,
+        relevantSubstatsByWearer,
         filter.artifactWearer,
       )
     ))

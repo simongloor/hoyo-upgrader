@@ -56,7 +56,7 @@ export default function Home() {
       <ArtifactOverview
         characterData={characters}
         artifactData={filteredArtifacts.asList}
-        equippedArtifactsSubstats={relevantSubstatsByWearer}
+        relevantSubstatsByWearer={relevantSubstatsByWearer}
       />
       <Pinboard />
       <Filter />

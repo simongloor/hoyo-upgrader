@@ -12,15 +12,8 @@ import TextPiece from './TextPiece';
 import '../styles/AccountOverview.scss';
 import { getArtifactTier } from '../data/evaluation';
 
-export default function AccountOverview({
-  characterData,
-  artifactDataByWearer,
-  relevantSubstatsByWearer,
-}) {
-  // console.log(artifactDataByWearer, relevantSubstatsByWearer);
-  // Prepare data for rendering
-  // This is required since the list can be sorted by wasted substats
-  const dataToDisplay = Object.keys(artifactDataByWearer).map((artifactWearer) => {
+function getDataToDisplay(artifactDataByWearer, relevantSubstatsByWearer, characterData) {
+  return Object.keys(artifactDataByWearer).map((artifactWearer) => {
     const build = characterData.find((b) => b.artifactWearer === artifactWearer);
     return build ? {
       artifactWearer,
@@ -41,6 +34,20 @@ export default function AccountOverview({
         : [],
     } : null;
   }).filter((data) => data !== null).flat();
+}
+
+export default function AccountOverview({
+  characterData,
+  artifactDataByWearer,
+  relevantSubstatsByWearer,
+}) {
+  // Prepare data for rendering
+  // This is required since the list can be sorted by wasted substats
+  const dataToDisplay = getDataToDisplay(
+    artifactDataByWearer,
+    relevantSubstatsByWearer,
+    characterData,
+  );
 
   // Sort by wasted substats
   dataToDisplay.sort((a, b) => (
