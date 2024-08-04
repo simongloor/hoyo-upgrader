@@ -38,7 +38,7 @@ export default function CharacterOverview({
       className="CharacterOverview row"
     >
       <Character
-        artifactWearer={characterBuild.artifactWearer}
+        character={characterBuild.artifactWearer}
         buildOwner={characterBuild.buildOwner}
         sets={characterBuild.sets}
       />

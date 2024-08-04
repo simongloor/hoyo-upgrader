@@ -41,11 +41,11 @@ const characterReducer = (
       saveStateToStorage(
         paths.localStorage.charactersJson,
         {
-          data: JSON.stringify(action.payload.jsonData, 0, 2),
+          data: action.payload.buildData.json,
         },
       );
 
-      return action.payload.jsonData;
+      return action.payload.buildData.data;
     }
     default: {
       return state;

@@ -14,35 +14,14 @@ import paths from '../data/paths';
 import '../styles/EditBuilds.scss';
 import { updateCharacters } from '../data/actions/characters';
 import { getEmptyBuild } from '../data/characters';
-import { getWearerStates, sortBuildsByOwner, sortBuildsByWearer } from '../data/builds';
+import { getWearerStates } from '../data/builds';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [jsonString, setJsonString] = useState('');
+  const [buildData, setBuildData] = useState({ data: [], json: '' });
   const [jsonIsValid, setJsonIsValid] = useState(true);
-  const [characterData, setCharacterData] = useState({
-    byWearer: {},
-    byOwner: {},
-  });
-
-  const setCharacterDataByWearer = (newDataByWearer) => {
-    const byOwner = sortBuildsByOwner(newDataByWearer);
-    setCharacterData({
-      byWearer: newDataByWearer,
-      byOwner,
-    });
-    setJsonString(JSON.stringify(newDataByWearer, null, 2));
-  };
-  const setCharacterDataByOwner = (newDataByOwner) => {
-    const byWearer = sortBuildsByWearer(newDataByOwner);
-    setCharacterData({
-      byWearer,
-      byOwner: newDataByOwner,
-    });
-    setJsonString(JSON.stringify(byWearer, null, 2));
-  };
 
   // Get data from local storage
   useEffect(() => {
@@ -51,99 +30,85 @@ export default function EditBuilds() {
       {},
       '',
     ).data;
-    setJsonString(newJsonString);
-
     const jsonData = JSON.parse(newJsonString);
-    const byOwner = sortBuildsByOwner(jsonData);
-
-    setCharacterData({
-      byWearer: jsonData,
-      byOwner,
-    });
+    setBuildData({ data: jsonData, json: newJsonString });
   }, []);
 
-  const wearerStates = getWearerStates(characterData.byOwner);
+  const wearerStates = getWearerStates(buildData.data);
 
   // handlers
   const handleChangeJson = (e) => {
-    setJsonString(e.target.value);
-
     try {
       const jsonData = JSON.parse(e.target.value);
-      setCharacterDataByWearer(jsonData);
+      setBuildData({ data: jsonData, json: e.target.value });
       setJsonIsValid(true);
     } catch (error) {
+      setBuildData((state) => ({ ...state, json: e.target.value }));
       setJsonIsValid(false);
     }
   };
 
   // create and delete functions
   const handleCreateBuild = (buildOwner) => {
-    const newDataByOwner = { ...characterData.byOwner };
-    if (!newDataByOwner[buildOwner]) {
-      newDataByOwner[buildOwner] = [];
-    }
+    const newBuilds = [...buildData.data];
     const newBuild = getEmptyBuild();
-    // console.log(wearerStates.free);
-    newBuild.artifactWearer = newDataByOwner[buildOwner].length === 0
-      ? buildOwner
-      : wearerStates.free[0];
-    newDataByOwner[buildOwner].push(newBuild);
-    setCharacterDataByOwner(newDataByOwner);
+    newBuild.buildOwner = buildOwner;
+    newBuild.artifactWearer = buildData.data
+      .some((b) => b.artifactWearer === buildOwner)
+      ? wearerStates.free[0]
+      : buildOwner;
+    newBuilds.push(newBuild);
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
-  const handleDeleteBuild = (buildOwner, index) => {
-    const newDataByWearer = { ...characterData.byWearer };
-    const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    delete newDataByWearer[artifactWearer];
-    setCharacterDataByWearer(newDataByWearer);
+
+  const handleDeleteBuild = (buildWearer) => {
+    const newBuilds = [...buildData.data];
+    const index = newBuilds.findIndex((b) => b.artifactWearer === buildWearer);
+    newBuilds.splice(index, 1);
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
-  const handleSetWearer = (buildOwner, index, newWearer) => {
-    const newDataByWearer = { ...characterData.byWearer };
-    const currentWearer = characterData.byOwner[buildOwner][index].artifactWearer;
-    newDataByWearer[newWearer] = newDataByWearer[currentWearer];
-    console.log(newDataByWearer[newWearer], newDataByWearer, currentWearer);
-    newDataByWearer[newWearer].artifactWearer = newWearer;
-    // delete newDataByWearer[currentWearer];
-    setCharacterDataByWearer(newDataByWearer);
+
+  const handleSetWearer = (oldWearer, newWearer) => {
+    const newBuilds = [...buildData.data];
+    const index = newBuilds.findIndex((b) => b.artifactWearer === oldWearer);
+    newBuilds[index].artifactWearer = newWearer;
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
 
   // toggle functions
-  const handleToggleSet = (buildOwner, index, setName) => {
-    const newDataByWearer = { ...characterData.byWearer };
-    const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    const build = newDataByWearer[artifactWearer];
+  const handleToggleSet = (artifactWearer, setName) => {
+    const newBuilds = [...buildData.data];
+    const build = newBuilds.find((b) => b.artifactWearer === artifactWearer);
     if (build.sets.includes(setName)) {
       build.sets = build.sets.filter((set) => set !== setName);
     } else {
       build.sets.push(setName);
     }
-    setCharacterDataByWearer(newDataByWearer);
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
-  const handleToggleMainstat = (buildOwner, index, slot, stat) => {
-    const newDataByWearer = { ...characterData.byWearer };
-    const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    const build = newDataByWearer[artifactWearer];
+  const handleToggleMainstat = (artifactWearer, slot, stat) => {
+    const newBuilds = [...buildData.data];
+    const build = newBuilds.find((b) => b.artifactWearer === artifactWearer);
     if (build.mainstats[slot].includes(stat)) {
       build.mainstats[slot] = build.mainstats[slot].filter((s) => s !== stat);
     } else {
       build.mainstats[slot].push(stat);
     }
-    setCharacterDataByWearer(newDataByWearer);
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
-  const handleToggleSubstat = (buildOwner, index, stat) => {
-    const newDataByWearer = { ...characterData.byWearer };
-    const { artifactWearer } = characterData.byOwner[buildOwner][index];
-    const build = newDataByWearer[artifactWearer];
+  const handleToggleSubstat = (artifactWearer, stat) => {
+    const newBuilds = [...buildData.data];
+    const build = newBuilds.find((b) => b.artifactWearer === artifactWearer);
     if (build.substats.includes(stat)) {
       build.substats = build.substats.filter((s) => s !== stat);
     } else {
       build.substats.push(stat);
     }
-    setCharacterDataByWearer(newDataByWearer);
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
 
   const handleClickSave = () => {
-    dispatch(updateCharacters(characterData));
+    dispatch(updateCharacters(buildData));
     navigate('/genshin');
   };
 
@@ -171,7 +136,7 @@ export default function EditBuilds() {
       </span>
       <Box className={`json ${jsonIsValid ? '' : 'error'}`}>
         <textarea
-          value={jsonString}
+          value={buildData.json}
           onChange={handleChangeJson}
         />
       </Box>
@@ -180,7 +145,7 @@ export default function EditBuilds() {
           <CharacterEditor
             key={buildOwner}
             buildOwner={buildOwner}
-            characterBuilds={characterData.byOwner[buildOwner] || []}
+            characterBuilds={buildData.data.filter((b) => b.buildOwner === buildOwner)}
             wearerStates={wearerStates}
             onClickAddBuild={handleCreateBuild}
             onClickDeleteBuild={handleDeleteBuild}

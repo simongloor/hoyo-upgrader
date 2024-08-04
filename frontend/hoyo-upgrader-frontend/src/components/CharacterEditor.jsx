@@ -39,9 +39,7 @@ export default function CharacterEditor({
         characterBuilds && characterBuilds.map((b, i) => (
           <CharacterBuildEditor
             key={b.artifactWearer}
-            buildOwner={buildOwner}
             build={b}
-            index={i}
             wearerStates={wearerStates}
             onClickDeleteBuild={onClickDeleteBuild}
             onClickSetWearer={onClickSetWearer}
@@ -53,7 +51,7 @@ export default function CharacterEditor({
       }
       <Box className="row right">
         <Character
-          artifactWearer={buildOwner}
+          character={buildOwner}
         />
         <h2>{ paths.character[buildOwner] }</h2>
         <button
@@ -68,7 +66,7 @@ export default function CharacterEditor({
           !canCreateBuild && (
             <span className="used">
               This character currently wears the artifact set of
-              {wearerStates.busy.find((w) => w.wearer === buildOwner).buildOwner}
+              {wearerStates.busy[buildOwner]}
               .
             </span>
           )

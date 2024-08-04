@@ -25,7 +25,7 @@ export default function ArtifactEvaluation({
       {
         evaluationData.artifactData.location ? (
           <Character
-            artifactWearer={evaluationData.artifactData.location}
+            character={evaluationData.artifactData.location}
           />
         ) : (
           <SpacerPiece size="default" />
@@ -69,8 +69,8 @@ export default function ArtifactEvaluation({
             <Fragment key={b.build.artifactWearer}>
               <SpacerPiece size="small" />
               <Character
-                artifactWearer={b.build.artifactWearer}
-                buildOwner={b.build.buildOwner}
+                character={b.build.buildOwner}
+                secondaryCharacter={b.build.artifactWearer}
                 sets={b.build.sets}
                 upgradePotential={b.upgradePotential}
               />

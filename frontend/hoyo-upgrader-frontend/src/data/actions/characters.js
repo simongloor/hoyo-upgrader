@@ -5,9 +5,9 @@ export function loadCharacters(exampleJsonData) {
     payload: { exampleJsonData },
   });
 }
-export function updateCharacters(jsonData) {
+export function updateCharacters(buildData) {
   return ({
     type: 'UPDATE_CHARACTERS',
-    payload: { jsonData },
+    payload: { buildData },
   });
 }

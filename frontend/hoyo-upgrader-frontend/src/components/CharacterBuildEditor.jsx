@@ -10,9 +10,7 @@ import Artifact from './Artifact';
 import SubstatButton from './SubstatButton';
 
 export default function CharacterBuildEditor({
-  buildOwner,
   build,
-  index,
   wearerStates,
   onClickDeleteBuild,
   onClickSetWearer,
@@ -21,17 +19,20 @@ export default function CharacterBuildEditor({
   onClickToggleSubstat,
 }) {
   // console.log(build);
-  const handleClickWearer = (characterName) => {
-    onClickSetWearer(buildOwner, index, characterName);
+  const handleClickWearer = (newWearer) => {
+    onClickSetWearer(build.artifactWearer, newWearer);
   };
   const handleClickSet = (setName) => {
-    onClickToggleSet(buildOwner, index, setName);
+    onClickToggleSet(build.artifactWearer, setName);
   };
   const handleClickMainStat = (statCategory, statName) => {
-    onClickToggleMainstat(buildOwner, index, statCategory, statName);
+    onClickToggleMainstat(build.artifactWearer, statCategory, statName);
   };
   const handleClickSubstat = (statName) => {
-    onClickToggleSubstat(buildOwner, index, statName);
+    onClickToggleSubstat(build.artifactWearer, statName);
+  };
+  const handleDeleteBuild = () => {
+    onClickDeleteBuild(build.buildWearer);
   };
 
   // console.log(build.buildOwner, build.artifactWearer);
@@ -42,9 +43,9 @@ export default function CharacterBuildEditor({
       <div className="row header">
         <Character
           key={build}
-          artifactWearer={buildOwner}
+          character={build.buildOwner}
         />
-        <h2>{ paths.character[buildOwner] }</h2>
+        <h2>{ paths.character[build.buildOwner] }</h2>
       </div>
       <span><strong>Wearer</strong></span>
       <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
@@ -53,7 +54,7 @@ export default function CharacterBuildEditor({
           Object.keys(paths.character).map((characterName) => (
             <Character
               key={characterName}
-              artifactWearer={characterName}
+              character={characterName}
               onClick={() => handleClickWearer(characterName)}
               inactive={
                 characterName !== build.artifactWearer
@@ -170,10 +171,7 @@ export default function CharacterBuildEditor({
       <button
         className="deleteBuild secondary"
         type="button"
-        onClick={() => onClickDeleteBuild(
-          buildOwner,
-          index,
-        )}
+        onClick={handleDeleteBuild}
       >
         <span>delete build</span>
       </button>
