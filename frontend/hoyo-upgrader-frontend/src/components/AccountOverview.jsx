@@ -10,22 +10,34 @@ import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
 
 import '../styles/AccountOverview.scss';
+import { getArtifactTier } from '../data/evaluation';
 
 export default function AccountOverview({
   characterData,
-  artifactData,
-  equippedArtifactsSubstats,
+  artifactDataByWearer,
+  relevantSubstatsByWearer,
 }) {
+  // console.log(artifactDataByWearer, relevantSubstatsByWearer);
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
-  const dataToDisplay = Object.keys(artifactData).map((artifactWearer) => {
+  const dataToDisplay = Object.keys(artifactDataByWearer).map((artifactWearer) => {
     const build = characterData.find((b) => b.artifactWearer === artifactWearer);
     return build ? {
       artifactWearer,
       characterBuild: build,
-      characterArtifacts: artifactData[artifactWearer],
-      totalSubstats: equippedArtifactsSubstats && equippedArtifactsSubstats[artifactWearer]
-        ? getCharactersTotalSubstats(equippedArtifactsSubstats[artifactWearer])
+      characterArtifacts: {
+        artifactData: artifactDataByWearer[artifactWearer],
+        usedSubstats: relevantSubstatsByWearer[artifactWearer],
+        tier: Object.keys(artifactDataByWearer[artifactWearer]).reduce((acc, slot) => ({
+          ...acc,
+          [slot]: getArtifactTier(
+            artifactDataByWearer[artifactWearer][slot],
+            relevantSubstatsByWearer[artifactWearer][slot],
+          ),
+        }), {}),
+      },
+      totalSubstats: relevantSubstatsByWearer && relevantSubstatsByWearer[artifactWearer]
+        ? getCharactersTotalSubstats(relevantSubstatsByWearer[artifactWearer])
         : [],
     } : null;
   }).filter((data) => data !== null).flat();

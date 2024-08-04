@@ -18,17 +18,16 @@ export default function CharacterOverview({
 }) {
   const dispatch = useDispatch();
 
-  const renderArtifact = (data) => (
+  const renderArtifact = (artifactData, slot) => (
     <button
       type="button"
       className="button pin"
       alt="pin artifact"
-      onClick={() => dispatch(togglePinnedArtifact(data))}
+      onClick={() => dispatch(togglePinnedArtifact(artifactData))}
     >
       <Artifact
-        data={data}
-        characterBuild={characterBuild}
-        showTier
+        data={artifactData.artifactData[slot]}
+        tier={artifactData.tier[slot]}
       />
     </button>
   );
@@ -43,11 +42,11 @@ export default function CharacterOverview({
         sets={characterBuild.sets}
       />
       <SpacerPiece />
-      { renderArtifact(characterArtifacts.flower) }
-      { renderArtifact(characterArtifacts.plume) }
-      { renderArtifact(characterArtifacts.sands) }
-      { renderArtifact(characterArtifacts.goblet) }
-      { renderArtifact(characterArtifacts.circlet) }
+      { renderArtifact(characterArtifacts, 'flower') }
+      { renderArtifact(characterArtifacts, 'plume') }
+      { renderArtifact(characterArtifacts, 'sands') }
+      { renderArtifact(characterArtifacts, 'goblet') }
+      { renderArtifact(characterArtifacts, 'circlet') }
       <SpacerPiece />
       <ArtifactStats totalSubstats={totalSubstats} uniformSubststCount={45} />
     </div>

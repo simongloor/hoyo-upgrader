@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import { getArtifactSubstats, getArtifactTier } from '../data/substats';
+import React from 'react';
+// import { getArtifactSubstats, getArtifactTier } from '../data/substats';
 
 import iconTrash from '../theme/trash.svg';
 import '../styles/Artifact.scss';
 
 export default function Artifact({
   data,
-  characterBuild,
+  // characterBuild,
+  tier,
   piece = 'empty',
   set = 'generic',
   count = -1,
   mainstat,
-  showTier = false,
+  // showTier = false,
   upgradePotential = -1,
 }) {
   // console.log(data);
@@ -23,26 +24,13 @@ export default function Artifact({
   const displayedSet = data ? data.set : set;
   const displayedPiece = data ? data.piece : piece;
 
-  // evaluate
-  const [evaluation, setEvaluation] = React.useState(null);
-  useEffect(() => {
-    if (data && characterBuild) {
-      // !!!!!! this is currently needed since the artifact evaluation doesn't happen on a top level
-      // console.log(data, characterBuild);
-      const substats = getArtifactSubstats(data, characterBuild);
-      const tier = getArtifactTier(data, substats);
-      setEvaluation({ substats, tier });
-      // console.log(substats, tier);
-    }
-  }, [data]);
-
   // render label
   let label = null;
 
   // tier?
-  if (showTier && evaluation) {
+  if (tier) {
     label = (
-      <h6 className="tier">{evaluation.tier}</h6>
+      <h6 className="tier">{tier}</h6>
     );
   }
 
@@ -65,8 +53,8 @@ export default function Artifact({
   }
 
   // add widget around label
-  const widget = data && (label || showTier) ? (
-    <div className={`tier tile-marker ${showTier ? 'heavy' : ''} ${label ? '' : 'empty'}`}>
+  const widget = data && (label || tier) ? (
+    <div className={`tier tile-marker ${tier ? 'heavy' : ''} ${label ? '' : 'empty'}`}>
       <div className={`${data.piece === 'flower' || data.piece === 'plume' ? 'generic' : data.mainStatKey}`} />
       {label}
     </div>

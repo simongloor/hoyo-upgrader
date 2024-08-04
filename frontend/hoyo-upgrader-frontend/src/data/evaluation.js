@@ -3,6 +3,57 @@
 import { getArtifactSubstats } from './substats';
 import paths from './paths';
 
+// ---------------------------------------------------------
+// artifact evaluation
+
+export function getArtifactTier(artifactData, relevantSubstats) {
+  if (!artifactData || !relevantSubstats) {
+    return '?';
+  }
+
+  switch (artifactData.slotKey) {
+    case 'flower':
+    case 'plume': {
+      if (relevantSubstats.wastedSubstats <= 1) {
+        return 'S';
+      }
+      if (relevantSubstats.wastedSubstats <= 2) {
+        return 'A';
+      }
+      if (relevantSubstats.wastedSubstats <= 4) {
+        return 'B';
+      }
+      return 'C';
+    }
+    case 'sands':
+    case 'goblet':
+    case 'circlet': {
+      if (relevantSubstats.wastedSubstats <= 2) {
+        return 'S';
+      }
+      if (relevantSubstats.wastedSubstats <= 4) {
+        return 'A';
+      }
+      return 'B';
+    }
+    default: {
+      return '?';
+    }
+  }
+}
+
+// ---------------------------------------------------------
+// sorting
+
+export function getArtifactQualitySortValue(artifactEvaluation) {
+  // artifacts without builds go to the bottom
+  if (artifactEvaluation.buildEvaluations.length === 0) {
+    return 20;
+  }
+
+  return artifactEvaluation.buildEvaluations[0].sortValue;
+}
+
 function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
   // wasted substats is the biggest factor
   let sortValue = totalSubstats.wastedSubstats;
@@ -39,6 +90,9 @@ function getBuildQualitySortValue(build, totalSubstats, filteredCharacterName) {
 
   return sortValue;
 }
+
+// ---------------------------------------------------------
+// data enhancement
 
 export function applyUpgradePotential(
   artifactData,

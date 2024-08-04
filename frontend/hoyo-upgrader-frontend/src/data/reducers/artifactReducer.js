@@ -19,13 +19,13 @@ function processJson(jsonData) {
   return [];
 }
 
-function sortDataByCharacter(artifactData) {
-  const byCharacter = {};
+function sortArtifactsByWearer(artifactData) {
+  const byWearer = {};
   artifactData.forEach((artifact) => {
     if (artifact.location) {
       // console.log(artifact.location);
-      if (!byCharacter[artifact.location]) {
-        byCharacter[artifact.location] = {
+      if (!byWearer[artifact.location]) {
+        byWearer[artifact.location] = {
           flower: null,
           plume: null,
           sands: null,
@@ -33,11 +33,11 @@ function sortDataByCharacter(artifactData) {
           circlet: null,
         };
       }
-      byCharacter[artifact.location][artifact.slotKey] = artifact;
+      byWearer[artifact.location][artifact.slotKey] = artifact;
     }
   });
-  // console.log(byCharacter);
-  return byCharacter;
+  // console.log(byWearer);
+  return byWearer;
 }
 
 function countArtifactsBySet(artifactData) {
@@ -149,7 +149,7 @@ function countArtifactsByGroup(artifactData) {
 const artifactReducer = (
   state = {
     asList: [],
-    byCharacter: {},
+    byWearer: {},
     counts: {
       sortedSets: [],
       sets: {},
@@ -189,7 +189,7 @@ const artifactReducer = (
 
       // process
       newState.asList = processJson(newJsonData);
-      newState.byCharacter = sortDataByCharacter(newState.asList);
+      newState.byWearer = sortArtifactsByWearer(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
       newState.groupCounts = countArtifactsByGroup(newState.asList);
       return newState;
@@ -211,7 +211,7 @@ const artifactReducer = (
 
       // process
       newState.asList = processJson(action.payload.jsonData);
-      newState.byCharacter = sortDataByCharacter(newState.asList);
+      newState.byWearer = sortArtifactsByWearer(newState.asList);
       newState.counts = countArtifactsBySet(newState.asList);
       newState.groupCounts = countArtifactsByGroup(newState.asList);
       return newState;

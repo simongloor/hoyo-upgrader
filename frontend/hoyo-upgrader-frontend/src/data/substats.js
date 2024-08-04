@@ -205,60 +205,16 @@ export function getArtifactSubstats(artifactData, characterBuild) {
 }
 
 //---------------------------------------------------------
-// build quality analysis
-
-export function getArtifactTier(artifactData, evaluatedArtifactStats) {
-  switch (artifactData.slotKey) {
-    case 'flower':
-    case 'plume': {
-      if (evaluatedArtifactStats.wastedSubstats <= 1) {
-        return 'S';
-      }
-      if (evaluatedArtifactStats.wastedSubstats <= 2) {
-        return 'A';
-      }
-      if (evaluatedArtifactStats.wastedSubstats <= 4) {
-        return 'B';
-      }
-      return 'C';
-    }
-    case 'sands':
-    case 'goblet':
-    case 'circlet': {
-      if (evaluatedArtifactStats.wastedSubstats <= 2) {
-        return 'S';
-      }
-      if (evaluatedArtifactStats.wastedSubstats <= 4) {
-        return 'A';
-      }
-      return 'B';
-    }
-    default: {
-      return '?';
-    }
-  }
-}
-
-export function getArtifactQualitySortValue(artifactEvaluation, filteredCharacter) {
-  // artifacts without builds go to the bottom
-  if (artifactEvaluation.buildEvaluations.length === 0) {
-    return 20;
-  }
-
-  return artifactEvaluation.buildEvaluations[0].sortValue;
-}
-
-//---------------------------------------------------------
 // data processing for global reference data
 
-export function getEquippedArtifactsSubstats(artifactsByCharacter, builds) {
+export function getRelevantSubstatsByWearer(artifactsByWearer, builds) {
   const artifactsSubstats = {};
-  Object.keys(artifactsByCharacter).forEach((artifactWearer) => {
+  Object.keys(artifactsByWearer).forEach((artifactWearer) => {
     artifactsSubstats[artifactWearer] = {};
-    Object.keys(artifactsByCharacter[artifactWearer]).forEach((slot) => {
-      // console.log(artifactsByCharacter[characterName]);
+    Object.keys(artifactsByWearer[artifactWearer]).forEach((slot) => {
+      // console.log(artifactsByWearer[characterName]);
       artifactsSubstats[artifactWearer][slot] = getArtifactSubstats(
-        artifactsByCharacter[artifactWearer][slot],
+        artifactsByWearer[artifactWearer][slot],
         builds.find((b) => b.artifactWearer === artifactWearer),
       );
     });

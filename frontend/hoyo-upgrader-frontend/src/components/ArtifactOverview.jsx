@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getBuildsBySets } from '../data/characters';
-import { getArtifactQualitySortValue } from '../data/substats';
+import { applyUpgradePotential, getArtifactQualitySortValue } from '../data/evaluation';
 
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
@@ -11,7 +11,6 @@ import Artifact from './Artifact';
 import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
 import togglePinnedArtifact from '../data/actions/pinboard';
-import { applyUpgradePotential } from '../data/evaluation';
 
 // import '../styles/ArtifactOverview.scss';
 

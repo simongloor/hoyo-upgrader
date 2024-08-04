@@ -16,7 +16,7 @@ import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
-import { getEquippedArtifactsSubstats } from '../data/substats';
+import { getRelevantSubstatsByWearer } from '../data/substats';
 import Recommendations from '../components/Recommendations';
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
   const characters = useSelector((state) => state.characters);
   const filteredArtifacts = useFilter(artifacts, characters);
   // console.log(filteredArtifacts);
-  const [equippedArtifactsSubstats, setEquippedArtifactsSubstats] = useState({});
+  const [relevantSubstatsByWearer, setRelevantSubstatsByWearer] = useState({});
 
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
@@ -35,8 +35,8 @@ export default function Home() {
 
   useEffect(() => {
     if (artifacts && characters) {
-      setEquippedArtifactsSubstats(
-        getEquippedArtifactsSubstats(artifacts.byCharacter, characters),
+      setRelevantSubstatsByWearer(
+        getRelevantSubstatsByWearer(artifacts.byWearer, characters),
       );
     }
   }, [artifacts, characters]);
@@ -50,13 +50,13 @@ export default function Home() {
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
         characterData={characters}
-        artifactData={filteredArtifacts.byCharacter}
-        equippedArtifactsSubstats={equippedArtifactsSubstats}
+        artifactDataByWearer={filteredArtifacts.byWearer}
+        relevantSubstatsByWearer={relevantSubstatsByWearer}
       />
       <ArtifactOverview
         characterData={characters}
         artifactData={filteredArtifacts.asList}
-        equippedArtifactsSubstats={equippedArtifactsSubstats}
+        equippedArtifactsSubstats={relevantSubstatsByWearer}
       />
       <Pinboard />
       <Filter />

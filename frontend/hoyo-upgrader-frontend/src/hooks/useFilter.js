@@ -17,10 +17,10 @@ export default function useFilter(artifacts, characterJson) {
   useEffect(() => {
     const artifactsToFilter = { ...artifacts };
 
-    // Add missing artifact byCharacter entries
+    // Add missing artifact byWearer entries
     characterJson.forEach((build) => {
-      if (!artifactsToFilter.byCharacter[build.artifactWearer]) {
-        artifactsToFilter.byCharacter[build.artifactWearer] = { ...emptyArtifactData };
+      if (!artifactsToFilter.byWearer[build.artifactWearer]) {
+        artifactsToFilter.byWearer[build.artifactWearer] = { ...emptyArtifactData };
       }
     });
 
@@ -28,10 +28,10 @@ export default function useFilter(artifacts, characterJson) {
     if (filter.specificSet) {
       // CharacterOverviews
       // Only CharacterOverviews that want the set should be displayed
-      artifactsToFilter.byCharacter = characterJson
+      artifactsToFilter.byWearer = characterJson
         .reduce((acc, build) => {
           if (build.sets.includes(filter.specificSet)) {
-            acc[build.artifactWearer] = artifactsToFilter.byCharacter[build.artifactWearer];
+            acc[build.artifactWearer] = artifactsToFilter.byWearer[build.artifactWearer];
           }
           return acc;
         }, {});
@@ -59,8 +59,8 @@ export default function useFilter(artifacts, characterJson) {
       // CharacterOverviews
       // Only CharacterOverviews that want the same piece and main stat should be displayed
       if (specificMainStat) {
-        artifactsToFilter.byCharacter = { ...artifactsToFilter.byCharacter };
-        Object.keys(artifactsToFilter.byCharacter).forEach(
+        artifactsToFilter.byWearer = { ...artifactsToFilter.byWearer };
+        Object.keys(artifactsToFilter.byWearer).forEach(
           // remove characters that don't want the same main stat for the piece
           (character) => {
             const build = characterJson.find((b) => b.artifactWearer === character);
@@ -68,7 +68,7 @@ export default function useFilter(artifacts, characterJson) {
               build
               && !build.mainstats[filter.specificPiece].includes(specificMainStat)
             ) {
-              delete artifactsToFilter.byCharacter[character];
+              delete artifactsToFilter.byWearer[character];
             }
           },
         );
@@ -79,9 +79,9 @@ export default function useFilter(artifacts, characterJson) {
     if (filter.artifactWearer) {
       // CharacterOverviews
       // Only the CharacterOverview that matches the build should be displayed
-      if (artifactsToFilter.byCharacter[filter.artifactWearer]) {
-        artifactsToFilter.byCharacter = {
-          [filter.artifactWearer]: artifactsToFilter.byCharacter[filter.artifactWearer],
+      if (artifactsToFilter.byWearer[filter.artifactWearer]) {
+        artifactsToFilter.byWearer = {
+          [filter.artifactWearer]: artifactsToFilter.byWearer[filter.artifactWearer],
         };
       }
 
