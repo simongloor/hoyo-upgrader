@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-import { evaluateArtifactSet } from '../data/substats';
+import { getCharactersTotalSubstats } from '../data/substats';
 
 import CharacterOverview from './CharacterOverview';
 import Box from './Box';
@@ -11,7 +11,11 @@ import TextPiece from './TextPiece';
 
 import '../styles/AccountOverview.scss';
 
-export default function AccountOverview({ characterData, artifactData, equippedEvaluations }) {
+export default function AccountOverview({
+  characterData,
+  artifactData,
+  equippedArtifactsSubstats,
+}) {
   // Prepare data for rendering
   // This is required since the list can be sorted by wasted substats
   const dataToDisplay = Object.keys(artifactData).map((artifactWearer) => {
@@ -20,7 +24,9 @@ export default function AccountOverview({ characterData, artifactData, equippedE
       artifactWearer,
       characterBuild: build,
       characterArtifacts: artifactData[artifactWearer],
-      totalSubstats: evaluateArtifactSet(equippedEvaluations, artifactWearer),
+      totalSubstats: equippedArtifactsSubstats && equippedArtifactsSubstats[artifactWearer]
+        ? getCharactersTotalSubstats(equippedArtifactsSubstats[artifactWearer])
+        : [],
     } : null;
   }).filter((data) => data !== null).flat();
 

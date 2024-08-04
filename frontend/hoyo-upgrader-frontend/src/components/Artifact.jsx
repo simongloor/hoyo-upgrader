@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { evaluateArtifact, getArtifactTier } from '../data/substats';
+import { getArtifactSubstats, getArtifactTier } from '../data/substats';
 
 import iconTrash from '../theme/trash.svg';
 import '../styles/Artifact.scss';
@@ -27,8 +27,9 @@ export default function Artifact({
   const [evaluation, setEvaluation] = React.useState(null);
   useEffect(() => {
     if (data && characterBuild) {
+      // !!!!!! this is currently needed since the artifact evaluation doesn't happen on a top level
       // console.log(data, characterBuild);
-      const substats = evaluateArtifact(data, characterBuild);
+      const substats = getArtifactSubstats(data, characterBuild);
       const tier = getArtifactTier(data, substats);
       setEvaluation({ substats, tier });
       // console.log(substats, tier);

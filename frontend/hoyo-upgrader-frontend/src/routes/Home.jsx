@@ -16,7 +16,7 @@ import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
 
 import '../styles/Home.scss';
-import { evaluateEquippedArtifacts } from '../data/substats';
+import { getEquippedArtifactsSubstats } from '../data/substats';
 import Recommendations from '../components/Recommendations';
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
   const characters = useSelector((state) => state.characters);
   const filteredArtifacts = useFilter(artifacts, characters);
   // console.log(filteredArtifacts);
-  const [equippedEvaluations, setEquippedEvaluations] = useState({});
+  const [equippedArtifactsSubstats, setEquippedArtifactsSubstats] = useState({});
 
   useEffect(() => {
     dispatch(loadArtifacts(artifactsJson));
@@ -35,8 +35,8 @@ export default function Home() {
 
   useEffect(() => {
     if (artifacts && characters) {
-      setEquippedEvaluations(
-        evaluateEquippedArtifacts(artifacts.byCharacter, characters),
+      setEquippedArtifactsSubstats(
+        getEquippedArtifactsSubstats(artifacts.byCharacter, characters),
       );
     }
   }, [artifacts, characters]);
@@ -51,12 +51,12 @@ export default function Home() {
       <AccountOverview
         characterData={characters}
         artifactData={filteredArtifacts.byCharacter}
-        equippedEvaluations={equippedEvaluations}
+        equippedArtifactsSubstats={equippedArtifactsSubstats}
       />
       <ArtifactOverview
         characterData={characters}
         artifactData={filteredArtifacts.asList}
-        equippedEvaluations={equippedEvaluations}
+        equippedArtifactsSubstats={equippedArtifactsSubstats}
       />
       <Pinboard />
       <Filter />
