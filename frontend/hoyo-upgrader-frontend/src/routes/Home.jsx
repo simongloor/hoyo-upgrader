@@ -45,8 +45,8 @@ export default function Home() {
       <Recommendations counts={artifacts.groupCounts} />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
-        characterData={characters}
-        artifactsByWearer={filteredBuilds}
+        filteredBuilds={filteredBuilds}
+        artifactsAsList={filteredArtifacts.asList}
       />
       <ArtifactOverview
         artifactsAsList={filteredArtifacts.asList}

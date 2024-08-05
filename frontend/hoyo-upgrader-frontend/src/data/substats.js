@@ -208,9 +208,11 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
 // data processing for displaying multiple artifacts
 
 export function combineRelevantSubstats(relevantSubstats) {
+  // console.log(relevantSubstats);
   const foundSubstats = {};
   // Accumulate all values of the artifacts
   relevantSubstats.forEach((artifact) => {
+    if (!artifact) return;
     // Add the valuable substats
     Object.keys(artifact).forEach((key) => {
       if (key in foundSubstats) {
@@ -223,13 +225,14 @@ export function combineRelevantSubstats(relevantSubstats) {
   return foundSubstats;
 }
 
-export function getCharactersTotalSubstats(artifactsSubstats) {
+export function getCharactersTotalSubstats(artifactsBySlot) {
+  // console.log(artifactsBySlot);
   return combineRelevantSubstats([
-    artifactsSubstats.flower.relevantSubstats,
-    artifactsSubstats.plume.relevantSubstats,
-    artifactsSubstats.sands.relevantSubstats,
-    artifactsSubstats.goblet.relevantSubstats,
-    artifactsSubstats.circlet.relevantSubstats,
+    artifactsBySlot.flower && artifactsBySlot.flower.buildEvaluations.relevantSubstats,
+    artifactsBySlot.plume && artifactsBySlot.plume.buildEvaluations.relevantSubstats,
+    artifactsBySlot.sands && artifactsBySlot.sands.buildEvaluations.relevantSubstats,
+    artifactsBySlot.goblet && artifactsBySlot.goblet.buildEvaluations.relevantSubstats,
+    artifactsBySlot.circlet && artifactsBySlot.circlet.buildEvaluations.relevantSubstats,
   ]);
 }
 

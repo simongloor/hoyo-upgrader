@@ -14,8 +14,9 @@ import ArtifactStats from './ArtifactStats';
 export default function CharacterOverview({
   characterBuild,
   characterArtifacts,
-  totalSubstats,
+  relevantSubstats,
 }) {
+  console.log(characterBuild, characterArtifacts, relevantSubstats);
   const dispatch = useDispatch();
 
   const renderArtifact = (artifactData, slot) => (
@@ -24,10 +25,11 @@ export default function CharacterOverview({
       className="button pin"
       alt="pin artifact"
       onClick={() => dispatch(togglePinnedArtifact(artifactData))}
+      disabled={!artifactData}
     >
       <Artifact
-        data={artifactData.artifactData[slot]}
-        tier={artifactData.tier[slot]}
+        data={artifactData[slot] && artifactData[slot].artifactData}
+        tier={artifactData[slot] && artifactData[slot].tier}
       />
     </button>
   );
@@ -48,7 +50,7 @@ export default function CharacterOverview({
       { renderArtifact(characterArtifacts, 'goblet') }
       { renderArtifact(characterArtifacts, 'circlet') }
       <SpacerPiece />
-      <ArtifactStats totalSubstats={totalSubstats} uniformSubststCount={45} />
+      <ArtifactStats relevantSubstats={relevantSubstats} uniformSubstatCount={45} />
     </div>
   );
 }

@@ -75,7 +75,7 @@ export default function ArtifactEvaluation({
               <ArtifactStats
                 relevantSubstats={b.relevantSubstats}
                 showCounter={false}
-                uniformSubststCount={9}
+                uniformSubstatCount={9}
               />
             </Fragment>
           ))

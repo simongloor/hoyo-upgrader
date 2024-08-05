@@ -17,3 +17,21 @@ export function getWearerStates(builds) {
     }, []),
   };
 }
+
+export function getEquippedArtifacts(artifactWearer, artifactsAsList) {
+  const artifacts = artifactsAsList.filter((artifact) => (
+    artifact.artifactData.location === artifactWearer));
+
+  const artifactsBySlot = artifacts.reduce((acc, artifact) => {
+    acc[artifact.artifactData.slotKey] = artifact;
+    return acc;
+  }, {
+    flower: null,
+    plume: null,
+    sands: null,
+    goblet: null,
+    circlet: null,
+  });
+
+  return artifactsBySlot;
+}

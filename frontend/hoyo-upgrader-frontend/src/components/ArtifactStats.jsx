@@ -24,15 +24,15 @@ const statOrder = [
 
 export default function ArtifactStats({
   relevantSubstats,
-  uniformSubststCount,
+  uniformSubstatCount,
   showCounter = true,
 }) {
   let fillerSubstatCount = 0;
-  if (uniformSubststCount) {
+  if (uniformSubstatCount) {
     const relevantSubstatsCount = relevantSubstats
       ? Object.values(relevantSubstats).reduce((acc, cur) => acc + cur, 0)
       : 0;
-    fillerSubstatCount = uniformSubststCount ? uniformSubststCount - relevantSubstatsCount : 0;
+    fillerSubstatCount = uniformSubstatCount ? uniformSubstatCount - relevantSubstatsCount : 0;
   }
 
   // sort relevantSubstats by statOrder
