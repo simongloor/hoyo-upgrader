@@ -60,14 +60,32 @@ export default function useArtifactFilter(artifacts, characters, filteredBuilds)
         });
     }
 
-    // // Filter the evaluations
-    // artifactsToFilter.asList = artifactsToFilter.asList
-    //   .map((a) => ({
-    //     ...a,
-    //     buildEvaluations: a.buildEvaluations.filter((evaluation) => (
-    //       filteredBuilds.find((build) => build.artifactWearer === evaluation.artifactWearer)
-    //     )),
-    //   }));
+    // Filter the evaluations
+    artifactsToFilter.asList = artifactsToFilter.asList
+      .map((a) => ({
+        ...a,
+        buildEvaluations: a.buildEvaluations.filter((evaluation) => {
+          const build = characters.find((b) => b.artifactWearer === evaluation.artifactWearer);
+
+          // Filter out any build that does not want the set unless offpieces are allowed
+          if (!filter.showOffpieces && !build.sets.includes(a.artifactData.setKey)) {
+            return false;
+          }
+
+          // Filter out any build that does not provide upgrade potential
+          if (
+            evaluation.upgradePotential <= 0
+            // show for the selected character
+            && evaluation.artifactWearer !== filter.artifactWearer
+            // show for the artifact's wearer
+            && evaluation.artifactWearer !== a.artifactData.location
+          ) {
+            return false;
+          }
+
+          return true;
+        }),
+      }));
 
     // Add highest upgrade potential
     artifactsToFilter.asList.forEach((artifact, iArtifact) => {
@@ -80,6 +98,16 @@ export default function useArtifactFilter(artifacts, characters, filteredBuilds)
         }, 0);
       artifactsToFilter.asList[iArtifact].highestUpgradePotential = highestUpgradePotential;
     });
+
+    // Push the build of the filtered character to the front
+    if (filter.artifactWearer) {
+      artifactsToFilter.asList.forEach((artifact, iArtifact) => {
+        artifactsToFilter.asList[iArtifact].buildEvaluations.sort((a, b) => (
+          (a.artifactWearer === filter.artifactWearer ? -1000 : a.sortValue)
+          - (b.artifactWearer === filter.artifactWearer ? -1000 : b.sortValue)
+        ));
+      });
+    }
 
     // // DEBUGGING
     // artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);

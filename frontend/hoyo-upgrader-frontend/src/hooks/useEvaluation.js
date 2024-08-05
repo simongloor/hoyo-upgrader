@@ -24,9 +24,17 @@ function evaluateArtifact(artifact, build) {
 //---------------------------------------------------------
 
 function evaluateArtifactForAllBuilds(artifact, builds) {
-  // we need to evaluate all artifacts for all builds to support all filter options
-  // even flowers can be viewed unfiltered (by slot with offpieces)
-  return builds.map((build) => evaluateArtifact(artifact, build));
+  let relevantBuilds = builds;
+
+  // builds that don't want other mainstats should not be generated unless it's already equipped
+  if (artifact.slotKey !== 'flower' && artifact.slotKey !== 'plume') {
+    relevantBuilds = relevantBuilds.filter((build) => (
+      artifact.location === build.artifactWearer
+      || build.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
+    ));
+  }
+
+  return relevantBuilds.map((build) => evaluateArtifact(artifact, build));
 }
 
 function findCompetingArtifact(artifact, artifactWearer, evaluatedArtifacts) {
@@ -78,6 +86,17 @@ export default function useEvaluation(artifacts, builds) {
           newEvaluatedArtifacts,
         );
       });
+
+      // sort evaluations by sortValue
+      newEvaluatedArtifacts.forEach((artifact) => {
+        artifact.buildEvaluations.sort((a, b) => a.sortValue - b.sortValue);
+      });
+
+      // sort artifacts by sortValue of first buildEvaluation
+      newEvaluatedArtifacts.sort((a, b) => (
+        (a.buildEvaluations[0] ? a.buildEvaluations[0].sortValue : 20)
+        - (b.buildEvaluations[0] ? b.buildEvaluations[0].sortValue : 20)
+      ));
 
       // apply
       setEvaluatedArtifacts((state) => ({

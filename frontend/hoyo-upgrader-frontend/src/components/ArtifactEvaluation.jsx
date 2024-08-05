@@ -15,8 +15,8 @@ import ArtifactStatText from './ArtifactStatText';
 export default function ArtifactEvaluation({
   artifact,
   handleClickPinArtifact,
-  filteredCharacter,
 }) {
+  console.log(artifact);
   return (
     <div
       className="ArtifactEvaluation row"
@@ -56,14 +56,6 @@ export default function ArtifactEvaluation({
       <ArtifactStatText artifactData={artifact.artifactData} />
       {
         artifact.buildEvaluations
-          .filter((b) => (
-            // show with upgrade potential
-            b.upgradePotential > 0
-            // show for the selected character
-            || b.artifactWearer === filteredCharacter
-            // show for the artifact's wearer
-            || b.artifactWearer === artifact.artifactData.location
-          ))
           .map((b) => (
             <Fragment key={b.artifactWearer}>
               <SpacerPiece size="small" />

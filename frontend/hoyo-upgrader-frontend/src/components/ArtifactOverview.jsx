@@ -53,7 +53,6 @@ export default function ArtifactOverview({
               key={i}
               artifact={data}
               handleClickPinArtifact={handleClickPinArtifact}
-              filteredCharacter={filter.artifactWearer}
             />
           ))
       }
