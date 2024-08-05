@@ -19,6 +19,7 @@ export function getWearerStates(builds) {
 }
 
 export function getEquippedArtifacts(artifactWearer, artifactsAsList) {
+  // console.log(artifactsAsList[0]);
   const artifacts = artifactsAsList.filter((artifact) => (
     artifact.artifactData.location === artifactWearer));
 

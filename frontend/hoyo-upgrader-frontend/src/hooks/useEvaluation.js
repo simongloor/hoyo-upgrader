@@ -67,13 +67,23 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
 // ---------------------------------------------------------
 
 export default function useEvaluation(artifacts, builds) {
-  const [evaluatedArtifacts, setEvaluatedArtifacts] = useState({ ...artifacts });
+  const [evaluatedArtifacts, setEvaluatedArtifacts] = useState({
+    ...artifacts,
+    isEvaluated: false,
+    asList: artifacts.asList.map((artifact) => ({
+      artifactData: artifact,
+      buildEvaluations: [],
+    })),
+  });
+  // console.log(artifacts);
 
   useEffect(() => {
     if (artifacts && builds && artifacts.asList.length > 0 && builds.length > 0) {
+      // console.log('useEvaluation');
       // console.log(artifacts, builds);
-      // measure time
-      const t0 = performance.now();
+
+      // // measure time
+      // const t0 = performance.now();
 
       // evaluate as far as possible to generate relevant substats
       const newEvaluatedArtifacts = [...artifacts.asList].map((artifact) => ({
@@ -103,12 +113,13 @@ export default function useEvaluation(artifacts, builds) {
       // apply
       setEvaluatedArtifacts((state) => ({
         ...state,
+        isEvaluated: true,
         asList: newEvaluatedArtifacts,
       }));
 
-      // measure time
-      const t1 = performance.now();
-      console.log('useEvaluation took', t1 - t0, 'ms.');
+      // // measure time
+      // const t1 = performance.now();
+      // console.log('useEvaluation took', t1 - t0, 'ms.');
     }
   }, [artifacts, builds]);
 

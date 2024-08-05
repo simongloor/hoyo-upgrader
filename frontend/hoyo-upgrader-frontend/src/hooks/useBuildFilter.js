@@ -17,8 +17,10 @@ export default function useBuildFilter(builds) {
 
   useEffect(() => {
     if (builds.length > 0) {
-      // measure time
-      const t0 = performance.now();
+      // console.log('useBuildFilter');
+
+      // // measure time
+      // const t0 = performance.now();
 
       let newBuilds = [...builds];
 
@@ -46,9 +48,9 @@ export default function useBuildFilter(builds) {
       }
       setFilteredBuilds(newBuilds);
 
-      // measure time
-      const t1 = performance.now();
-      console.log(`useBuildFilter took ${t1 - t0} ms.`);
+      // // measure time
+      // const t1 = performance.now();
+      // console.log(`useBuildFilter took ${t1 - t0} ms.`);
     }
   }, [builds, filter]);
 

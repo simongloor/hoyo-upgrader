@@ -8,9 +8,11 @@ export default function useArtifactFilter(artifacts, characters) {
   const [filteredArtifacts, setFilteredArtifacts] = useState({ ...artifacts });
 
   useEffect(() => {
-    if (artifacts.asList.length > 0) {
-      // measure time
-      const t0 = performance.now();
+    if (artifacts.asList.length > 0 && artifacts.isEvaluated) {
+      // console.log('useArtifactFilter');
+
+      // // measure time
+      // const t0 = performance.now();
 
       const artifactsToFilter = { ...artifacts };
 
@@ -121,14 +123,14 @@ export default function useArtifactFilter(artifacts, characters) {
             - getArtifactQualitySortValue(b, filter.artifactWearer)
         ));
 
-      // // DEBUGGING
-      // artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
+      // DEBUGGING
+      artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
 
       setFilteredArtifacts(artifactsToFilter);
 
-      // measure time
-      const t1 = performance.now();
-      console.log(`useArtifactFilter took ${t1 - t0} ms.`);
+      // // measure time
+      // const t1 = performance.now();
+      // console.log(`useArtifactFilter took ${t1 - t0} ms.`);
     }
   }, [artifacts, filter]);
 

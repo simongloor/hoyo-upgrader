@@ -235,6 +235,7 @@ export function getCharactersTotalSubstats(artifactWearer, artifactsBySlot) {
 
       const build = artifactsBySlot[slot].buildEvaluations
         .find((evaluation) => evaluation.artifactWearer === artifactWearer);
+      // if (!build) return null;
       return build.relevantSubstats;
     }),
   );

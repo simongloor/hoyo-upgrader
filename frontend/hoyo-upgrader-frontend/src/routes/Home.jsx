@@ -32,10 +32,14 @@ export default function Home() {
   const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters);
 
   useEffect(() => {
-    console.log('Loading stored data');
+    // console.log('Loading stored data');
     dispatch(loadArtifacts(artifactsJson));
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
+
+  if (!filteredArtifacts.isEvaluated) {
+    return null;
+  }
 
   return (
     <div
@@ -48,14 +52,16 @@ export default function Home() {
         filteredBuilds={filteredBuilds}
         artifactsAsList={evaluatedArtifacts.asList}
       />
-      <Profiler
+      {/* <Profiler
         id="ArtifactOverview"
-        onRender={(id, phase, actualDuration) => { console.log(`${id} took ${actualDuration}ms.`); }}
-      >
-        <ArtifactOverview
-          artifactsAsList={filteredArtifacts.asList}
-        />
-      </Profiler>
+        onRender={(id, phase, actualDuration) => {
+          console.log(`${id} took ${actualDuration}ms.`);
+        }}
+      > */}
+      <ArtifactOverview
+        artifactsAsList={filteredArtifacts.asList}
+      />
+      {/* </Profiler> */}
       <Pinboard />
       <Filter />
     </div>
