@@ -10,7 +10,7 @@ const emptyFilter = {
   filterCharacterSets: false, // specific set enabled?
   filterSpecificSet: false, // build sets enabled?
   // piece
-  specificPiece: null, // "flower"
+  specificPiece: 'flower', // "flower"
   // mainstat
   mainstat: {
     sands: null,

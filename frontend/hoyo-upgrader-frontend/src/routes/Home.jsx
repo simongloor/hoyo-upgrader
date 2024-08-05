@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { Profiler, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import characterJson from '../data/mock/characters.json';
 import artifactsJson from '../data/mock/artifacts.json';
 import { loadArtifacts } from '../data/actions/artifacts';
 import { loadCharacters } from '../data/actions/characters';
-import useFilter from '../hooks/useFilter';
 
 import SettingsRow from '../components/SettingsRow';
 import Filter from '../components/Filter';
@@ -30,10 +29,10 @@ export default function Home() {
 
   const evaluatedArtifacts = useEvaluation(artifacts, characters);
   const filteredBuilds = useBuildFilter(characters);
-  const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters, filteredBuilds);
-  // console.log(filteredArtifacts.asList);
+  const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters);
 
   useEffect(() => {
+    console.log('Loading stored data');
     dispatch(loadArtifacts(artifactsJson));
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
@@ -49,9 +48,14 @@ export default function Home() {
         filteredBuilds={filteredBuilds}
         artifactsAsList={evaluatedArtifacts.asList}
       />
-      <ArtifactOverview
-        artifactsAsList={filteredArtifacts.asList}
-      />
+      <Profiler
+        id="ArtifactOverview"
+        onRender={(id, phase, actualDuration) => { console.log(`${id} took ${actualDuration}ms.`); }}
+      >
+        <ArtifactOverview
+          artifactsAsList={filteredArtifacts.asList}
+        />
+      </Profiler>
       <Pinboard />
       <Filter />
     </div>

@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { getCharactersTotalSubstats } from '../data/substats';
+import { getEquippedArtifacts } from '../data/builds';
 
 import CharacterOverview from './CharacterOverview';
 import Box from './Box';
@@ -10,8 +11,6 @@ import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
 
 import '../styles/AccountOverview.scss';
-import { getArtifactTier } from '../data/evaluation';
-import { getEquippedArtifacts } from '../data/builds';
 
 function getDataToDisplay(
   filteredBuilds,

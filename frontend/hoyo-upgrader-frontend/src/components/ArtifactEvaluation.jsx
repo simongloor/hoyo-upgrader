@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import Artifact from './Artifact';
 import Character from './Character';
@@ -15,7 +15,37 @@ import ArtifactStatText from './ArtifactStatText';
 export default function ArtifactEvaluation({
   artifact,
   handleClickPinArtifact,
+  index,
 }) {
+  // // switch after index * 0.2s to show the artifact
+  // const [showPlaceholder, setShowPlaceholder] = useState(true);
+
+  // // trigger after rerender
+  // useEffect(() => {
+  //   const timeDelay = Math.floor(Math.max(index - 20) / 10) * 50;
+  //   let timeout;
+  //   if (timeDelay <= 0) {
+  //     setShowPlaceholder(false);
+  //   } else {
+  //     setShowPlaceholder(true);
+  //     timeout = setTimeout(() => {
+  //       setShowPlaceholder(false);
+  //     }, timeDelay);
+  //   }
+  //   return () => clearTimeout(timeout);
+  // }, [artifact, index]);
+
+  // // render placeholder
+  // if (showPlaceholder && index > 50) {
+  //   return (
+  //     <div className="ArtifactEvaluation-placeholder">
+  //       <div className="artifact" />
+  //       <div className="stats" />
+  //     </div>
+  //   );
+  // }
+
+  // render full
   return (
     <div
       className="ArtifactEvaluation row"

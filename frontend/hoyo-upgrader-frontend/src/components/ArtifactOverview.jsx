@@ -20,17 +20,6 @@ export default function ArtifactOverview({
   // console.log(artifactsAsList);
   const dispatch = useDispatch();
 
-  // const characterBuildsBySet = getBuildsBySets(characterData);
-  const filter = useSelector((state) => state.filter);
-
-  // // generate artifact evaluation data
-  // // this is required to sort the artifacts by quality
-  const sortedArtifacts = artifactsAsList
-    .sort((a, b) => (
-      getArtifactQualitySortValue(a, filter.artifactWearer)
-        - getArtifactQualitySortValue(b, filter.artifactWearer)
-    ));
-
   // handle pinning artifact
   const handleClickPinArtifact = (pinnedArtifactData) => {
     dispatch(togglePinnedArtifact(pinnedArtifactData));
@@ -43,22 +32,23 @@ export default function ArtifactOverview({
     >
       <h2>
         Artifacts
-        <span className="weak">{sortedArtifacts.length}</span>
+        <span className="weak">{artifactsAsList.length}</span>
       </h2>
       {
-        sortedArtifacts
+        artifactsAsList
           .map((data, i) => (
             <ArtifactEvaluation
               // eslint-disable-next-line react/no-array-index-key
               key={i}
               artifact={data}
               handleClickPinArtifact={handleClickPinArtifact}
+              index={i}
             />
           ))
       }
       {
         // placeholder
-        sortedArtifacts.length === 0 && (
+        artifactsAsList.length === 0 && (
           <div className="row">
             <Artifact set="empty" />
             <SpacerPiece />

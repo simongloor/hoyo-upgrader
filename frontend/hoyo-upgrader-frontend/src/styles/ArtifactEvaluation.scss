@@ -5,3 +5,22 @@
 //     opacity: 0.4;
 //   }
 // }
+
+.ArtifactEvaluation-placeholder {
+  padding: 1px;
+  height: $tile;
+  div {
+    display: inline-block;
+    height: 54px;
+    background-color: $elevation-minus2;
+    border-radius: $border;
+  }
+  .artifact {
+    margin-left: $tile;
+    width: 54px;
+  }
+  .stats {
+    margin-left: 2px;
+    width: 114px;
+  }
+}

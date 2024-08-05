@@ -7,13 +7,11 @@ import '../styles/Artifact.scss';
 
 export default function Artifact({
   data,
-  // characterBuild,
   tier,
   piece = 'empty',
   set = 'generic',
   count = -1,
   mainstat,
-  // showTier = false,
   upgradePotential = -1,
 }) {
   // console.log(data);

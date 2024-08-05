@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { Profiler } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../data/paths';
+import {
+  toggleCharacterSetsFilter,
+  toggleSpecificSetFilter,
+} from '../data/actions/filter';
 
 import Artifact from './Artifact';
 import Box from './Box';
 import ArtifactMultiSet from './ArtifactMultiSet';
 import SpacerPiece from './SpacerPiece';
-import {
-  toggleCharacterSetsFilter,
-  toggleSpecificSetFilter,
-} from '../data/actions/filter';
 
 import '../styles/ArtifactInventory.scss';
 

@@ -16,33 +16,40 @@ export default function useBuildFilter(builds) {
   // const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
 
   useEffect(() => {
-    let newBuilds = [...builds];
+    if (builds.length > 0) {
+      // measure time
+      const t0 = performance.now();
 
-    // Filter by set
-    if (filter.specificSet) {
-      // CharacterOverviews
-      // Only CharacterOverviews that want the set should be displayed
-      newBuilds = newBuilds.filter((build) => build.sets.includes(filter.specificSet));
-    }
+      let newBuilds = [...builds];
 
-    // Filter by piece
-    if (filter.specificPiece) {
-      const specificMainStat = filter.mainstat[filter.specificPiece];
-      // CharacterOverviews
-      // Only CharacterOverviews that want the main stat for the filtered piece should be displayed
-      if (specificMainStat) {
-        newBuilds = newBuilds.filter((build) => (
-          build.mainstats[filter.specificPiece] === specificMainStat));
+      // Filter by set
+      if (filter.specificSet) {
+        // Only CharacterOverviews that want the set should be displayed
+        newBuilds = newBuilds.filter((build) => build.sets.includes(filter.specificSet));
       }
-    }
 
-    // Filter by character
-    if (filter.artifactWearer) {
-      // CharacterOverviews
-      // Only the CharacterOverview that matches the build should be displayed
-      newBuilds = newBuilds.filter((build) => build.artifactWearer === filter.artifactWearer);
+      // Filter by piece
+      if (filter.specificPiece) {
+        const specificMainStat = filter.mainstat[filter.specificPiece];
+        // Only CharacterOverviews that want the main stat
+        // for the filtered piece should be displayed
+        if (specificMainStat) {
+          newBuilds = newBuilds.filter((build) => (
+            build.mainstats[filter.specificPiece] === specificMainStat));
+        }
+      }
+
+      // Filter by character
+      if (filter.artifactWearer) {
+        // Only the CharacterOverview that matches the build should be displayed
+        newBuilds = newBuilds.filter((build) => build.artifactWearer === filter.artifactWearer);
+      }
+      setFilteredBuilds(newBuilds);
+
+      // measure time
+      const t1 = performance.now();
+      console.log(`useBuildFilter took ${t1 - t0} ms.`);
     }
-    setFilteredBuilds(newBuilds);
   }, [builds, filter]);
 
   return filteredBuilds;
