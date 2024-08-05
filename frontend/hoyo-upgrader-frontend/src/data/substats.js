@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 
+import paths from './paths';
+
 //---------------------------------------------------------
 // data
 
@@ -225,15 +227,17 @@ export function combineRelevantSubstats(relevantSubstats) {
   return foundSubstats;
 }
 
-export function getCharactersTotalSubstats(artifactsBySlot) {
+export function getCharactersTotalSubstats(artifactWearer, artifactsBySlot) {
   // console.log(artifactsBySlot);
-  return combineRelevantSubstats([
-    artifactsBySlot.flower && artifactsBySlot.flower.buildEvaluations.relevantSubstats,
-    artifactsBySlot.plume && artifactsBySlot.plume.buildEvaluations.relevantSubstats,
-    artifactsBySlot.sands && artifactsBySlot.sands.buildEvaluations.relevantSubstats,
-    artifactsBySlot.goblet && artifactsBySlot.goblet.buildEvaluations.relevantSubstats,
-    artifactsBySlot.circlet && artifactsBySlot.circlet.buildEvaluations.relevantSubstats,
-  ]);
+  return combineRelevantSubstats(
+    Object.keys(paths.piece).map((slot) => {
+      if (!artifactsBySlot[slot]) return null;
+
+      const build = artifactsBySlot[slot].buildEvaluations
+        .find((evaluation) => evaluation.artifactWearer === artifactWearer);
+      return build.relevantSubstats;
+    }),
+  );
 }
 
 export function getSubstatIsAlwaysBad(substat) {

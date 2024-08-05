@@ -72,8 +72,8 @@ export default function useArtifactFilter(artifacts, characterJson, filteredBuil
       artifactsToFilter.asList[iArtifact].highestUpgradePotential = highestUpgradePotential;
     });
 
-    // DEBUGGING
-    artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
+    // // DEBUGGING
+    // artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
 
     setFilteredArtifacts(artifactsToFilter);
   }, [artifacts, filter]);

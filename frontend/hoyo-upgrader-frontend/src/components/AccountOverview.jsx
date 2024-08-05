@@ -19,7 +19,7 @@ function getDataToDisplay(
 ) {
   return filteredBuilds.map((build) => {
     const artifacts = getEquippedArtifacts(build.artifactWearer, artifactsAsList);
-    const relevantSubstats = getCharactersTotalSubstats(artifacts);
+    const relevantSubstats = getCharactersTotalSubstats(build.artifactWearer, artifacts);
     return {
       build,
       artifacts,
@@ -40,20 +40,6 @@ export default function AccountOverview({
     filteredBuilds,
     artifactsAsList,
   );
-
-  // Remove duplicate characters from the beginning of the list
-  const seenCharacters = {};
-  dataToDisplay.forEach((data) => {
-    seenCharacters[data.artifactWearer] = true;
-  });
-  for (let i = dataToDisplay.length - 1; i >= 0; i -= 1) {
-    if (seenCharacters[dataToDisplay[i].build.artifactWearer]) {
-      seenCharacters[dataToDisplay[i].build.artifactWearer] = false;
-    } else {
-      dataToDisplay.splice(i, 1);
-      i -= 1;
-    }
-  }
 
   // Render
   return (

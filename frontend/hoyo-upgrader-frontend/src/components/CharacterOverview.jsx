@@ -16,7 +16,7 @@ export default function CharacterOverview({
   characterArtifacts,
   relevantSubstats,
 }) {
-  console.log(characterBuild, characterArtifacts, relevantSubstats);
+  // console.log(characterBuild, characterArtifacts, relevantSubstats);
   const dispatch = useDispatch();
 
   const renderArtifact = (artifactData, slot) => (
