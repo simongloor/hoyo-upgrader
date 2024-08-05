@@ -29,10 +29,10 @@ function evaluateArtifactForAllBuilds(artifact, builds) {
   return builds.map((build) => evaluateArtifact(artifact, build));
 }
 
-function findCompetingArtifact(artifact, evaluatedArtifacts) {
+function findCompetingArtifact(artifact, artifactWearer, evaluatedArtifacts) {
   return evaluatedArtifacts.find((a) => (
     a.artifactData.location
-    && a.artifactData.location === artifact.artifactData.location
+    && a.artifactData.location === artifactWearer
     && a.artifactData.slotKey === artifact.artifactData.slotKey
   ));
 }
@@ -43,7 +43,11 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
     ...artifact,
     // go through all builds and add the upgradePotential
     buildEvaluations: artifact.buildEvaluations.map((evaluation) => {
-      const competingArtifact = findCompetingArtifact(artifact, evaluatedArtifacts);
+      const competingArtifact = findCompetingArtifact(
+        artifact,
+        evaluation.artifactWearer,
+        evaluatedArtifacts,
+      );
       return {
         ...evaluation,
         upgradePotential: getUpgradePotential(evaluation.relevantSubstats, competingArtifact),

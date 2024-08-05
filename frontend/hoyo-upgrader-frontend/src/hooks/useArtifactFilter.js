@@ -58,7 +58,6 @@ export default function useArtifactFilter(artifacts, characters, filteredBuilds)
 
           return setMatches && mainstatMatches;
         });
-      // }
     }
 
     // // Filter the evaluations
