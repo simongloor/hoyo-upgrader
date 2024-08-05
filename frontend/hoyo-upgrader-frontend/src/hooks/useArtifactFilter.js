@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-export default function useArtifactFilter(artifacts, characterJson, filteredBuilds) {
+export default function useArtifactFilter(artifacts, characters, filteredBuilds) {
   const filter = useSelector((state) => state.filter);
   const [filteredArtifacts, setFilteredArtifacts] = useState({ ...artifacts });
 
@@ -11,7 +11,8 @@ export default function useArtifactFilter(artifacts, characterJson, filteredBuil
 
     // Filter by set
     if (filter.specificSet) {
-      // Artifacts
+      console.log('filter.specificSet', filter.specificSet);
+
       // Only Artifacts that belong to the set should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
         .filter((artifact) => artifact.artifactData.setKey === filter.specificSet);
@@ -19,9 +20,9 @@ export default function useArtifactFilter(artifacts, characterJson, filteredBuil
 
     // Filter by piece
     if (filter.specificPiece) {
+      console.log('filter.specificPiece', filter.specificPiece);
       const specificMainStat = filter.mainstat[filter.specificPiece];
 
-      // Artifacts
       // Only Artifacts that belong to the piece should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
         .filter((artifact) => artifact.artifactData.slotKey === filter.specificPiece);
@@ -34,31 +35,39 @@ export default function useArtifactFilter(artifacts, characterJson, filteredBuil
 
     // Filter by character
     if (filter.artifactWearer) {
-      // Artifacts
       // Only Artifacts that can be used by the build should be displayed
-      if (!(filter.specificPiece && filter.mainstat[filter.specificPiece])) {
-        const build = characterJson.find((b) => b.artifactWearer === filter.artifactWearer);
-        artifactsToFilter.asList = artifactsToFilter.asList
-          .filter((artifact) => (
-            (filter.showOffpieces || build.sets.includes(artifact.setKey))
-            && (
+      const build = characters.find((b) => b.artifactWearer === filter.artifactWearer);
+
+      artifactsToFilter.asList = artifactsToFilter.asList
+        .filter((artifact) => {
+          if (artifact.artifactData.location === filter.artifactWearer) {
+            return true;
+          }
+
+          const setMatches = filter.showOffpieces
+            || build.sets.includes(artifact.artifactData.setKey);
+
+          const mainstatMatches = (filter.specificPiece && filter.mainstat[filter.specificPiece])
+            || (
               artifact.artifactData.slotKey === 'flower'
               || artifact.artifactData.slotKey === 'plume'
               || build.mainstats[artifact.artifactData.slotKey]
                 .includes(artifact.artifactData.mainStatKey)
-            )
-          ));
-      }
+            );
+
+          return setMatches && mainstatMatches;
+        });
+      // }
     }
 
-    // Filter the evaluations
-    artifactsToFilter.asList = artifactsToFilter.asList
-      .map((a) => ({
-        ...a,
-        buildEvaluations: a.buildEvaluations.filter((evaluation) => (
-          filteredBuilds.find((build) => build.artifactWearer === evaluation.artifactWearer)
-        )),
-      }));
+    // // Filter the evaluations
+    // artifactsToFilter.asList = artifactsToFilter.asList
+    //   .map((a) => ({
+    //     ...a,
+    //     buildEvaluations: a.buildEvaluations.filter((evaluation) => (
+    //       filteredBuilds.find((build) => build.artifactWearer === evaluation.artifactWearer)
+    //     )),
+    //   }));
 
     // Add highest upgrade potential
     artifactsToFilter.asList.forEach((artifact, iArtifact) => {
