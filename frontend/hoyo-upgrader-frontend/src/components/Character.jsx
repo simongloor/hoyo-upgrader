@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import '../styles/Character.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
 export default function Character({
@@ -13,13 +13,22 @@ export default function Character({
   disabled,
 }) {
   const dispatch = useDispatch();
+  const store = useStore();
 
   // event handlers
   const handleClick = () => {
     if (onClick) {
+      // call custom handler
       onClick(character);
     } else {
-      dispatch(toggleCharacterFilter(character, secondaryCharacter));
+      // toggle character filter
+      const characterBuild = store.getState().characters
+        .find((char) => char.artifactWearer === character);
+      dispatch(toggleCharacterFilter(
+        character,
+        secondaryCharacter,
+        characterBuild.sets,
+      ));
     }
   };
 

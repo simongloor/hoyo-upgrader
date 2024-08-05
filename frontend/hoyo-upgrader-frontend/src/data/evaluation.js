@@ -83,24 +83,24 @@ export function getBuildQualitySortValue(relevantSubstats) {
   return sortValue;
 }
 
-export function getArtifactQualitySortValue(artifactEvaluation, filteredArtifactWearer) {
+export function getArtifactQualitySortValue(artifact, filteredArtifactWearer) {
   // console.log(artifactEvaluation, filteredArtifactWearer);
 
   // artifacts without builds go to the bottom
-  if (artifactEvaluation.buildEvaluations.length === 0) {
+  if (artifact.buildEvaluations.length === 0) {
     return 20;
   }
 
-  // filtered character build is used when the filter is active
+  // the filtered character build is used when the filter is active
   if (filteredArtifactWearer) {
-    return artifactEvaluation.buildEvaluations.find((evaluation) => (
-      evaluation.artifactData.location === filteredArtifactWearer
+    return artifact.buildEvaluations.find((evaluation) => (
+      evaluation.artifactWearer === filteredArtifactWearer
     )).sortValue;
   }
 
   // return the lowest sort value of all builds
   return Math.min(
-    ...artifactEvaluation.buildEvaluations.map((evaluation) => evaluation.sortValue),
+    ...artifact.buildEvaluations.map((evaluation) => evaluation.sortValue),
   );
 }
 
