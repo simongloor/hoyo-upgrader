@@ -8,6 +8,7 @@ import '../styles/Artifact.scss';
 export default function Artifact({
   data,
   tier,
+  showMainstat,
   piece = 'empty',
   set = 'generic',
   count = -1,
@@ -51,8 +52,8 @@ export default function Artifact({
   }
 
   // add widget around label
-  const widget = data && (label || tier) ? (
-    <div className={`tier tile-marker ${tier ? 'heavy' : ''} ${label ? '' : 'empty'}`}>
+  const widget = data && (label || tier || showMainstat) ? (
+    <div className={`tier tile-marker ${tier ? 'heavy' : ''} ${showMainstat && 'empty'}`}>
       <div className={`${data.piece === 'flower' || data.piece === 'plume' ? 'generic' : data.mainStatKey}`} />
       {label}
     </div>

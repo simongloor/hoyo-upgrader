@@ -42,7 +42,6 @@ export default function ArtifactOverview({
               key={i}
               artifact={data}
               handleClickPinArtifact={handleClickPinArtifact}
-              index={i}
             />
           ))
       }

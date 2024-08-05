@@ -15,37 +15,7 @@ import ArtifactStatText from './ArtifactStatText';
 export default function ArtifactEvaluation({
   artifact,
   handleClickPinArtifact,
-  index,
 }) {
-  // // switch after index * 0.2s to show the artifact
-  // const [showPlaceholder, setShowPlaceholder] = useState(true);
-
-  // // trigger after rerender
-  // useEffect(() => {
-  //   const timeDelay = Math.floor(Math.max(index - 20) / 10) * 50;
-  //   let timeout;
-  //   if (timeDelay <= 0) {
-  //     setShowPlaceholder(false);
-  //   } else {
-  //     setShowPlaceholder(true);
-  //     timeout = setTimeout(() => {
-  //       setShowPlaceholder(false);
-  //     }, timeDelay);
-  //   }
-  //   return () => clearTimeout(timeout);
-  // }, [artifact, index]);
-
-  // // render placeholder
-  // if (showPlaceholder && index > 50) {
-  //   return (
-  //     <div className="ArtifactEvaluation-placeholder">
-  //       <div className="artifact" />
-  //       <div className="stats" />
-  //     </div>
-  //   );
-  // }
-
-  // render full
   return (
     <div
       className="ArtifactEvaluation row"
@@ -71,7 +41,7 @@ export default function ArtifactEvaluation({
           artifact.artifactData.location ? (
             <Artifact
               data={artifact.artifactData}
-              showTier
+              showMainstat
           />
           ) : (
             <Artifact

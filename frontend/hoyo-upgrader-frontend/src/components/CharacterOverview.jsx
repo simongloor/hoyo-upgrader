@@ -29,7 +29,8 @@ export default function CharacterOverview({
     >
       <Artifact
         data={artifactData[slot] && artifactData[slot].artifactData}
-        tier={artifactData[slot] && artifactData[slot].tier}
+        tier={artifactData[slot] && artifactData[slot].buildEvaluations
+          .find((b) => b.artifactWearer === characterBuild.artifactWearer).tier}
       />
     </button>
   );
