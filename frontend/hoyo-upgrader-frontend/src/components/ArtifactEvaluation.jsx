@@ -16,7 +16,6 @@ export default function ArtifactEvaluation({
   artifact,
   handleClickPinArtifact,
 }) {
-  console.log(artifact);
   return (
     <div
       className="ArtifactEvaluation row"
