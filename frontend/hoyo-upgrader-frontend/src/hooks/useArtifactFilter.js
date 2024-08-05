@@ -11,7 +11,7 @@ export default function useArtifactFilter(artifacts, characters, filteredBuilds)
 
     // Filter by set
     if (filter.specificSet) {
-      console.log('filter.specificSet', filter.specificSet);
+      // console.log('filter.specificSet', filter.specificSet);
 
       // Only Artifacts that belong to the set should be displayed
       artifactsToFilter.asList = artifactsToFilter.asList
@@ -20,7 +20,7 @@ export default function useArtifactFilter(artifacts, characters, filteredBuilds)
 
     // Filter by piece
     if (filter.specificPiece) {
-      console.log('filter.specificPiece', filter.specificPiece);
+      // console.log('filter.specificPiece', filter.specificPiece);
       const specificMainStat = filter.mainstat[filter.specificPiece];
 
       // Only Artifacts that belong to the piece should be displayed
@@ -35,6 +35,7 @@ export default function useArtifactFilter(artifacts, characters, filteredBuilds)
 
     // Filter by character
     if (filter.artifactWearer) {
+      // console.log('filter.artifactWearer', filter.artifactWearer);
       // Only Artifacts that can be used by the build should be displayed
       const build = characters.find((b) => b.artifactWearer === filter.artifactWearer);
 
