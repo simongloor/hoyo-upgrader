@@ -46,7 +46,7 @@ export default function Home() {
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
         filteredBuilds={filteredBuilds}
-        artifactsAsList={filteredArtifacts.asList}
+        artifactsAsList={evaluatedArtifacts.asList}
       />
       <ArtifactOverview
         artifactsAsList={filteredArtifacts.asList}
