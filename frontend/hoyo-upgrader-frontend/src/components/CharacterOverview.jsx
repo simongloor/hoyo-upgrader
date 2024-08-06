@@ -24,13 +24,14 @@ export default function CharacterOverview({
       type="button"
       className="button pin"
       alt="pin artifact"
-      onClick={() => dispatch(togglePinnedArtifact(artifactData))}
+      onClick={() => dispatch(togglePinnedArtifact(artifactData[slot].artifactData))}
       disabled={!artifactData}
     >
       <Artifact
         data={artifactData[slot] && artifactData[slot].artifactData}
         tier={artifactData[slot] && artifactData[slot].buildEvaluations
-          .find((b) => b.artifactWearer === characterBuild.artifactWearer).tier}
+          .find((b) => b.artifactWearer === characterBuild.artifactWearer)
+          .relevantSubstats.wastedSubstats}
       />
     </button>
   );

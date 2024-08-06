@@ -118,7 +118,7 @@ function getWastedSubstatSlots(artifactData, characterBuild) {
       return acc + 1;
     }
     return acc;
-  }, 0);
+  }, 4 - artifactData.substats.length);
 }
 
 function getImpossibleSubstats(uselessSubstatSlots, maxRolls) {
