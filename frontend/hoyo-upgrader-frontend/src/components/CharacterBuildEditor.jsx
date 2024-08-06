@@ -8,6 +8,7 @@ import Box from './Box';
 import Character from './Character';
 import Artifact from './Artifact';
 import SubstatButton from './SubstatButton';
+import CharacterSelector from './CharacterSelector';
 
 export default function CharacterBuildEditor({
   build,
@@ -37,6 +38,14 @@ export default function CharacterBuildEditor({
 
   // console.log(build.buildOwner, build.artifactWearer);
 
+  const getBusyCharacters = () => Object.keys(wearerStates.busy)
+    .reduce((acc, cur) => {
+      if (cur !== build.artifactWearer) {
+        acc.push(cur);
+      }
+      return acc;
+    }, []);
+
   // render
   return (
     <Box>
@@ -49,24 +58,11 @@ export default function CharacterBuildEditor({
       </div>
       <span><strong>Wearer</strong></span>
       <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
-      <div className="wearers row">
-        {
-          Object.keys(paths.character).map((characterName) => (
-            <Character
-              key={characterName}
-              character={characterName}
-              onClick={() => handleClickWearer(characterName)}
-              inactive={
-                characterName !== build.artifactWearer
-              }
-              disabled={
-                characterName !== build.artifactWearer
-                && !wearerStates.free.includes(characterName)
-              }
-            />
-          ))
-        }
-      </div>
+      <CharacterSelector
+        selectedCharacter={build.artifactWearer}
+        disabledCharacters={getBusyCharacters()}
+        onClick={handleClickWearer}
+      />
       <span><strong>Sets</strong></span>
       <div className="artifacts row">
         {

@@ -1,0 +1,16 @@
+.CharacterSelector {
+  flex-wrap: wrap;
+
+  .Character.inactive,
+  .Character.disabled {
+    opacity: 0.5;
+  }
+  .Character.inactive {
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.2;
+    }
+  }
+}

@@ -9,6 +9,7 @@ export default function Character({
   secondaryCharacter,
   upgradePotential = 0,
   onClick,
+  selected,
   inactive,
   disabled,
 }) {
@@ -35,7 +36,7 @@ export default function Character({
   // render
   return (
     <button
-      className={`Character tile ${character} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
+      className={`Character tile ${character} ${selected && 'selected'} ${inactive ? 'inactive' : 'active'} ${disabled && 'disabled'}`}
       type="button"
       onClick={handleClick}
       disabled={disabled}
@@ -44,6 +45,11 @@ export default function Character({
         src={`${process.env.PUBLIC_URL}/genshin/characters/${character}.png`}
         alt={character}
       />
+      {
+        selected && (
+          <div className="selected-marker" />
+        )
+      }
       {
         secondaryCharacter && character !== secondaryCharacter && (
           <>
