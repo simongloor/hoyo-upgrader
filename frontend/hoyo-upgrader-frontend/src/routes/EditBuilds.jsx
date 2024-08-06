@@ -125,16 +125,10 @@ export default function EditBuilds() {
       <span>
         The hoyo updater comes with just a few examples of builds.
         It is ultimately up to you to decide how you want to build your characters.
-        Simply find the character below and set up the builds you want to use.
         <br />
         <br />
-        After you&apos;ve set up your builds, please make sure to copy the data to a safe place.
-        That way, you can restore it in case your browser cache is cleared.
-        <br />
-        <br />
-        It is recommended to only select stats that are actually useful for the intended build:
-        <br />
-        hen you want to focus Bennett on healing, don’t select crit stats.
+        After you&apos;ve set up your builds, please make sure to copy this data to a safe place.
+        That way, you can restore it in case your browser cache is cleared:
       </span>
       <Box className={`json ${jsonIsValid ? '' : 'error'}`}>
         <textarea
