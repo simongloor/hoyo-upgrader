@@ -117,9 +117,12 @@ function getBuildOfWearer(artifact) {
 export function getUpgradePotential(
   relevantSubstats,
   evaluatedCompetingArtifact,
+  rarity,
 ) {
   if (!evaluatedCompetingArtifact) {
-    return 0;
+    return (rarity === 5 ? 9 : 7)
+      - relevantSubstats.wastedSubstats
+      - relevantSubstats.impossibleSubstats;
   }
   const competingBuildEvaluation = getBuildOfWearer(evaluatedCompetingArtifact);
   return competingBuildEvaluation.relevantSubstats.wastedSubstats

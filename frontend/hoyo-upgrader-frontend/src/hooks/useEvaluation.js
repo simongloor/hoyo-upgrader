@@ -58,7 +58,11 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
       );
       return {
         ...evaluation,
-        upgradePotential: getUpgradePotential(evaluation.relevantSubstats, competingArtifact),
+        upgradePotential: getUpgradePotential(
+          evaluation.relevantSubstats,
+          competingArtifact,
+          artifact.artifactData.rarity,
+        ),
       };
     }),
   };
