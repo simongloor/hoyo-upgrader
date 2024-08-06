@@ -13,6 +13,7 @@ export default function CharacterEditor({
   buildOwner,
   characterBuilds,
   wearerStates,
+  onClickOpenBuildOwner,
   onClickAddBuild,
   onClickDeleteBuild,
   onClickSetWearer,
@@ -20,14 +21,14 @@ export default function CharacterEditor({
   onClickToggleMainstat,
   onClickToggleSubstat,
 }) {
-  // console.log(characterBuilds);
+  // console.log(characterBuilds, wearerStates);
 
   if (!characterBuilds) {
     return null;
   }
 
   // disable the button if the owner is already occupied by another build
-  const useOfOwner = characterBuilds.filter((b) => b.artifactWearer === buildOwner);
+  const useOfOwner = wearerStates.busy.filter((b) => b.artifactWearer === buildOwner);
   const canCreateBuild = characterBuilds.length > 0 || useOfOwner.length === 0;
 
   // render
@@ -54,22 +55,32 @@ export default function CharacterEditor({
           character={buildOwner}
         />
         <h2>{ paths.character[buildOwner] }</h2>
-        <button
-          className="addBuild primary"
-          type="button"
-          onClick={() => onClickAddBuild(buildOwner)}
-          disabled={!canCreateBuild}
-        >
-          <span>+add build</span>
-        </button>
         {
-          !canCreateBuild && (
-            <span className="used">
-              This character currently wears the artifact set of
-              {wearerStates.busy[buildOwner]}
-              .
-            </span>
-          )
+          canCreateBuild
+            ? (
+              <button
+                className="addBuild primary"
+                type="button"
+                onClick={() => onClickAddBuild(buildOwner)}
+                disabled={!canCreateBuild}
+              >
+                <span>+add build</span>
+              </button>
+            ) : (
+              <>
+                <span className="used">
+                  {`This character currently wears the artifact set of ${useOfOwner[0].buildOwner}.`}
+                </span>
+                <button
+                  className="unlock primary"
+                  type="button"
+                  onClick={() => onClickOpenBuildOwner(useOfOwner[0].buildOwner)}
+                  alt="switch to build"
+                >
+                  <span>{`open ${useOfOwner[0].buildOwner}`}</span>
+                </button>
+              </>
+            )
         }
       </Box>
     </div>

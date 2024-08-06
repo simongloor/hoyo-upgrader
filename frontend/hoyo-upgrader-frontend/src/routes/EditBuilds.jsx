@@ -142,7 +142,9 @@ export default function EditBuilds() {
           onChange={handleChangeJson}
         />
       </Box>
-      <Box>
+      <Box className="characterSelection">
+        <h2>Select a Character</h2>
+        <span>Choose the character that the build is meant for.</span>
         <CharacterSelector
           selectedCharacter={selectedCharacter}
           onClick={setSelectedCharacter}
@@ -155,6 +157,7 @@ export default function EditBuilds() {
         buildOwner={selectedCharacter}
         characterBuilds={buildData.data.filter((b) => b.buildOwner === selectedCharacter)}
         wearerStates={wearerStates}
+        onClickOpenBuildOwner={setSelectedCharacter}
         onClickAddBuild={handleCreateBuild}
         onClickDeleteBuild={handleDeleteBuild}
         onClickSetWearer={handleSetWearer}

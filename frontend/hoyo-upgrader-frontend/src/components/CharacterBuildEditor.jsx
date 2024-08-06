@@ -50,13 +50,20 @@ export default function CharacterBuildEditor({
         <h2>{ paths.character[build.buildOwner] }</h2>
       </div>
       <span><strong>Wearer</strong></span>
-      <span>A second build can be equipped on a character that you don&apos;t currently play.</span>
+      <span>
+        Choose the character that currently wears the artifacts.
+        If you have multiple builds for a character or you don&apos;t own a character,
+        you can equip the artifacts on an other character.
+      </span>
       <CharacterSelector
         selectedCharacter={build.artifactWearer}
         disabledCharacters={getBusyArtifactWearers(wearerStates, build.artifactWearer)}
         onClick={handleClickWearer}
       />
       <span><strong>Sets</strong></span>
+      <span>
+        Select all sets that you consider using for this build.
+      </span>
       <div className="artifacts row">
         {
           Object.keys(paths.set).map((setName) => (
@@ -76,6 +83,7 @@ export default function CharacterBuildEditor({
         }
       </div>
       <span><strong>MainStats</strong></span>
+      <span>Select the desired mainstats for sands, goblet and circlet.</span>
       <div className="row">
         <Artifact
           piece="sands"
@@ -145,6 +153,11 @@ export default function CharacterBuildEditor({
         </div>
       </div>
       <span><strong>Substats</strong></span>
+      <span>
+        Select all substats that you consider valuable.
+        It is recommended to skip &quot;nice to have&quot; stats.
+        Focus on the stats that are essential for the build.
+      </span>
       <div className="statButtons row">
         {
           possibleStats.substat.map((statName) => (

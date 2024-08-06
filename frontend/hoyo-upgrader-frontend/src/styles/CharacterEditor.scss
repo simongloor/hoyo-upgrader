@@ -24,6 +24,10 @@
     }
   }
 
+  .unlock {
+    color: $onSurface-highEmphasis
+  }
+
   .deleteBuild {
     position: absolute;
     top: $space-minus3;

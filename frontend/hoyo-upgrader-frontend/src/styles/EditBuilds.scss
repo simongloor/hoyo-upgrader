@@ -3,6 +3,15 @@
 .EditBuilds.page {
   padding-bottom: 80px;
 
+  span {
+    line-height: 1.2;
+  }
+  .characterSelection {
+    h2 {
+      margin-bottom: 0;
+      margin-top: $space-minus2;
+    }
+  }
   .Box {
     gap: $space;
   }
