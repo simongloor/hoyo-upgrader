@@ -52,18 +52,28 @@ export default function useArtifactFilter(artifacts, characters) {
               return true;
             }
 
-            const setMatches = filter.showOffpieces
-              || build.sets.includes(artifact.artifactData.setKey);
+            if (!filter.showOffpieces && !build.sets.includes(artifact.artifactData.setKey)) {
+              // set doesn't match
+              return false;
+            }
 
-            const mainstatMatches = (filter.specificPiece && filter.mainstat[filter.specificPiece])
-              || (
-                artifact.artifactData.slotKey === 'flower'
-                || artifact.artifactData.slotKey === 'plume'
-                || build.mainstats[artifact.artifactData.slotKey]
-                  .includes(artifact.artifactData.mainStatKey)
-              );
+            const alreadyFilteredByMainStat = (
+              filter.specificPiece && filter.mainstat[filter.specificPiece]
+            );
 
-            return setMatches && mainstatMatches;
+            const mainstatMatchesCharacter = (
+              artifact.artifactData.slotKey === 'flower'
+              || artifact.artifactData.slotKey === 'plume'
+              || build.mainstats[artifact.artifactData.slotKey]
+                .includes(artifact.artifactData.mainStatKey)
+            );
+
+            if (!alreadyFilteredByMainStat && !mainstatMatchesCharacter) {
+              // mainstat doesn't match
+              return false;
+            }
+
+            return true;
           });
       }
 
@@ -123,8 +133,8 @@ export default function useArtifactFilter(artifacts, characters) {
             - getArtifactQualitySortValue(b, filter.artifactWearer)
         ));
 
-      // DEBUGGING
-      artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
+      // // DEBUGGING
+      // artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
 
       setFilteredArtifacts(artifactsToFilter);
 
