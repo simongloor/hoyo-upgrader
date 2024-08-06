@@ -5,6 +5,12 @@ import paths from './paths';
 // check who is free and who is busy by whom
 export function getWearerStates(builds) {
   return {
+    withoutOwnBiuld: Object.keys(paths.character).reduce((acc, character) => {
+      if (!builds.some((b) => b.buildOwner === character)) {
+        acc.push(character);
+      }
+      return acc;
+    }, []),
     busy: builds.reduce((acc, build) => {
       acc[build.artifactWearer] = build.buildOwner;
       return acc;
@@ -16,6 +22,16 @@ export function getWearerStates(builds) {
       return acc;
     }, []),
   };
+}
+
+export function getBusyArtifactWearers(wearerStates, exception = '') {
+  return Object.keys(wearerStates.busy)
+    .reduce((acc, cur) => {
+      if (cur !== exception) {
+        acc.push(cur);
+      }
+      return acc;
+    }, []);
 }
 
 export function getEquippedArtifacts(artifactWearer, artifactsAsList) {

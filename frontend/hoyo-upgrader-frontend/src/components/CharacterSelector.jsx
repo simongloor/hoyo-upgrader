@@ -12,7 +12,7 @@ export default function CharacterSelector({
   disabledCharacters = [],
   onClick,
 }) {
-  console.log(inactiveCharacters);
+  // console.log(inactiveCharacters);
   return (
     <div
       className="CharacterSelector"

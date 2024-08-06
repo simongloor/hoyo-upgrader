@@ -7,14 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import WindowActions from '../components/WindowActions';
 import CharacterEditor from '../components/CharacterEditor';
+import CharacterSelector from '../components/CharacterSelector';
 
-import { loadStateFromStorage } from '../data/localStorage';
 import paths from '../data/paths';
-
-import '../styles/EditBuilds.scss';
+import { loadStateFromStorage } from '../data/localStorage';
 import { updateCharacters } from '../data/actions/characters';
 import { getEmptyBuild } from '../data/characters';
-import { getWearerStates } from '../data/builds';
+import { getBusyArtifactWearers, getWearerStates } from '../data/builds';
+
+import '../styles/EditBuilds.scss';
 
 export default function EditBuilds() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function EditBuilds() {
 
   const [buildData, setBuildData] = useState({ data: [], json: '' });
   const [jsonIsValid, setJsonIsValid] = useState(true);
+  const [selectedCharacter, setSelectedCharacter] = useState('Albedo');
 
   // Get data from local storage
   useEffect(() => {
@@ -140,22 +142,26 @@ export default function EditBuilds() {
           onChange={handleChangeJson}
         />
       </Box>
-      {
-        Object.keys(paths.character).map((buildOwner, i) => (
-          <CharacterEditor
-            key={buildOwner}
-            buildOwner={buildOwner}
-            characterBuilds={buildData.data.filter((b) => b.buildOwner === buildOwner)}
-            wearerStates={wearerStates}
-            onClickAddBuild={handleCreateBuild}
-            onClickDeleteBuild={handleDeleteBuild}
-            onClickSetWearer={handleSetWearer}
-            onClickToggleSet={handleToggleSet}
-            onClickToggleMainstat={handleToggleMainstat}
-            onClickToggleSubstat={handleToggleSubstat}
-          />
-        ))
-      }
+      <Box>
+        <CharacterSelector
+          selectedCharacter={selectedCharacter}
+          onClick={setSelectedCharacter}
+          inactiveCharacters={wearerStates.withoutOwnBiuld}
+          // inactiveCharacters={getBusyArtifactWearers(wearerStates, selectedCharacter)}
+        />
+      </Box>
+      <CharacterEditor
+        key={selectedCharacter}
+        buildOwner={selectedCharacter}
+        characterBuilds={buildData.data.filter((b) => b.buildOwner === selectedCharacter)}
+        wearerStates={wearerStates}
+        onClickAddBuild={handleCreateBuild}
+        onClickDeleteBuild={handleDeleteBuild}
+        onClickSetWearer={handleSetWearer}
+        onClickToggleSet={handleToggleSet}
+        onClickToggleMainstat={handleToggleMainstat}
+        onClickToggleSubstat={handleToggleSubstat}
+      />
       <div className="return">
         <WindowActions
           onClickCancel={() => navigate('/genshin')}
