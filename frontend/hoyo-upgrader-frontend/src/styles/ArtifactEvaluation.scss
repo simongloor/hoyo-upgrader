@@ -1,14 +1,15 @@
 @import "variables.scss";
 
-// .ArtifactEvaluation {
-//   button:focus .Artifact {
-//     opacity: 0.4;
-//   }
-// }
+.ArtifactEvaluation {
+  .evaluation.weak {
+    opacity: 0.4;
+  }
+}
 
 .ArtifactEvaluation-placeholder {
   padding: 1px;
   height: $tile;
+
   div {
     display: inline-block;
     height: 54px;

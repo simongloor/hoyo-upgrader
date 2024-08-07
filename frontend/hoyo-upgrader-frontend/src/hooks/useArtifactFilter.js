@@ -91,7 +91,7 @@ export default function useArtifactFilter(artifacts, characters) {
 
             // Filter out any build that does not provide upgrade potential
             if (
-              evaluation.upgradePotential <= 0
+              evaluation.upgradePotential < 0
               // show for the selected character
               && evaluation.artifactWearer !== filter.artifactWearer
               // show for the artifact's wearer

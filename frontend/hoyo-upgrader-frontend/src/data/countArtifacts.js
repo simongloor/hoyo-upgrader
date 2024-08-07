@@ -133,7 +133,7 @@ export function countUselessArtifacts(artifacts, builds) {
       a.buildEvaluations,
     );
     // console.log(relevantEvaluations);
-    if (!relevantEvaluations.some((e) => e.upgradePotential > 0)) {
+    if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
       uselessArtifactsByGroup = countTowardsGroup(uselessArtifactsByGroup, a.artifactData);
     }
   });

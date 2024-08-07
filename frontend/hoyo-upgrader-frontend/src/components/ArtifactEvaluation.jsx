@@ -56,7 +56,10 @@ export default function ArtifactEvaluation({
       {
         artifact.buildEvaluations
           .map((b) => (
-            <Fragment key={b.artifactWearer}>
+            <div
+              className={`evaluation row ${b.upgradePotential === 0 && b.artifactWearer !== artifact.artifactData.location ? 'weak' : ''}`}
+              key={b.artifactWearer}
+            >
               <SpacerPiece size="small" />
               <Character
                 character={b.buildOwner}
@@ -68,7 +71,7 @@ export default function ArtifactEvaluation({
                 showCounter={false}
                 uniformSubstatCount={9}
               />
-            </Fragment>
+            </div>
           ))
       }
     </div>

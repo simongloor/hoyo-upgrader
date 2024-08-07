@@ -36,7 +36,7 @@ export default function Character({
   // render
   return (
     <button
-      className={`Character tile ${character} ${selected && 'selected'} ${inactive ? 'inactive' : 'active'} ${disabled && 'disabled'}`}
+      className={`Character tile ${character} ${selected ? 'selected' : ''} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
       type="button"
       onClick={handleClick}
       disabled={disabled}
