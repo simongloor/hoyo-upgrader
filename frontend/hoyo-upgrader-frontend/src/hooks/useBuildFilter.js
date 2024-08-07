@@ -25,7 +25,7 @@ export default function useBuildFilter(builds) {
       let newBuilds = [...builds];
 
       // Filter by set
-      if (filter.specificSet) {
+      if (filter.specificSet && !filter.showOffpieces) {
         // Only CharacterOverviews that want the set should be displayed
         newBuilds = newBuilds.filter((build) => build.sets.includes(filter.specificSet));
       }
@@ -37,15 +37,17 @@ export default function useBuildFilter(builds) {
         // for the filtered piece should be displayed
         if (specificMainStat) {
           newBuilds = newBuilds.filter((build) => (
-            build.mainstats[filter.specificPiece] === specificMainStat));
+            build.mainstats[filter.specificPiece].includes(specificMainStat)));
         }
       }
 
-      // Filter by character
-      if (filter.artifactWearer) {
-        // Only the CharacterOverview that matches the build should be displayed
-        newBuilds = newBuilds.filter((build) => build.artifactWearer === filter.artifactWearer);
-      }
+      // // Filter by character
+      // if (filter.artifactWearer) {
+      //   // Only the CharacterOverview that matches the build should be displayed
+      //   newBuilds = newBuilds.filter((build) => build.sets.includes === filter.artifactWearer);
+      // }
+
+      // Apply
       setFilteredBuilds(newBuilds);
 
       // // measure time
