@@ -3,5 +3,14 @@
 .Recommendations.Box {
   > span {
     margin-bottom: $space-minus3;
+    
+    &:not(:first-of-type) {
+      margin-top: $space;
+    }
+  }
+
+  .useless {
+    flex-wrap: wrap;
+    max-width: calc(16 * $tile);
   }
 }

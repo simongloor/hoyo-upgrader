@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable default-param-last */
 
+import { countArtifactsByGroup, countArtifactsBySet } from '../countArtifacts';
 import { loadStateFromStorage, saveStateToStorage } from '../localStorage';
 import paths from '../paths';
 import { countSubstats } from '../substats';
@@ -17,112 +18,6 @@ function processJson(jsonData) {
       }));
   }
   return [];
-}
-
-function countArtifactsBySet(artifactData) {
-  const counts = {
-    sortedSets: [],
-    sets: {},
-  };
-  artifactData.forEach((artifact) => {
-    // Count sets
-    if (!counts.sets[artifact.set]) {
-      counts.sets[artifact.set] = {
-        total: 0,
-        flower: 0,
-        plume: 0,
-        sands: 0,
-        goblet: 0,
-        circlet: 0,
-      };
-    }
-    counts.sets[artifact.set].total += 1;
-
-    // Count pieces
-    counts.sets[artifact.set][artifact.piece] += 1;
-  });
-
-  // Sort sets by total count
-  counts.sortedSets = Object.keys(counts.sets)
-    .sort((a, b) => counts.sets[b].total - counts.sets[a].total);
-  return counts;
-}
-
-function countArtifactsByGroup(artifactData) {
-  const groupCounts = {};
-  artifactData.forEach((artifact) => {
-    switch (artifact.slotKey) {
-      case 'flower':
-      case 'plume': {
-        const group = `${artifact.set}-${artifact.slotKey}`; // e.g. 'gladiator-flower'
-        if (!groupCounts[group]) {
-          groupCounts[group] = {
-            piece: artifact.slotKey,
-            set: artifact.set,
-            stat: '',
-            offpieces: false,
-            count: 1,
-          };
-        } else {
-          groupCounts[group].count += 1;
-        }
-        break;
-      }
-      case 'sands': {
-        const group = `${artifact.set}-${artifact.slotKey}-${artifact.mainStatKey}`; // e.g. 'gladiator-sands-ATK%'
-        if (!groupCounts[group]) {
-          groupCounts[group] = {
-            piece: artifact.slotKey,
-            set: artifact.set,
-            stat: artifact.mainStatKey,
-            offpieces: false,
-            count: 1,
-          };
-        } else {
-          groupCounts[group].count += 1;
-        }
-        break;
-      }
-      case 'goblet': {
-        const group = `${artifact.slotKey}-${artifact.mainStatKey}`; // e.g. 'goblet-Physical DMG Bonus'
-        if (!groupCounts[group]) {
-          groupCounts[group] = {
-            piece: artifact.slotKey,
-            set: artifact.mainStatKey,
-            stat: artifact.mainStatKey,
-            offpieces: true,
-            count: 1,
-          };
-        } else {
-          groupCounts[group].count += 1;
-        }
-        break;
-      }
-      case 'circlet': {
-        const group = `${artifact.set}-${artifact.slotKey}-${artifact.mainStatKey}`; // e.g. 'gladiator-circlet-CRIT DMG'
-        if (!groupCounts[group]) {
-          groupCounts[group] = {
-            piece: artifact.slotKey,
-            set: artifact.set,
-            stat: artifact.mainStatKey,
-            offpieces: false,
-            count: 1,
-          };
-        } else {
-          groupCounts[group].count += 1;
-        }
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-  });
-  return {
-    sortedGroups: Object.keys(groupCounts)
-      .sort((a, b) => groupCounts[b].count - groupCounts[a].count),
-    groups: groupCounts,
-  };
 }
 
 const artifactReducer = (

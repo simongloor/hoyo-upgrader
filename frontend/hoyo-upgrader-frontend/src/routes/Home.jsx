@@ -46,7 +46,11 @@ export default function Home() {
       className="Home page"
     >
       <SettingsRow />
-      <Recommendations counts={artifacts.groupCounts} />
+      <Recommendations
+        counts={artifacts.groupCounts}
+        artifacts={evaluatedArtifacts}
+        builds={characters}
+      />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
         filteredBuilds={filteredBuilds}
