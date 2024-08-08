@@ -2,6 +2,17 @@ const paths = {
   DOCUMENTATION: 'documentation',
   EDIT_BUILDS: 'builds',
   IMPORT_ARTIFACTS: 'import',
+  recommendation: {
+    UPGRADE100: '100% upgrade',
+    UPGRADE75: '~75% upgrade',
+    UPGRADE50: '~50% upgrade',
+    MAYBE_UPGRADE_100: 'might be ~100% upgrade',
+    MAYBE_UPGRADE_30: 'might be ~30% upgrade',
+    TOO_MANY: 'too many pieces',
+    NOT_NEEDED: 'not needed',
+    NO_UPGRADE: 'no upgrade',
+    UNDER30CHANCE_UPGRADE: 'under 30% chance to upgrade',
+  },
   localStorage: {
     artifactsJson: 'artifactsJson',
     charactersJson: 'charactersJson',

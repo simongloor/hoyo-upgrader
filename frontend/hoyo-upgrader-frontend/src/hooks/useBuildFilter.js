@@ -41,12 +41,6 @@ export default function useBuildFilter(builds) {
         }
       }
 
-      // // Filter by character
-      // if (filter.artifactWearer) {
-      //   // Only the CharacterOverview that matches the build should be displayed
-      //   newBuilds = newBuilds.filter((build) => build.sets.includes === filter.artifactWearer);
-      // }
-
       // Apply
       setFilteredBuilds(newBuilds);
 

@@ -1,16 +1,37 @@
 @import 'variables.scss';
 
 .Recommendations.Box {
+  gap: $space-minus1;
+
   > span {
     margin-bottom: $space-minus3;
+    max-width: none;
     
     &:not(:first-of-type) {
       margin-top: $space;
     }
   }
 
+  .filterSelection {
+    align-items: center;
+    height: $tile;
+
+    > span {
+      width: calc($tile * 2);
+    }
+    > button {
+      height: 100%;
+      margin-right: $space-minus3;
+    }
+  }
+
   .useless {
     flex-wrap: wrap;
     max-width: calc(16 * $tile);
+  }
+
+  .artifactGroups {
+    flex-wrap: wrap;
+    max-width: calc($tile * 16);
   }
 }

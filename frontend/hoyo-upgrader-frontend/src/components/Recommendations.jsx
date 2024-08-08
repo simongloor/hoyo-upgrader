@@ -12,6 +12,7 @@ import { countUselessArtifacts } from '../data/countArtifacts';
 
 export default function Recommendations({ builds, artifacts, counts }) {
   const dispatch = useDispatch();
+  const [recommendation, setRecommendation] = useState(paths.recommendation.TOO_MANY);
 
   const [uselessArtifacts, setUselessArtifacts] = useState({ sortedGroups: [], groups: {} });
 
@@ -45,62 +46,114 @@ export default function Recommendations({ builds, artifacts, counts }) {
     }));
   };
 
+  // helper functions
+  const getTotalArtifactCount = (recommendationKey) => {
+    switch (recommendationKey) {
+      case paths.recommendation.NO_UPGRADE:
+        return uselessArtifacts.sortedGroups.reduce(
+          (acc, group) => (acc + uselessArtifacts.groups[group].count),
+          0,
+        );
+      case paths.recommendation.TOO_MANY:
+      default:
+        return '';
+    }
+  };
+
+  // render recommendations
+  let recommendations = null;
+  switch (recommendation) {
+    case paths.recommendation.NO_UPGRADE: {
+      recommendations = uselessArtifacts.sortedGroups
+        // .slice(0, 16)
+        .map((group) => (
+          <button
+            type="button"
+            onClick={() => handleClickGroup(group)}
+            alt={group}
+            key={group}
+          >
+            <Artifact
+              piece={uselessArtifacts.groups[group].piece}
+              set={uselessArtifacts.groups[group].set}
+              mainstat={uselessArtifacts.groups[group].stat}
+              count={uselessArtifacts.groups[group].count}
+            />
+          </button>
+        ));
+      break;
+    }
+    case paths.recommendation.TOO_MANY:
+    default: {
+      recommendations = counts.sortedGroups
+        // .slice(0, 16)
+        .map((group) => (
+          counts.groups[group].count >= 10 && (
+            <button
+              type="button"
+              onClick={() => handleClickGroup(group)}
+              alt={group}
+              key={group}
+            >
+              <Artifact
+                piece={counts.groups[group].piece}
+                set={counts.groups[group].set}
+                mainstat={counts.groups[group].stat}
+                count={counts.groups[group].count}
+              />
+            </button>
+          )
+        ));
+      break;
+    }
+  }
+
+  // render filter buttons
+  const renderFilterButtons = (recommendationKeys) => recommendationKeys
+    .map((recommendationType) => (
+      <button
+        className={`primary ${recommendation === recommendationType ? 'selected' : ''}`}
+        type="button"
+        onClick={() => setRecommendation(recommendationType)}
+        key={recommendationType}
+      >
+        <span>
+          {
+            recommendationType === paths.recommendation.TOO_MANY
+              ? recommendationType
+              : `${recommendationType} (${getTotalArtifactCount(recommendationType)})`
+          }
+        </span>
+      </button>
+    ));
+
   // render
   return (
     <Box
       className="Recommendations"
     >
       <h2>Build Recommendations</h2>
-      <span>Work on these types of artifacts:</span>
-      <div className="row">
+      <div className="filterSelection row">
+        <span>level these:</span>
+      </div>
+      <div className="filterSelection row">
+        <span>bring to lvl 4:</span>
+      </div>
+      <div className="filterSelection row">
+        <span>reduce these:</span>
         {
-          counts.sortedGroups
-            .slice(0, 16)
-            .map((group) => (
-              <button
-                type="button"
-                onClick={() => handleClickGroup(group)}
-                alt={group}
-                key={group}
-              >
-                <Artifact
-                  piece={counts.groups[group].piece}
-                  set={counts.groups[group].set}
-                  mainstat={counts.groups[group].stat}
-                  count={counts.groups[group].count}
-                />
-              </button>
-            ))
+          renderFilterButtons([
+            paths.recommendation.TOO_MANY,
+            paths.recommendation.NO_UPGRADE,
+          ])
         }
       </div>
-      {/* <SpacerPiece className="tile" /> */}
-      <span>{`These types of artifacts have pieces with no obvious improvement to anybody (${uselessArtifacts.totalCount}):`}</span>
-      <div className="row useless">
-        {
-          // uselessArtifacts.map((a) => (
-          //   <Artifact
-          //     key={a.id}
-          //     data={a.artifactData}
-          //   />
-          // ))
-          uselessArtifacts.sortedGroups
-            .slice(0, 16)
-            .map((group) => (
-              <button
-                type="button"
-                onClick={() => handleClickGroup(group)}
-                alt={group}
-                key={group}
-              >
-                <Artifact
-                  piece={uselessArtifacts.groups[group].piece}
-                  set={uselessArtifacts.groups[group].set}
-                  mainstat={uselessArtifacts.groups[group].stat}
-                  count={uselessArtifacts.groups[group].count}
-                />
-              </button>
-            ))
-        }
+      <span>
+        These types of artifacts (hydro goblets, emblem flowers, etc.)
+        have many Artifacts that match the criteria:
+      </span>
+      <div className="artifactGroups row">
+        { recommendations }
       </div>
     </Box>
   );

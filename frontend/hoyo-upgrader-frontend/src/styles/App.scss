@@ -137,6 +137,11 @@ button.primary, button.secondary {
 }
 button.primary {
   background-color: $elevation-minus2;
+
+  &.selected {
+    background-color: $elevation-minus1;
+    border-color: $elevation-minus1;
+  }
 }
 button.secondary {
   background-color: $surface;
