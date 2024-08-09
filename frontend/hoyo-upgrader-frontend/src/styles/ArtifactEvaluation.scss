@@ -1,6 +1,20 @@
 @import "variables.scss";
 
 .ArtifactEvaluation {
+  .pinned {
+    pointer-events: none;
+    position: absolute;
+    top: -$border-width;
+    left: -$border-width;
+    width: calc(100% + #{$border-width * 2});
+    height: calc(100% + #{$border-width * 2});
+
+    border-radius: $border;
+    border-style: solid;
+    border-width: $border-width;
+    border-color: $onSurface-highEmphasis;
+    z-index: 1;
+  }
   .evaluation.weak {
     opacity: 0.4;
   }

@@ -19,10 +19,12 @@ export default function ArtifactOverview({
 }) {
   // console.log(artifactsAsList);
   const dispatch = useDispatch();
+  const { pinnedArtifactData } = useSelector((state) => state.pinboard);
+  const pinnedArtifactString = pinnedArtifactData ? JSON.stringify(pinnedArtifactData.substats) : '';
 
   // handle pinning artifact
-  const handleClickPinArtifact = (pinnedArtifactData) => {
-    dispatch(togglePinnedArtifact(pinnedArtifactData));
+  const handleClickPinArtifact = (artifactData) => {
+    dispatch(togglePinnedArtifact(artifactData));
   };
 
   // render
@@ -42,6 +44,7 @@ export default function ArtifactOverview({
               key={i}
               artifact={data}
               handleClickPinArtifact={handleClickPinArtifact}
+              pinnedArtifactString={pinnedArtifactString}
             />
           ))
       }

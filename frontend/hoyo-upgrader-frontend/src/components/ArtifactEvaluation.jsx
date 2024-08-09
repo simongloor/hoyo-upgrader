@@ -15,11 +15,19 @@ import ArtifactStatText from './ArtifactStatText';
 export default function ArtifactEvaluation({
   artifact,
   handleClickPinArtifact,
+  pinnedArtifactString,
 }) {
   return (
     <div
       className="ArtifactEvaluation row"
     >
+      {
+        pinnedArtifactString
+        && pinnedArtifactString === JSON.stringify(artifact.artifactData.substats)
+        && (
+          <div className="pinned" />
+        )
+      }
       {
         artifact.artifactData.location ? (
           <Character

@@ -103,9 +103,21 @@ export default function ImportArtifacts({ children }) {
         return;
       }
 
-      // update full data
+      // update full data while avoiding artifacts equipped to multiple characters
       const fullData = JSON.parse(artifactData.full);
       fullData.artifacts = fullData.artifacts.filter((artifact) => artifact.setKey !== selectedSet);
+
+      const newLocations = newJsonData.artifacts.map((artifact) => artifact.location);
+      fullData.artifacts = fullData.map((artifact) => {
+        if (newLocations.includes(artifact.location)) {
+          return {
+            ...artifact,
+            location: '',
+          };
+        }
+        return artifact;
+      });
+
       fullData.artifacts.push(
         ...newJsonData.artifacts.filter((artifact) => artifact.setKey === selectedSet),
       );
