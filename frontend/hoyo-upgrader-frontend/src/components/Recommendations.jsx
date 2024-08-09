@@ -6,42 +6,9 @@ import paths from '../data/paths';
 import { applyFilter } from '../data/actions/filter';
 import { countUselessArtifacts } from '../data/countArtifacts';
 
-import Artifact from './Artifact';
 import Box from './Box';
-import SpacerPiece from './SpacerPiece';
+import RecommendationRow from './RecommendationRow';
 import '../styles/Recommendations.scss';
-
-function RecommendationLine({ set, data, onClick }) {
-  return (
-    <div className="RecommendationLine piece row">
-      <Artifact
-        piece={set}
-      />
-      <SpacerPiece />
-      {
-        data.sortedGroups
-          .filter((group) => data.groups[group].piece === set)
-          .slice(0, 14)
-          .map((group) => (
-            <button
-              type="button"
-              onClick={() => onClick(group)}
-              alt={group}
-              key={group}
-            >
-              <Artifact
-                piece={data.groups[group].piece}
-                set={data.groups[group].set}
-                mainstat={data.groups[group].stat}
-                count={data.groups[group].count}
-                key={`${data.groups[group].set}-${data.groups[group].piece}-${data.groups[group].mainstat}`}
-              />
-            </button>
-          ))
-      }
-    </div>
-  );
-}
 
 export default function Recommendations({ builds, artifacts, counts }) {
   const dispatch = useDispatch();
@@ -155,7 +122,7 @@ export default function Recommendations({ builds, artifacts, counts }) {
       <div className="artifactGroups">
         {
           Object.keys(paths.piece).map((piece) => (
-            <RecommendationLine
+            <RecommendationRow
               key={piece}
               set={piece}
               data={recommendedGroups}

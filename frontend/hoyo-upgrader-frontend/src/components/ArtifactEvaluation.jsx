@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useState, useEffect } from 'react';
+import React from 'react';
 
 import Artifact from './Artifact';
 import Character from './Character';
