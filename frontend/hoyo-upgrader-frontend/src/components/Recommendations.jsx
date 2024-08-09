@@ -101,7 +101,9 @@ export default function Recommendations({ builds, artifacts, counts }) {
     }
     case paths.recommendation.TOO_MANY:
     default: {
-      recommendedGroups = counts;
+      recommendedGroups = { ...counts };
+      recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
+        .filter((group) => recommendedGroups.groups[group].count >= 10);
       break;
     }
   }
