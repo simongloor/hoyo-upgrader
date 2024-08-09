@@ -4,11 +4,44 @@ import { useDispatch } from 'react-redux';
 
 import paths from '../data/paths';
 import { applyFilter } from '../data/actions/filter';
+import { countUselessArtifacts } from '../data/countArtifacts';
 
 import Artifact from './Artifact';
 import Box from './Box';
+import SpacerPiece from './SpacerPiece';
 import '../styles/Recommendations.scss';
-import { countUselessArtifacts } from '../data/countArtifacts';
+
+function RecommendationLine({ set, data, onClick }) {
+  return (
+    <div className="RecommendationLine piece row">
+      <Artifact
+        piece={set}
+      />
+      <SpacerPiece />
+      {
+        data.sortedGroups
+          .filter((group) => data.groups[group].piece === set)
+          .slice(0, 14)
+          .map((group) => (
+            <button
+              type="button"
+              onClick={() => onClick(group)}
+              alt={group}
+              key={group}
+            >
+              <Artifact
+                piece={data.groups[group].piece}
+                set={data.groups[group].set}
+                mainstat={data.groups[group].stat}
+                count={data.groups[group].count}
+                key={`${data.groups[group].set}-${data.groups[group].piece}-${data.groups[group].mainstat}`}
+              />
+            </button>
+          ))
+      }
+    </div>
+  );
+}
 
 export default function Recommendations({ builds, artifacts, counts }) {
   const dispatch = useDispatch();
@@ -60,50 +93,15 @@ export default function Recommendations({ builds, artifacts, counts }) {
     }
   };
 
-  // render recommendations
-  let recommendations = null;
+  let recommendedGroups = null;
   switch (recommendation) {
     case paths.recommendation.NO_UPGRADE: {
-      recommendations = uselessArtifacts.sortedGroups
-        // .slice(0, 16)
-        .map((group) => (
-          <button
-            type="button"
-            onClick={() => handleClickGroup(group)}
-            alt={group}
-            key={group}
-          >
-            <Artifact
-              piece={uselessArtifacts.groups[group].piece}
-              set={uselessArtifacts.groups[group].set}
-              mainstat={uselessArtifacts.groups[group].stat}
-              count={uselessArtifacts.groups[group].count}
-            />
-          </button>
-        ));
+      recommendedGroups = uselessArtifacts;
       break;
     }
     case paths.recommendation.TOO_MANY:
     default: {
-      recommendations = counts.sortedGroups
-        // .slice(0, 16)
-        .map((group) => (
-          counts.groups[group].count >= 10 && (
-            <button
-              type="button"
-              onClick={() => handleClickGroup(group)}
-              alt={group}
-              key={group}
-            >
-              <Artifact
-                piece={counts.groups[group].piece}
-                set={counts.groups[group].set}
-                mainstat={counts.groups[group].stat}
-                count={counts.groups[group].count}
-              />
-            </button>
-          )
-        ));
+      recommendedGroups = counts;
       break;
     }
   }
@@ -152,8 +150,17 @@ export default function Recommendations({ builds, artifacts, counts }) {
         These types of artifacts (hydro goblets, emblem flowers, etc.)
         have many Artifacts that match the criteria:
       </span>
-      <div className="artifactGroups row">
-        { recommendations }
+      <div className="artifactGroups">
+        {
+          Object.keys(paths.piece).map((piece) => (
+            <RecommendationLine
+              key={piece}
+              set={piece}
+              data={recommendedGroups}
+              onClick={handleClickGroup}
+            />
+          ))
+        }
       </div>
     </Box>
   );
