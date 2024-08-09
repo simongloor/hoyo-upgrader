@@ -13,7 +13,7 @@ import paths from '../data/paths';
 import { loadStateFromStorage } from '../data/localStorage';
 import { updateCharacters } from '../data/actions/characters';
 import { getEmptyBuild } from '../data/characters';
-import { getBusyArtifactWearers, getWearerStates } from '../data/builds';
+import { getWearerStates } from '../data/builds';
 
 import '../styles/EditBuilds.scss';
 

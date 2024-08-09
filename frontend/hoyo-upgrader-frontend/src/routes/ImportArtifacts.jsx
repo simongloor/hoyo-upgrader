@@ -107,9 +107,23 @@ export default function ImportArtifacts({ children }) {
       const fullData = JSON.parse(artifactData.full);
       fullData.artifacts = fullData.artifacts.filter((artifact) => artifact.setKey !== selectedSet);
 
-      const newLocations = newJsonData.artifacts.map((artifact) => artifact.location);
-      fullData.artifacts = fullData.map((artifact) => {
-        if (newLocations.includes(artifact.location)) {
+      const newLocations = [];
+      newJsonData.artifacts.forEach((artifact) => {
+        if (artifact.location) {
+          if (!newLocations[artifact.location]) {
+            newLocations[artifact.location] = [];
+          } else {
+            newLocations[artifact.location].push(artifact.slotKey);
+          }
+        }
+      });
+      fullData.artifacts = fullData.artifacts.map((artifact) => {
+        if (
+          artifact.location
+          && newLocations[artifact.location]
+          && newLocations[artifact.location].includes(artifact.slotKey)
+        ) {
+          // one of the old artifacts has been replaced with an artifact of this set
           return {
             ...artifact,
             location: '',
