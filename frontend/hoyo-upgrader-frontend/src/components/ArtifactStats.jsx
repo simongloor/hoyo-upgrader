@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -25,10 +26,12 @@ const statOrder = [
 
 export default function ArtifactStats({
   relevantSubstats,
+  hoveredSubstats,
   uniformSubstatCount,
   showCounter = true,
 }) {
   // console.log(uniformSubstatCount);
+  console.log(hoveredSubstats);
   let fillerSubstatCount = 0;
   if (uniformSubstatCount) {
     let relevantSubstatsCount = 0;
@@ -80,7 +83,11 @@ export default function ArtifactStats({
         Object.keys(sortedSubstats).map((stat) => (
           Array(sortedSubstats[stat]).fill().map((_, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Substat key={`${stat}-${i}`} stat={stat} />
+            <Substat
+              key={`${stat}-${i}`}
+              stat={stat}
+              isHighlighted={hoveredSubstats && i < hoveredSubstats.valuableSubstats[stat]}
+            />
           ))
         ))
       }

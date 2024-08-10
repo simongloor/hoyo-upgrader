@@ -81,7 +81,9 @@ export default function Artifact({
         data
         && ((data.rarity === 5 && data.level !== 20) || (data.rarity === 4 && data.level !== 16))
         && (
-          <span className="level fine">{ data.level }</span>
+          <div className="level">
+            <span className="fine">{ data.level }</span>
+          </div>
         )
       }
     </div>

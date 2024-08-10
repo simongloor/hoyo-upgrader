@@ -5,10 +5,14 @@ import iconWasted from '../theme/wasted.svg';
 
 // import '../styles/Substat.scss';
 
-export default function Substat({ stat, chance = 1 }) {
+export default function Substat({
+  stat,
+  chance = 1,
+  isHighlighted = false,
+}) {
   return (
     <div
-      className={`Substat ${stat}`}
+      className={`Substat ${stat} ${isHighlighted ? 'highlighted' : ''}`}
       style={{ height: `${chance * 100}%` }}
     >
       {

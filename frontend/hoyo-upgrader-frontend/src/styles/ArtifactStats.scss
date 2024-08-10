@@ -37,6 +37,11 @@
     justify-content: center;
     align-items: center;
 
+    &.highlighted {
+      border-bottom-style: solid;
+      border-bottom-width: $border-width;
+      border-bottom-color: $onSurface-highEmphasis;
+    }
 
     &.impossibleSubstats {
       opacity: 0.3;
