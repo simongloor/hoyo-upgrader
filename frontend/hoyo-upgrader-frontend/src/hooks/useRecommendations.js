@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
-import { countUselessArtifacts } from '../data/countArtifacts';
+import {
+  countArtifactsNotNeeded,
+  countArtifactsWithoutUpgrade,
+} from '../data/countArtifacts';
 
 export default function useRecommendations(
   artifacts,
@@ -17,9 +20,24 @@ export default function useRecommendations(
       // prepare data
       const newRecommendations = {};
       let recommendedGroups = null;
-      const uselessArtifacts = countUselessArtifacts(artifacts.asList, builds);
 
-      // TOO_MANY
+      // level these
+
+      // UPGRADE100: '100% upgrade',
+
+      // UPGRADE75: '~75% upgrade',
+
+      // UPGRADE50: '~50% upgrade',
+
+      // bring to lvl 4
+
+      // MAYBE_UPGRADE_100: 'might be ~100% upgrade',
+
+      // MAYBE_UPGRADE_30: 'might be ~30% upgrade',
+
+      // reduct these
+
+      // TOO_MANY: 'too many pieces',
       recommendedGroups = { ...counts };
       recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
         .filter((group) => recommendedGroups.groups[group].count >= 10);
@@ -29,14 +47,13 @@ export default function useRecommendations(
         totalCount: 0,
       };
 
-      // NO_UPGRADE
-      newRecommendations.NO_UPGRADE = {
-        ...uselessArtifacts,
-        totalCount: uselessArtifacts.sortedGroups.reduce(
-          (acc, group) => (acc + uselessArtifacts.groups[group].count),
-          0,
-        ),
-      };
+      // NOT_NEEDED: 'not needed',
+      newRecommendations.NOT_NEEDED = countArtifactsNotNeeded(artifacts.asList, builds);
+
+      // NO_UPGRADE: 'no upgrade',
+      newRecommendations.NO_UPGRADE = countArtifactsWithoutUpgrade(artifacts.asList, builds);
+
+      // UNDER30CHANCE_UPGRADE: 'under 30% chance to upgrade',
 
       setRecommendations(newRecommendations);
     }

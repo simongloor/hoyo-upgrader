@@ -99,47 +99,65 @@ function getBuildsRelevantForOffpieceArtifact(artifact, builds) {
   ));
 }
 
-function getEvaluationsRelevantArtifact(builds, evaluations) {
+function filterEvaluationsByBuilds(builds, evaluations) {
   return evaluations.filter((evaluation) => (
     builds.some((build) => build.artifactWearer === evaluation.artifactWearer)
   ));
 }
 
-export function countUselessArtifacts(artifacts, builds) {
-  let uselessArtifactsByGroup = {};
+export function getBuildsRelevantForArtifact(artifactData, builds) {
+  let relevantBuilds = [];
+  switch (artifactData.slotKey) {
+    case 'flower':
+    case 'plume': {
+      relevantBuilds = getBuildsRelevantForFixedArtifact(artifactData, builds);
+      break;
+    }
+    case 'sands':
+    case 'circlet': {
+      relevantBuilds = getBuildsRelevantForMainstatArtifact(artifactData, builds);
+      break;
+    }
+    case 'goblet': {
+      relevantBuilds = getBuildsRelevantForOffpieceArtifact(artifactData, builds);
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+  return relevantBuilds;
+}
+
+export function countArtifactsWithoutUpgrade(artifacts, builds) {
+  let artifactsByGroup = {};
 
   artifacts.forEach((a) => {
-    let relevantBuilds = [];
-    switch (a.artifactData.slotKey) {
-      case 'flower':
-      case 'plume': {
-        relevantBuilds = getBuildsRelevantForFixedArtifact(a.artifactData, builds);
-        break;
-      }
-      case 'sands':
-      case 'circlet': {
-        relevantBuilds = getBuildsRelevantForMainstatArtifact(a.artifactData, builds);
-        break;
-      }
-      case 'goblet': {
-        relevantBuilds = getBuildsRelevantForOffpieceArtifact(a.artifactData, builds);
-        break;
-      }
-      default: {
-        break;
-      }
-    }
+    const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
 
-    const relevantEvaluations = getEvaluationsRelevantArtifact(
+    const relevantEvaluations = filterEvaluationsByBuilds(
       relevantBuilds,
       a.buildEvaluations,
     );
     // console.log(relevantEvaluations);
     if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
-      uselessArtifactsByGroup = countTowardsGroup(uselessArtifactsByGroup, a.artifactData);
+      artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
       // console.log(uselessArtifactsByGroup);
     }
   });
 
-  return sortArtifactGroupCounter(uselessArtifactsByGroup);
+  return sortArtifactGroupCounter(artifactsByGroup);
+}
+
+export function countArtifactsNotNeeded(artifacts, builds) {
+  let artifactsByGroup = {};
+
+  artifacts.forEach((a) => {
+    const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
+    if (relevantBuilds.length === 0) {
+      artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
+    }
+  });
+
+  return sortArtifactGroupCounter(artifactsByGroup);
 }

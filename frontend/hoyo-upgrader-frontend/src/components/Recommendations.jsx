@@ -77,6 +77,7 @@ export default function Recommendations({
         {
           renderFilterButtons([
             'TOO_MANY',
+            'NOT_NEEDED',
             'NO_UPGRADE',
           ])
         }

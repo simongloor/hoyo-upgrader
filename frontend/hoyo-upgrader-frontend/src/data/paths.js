@@ -6,8 +6,10 @@ const paths = {
     UPGRADE100: '100% upgrade',
     UPGRADE75: '~75% upgrade',
     UPGRADE50: '~50% upgrade',
+
     MAYBE_UPGRADE_100: 'might be ~100% upgrade',
     MAYBE_UPGRADE_30: 'might be ~30% upgrade',
+
     TOO_MANY: 'too many pieces',
     NOT_NEEDED: 'not needed',
     NO_UPGRADE: 'no upgrade',
