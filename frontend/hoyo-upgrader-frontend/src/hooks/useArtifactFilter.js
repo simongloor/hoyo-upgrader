@@ -133,9 +133,18 @@ export default function useArtifactFilter(artifacts, characters) {
             - getArtifactQualitySortValue(b, filter.artifactWearer)
         ));
 
+      // Mark highlighted artifacts
+      if (filter.highlightArtifactKeys) {
+        artifactsToFilter.asList.forEach((artifact, iArtifact) => {
+          artifactsToFilter.asList[iArtifact].highlight = filter.highlightArtifactKeys
+            .includes(artifact.artifactData.key);
+        });
+      }
+
       // // DEBUGGING
       // artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
 
+      // apply
       setFilteredArtifacts(artifactsToFilter);
 
       // // measure time

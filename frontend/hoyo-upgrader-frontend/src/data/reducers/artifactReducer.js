@@ -3,8 +3,8 @@
 
 import { countArtifactsByGroup, countArtifactsBySet } from '../countArtifacts';
 import { loadStateFromStorage, saveStateToStorage } from '../localStorage';
-import paths from '../paths';
 import { countSubstats } from '../substats';
+import paths from '../paths';
 
 function processJson(jsonData) {
   if (jsonData.artifacts) {
@@ -15,6 +15,7 @@ function processJson(jsonData) {
         set: artifact.setKey,
         piece: artifact.slotKey,
         substatCounts: countSubstats(artifact),
+        key: `${artifact.setKey}-${artifact.slotKey}-${JSON.stringify(artifact.substats)}`,
       }));
   }
   return [];

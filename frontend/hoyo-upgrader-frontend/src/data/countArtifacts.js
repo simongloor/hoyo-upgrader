@@ -43,9 +43,11 @@ export function countTowardsCustomGroup(
       stat: useStat ? artifactData.mainStatKey : '',
       offpieces,
       count: 1,
+      filterStrings: [artifactData.key],
     };
   } else {
     newCounter[group].count += 1;
+    newCounter[group].filterStrings.push(artifactData.key);
   }
   return newCounter;
 }
@@ -135,6 +137,7 @@ export function countUselessArtifacts(artifacts, builds) {
     // console.log(relevantEvaluations);
     if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
       uselessArtifactsByGroup = countTowardsGroup(uselessArtifactsByGroup, a.artifactData);
+      // console.log(uselessArtifactsByGroup);
     }
   });
 

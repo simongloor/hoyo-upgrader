@@ -17,6 +17,7 @@ export default function ArtifactEvaluation({
   handleClickPinArtifact,
   pinnedArtifactString,
 }) {
+  // console.log(artifact);
   return (
     <div
       className="ArtifactEvaluation row"
@@ -26,6 +27,11 @@ export default function ArtifactEvaluation({
         && pinnedArtifactString === JSON.stringify(artifact.artifactData.substats)
         && (
           <div className="pinned" />
+        )
+      }
+      {
+        artifact.highlight && (
+          <div className="highlight" />
         )
       }
       {

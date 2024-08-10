@@ -12,9 +12,35 @@ import '../styles/Recommendations.scss';
 
 export default function Recommendations({ builds, artifacts, counts }) {
   const dispatch = useDispatch();
-  const [recommendation, setRecommendation] = useState(paths.recommendation.TOO_MANY);
+  // const [recommendation, setRecommendation] = useState(paths.recommendation.TOO_MANY);
+  const [recommendations, setRecommendations] = useState({
+    key: '',
+    sortedGroups: [],
+    groups: {},
+  });
 
   const [uselessArtifacts, setUselessArtifacts] = useState({ sortedGroups: [], groups: {} });
+
+  const loadRecommendations = (recommendationKey) => () => {
+    let recommendedGroups = null;
+    switch (recommendationKey) {
+      case paths.recommendation.NO_UPGRADE: {
+        recommendedGroups = uselessArtifacts;
+        break;
+      }
+      case paths.recommendation.TOO_MANY:
+      default: {
+        recommendedGroups = { ...counts };
+        recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
+          .filter((group) => recommendedGroups.groups[group].count >= 10);
+        break;
+      }
+    }
+    setRecommendations({
+      key: recommendationKey,
+      ...recommendedGroups,
+    });
+  };
 
   useEffect(() => {
     if (artifacts.isEvaluated) {
@@ -22,6 +48,8 @@ export default function Recommendations({ builds, artifacts, counts }) {
       // console.log(newUselessArtifacts);
       setUselessArtifacts(newUselessArtifacts);
     }
+
+    loadRecommendations(paths.recommendation.TOO_MANY)();
   }, [artifacts, builds]);
 
   // event handlers
@@ -31,7 +59,9 @@ export default function Recommendations({ builds, artifacts, counts }) {
       piece,
       stat,
       offpieces,
-    } = counts.groups[group];
+      filterStrings,
+    } = recommendations.groups[group];
+
     const setIsValid = Object.keys(paths.set).includes(set);
     dispatch(applyFilter({
       specificPiece: piece,
@@ -43,6 +73,7 @@ export default function Recommendations({ builds, artifacts, counts }) {
         circlet: piece === 'circlet' ? stat : null,
       },
       showOffpieces: offpieces,
+      highlightArtifactKeys: filterStrings,
     }));
   };
 
@@ -60,35 +91,20 @@ export default function Recommendations({ builds, artifacts, counts }) {
     }
   };
 
-  let recommendedGroups = null;
-  switch (recommendation) {
-    case paths.recommendation.NO_UPGRADE: {
-      recommendedGroups = uselessArtifacts;
-      break;
-    }
-    case paths.recommendation.TOO_MANY:
-    default: {
-      recommendedGroups = { ...counts };
-      recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
-        .filter((group) => recommendedGroups.groups[group].count >= 10);
-      break;
-    }
-  }
-
   // render filter buttons
   const renderFilterButtons = (recommendationKeys) => recommendationKeys
-    .map((recommendationType) => (
+    .map((recommendationKey) => (
       <button
-        className={`primary ${recommendation === recommendationType ? 'selected' : ''}`}
+        className={`primary ${recommendations.key === recommendationKey ? 'selected' : ''}`}
         type="button"
-        onClick={() => setRecommendation(recommendationType)}
-        key={recommendationType}
+        onClick={loadRecommendations(recommendationKey)}
+        key={recommendationKey}
       >
         <span>
           {
-            recommendationType === paths.recommendation.TOO_MANY
-              ? recommendationType
-              : `${recommendationType} (${getTotalArtifactCount(recommendationType)})`
+            recommendationKey === paths.recommendation.TOO_MANY
+              ? recommendationKey
+              : `${recommendationKey} (${getTotalArtifactCount(recommendationKey)})`
           }
         </span>
       </button>
@@ -125,7 +141,7 @@ export default function Recommendations({ builds, artifacts, counts }) {
             <RecommendationRow
               key={piece}
               set={piece}
-              data={recommendedGroups}
+              data={recommendations}
               onClick={handleClickGroup}
             />
           ))
