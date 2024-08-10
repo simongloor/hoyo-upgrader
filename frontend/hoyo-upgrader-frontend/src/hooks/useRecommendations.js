@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  countArtifactsNotNeeded,
-  countArtifactsWithoutUpgrade,
+  countArtifactsByQuality,
+  // countArtifactsNotNeeded,
+  // countArtifactsWithoutUpgrade,
 } from '../data/countArtifacts';
 
 export default function useRecommendations(
@@ -47,11 +48,15 @@ export default function useRecommendations(
         totalCount: 0,
       };
 
+      const artifactGroupsByQuality = countArtifactsByQuality(artifacts.asList, builds);
+
       // NOT_NEEDED: 'not needed',
-      newRecommendations.NOT_NEEDED = countArtifactsNotNeeded(artifacts.asList, builds);
+      newRecommendations.NOT_NEEDED = artifactGroupsByQuality.NOT_NEEDED;
+      // newRecommendations.NOT_NEEDED = countArtifactsNotNeeded(artifacts.asList, builds);
 
       // NO_UPGRADE: 'no upgrade',
-      newRecommendations.NO_UPGRADE = countArtifactsWithoutUpgrade(artifacts.asList, builds);
+      newRecommendations.NO_UPGRADE = artifactGroupsByQuality.NO_UPGRADE;
+      // newRecommendations.NO_UPGRADE = countArtifactsWithoutUpgrade(artifacts.asList, builds);
 
       // UNDER30CHANCE_UPGRADE: 'under 30% chance to upgrade',
 

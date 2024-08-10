@@ -129,11 +129,49 @@ export function getBuildsRelevantForArtifact(artifactData, builds) {
   return relevantBuilds;
 }
 
-export function countArtifactsWithoutUpgrade(artifacts, builds) {
-  let artifactsByGroup = {};
+// export function countArtifactsWithoutUpgrade(artifacts, builds) {
+//   let artifactsByGroup = {};
+
+//   artifacts.forEach((a) => {
+//     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
+
+//     const relevantEvaluations = filterEvaluationsByBuilds(
+//       relevantBuilds,
+//       a.buildEvaluations,
+//     );
+//     // console.log(relevantEvaluations);
+//     if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
+//       artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
+//       // console.log(uselessArtifactsByGroup);
+//     }
+//   });
+
+//   return sortArtifactGroupCounter(artifactsByGroup);
+// }
+
+// export function countArtifactsNotNeeded(artifacts, builds) {
+//   let artifactsByGroup = {};
+
+//   artifacts.forEach((a) => {
+//     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
+//     if (relevantBuilds.length === 0) {
+//       artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
+//     }
+//   });
+
+//   return sortArtifactGroupCounter(artifactsByGroup);
+// }
+
+export function countArtifactsByQuality(artifacts, builds) {
+  let notNeeded = {};
+  let noUpgrade = {};
 
   artifacts.forEach((a) => {
     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
+
+    if (relevantBuilds.length === 0) {
+      notNeeded = countTowardsGroup(notNeeded, a.artifactData);
+    }
 
     const relevantEvaluations = filterEvaluationsByBuilds(
       relevantBuilds,
@@ -141,23 +179,13 @@ export function countArtifactsWithoutUpgrade(artifacts, builds) {
     );
     // console.log(relevantEvaluations);
     if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
-      artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
+      noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
       // console.log(uselessArtifactsByGroup);
     }
   });
 
-  return sortArtifactGroupCounter(artifactsByGroup);
-}
-
-export function countArtifactsNotNeeded(artifacts, builds) {
-  let artifactsByGroup = {};
-
-  artifacts.forEach((a) => {
-    const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
-    if (relevantBuilds.length === 0) {
-      artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
-    }
-  });
-
-  return sortArtifactGroupCounter(artifactsByGroup);
+  return {
+    NOT_NEEDED: sortArtifactGroupCounter(notNeeded),
+    NO_UPGRADE: sortArtifactGroupCounter(noUpgrade),
+  };
 }
