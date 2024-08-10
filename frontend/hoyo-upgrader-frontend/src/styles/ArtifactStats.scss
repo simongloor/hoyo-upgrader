@@ -44,21 +44,8 @@
     &.wastedSubstats {
       opacity: 1;
     }
-    &.missingRolls100 {
+    &.missingRoll {
       background-color: $stat-missing;
-      height: 100%;
-    }
-    &.missingRolls75 {
-      background-color: $stat-missing;
-      height: 75%;
-    }
-    &.missingRolls50 {
-      background-color: $stat-missing;
-      height: 50%;
-    }
-    &.missingRolls25 {
-      background-color: $stat-missing;
-      height: 25%;
     }
     
     &.enerRech_ {

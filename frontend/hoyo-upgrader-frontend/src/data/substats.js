@@ -128,47 +128,44 @@ function getImpossibleSubstats(uselessSubstatSlots, maxRolls) {
 }
 
 function getMissingRollChances(missingRolls, wastedSubstatSlots) {
-  // The chance for missing rolls depends on the number of valuable substat types
-  const missingRollChances = {
-    missingRolls100: 0,
-    missingRolls75: 0,
-    missingRolls50: 0,
-    missingRolls25: 0,
-    missingRolls00: 0,
-  };
-
+  let baseRollChance = 1;
   switch (wastedSubstatSlots) {
-    case 0: {
-      missingRollChances.missingRolls100 = missingRolls;
-      break;
-    }
     case 1: {
-      missingRollChances.missingRolls75 = missingRolls;
+      baseRollChance = 0.75;
       break;
     }
     case 2: {
-      missingRollChances.missingRolls50 = missingRolls;
+      baseRollChance = 0.5;
       break;
     }
     case 3: {
-      missingRollChances.missingRolls25 = missingRolls;
+      baseRollChance = 0.25;
       break;
     }
     case 4: {
-      missingRollChances.missingRolls00 = missingRolls;
+      baseRollChance = 0;
       break;
     }
+    case 0:
     default: {
       break;
     }
   }
 
-  return missingRollChances;
+  // The chance decreases every roll
+  return Array(missingRolls).fill(0).map((_, i) => baseRollChance ** (i + 1), []);
 }
 
 export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
   // console.log(artifactData, characterBuild);
-  if (!artifactData) return {};
+  if (!artifactData) {
+    return {
+      valuableSubstats: {},
+      impossibleSubstats: 0,
+      wastedSubstats: 0,
+      missingRollChances: [],
+    };
+  }
 
   const maxRolls = artifactData.rarity === 5 ? 9 : 7;
 
@@ -194,15 +191,14 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
 
   const wastedSubstatSlots = getWastedSubstatSlots(artifactData, characterBuild);
   const missingRollChances = getMissingRollChances(missingRolls, wastedSubstatSlots);
-  wastedSubstats += missingRollChances.missingRolls00;
-  delete missingRollChances.missingRolls00;
+  wastedSubstats += missingRollChances.filter((chance) => chance === 0).length;
 
   // return a flat object ready for display
   return {
-    ...valuableSubstats.rolls,
+    valuableSubstats: { ...valuableSubstats.rolls },
     impossibleSubstats,
     wastedSubstats,
-    ...missingRollChances,
+    missingRollChances,
   };
 }
 
@@ -211,18 +207,36 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
 
 export function combineRelevantSubstats(relevantSubstats) {
   // console.log(relevantSubstats);
-  const foundSubstats = {};
+  const foundSubstats = {
+    valuableSubstats: {},
+    impossibleSubstats: 0,
+    wastedSubstats: 0,
+    missingRollChances: [],
+  };
   // Accumulate all values of the artifacts
   relevantSubstats.forEach((artifact) => {
     if (!artifact) return;
     // Add the valuable substats
-    Object.keys(artifact).forEach((key) => {
-      if (key in foundSubstats) {
-        foundSubstats[key] += artifact[key];
+    Object.keys(artifact.valuableSubstats).forEach((key) => {
+      if (key in foundSubstats.valuableSubstats) {
+        // console.log('existing stat category', key);
+        foundSubstats.valuableSubstats[key] += artifact.valuableSubstats[key];
       } else {
-        foundSubstats[key] = artifact[key];
+        // console.log('new stat category', key);
+        foundSubstats.valuableSubstats[key] = artifact.valuableSubstats[key];
       }
     });
+    // console.log('foundSubstats', foundSubstats);
+
+    // Add the impossible substats
+    foundSubstats.impossibleSubstats += artifact.impossibleSubstats;
+
+    // Add the missing roll chances
+    foundSubstats.missingRollChances = foundSubstats.missingRollChances
+      .concat(artifact.missingRollChances);
+
+    // Add the wasted substats
+    foundSubstats.wastedSubstats += artifact.wastedSubstats;
   });
   return foundSubstats;
 }

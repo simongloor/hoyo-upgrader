@@ -8,7 +8,7 @@ import CounterPiece from './CounterPiece';
 import '../styles/ArtifactStats.scss';
 
 const statOrder = [
-  'impossibleSubstats',
+  // 'impossibleSubstats',
   'enerRech_',
   'critRate_',
   'critDMG_',
@@ -16,11 +16,11 @@ const statOrder = [
   'hp_',
   'def_',
   'eleMas',
-  'missingRolls100',
-  'missingRolls75',
-  'missingRolls50',
-  'missingRolls25',
-  'wastedSubstats',
+  // 'missingRolls100',
+  // 'missingRolls75',
+  // 'missingRolls50',
+  // 'missingRolls25',
+  // 'wastedSubstats',
 ];
 
 export default function ArtifactStats({
@@ -28,21 +28,33 @@ export default function ArtifactStats({
   uniformSubstatCount,
   showCounter = true,
 }) {
+  // console.log(uniformSubstatCount);
   let fillerSubstatCount = 0;
   if (uniformSubstatCount) {
-    const relevantSubstatsCount = relevantSubstats
-      ? Object.values(relevantSubstats).reduce((acc, cur) => acc + cur, 0)
-      : 0;
-    fillerSubstatCount = uniformSubstatCount ? uniformSubstatCount - relevantSubstatsCount : 0;
+    let relevantSubstatsCount = 0;
+    if (relevantSubstats) {
+      relevantSubstatsCount = Object.values(relevantSubstats.valuableSubstats)
+        .reduce((acc, cur) => acc + cur, 0)
+        + relevantSubstats.impossibleSubstats
+        + relevantSubstats.wastedSubstats
+        + relevantSubstats.missingRollChances.length;
+    }
+    fillerSubstatCount = Math.max(
+      0,
+      uniformSubstatCount ? uniformSubstatCount - relevantSubstatsCount : 0,
+    );
   }
+  // console.log('fillerSubstatCount', fillerSubstatCount);
+  // console.log('relevantSubstats', relevantSubstats);
 
-  // sort relevantSubstats by statOrder
+  // sort valuable substats by statOrder
   const sortedSubstats = {};
   statOrder.forEach((stat) => {
-    if (Object.prototype.hasOwnProperty.call(relevantSubstats, stat)) {
-      sortedSubstats[stat] = relevantSubstats[stat];
+    if (Object.prototype.hasOwnProperty.call(relevantSubstats.valuableSubstats, stat)) {
+      sortedSubstats[stat] = relevantSubstats.valuableSubstats[stat];
     }
   });
+  // console.log('sortedSubstats', sortedSubstats);
 
   // render a
   return (
@@ -50,12 +62,21 @@ export default function ArtifactStats({
       className="ArtifactStats"
     >
       {
+        // fill up the remaining substats
         Array(fillerSubstatCount).fill().map((_, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <div key={i} className="filler" />
         ))
       }
       {
+        // render impossible substats
+        Array(relevantSubstats.impossibleSubstats).fill().map((_, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Substat key={`impossible-${i}`} stat="impossibleSubstats" />
+        ))
+      }
+      {
+        // render valuable substats
         Object.keys(sortedSubstats).map((stat) => (
           Array(sortedSubstats[stat]).fill().map((_, i) => (
             // eslint-disable-next-line react/no-array-index-key
@@ -64,10 +85,26 @@ export default function ArtifactStats({
         ))
       }
       {
+        // render missing rolls
+        relevantSubstats.missingRollChances
+          .sort((a, b) => b - a)
+          .map((chance, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Substat key={`missingRoll-${i}`} stat="missingRoll" chance={chance} />
+          ))
+      }
+      {
+        // render wasted substats
+        Array(relevantSubstats.wastedSubstats).fill().map((_, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Substat key={`wasted-${i}`} stat="wastedSubstats" />
+        ))
+      }
+      {
         showCounter && (
           <>
             <div className="separator" />
-            <CounterPiece count={sortedSubstats.wastedSubstats} />
+            <CounterPiece count={relevantSubstats.wastedSubstats} />
           </>
         )
       }

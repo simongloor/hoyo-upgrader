@@ -61,23 +61,10 @@ export function getBuildQualitySortValue(relevantSubstats) {
   }
 
   // add chance as decimal
-  const {
-    missingRolls100,
-    missingRolls75,
-    missingRolls50,
-    missingRolls25,
-  } = relevantSubstats;
-
-  if (missingRolls100 > 0) {
-    sortValue -= 0.998;
-  } else if (missingRolls75 > 0) {
-    sortValue -= 0.75 ** missingRolls75;
-  } else if (missingRolls50 > 0) {
-    sortValue -= 0.5 ** missingRolls50;
-  } else if (missingRolls25 > 0) {
-    sortValue -= 0.25 ** missingRolls25;
-  } else {
-    sortValue -= 1;
+  const { missingRollChances } = relevantSubstats;
+  if (missingRollChances && missingRollChances.length > 0) {
+    // console.log('missingRolls', missingRollChances);
+    sortValue += missingRollChances[missingRollChances.length - 1];
   }
 
   return sortValue;
