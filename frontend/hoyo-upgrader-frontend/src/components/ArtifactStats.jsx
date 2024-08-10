@@ -9,7 +9,6 @@ import CounterPiece from './CounterPiece';
 import '../styles/ArtifactStats.scss';
 
 const statOrder = [
-  // 'impossibleSubstats',
   'enerRech_',
   'critRate_',
   'critDMG_',
@@ -17,11 +16,6 @@ const statOrder = [
   'hp_',
   'def_',
   'eleMas',
-  // 'missingRolls100',
-  // 'missingRolls75',
-  // 'missingRolls50',
-  // 'missingRolls25',
-  // 'wastedSubstats',
 ];
 
 export default function ArtifactStats({
@@ -31,7 +25,7 @@ export default function ArtifactStats({
   showCounter = true,
 }) {
   // console.log(uniformSubstatCount);
-  console.log(hoveredSubstats);
+  // console.log(hoveredSubstats);
   let fillerSubstatCount = 0;
   if (uniformSubstatCount) {
     let relevantSubstatsCount = 0;

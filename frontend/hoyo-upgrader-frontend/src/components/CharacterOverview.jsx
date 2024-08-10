@@ -19,7 +19,7 @@ export default function CharacterOverview({
   // console.log(characterBuild, characterArtifacts, relevantSubstats);
   const [hoveredArtifact, setHoveredArtifact] = React.useState(null);
   const dispatch = useDispatch();
-  console.log(hoveredArtifact);
+  // console.log(hoveredArtifact);
 
   const renderArtifact = (artifactData, slot) => {
     const build = artifactData[slot] && artifactData[slot].buildEvaluations
@@ -35,7 +35,7 @@ export default function CharacterOverview({
       >
         <Artifact
           data={artifactData[slot] && artifactData[slot].artifactData}
-          tier={build.relevantSubstats.wastedSubstats}
+          tier={build && build.relevantSubstats.wastedSubstats}
         />
       </button>
     );
