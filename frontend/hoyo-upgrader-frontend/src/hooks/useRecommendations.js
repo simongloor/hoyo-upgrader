@@ -3,88 +3,46 @@ import React, { useEffect, useState } from 'react';
 
 import { countUselessArtifacts } from '../data/countArtifacts';
 
-const getTotalArtifactCount = (
-  uselessArtifacts,
-) => {
-  const totals = {};
-
-  totals.NO_UPGRADE = uselessArtifacts.sortedGroups.reduce(
-    (acc, group) => (acc + uselessArtifacts.groups[group].count),
-    0,
-  );
-
-  return totals;
-};
-
-const getRecommendedGroups = (
-  recommendationKey,
-  counts,
-  uselessArtifacts,
-) => {
-  let recommendedGroups = null;
-  switch (recommendationKey) {
-    case 'NO_UPGRADE': {
-      recommendedGroups = uselessArtifacts;
-      break;
-    }
-    case 'TOO_MANY':
-    default: {
-      recommendedGroups = { ...counts };
-      recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
-        .filter((group) => recommendedGroups.groups[group].count >= 10);
-      break;
-    }
-  }
-  return recommendedGroups;
-};
-
-// ---------------------------------------------------------
-
 export default function useRecommendations(
   artifacts,
   builds,
   counts,
 ) {
-  const [recommendations, setRecommendations] = useState({
-    key: '',
-    sortedGroups: [],
-    groups: {},
-  });
-  const [uselessArtifacts, setUselessArtifacts] = useState({ sortedGroups: [], groups: {} });
-  const [totals, setTotals] = useState({
-    NO_UPGRADE: 0,
-  });
-
-  const loadRecommendations = (recommendationKey) => {
-    setRecommendations({
-      key: recommendationKey,
-      ...getRecommendedGroups(
-        recommendationKey,
-        counts,
-        uselessArtifacts,
-      ),
-    });
-  };
+  // console.log(artifacts, builds, counts);
+  const [recommendations, setRecommendations] = useState(null);
 
   // initialize
   useEffect(() => {
     if (artifacts.isEvaluated) {
-      const newUselessArtifacts = countUselessArtifacts(artifacts.asList, builds);
-      setUselessArtifacts(newUselessArtifacts);
+      // prepare data
+      const newRecommendations = {};
+      let recommendedGroups = null;
+      const uselessArtifacts = countUselessArtifacts(artifacts.asList, builds);
 
-      setTotals(getTotalArtifactCount(
-        newUselessArtifacts,
-      ));
+      // TOO_MANY
+      recommendedGroups = { ...counts };
+      recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
+        .filter((group) => recommendedGroups.groups[group].count >= 10);
 
-      loadRecommendations('TOO_MANY');
+      newRecommendations.TOO_MANY = {
+        ...recommendedGroups,
+        totalCount: 0,
+      };
+
+      // NO_UPGRADE
+      newRecommendations.NO_UPGRADE = {
+        ...uselessArtifacts,
+        totalCount: uselessArtifacts.sortedGroups.reduce(
+          (acc, group) => (acc + uselessArtifacts.groups[group].count),
+          0,
+        ),
+      };
+
+      setRecommendations(newRecommendations);
     }
 
     // console.log('useRecommendations initialized');
   }, [artifacts, builds]);
 
-  return {
-    loadRecommendations,
-    recommendations,
-    totals,
-  };
+  return recommendations;
 }

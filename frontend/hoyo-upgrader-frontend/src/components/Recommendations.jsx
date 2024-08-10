@@ -1,27 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import paths from '../data/paths';
 import { applyFilter } from '../data/actions/filter';
-import useRecommendations from '../hooks/useRecommendations';
 
 import Box from './Box';
 import RecommendationRow from './RecommendationRow';
 import '../styles/Recommendations.scss';
 
-export default function Recommendations({ builds, artifacts, counts }) {
+export default function Recommendations({
+  recommendations,
+}) {
+  // console.log(recommendations);
   const dispatch = useDispatch();
-
-  const {
-    loadRecommendations,
-    recommendations,
-    totals,
-  } = useRecommendations(
-    artifacts,
-    builds,
-    counts,
-  );
+  const [displayedKey, setDisplayedKey] = useState('TOO_MANY');
 
   // event handlers
   const handleClickGroup = (group) => {
@@ -31,7 +24,7 @@ export default function Recommendations({ builds, artifacts, counts }) {
       stat,
       offpieces,
       filterStrings,
-    } = recommendations.groups[group];
+    } = recommendations[displayedKey].groups[group];
 
     const setIsValid = Object.keys(paths.set).includes(set);
     dispatch(applyFilter({
@@ -48,20 +41,20 @@ export default function Recommendations({ builds, artifacts, counts }) {
     }));
   };
 
-  // render filter buttons
+  // render buttons for all recommendation keys
   const renderFilterButtons = (recommendationKeys) => recommendationKeys
     .map((recommendationKey) => (
       <button
-        className={`primary ${recommendations.key === recommendationKey ? 'selected' : ''}`}
+        className={`primary ${displayedKey === recommendationKey ? 'selected' : ''}`}
         type="button"
-        onClick={() => loadRecommendations(recommendationKey)}
+        onClick={() => setDisplayedKey(recommendationKey)}
         key={recommendationKey}
       >
         <span>
           {
             recommendationKey === 'TOO_MANY'
               ? paths.recommendation[recommendationKey]
-              : `${paths.recommendation[recommendationKey]} (${totals[recommendationKey]})`
+              : `${paths.recommendation[recommendationKey]} (${recommendations[recommendationKey].totalCount})`
           }
         </span>
       </button>
@@ -94,11 +87,12 @@ export default function Recommendations({ builds, artifacts, counts }) {
       </span>
       <div className="artifactGroups">
         {
+          // render rows for displayed recommendation key
           Object.keys(paths.piece).map((piece) => (
             <RecommendationRow
               key={piece}
               set={piece}
-              data={recommendations}
+              data={recommendations[displayedKey]}
               onClick={handleClickGroup}
             />
           ))

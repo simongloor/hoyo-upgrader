@@ -7,18 +7,19 @@ import artifactsJson from '../data/mock/artifacts.json';
 import { loadArtifacts } from '../data/actions/artifacts';
 import { loadCharacters } from '../data/actions/characters';
 
+import useEvaluation from '../hooks/useEvaluation';
+import useRecommendations from '../hooks/useRecommendations';
+import useBuildFilter from '../hooks/useBuildFilter';
+import useArtifactFilter from '../hooks/useArtifactFilter';
+
 import SettingsRow from '../components/SettingsRow';
 import Filter from '../components/Filter';
 import Pinboard from '../components/Pinboard';
 import AccountOverview from '../components/AccountOverview';
 import ArtifactOverview from '../components/ArtifactOverview';
 import ArtifactInventory from '../components/ArtifactInventory';
-
-// import { getRelevantSubstatsByWearer } from '../data/substats';
-import useEvaluation from '../hooks/useEvaluation';
-import useBuildFilter from '../hooks/useBuildFilter';
-import useArtifactFilter from '../hooks/useArtifactFilter';
 import Recommendations from '../components/Recommendations';
+
 import '../styles/Home.scss';
 
 export default function Home() {
@@ -27,7 +28,16 @@ export default function Home() {
   const artifacts = useSelector((state) => state.artifacts);
   const characters = useSelector((state) => state.characters);
 
+  // non-interactive - precalculation possible
   const evaluatedArtifacts = useEvaluation(artifacts, characters);
+  // console.log(artifacts, evaluatedArtifacts);
+  const recommendations = useRecommendations(
+    evaluatedArtifacts,
+    characters,
+    artifacts.groupCounts,
+  );
+
+  // interactive
   const filteredBuilds = useBuildFilter(characters);
   const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters);
 
@@ -47,9 +57,7 @@ export default function Home() {
     >
       <SettingsRow />
       <Recommendations
-        counts={artifacts.groupCounts}
-        artifacts={evaluatedArtifacts}
-        builds={characters}
+        recommendations={recommendations}
       />
       <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
