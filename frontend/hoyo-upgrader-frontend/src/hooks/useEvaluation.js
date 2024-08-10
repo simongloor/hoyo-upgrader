@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { getRelevantSubstatsOfArtifact } from '../data/substats';
 import { getArtifactTier, getBuildQualitySortValue, getUpgradePotential } from '../data/evaluation';
 

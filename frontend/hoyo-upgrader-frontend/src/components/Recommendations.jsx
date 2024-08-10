@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import paths from '../data/paths';
 import { applyFilter } from '../data/actions/filter';
-import { countUselessArtifacts } from '../data/countArtifacts';
+import useRecommendations from '../hooks/useRecommendations';
 
 import Box from './Box';
 import RecommendationRow from './RecommendationRow';
@@ -12,45 +12,16 @@ import '../styles/Recommendations.scss';
 
 export default function Recommendations({ builds, artifacts, counts }) {
   const dispatch = useDispatch();
-  // const [recommendation, setRecommendation] = useState(paths.recommendation.TOO_MANY);
-  const [recommendations, setRecommendations] = useState({
-    key: '',
-    sortedGroups: [],
-    groups: {},
-  });
 
-  const [uselessArtifacts, setUselessArtifacts] = useState({ sortedGroups: [], groups: {} });
-
-  const loadRecommendations = (recommendationKey) => () => {
-    let recommendedGroups = null;
-    switch (recommendationKey) {
-      case paths.recommendation.NO_UPGRADE: {
-        recommendedGroups = uselessArtifacts;
-        break;
-      }
-      case paths.recommendation.TOO_MANY:
-      default: {
-        recommendedGroups = { ...counts };
-        recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
-          .filter((group) => recommendedGroups.groups[group].count >= 10);
-        break;
-      }
-    }
-    setRecommendations({
-      key: recommendationKey,
-      ...recommendedGroups,
-    });
-  };
-
-  useEffect(() => {
-    if (artifacts.isEvaluated) {
-      const newUselessArtifacts = countUselessArtifacts(artifacts.asList, builds);
-      // console.log(newUselessArtifacts);
-      setUselessArtifacts(newUselessArtifacts);
-    }
-
-    loadRecommendations(paths.recommendation.TOO_MANY)();
-  }, [artifacts, builds]);
+  const {
+    loadRecommendations,
+    recommendations,
+    totals,
+  } = useRecommendations(
+    artifacts,
+    builds,
+    counts,
+  );
 
   // event handlers
   const handleClickGroup = (group) => {
@@ -77,34 +48,20 @@ export default function Recommendations({ builds, artifacts, counts }) {
     }));
   };
 
-  // helper functions
-  const getTotalArtifactCount = (recommendationKey) => {
-    switch (recommendationKey) {
-      case paths.recommendation.NO_UPGRADE:
-        return uselessArtifacts.sortedGroups.reduce(
-          (acc, group) => (acc + uselessArtifacts.groups[group].count),
-          0,
-        );
-      case paths.recommendation.TOO_MANY:
-      default:
-        return '';
-    }
-  };
-
   // render filter buttons
   const renderFilterButtons = (recommendationKeys) => recommendationKeys
     .map((recommendationKey) => (
       <button
         className={`primary ${recommendations.key === recommendationKey ? 'selected' : ''}`}
         type="button"
-        onClick={loadRecommendations(recommendationKey)}
+        onClick={() => loadRecommendations(recommendationKey)}
         key={recommendationKey}
       >
         <span>
           {
-            recommendationKey === paths.recommendation.TOO_MANY
-              ? recommendationKey
-              : `${recommendationKey} (${getTotalArtifactCount(recommendationKey)})`
+            recommendationKey === 'TOO_MANY'
+              ? paths.recommendation[recommendationKey]
+              : `${paths.recommendation[recommendationKey]} (${totals[recommendationKey]})`
           }
         </span>
       </button>
@@ -126,8 +83,8 @@ export default function Recommendations({ builds, artifacts, counts }) {
         <span>reduce these:</span>
         {
           renderFilterButtons([
-            paths.recommendation.TOO_MANY,
-            paths.recommendation.NO_UPGRADE,
+            'TOO_MANY',
+            'NO_UPGRADE',
           ])
         }
       </div>
