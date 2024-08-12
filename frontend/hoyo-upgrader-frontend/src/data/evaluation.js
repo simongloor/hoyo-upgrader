@@ -114,21 +114,17 @@ export function getUpgradePotential(
 }
 
 // get the chance of an build gaining at least one substat by rolling to the max level
-export function getUpgradeChance(buildEvaluation) {
-  const {
-    upgradePotential,
-    relevantSubstats,
-  } = buildEvaluation;
+export function getUpgradeChance(upgradePotential, relevantSubstats) {
+  // console.log(upgradePotential, relevantSubstats);
   const { missingRollChances } = relevantSubstats;
-
   const missingRolls = missingRollChances.length;
 
   if (upgradePotential > 0) {
     const failableRolls = upgradePotential - 1;
     const requiredRolls = missingRolls - failableRolls;
-    const chanceIndex = requiredRolls - 1;
+    const chanceIndex = Math.max(missingRollChances.length - 1, requiredRolls - 1);
 
-    return { chance: missingRollChances[chanceIndex] };
+    return missingRollChances[chanceIndex];
   }
 
   // no upgrade potential

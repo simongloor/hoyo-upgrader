@@ -71,7 +71,8 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
         artifact.artifactData.rarity,
       );
       const upgradeChance = getUpgradeChance(
-        evaluation,
+        upgradePotential,
+        evaluation.relevantSubstats,
       );
       return {
         ...evaluation,
@@ -141,6 +142,6 @@ export default function useEvaluation(artifacts, builds) {
     }
   }, [artifacts, builds]);
 
-  // console.log(evaluatedArtifacts);
+  console.log(evaluatedArtifacts, builds);
   return evaluatedArtifacts;
 }

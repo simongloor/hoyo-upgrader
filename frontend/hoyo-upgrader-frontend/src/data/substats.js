@@ -176,6 +176,7 @@ function getMissingRollChances(
   }
 
   // The chance decreases every roll
+  // console.log(missingRolls, baseRollChance);
   return Array(missingRolls).fill(0).map((_, i) => baseRollChance ** (i + 1), []);
 }
 
@@ -205,7 +206,6 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
     valuableSubstats.total,
     impossibleSubstats,
   );
-
   let missingRolls = maxRolls - valuableSubstats.total - impossibleSubstats - wastedSubstats;
   if (missingRolls < 0) {
     console.log('Warning: missing rolls is negative', maxRolls, valuableSubstats.total, impossibleSubstats, wastedSubstats, artifactData);
