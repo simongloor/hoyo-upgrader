@@ -142,6 +142,6 @@ export default function useEvaluation(artifacts, builds) {
     }
   }, [artifacts, builds]);
 
-  console.log(evaluatedArtifacts, builds);
+  // console.log(evaluatedArtifacts, builds);
   return evaluatedArtifacts;
 }

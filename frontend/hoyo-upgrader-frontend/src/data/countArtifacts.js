@@ -165,30 +165,42 @@ export function getBuildsRelevantForArtifact(artifactData, builds) {
 export function countArtifactsByQuality(artifacts, builds) {
   let notNeeded = {};
   let noUpgrade = {};
+  let upgrade100 = {};
+  let upgrade75 = {};
+  let upgrade50 = {};
+  let under30 = {};
 
   artifacts.forEach((a) => {
     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
-
-    // NOT_NEEEDED
-    if (relevantBuilds.length === 0) {
-      notNeeded = countTowardsGroup(notNeeded, a.artifactData);
-    }
 
     const relevantEvaluations = filterEvaluationsByBuilds(
       relevantBuilds,
       a.buildEvaluations,
     );
 
-    // NO_UPGRADE
-    if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
-      noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
+    if (!a.artifactData.location) {
+      if (relevantBuilds.length === 0) {
+        notNeeded = countTowardsGroup(notNeeded, a.artifactData);
+      } else if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
+        noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
+      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 1)) {
+        upgrade100 = countTowardsGroup(upgrade100, a.artifactData);
+      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.75)) {
+        upgrade75 = countTowardsGroup(upgrade75, a.artifactData);
+      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.5)) {
+        upgrade50 = countTowardsGroup(upgrade50, a.artifactData);
+      } else if (!relevantEvaluations.some((e) => e.upgradeChance >= 0.3)) {
+        under30 = countTowardsGroup(under30, a.artifactData);
+      }
     }
-
-    // process chances
   });
 
   return {
     NOT_NEEDED: sortArtifactGroupCounter(notNeeded),
     NO_UPGRADE: sortArtifactGroupCounter(noUpgrade),
+    UPGRADE100: sortArtifactGroupCounter(upgrade100),
+    UPGRADE75: sortArtifactGroupCounter(upgrade75),
+    UPGRADE50: sortArtifactGroupCounter(upgrade50),
+    UNDER30CHANCE_UPGRADE: sortArtifactGroupCounter(under30),
   };
 }

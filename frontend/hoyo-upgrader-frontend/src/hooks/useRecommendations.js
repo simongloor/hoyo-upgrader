@@ -19,7 +19,7 @@ export default function useRecommendations(
   useEffect(() => {
     if (artifacts.isEvaluated) {
       // prepare data
-      const newRecommendations = {};
+      let newRecommendations = {};
       let recommendedGroups = null;
 
       // level these
@@ -50,15 +50,10 @@ export default function useRecommendations(
 
       const artifactGroupsByQuality = countArtifactsByQuality(artifacts.asList, builds);
 
-      // NOT_NEEDED: 'not needed',
-      newRecommendations.NOT_NEEDED = artifactGroupsByQuality.NOT_NEEDED;
-      // newRecommendations.NOT_NEEDED = countArtifactsNotNeeded(artifacts.asList, builds);
-
-      // NO_UPGRADE: 'no upgrade',
-      newRecommendations.NO_UPGRADE = artifactGroupsByQuality.NO_UPGRADE;
-      // newRecommendations.NO_UPGRADE = countArtifactsWithoutUpgrade(artifacts.asList, builds);
-
-      // UNDER30CHANCE_UPGRADE: 'under 30% chance to upgrade',
+      newRecommendations = {
+        ...newRecommendations,
+        ...artifactGroupsByQuality,
+      };
 
       setRecommendations(newRecommendations);
     }

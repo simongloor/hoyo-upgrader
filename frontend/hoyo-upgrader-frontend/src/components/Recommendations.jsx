@@ -68,6 +68,13 @@ export default function Recommendations({
       <h2>Build Recommendations</h2>
       <div className="filterSelection row">
         <span>level these:</span>
+        {
+          renderFilterButtons([
+            'UPGRADE100',
+            'UPGRADE75',
+            'UPGRADE50',
+          ])
+        }
       </div>
       <div className="filterSelection row">
         <span>bring to lvl 4:</span>
@@ -76,9 +83,10 @@ export default function Recommendations({
         <span>reduce these:</span>
         {
           renderFilterButtons([
-            'TOO_MANY',
             'NOT_NEEDED',
             'NO_UPGRADE',
+            'UNDER30CHANCE_UPGRADE',
+            'TOO_MANY',
           ])
         }
       </div>
