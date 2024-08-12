@@ -1,7 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { getRelevantSubstatsOfArtifact } from '../data/substats';
-import { getArtifactTier, getBuildQualitySortValue, getUpgradePotential } from '../data/evaluation';
+import {
+  getArtifactTier,
+  getBuildQualitySortValue,
+  getUpgradeChance,
+  getUpgradePotential,
+} from '../data/evaluation';
 
 // we want to evaluate all artifacts for their relevant builds
 // this includes:
@@ -10,11 +15,16 @@ import { getArtifactTier, getBuildQualitySortValue, getUpgradePotential } from '
 //  - tier: the tier of the artifact for the build
 function evaluateArtifact(artifact, build) {
   // console.log(artifact, build);
-  const relevantSubstats = getRelevantSubstatsOfArtifact(artifact, build);
+  const {
+    relevantSubstats,
+    assumedUsefulMissingSlots,
+  } = getRelevantSubstatsOfArtifact(artifact, build);
+
   return {
     artifactWearer: build.artifactWearer,
     buildOwner: build.buildOwner,
     relevantSubstats,
+    assumedUsefulMissingSlots,
     sortValue: getBuildQualitySortValue(relevantSubstats),
     tier: getArtifactTier(artifact, relevantSubstats),
   };
@@ -55,13 +65,18 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
         evaluation.artifactWearer,
         evaluatedArtifacts,
       );
+      const upgradePotential = getUpgradePotential(
+        evaluation.relevantSubstats,
+        competingArtifact,
+        artifact.artifactData.rarity,
+      );
+      const upgradeChance = getUpgradeChance(
+        evaluation,
+      );
       return {
         ...evaluation,
-        upgradePotential: getUpgradePotential(
-          evaluation.relevantSubstats,
-          competingArtifact,
-          artifact.artifactData.rarity,
-        ),
+        upgradePotential,
+        upgradeChance,
       };
     }),
   };

@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 
-import { getRelevantSubstatsOfArtifact } from './substats';
-import paths from './paths';
-
 // ---------------------------------------------------------
 // artifact evaluation
 
@@ -114,4 +111,26 @@ export function getUpgradePotential(
   const competingBuildEvaluation = getBuildOfWearer(evaluatedCompetingArtifact);
   return competingBuildEvaluation.relevantSubstats.wastedSubstats
     - relevantSubstats.wastedSubstats;
+}
+
+// get the chance of an build gaining at least one substat by rolling to the max level
+export function getUpgradeChance(buildEvaluation) {
+  const {
+    upgradePotential,
+    relevantSubstats,
+  } = buildEvaluation;
+  const { missingRollChances } = relevantSubstats;
+
+  const missingRolls = missingRollChances.length;
+
+  if (upgradePotential > 0) {
+    const failableRolls = upgradePotential - 1;
+    const requiredRolls = missingRolls - failableRolls;
+    const chanceIndex = requiredRolls - 1;
+
+    return { chance: missingRollChances[chanceIndex] };
+  }
+
+  // no upgrade potential
+  return 0;
 }

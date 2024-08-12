@@ -141,8 +141,8 @@ export default function useArtifactFilter(artifacts, characters) {
         });
       }
 
-      // // DEBUGGING
-      // artifactsToFilter.asList = artifactsToFilter.asList.slice(100, 150);
+      // DEBUGGING
+      artifactsToFilter.asList = artifactsToFilter.asList.slice(115, 150);
 
       // apply
       setFilteredArtifacts(artifactsToFilter);

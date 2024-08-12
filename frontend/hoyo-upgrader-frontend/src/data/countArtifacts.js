@@ -169,6 +169,7 @@ export function countArtifactsByQuality(artifacts, builds) {
   artifacts.forEach((a) => {
     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
 
+    // NOT_NEEEDED
     if (relevantBuilds.length === 0) {
       notNeeded = countTowardsGroup(notNeeded, a.artifactData);
     }
@@ -177,11 +178,13 @@ export function countArtifactsByQuality(artifacts, builds) {
       relevantBuilds,
       a.buildEvaluations,
     );
-    // console.log(relevantEvaluations);
+
+    // NO_UPGRADE
     if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
       noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
-      // console.log(uselessArtifactsByGroup);
     }
+
+    // process chances
   });
 
   return {

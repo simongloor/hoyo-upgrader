@@ -102,23 +102,43 @@ function getWastedSubstats(artifactData, totalValuableSubstats, impossibleSubsta
   return Math.max(0, wastedSubstats);
 }
 
-function getUselessSubstatSlots(artifactData, characterBuild) {
-  // Number of slots (max 4) that don't have a valuable substat
-  // The slots can't roll into the mainstat
-  // Some characters can have more than 4 valuable substat types
-  const valuableSubstatTypes = characterBuild.substats;
-  const substatUsedByMainstat = valuableSubstatTypes.includes(artifactData.mainStatKey);
-  return Math.max(0, 4 - valuableSubstatTypes.length + (substatUsedByMainstat ? 1 : 0));
-}
+function evaluateSubstatSlots(artifactData, characterBuild) {
+  let notUsableByBuild = 0;
+  let notRollable = 0;
+  let rollableValuable = 0;
 
-function getWastedSubstatSlots(artifactData, characterBuild) {
-  // Number of slots have rolled into a useless substat type
-  return artifactData.substats.reduce((acc, substat) => {
-    if (!characterBuild.substats.includes(substat.key)) {
+  // split up the theoretically possible rolls for the build
+  // into valuable and useless slots for this artifact type
+  let maxValuableStats = characterBuild.substats.length;
+  if (characterBuild.substats.includes(artifactData.mainStatKey)) {
+    maxValuableStats -= 1;
+  }
+  const maxValuableSlots = Math.min(maxValuableStats, 4); // can't have more than 4 substats
+  notUsableByBuild = 4 - maxValuableSlots;
+
+  // split up the 4 slots depending on how they rolled into valuable, usless and unknown slots
+  const valuableSlotRolls = artifactData.substats.reduce((acc, substat) => {
+    if (characterBuild.substats.includes(substat.key)) {
       return acc + 1;
     }
     return acc;
-  }, 4 - artifactData.substats.length);
+  }, 0);
+  const unknownSlotRolls = 4 - artifactData.substats.length;
+  const uselessSlotRolls = 4 - valuableSlotRolls - unknownSlotRolls;
+
+  const rollableUseful = Math.min(
+    maxValuableStats - valuableSlotRolls, // are there any valuable substats left?
+    unknownSlotRolls, // are there any unknown slots left?
+  );
+
+  rollableValuable = valuableSlotRolls + rollableUseful;
+  notRollable = uselessSlotRolls + (unknownSlotRolls - rollableUseful);
+
+  return {
+    notUsableByBuild,
+    notRollable,
+    rollableValuable,
+  };
 }
 
 function getImpossibleSubstats(uselessSubstatSlots, maxRolls) {
@@ -127,9 +147,12 @@ function getImpossibleSubstats(uselessSubstatSlots, maxRolls) {
   return hasUsefulSubstats ? uselessSubstatSlots : maxRolls;
 }
 
-function getMissingRollChances(missingRolls, wastedSubstatSlots) {
+function getMissingRollChances(
+  missingRolls,
+  uselessSubstatSlots,
+) {
   let baseRollChance = 1;
-  switch (wastedSubstatSlots) {
+  switch (uselessSubstatSlots) {
     case 1: {
       baseRollChance = 0.75;
       break;
@@ -169,8 +192,8 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
 
   const maxRolls = artifactData.rarity === 5 ? 9 : 7;
 
-  const uselessSubstatSlots = getUselessSubstatSlots(artifactData, characterBuild);
-  const impossibleSubstats = getImpossibleSubstats(uselessSubstatSlots, maxRolls);
+  const SlotEvaluation = evaluateSubstatSlots(artifactData, characterBuild);
+  const impossibleSubstats = getImpossibleSubstats(SlotEvaluation.notUsableByBuild, maxRolls);
 
   const valuableSubstats = getValuableSubstats(
     artifactData.substatCounts,
@@ -189,16 +212,18 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
     missingRolls = 0;
   }
 
-  const wastedSubstatSlots = getWastedSubstatSlots(artifactData, characterBuild);
-  const missingRollChances = getMissingRollChances(missingRolls, wastedSubstatSlots);
+  const missingRollChances = getMissingRollChances(missingRolls, SlotEvaluation.notRollable);
   wastedSubstats += missingRollChances.filter((chance) => chance === 0).length;
 
   // return a flat object ready for display
   return {
-    valuableSubstats: { ...valuableSubstats.rolls },
-    impossibleSubstats,
-    wastedSubstats,
-    missingRollChances,
+    relevantSubstats: {
+      valuableSubstats: { ...valuableSubstats.rolls },
+      impossibleSubstats,
+      wastedSubstats,
+      missingRollChances,
+    },
+    assumedUsefulMissingSlots: SlotEvaluation.rollableValuable,
   };
 }
 
