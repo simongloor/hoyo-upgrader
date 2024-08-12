@@ -30,7 +30,7 @@ export default function Home() {
 
   // non-interactive - precalculation possible
   const evaluatedArtifacts = useEvaluation(artifacts, characters);
-  // console.log(artifacts, evaluatedArtifacts);
+  console.log(artifacts, evaluatedArtifacts);
   const recommendations = useRecommendations(
     evaluatedArtifacts,
     characters,

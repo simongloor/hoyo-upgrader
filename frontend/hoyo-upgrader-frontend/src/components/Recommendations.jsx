@@ -78,6 +78,12 @@ export default function Recommendations({
       </div>
       <div className="filterSelection row">
         <span>bring to lvl 4:</span>
+        {
+          renderFilterButtons([
+            'MAYBE_UPGRADE_100',
+            'MAYBE_UPGRADE_30',
+          ])
+        }
       </div>
       <div className="filterSelection row">
         <span>reduce these:</span>

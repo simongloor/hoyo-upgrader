@@ -165,6 +165,8 @@ export function getBuildsRelevantForArtifact(artifactData, builds) {
 export function countArtifactsByQuality(artifacts, builds) {
   let notNeeded = {};
   let noUpgrade = {};
+  let maybeUpgrade100 = {};
+  let maybeUpgrade30 = {};
   let upgrade100 = {};
   let upgrade75 = {};
   let upgrade50 = {};
@@ -183,6 +185,12 @@ export function countArtifactsByQuality(artifacts, builds) {
         notNeeded = countTowardsGroup(notNeeded, a.artifactData);
       } else if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
         noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
+      } else if (relevantEvaluations.some((e) => (
+        e.assumedUsefulMissingSlots > 0 && e.upgradeChance >= 1
+      ))) {
+        maybeUpgrade100 = countTowardsGroup(maybeUpgrade100, a.artifactData);
+      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.3)) {
+        maybeUpgrade30 = countTowardsGroup(maybeUpgrade30, a.artifactData);
       } else if (relevantEvaluations.some((e) => e.upgradeChance >= 1)) {
         upgrade100 = countTowardsGroup(upgrade100, a.artifactData);
       } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.75)) {
@@ -198,6 +206,8 @@ export function countArtifactsByQuality(artifacts, builds) {
   return {
     NOT_NEEDED: sortArtifactGroupCounter(notNeeded),
     NO_UPGRADE: sortArtifactGroupCounter(noUpgrade),
+    MAYBE_UPGRADE_100: sortArtifactGroupCounter(maybeUpgrade100),
+    MAYBE_UPGRADE_30: sortArtifactGroupCounter(maybeUpgrade30),
     UPGRADE100: sortArtifactGroupCounter(upgrade100),
     UPGRADE75: sortArtifactGroupCounter(upgrade75),
     UPGRADE50: sortArtifactGroupCounter(upgrade50),
