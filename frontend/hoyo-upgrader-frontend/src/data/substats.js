@@ -106,6 +106,7 @@ function evaluateSubstatSlots(artifactData, characterBuild) {
   let slotsNotUsableByBuild = 0;
   let rolledUselessSlots = 0;
   let unrolledSlotPotential = 0;
+  let unknownSlotRolls = 0;
 
   // split up the theoretically possible rolls for the build
   // into valuable and useless slots for this artifact slot
@@ -124,9 +125,15 @@ function evaluateSubstatSlots(artifactData, characterBuild) {
     return acc;
   }, 0);
 
-  const unknownSlotRolls = 4 - artifactData.substats.length;
+  unknownSlotRolls = 4 - artifactData.substats.length;
   rolledUselessSlots = 4 - rolledValuableSlots - unknownSlotRolls;
 
+  // console.log(
+  //   'maxValuableStats, rolledValuableSlots, unknownSlotRolls',
+  //   maxValuableStats,
+  //   rolledValuableSlots,
+  //   unknownSlotRolls,
+  // );
   unrolledSlotPotential = Math.min(
     maxValuableStats - rolledValuableSlots, // are there any valuable substats left?
     unknownSlotRolls, // are there any unknown slots left?
@@ -138,6 +145,7 @@ function evaluateSubstatSlots(artifactData, characterBuild) {
     slotsNotUsableByBuild,
     rolledUselessSlots,
     unrolledSlotPotential,
+    unknownSlotRolls,
   };
 }
 
@@ -149,11 +157,18 @@ function getImpossibleSubstats(slotsNotUsableByBuild, maxRolls) {
 
 function getMissingRollChances(
   missingRolls,
-  uselessSubstatSlots,
+  unknownSlotRolls,
+  slotsNotUsableByBuild,
   unrolledSlotPotential,
 ) {
+  // console.log(
+  //   'missingRolls, slotsNotUsableByBuild, unrolledSlotPotential',
+  //   missingRolls,
+  //   slotsNotUsableByBuild,
+  //   unrolledSlotPotential,
+  // );
   let baseRollChance = 1;
-  switch (uselessSubstatSlots) {
+  switch (slotsNotUsableByBuild) {
     case 1: {
       baseRollChance = 0.75;
       break;
@@ -180,11 +195,19 @@ function getMissingRollChances(
 
   // If there is unrolledSlotPotential the chance is 1
   // this is since artifacts that fail these rolls should not directly be upgraded further
-  Array(unrolledSlotPotential).fill(0).forEach(() => rollChances.push(1));
+  let potentialRollBudget = unrolledSlotPotential;
+  Array(unknownSlotRolls).fill(0).forEach(() => {
+    if (potentialRollBudget > 0) {
+      rollChances.push(1);
+      potentialRollBudget -= 1;
+    } else {
+      rollChances.push(0);
+    }
+  });
 
   // For the rest of the rolls, the chance decreases every roll
   // console.log(missingRolls, baseRollChance);
-  Array(missingRolls - unrolledSlotPotential)
+  Array(missingRolls - unknownSlotRolls)
     .fill(0).forEach((_, i) => {
       rollChances.push(baseRollChance ** (i + 1));
     });
@@ -192,6 +215,8 @@ function getMissingRollChances(
 
   return rollChances;
 }
+
+//---------------------------------------------------------
 
 export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
   // console.log(artifactData, characterBuild);
@@ -227,7 +252,8 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
 
   const missingRollChances = getMissingRollChances(
     missingRolls,
-    slotEvaluation.rolledUselessSlots,
+    slotEvaluation.unknownSlotRolls,
+    slotEvaluation.slotsNotUsableByBuild,
     slotEvaluation.unrolledSlotPotential,
   );
   wastedSubstats += missingRollChances.filter((chance) => chance === 0).length;
