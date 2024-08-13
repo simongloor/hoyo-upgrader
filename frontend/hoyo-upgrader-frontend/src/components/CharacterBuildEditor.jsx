@@ -41,7 +41,7 @@ export default function CharacterBuildEditor({
 
   // render
   return (
-    <Box>
+    <Box className="CharacterBuildEditor">
       <div className="row header">
         <Character
           key={build}

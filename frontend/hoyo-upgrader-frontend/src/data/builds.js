@@ -29,10 +29,10 @@ export function getWearerStates(builds) {
 }
 
 export function getBusyArtifactWearers(wearerStates, exception = '') {
-  return Object.keys(wearerStates.busy)
+  return wearerStates.busy
     .reduce((acc, cur) => {
-      if (cur !== exception) {
-        acc.push(cur);
+      if (cur.buildOwner !== exception) {
+        acc.push(cur.artifactWearer);
       }
       return acc;
     }, []);
