@@ -38,3 +38,8 @@ export function applyFilter(filter) {
     payload: { filter },
   });
 }
+export function resetFilter() {
+  return ({
+    type: 'RESET_FILTER',
+  });
+}

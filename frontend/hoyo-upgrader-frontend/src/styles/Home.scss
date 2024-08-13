@@ -17,8 +17,11 @@
 
   .Filter {
     position: fixed;
-    bottom: $space-minus1;
-    right: $space-minus1;
+    // bottom: $space-minus1;
+    // right: $space-minus1;
+    bottom: -$border-width;
+    left: -$border-width;
+    right: -$border-width;
 
     z-index: 100;
   }

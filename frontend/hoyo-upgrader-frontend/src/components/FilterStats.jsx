@@ -13,9 +13,9 @@ import { toggleMainstatFilter } from '../data/actions/filter';
 
 export default function FilterStats({ piece, filter }) {
   const dispatch = useDispatch();
-  if (!piece || !possibleStats[piece]) {
-    return null;
-  }
+  // if (!piece || !possibleStats[piece]) {
+  //   return null;
+  // }
 
   const handleClick = (stat) => {
     dispatch(toggleMainstatFilter(piece, stat));

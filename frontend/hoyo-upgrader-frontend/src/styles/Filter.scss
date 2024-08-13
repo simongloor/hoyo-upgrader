@@ -1,25 +1,62 @@
 @import "variables.scss";
 
 .Filter {
+  background-color: $elevation;
+  border: $border-width solid $elevation-minus2;
+
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
   gap: $space-minus3;
-  
-  .offpiece {
-    justify-content: end;
-    
-    button {
-      height: 27px;
-      
-      span {
-        background-color: white;
-        
-        &.filtered {
-          background-color: rgba(255, 255, 255, 0.3);
-        }
-      }
+  padding: $space-minus2 $space;
+
+  .filterSpacer {
+    // height: 100%;
+    align-self: stretch;
+    width: 2px;
+    background-color: $elevation-minus2;
+    margin: 0 $space;
+  }
+  .filterSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: $space-minus3;
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      // gap: $space-minus3;
+      gap: 0;
+      flex-grow: 1;
+    }
+    >span {
+      font-size: 12px;
     }
   }
+
+  .offpiece img {
+    height: $tile;
+    width: $tile;
+  }
+  
+  // .offpiece {
+  //   justify-content: end;
+    
+  //   button {
+  //     height: 27px;
+      
+  //     span {
+  //       background-color: white;
+        
+  //       &.filtered {
+  //         background-color: rgba(255, 255, 255, 0.3);
+  //       }
+  //     }
+  //   }
+  // }
   .FilterStats {
     justify-content: end;
     gap: $space-minus3;
