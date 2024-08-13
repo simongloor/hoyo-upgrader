@@ -24,8 +24,14 @@ export default function CharacterSelector({
             character={characterName}
             onClick={() => onClick(characterName)}
             selected={selectedCharacter === characterName}
-            inactive={inactiveCharacters.includes(characterName)}
-            disabled={disabledCharacters.includes(characterName)}
+            inactive={
+              inactiveCharacters.includes(characterName)
+              && selectedCharacter !== characterName
+            }
+            disabled={
+              disabledCharacters.includes(characterName)
+              && selectedCharacter !== characterName
+            }
           />
         ))
       }
