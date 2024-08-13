@@ -3,32 +3,57 @@
 .Recommendations.Box {
   gap: $space-minus1;
 
-  > span {
-    margin-bottom: $space-minus3;
-    max-width: none;
-    
-    &:not(:first-of-type) {
-      margin-top: $space;
+  >h2 {
+    margin: 0;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus2;
+
+    .filterSelection {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: start;
+      gap: $space-minus2;
+  
+      .NumberButton {
+
+      }
     }
   }
 
-  .filterSelection {
-    align-items: center;
-    height: $tile;
+  .navigationBack {
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus4;
+    align-items: end;
+    justify-content: start;
 
-    > span {
-      width: calc($tile * 2);
+    .back {
+      height: $tile;
+      width: calc($tile + $space - 1px);
+      padding-left: 4px;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: start;
     }
-    > button {
-      height: 100%;
-      margin-right: $space-minus3;
+    .activeRecommendation {
+      display: flex;
+      flex-direction: column;
+      gap: $space-minus2;
+
     }
   }
 
-  .useless {
-    flex-wrap: wrap;
-    max-width: calc(16 * $tile);
-  }
+  // .useless {
+  //   flex-wrap: wrap;
+  //   max-width: calc(16 * $tile);
+  // }
 
   .artifactGroups {
     flex-wrap: wrap;

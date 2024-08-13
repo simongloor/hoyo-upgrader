@@ -7,6 +7,9 @@ import { applyFilter } from '../data/actions/filter';
 
 import Box from './Box';
 import RecommendationRow from './RecommendationRow';
+import NumberButton from './NumberButton';
+
+import iconBack from '../theme/arrow_back.svg';
 import '../styles/Recommendations.scss';
 
 export default function Recommendations({
@@ -14,7 +17,7 @@ export default function Recommendations({
 }) {
   // console.log(recommendations);
   const dispatch = useDispatch();
-  const [displayedKey, setDisplayedKey] = useState('TOO_MANY');
+  const [displayedKey, setDisplayedKey] = useState('');
 
   // event handlers
   const handleClickGroup = (group) => {
@@ -44,21 +47,35 @@ export default function Recommendations({
   // render buttons for all recommendation keys
   const renderFilterButtons = (recommendationKeys) => recommendationKeys
     .map((recommendationKey) => (
-      <button
-        className={`primary ${displayedKey === recommendationKey ? 'selected' : ''}`}
-        type="button"
-        onClick={() => setDisplayedKey(recommendationKey)}
+      <NumberButton
         key={recommendationKey}
-      >
-        <span>
-          {
-            recommendationKey === 'TOO_MANY'
-              ? paths.recommendation[recommendationKey]
-              : `${paths.recommendation[recommendationKey]} (${recommendations[recommendationKey].totalCount})`
-          }
-        </span>
-      </button>
+        number={recommendationKey !== 'TOO_MANY' && recommendations[recommendationKey].totalCount}
+        label={paths.recommendation[recommendationKey]}
+        isBold={recommendationKey === 'UPGRADE100' || recommendationKey === 'MAYBE_UPGRADE_100'}
+        // isSelected={displayedKey === recommendationKey}
+        onClick={() => setDisplayedKey(recommendationKey)}
+      />
     ));
+
+  let activeCommand = '';
+  switch (displayedKey) {
+    case 'UPGRADE100':
+    case 'UPGRADE75':
+    case 'UPGRADE50':
+      activeCommand = 'level these:';
+      break;
+    case 'MAYBE_UPGRADE_100':
+    case 'MAYBE_UPGRADE_30':
+      activeCommand = 'level these artifacts to 4:';
+      break;
+    case 'TOO_MANY':
+    case 'NOT_NEEDED':
+    case 'NO_UPGRADE':
+    case 'UNDER30CHANCE_UPGRADE':
+    default:
+      activeCommand = 'reduce these:';
+      break;
+  }
 
   // render
   return (
@@ -66,53 +83,79 @@ export default function Recommendations({
       className="Recommendations"
     >
       <h2>Build Recommendations</h2>
-      <div className="filterSelection row">
-        <span>level these:</span>
-        {
-          renderFilterButtons([
-            'UPGRADE100',
-            'UPGRADE75',
-            'UPGRADE50',
-          ])
-        }
-      </div>
-      <div className="filterSelection row">
-        <span>bring to lvl 4:</span>
-        {
-          renderFilterButtons([
-            'MAYBE_UPGRADE_100',
-            'MAYBE_UPGRADE_30',
-          ])
-        }
-      </div>
-      <div className="filterSelection row">
-        <span>reduce these:</span>
-        {
-          renderFilterButtons([
-            'NOT_NEEDED',
-            'NO_UPGRADE',
-            'UNDER30CHANCE_UPGRADE',
-            'TOO_MANY',
-          ])
-        }
-      </div>
-      <span>
-        These types of artifacts (hydro goblets, emblem flowers, etc.)
-        have many Artifacts that match the criteria:
-      </span>
-      <div className="artifactGroups">
-        {
-          // render rows for displayed recommendation key
-          Object.keys(paths.piece).map((piece) => (
-            <RecommendationRow
-              key={piece}
-              set={piece}
-              data={recommendations[displayedKey]}
-              onClick={handleClickGroup}
-            />
-          ))
-        }
-      </div>
+      {
+        displayedKey === ''
+          ? (
+            <div className="buttons">
+              <div className="filterSelection">
+                <span>level these:</span>
+                {
+                  renderFilterButtons([
+                    'UPGRADE100',
+                    'UPGRADE75',
+                    'UPGRADE50',
+                  ])
+                }
+              </div>
+              <div className="filterSelection">
+                <span>level these artifacts to 4:</span>
+                {
+                  renderFilterButtons([
+                    'MAYBE_UPGRADE_100',
+                    'MAYBE_UPGRADE_30',
+                  ])
+                }
+              </div>
+              <div className="filterSelection">
+                <span>reduce these:</span>
+                {
+                  renderFilterButtons([
+                    'NOT_NEEDED',
+                    'NO_UPGRADE',
+                    'UNDER30CHANCE_UPGRADE',
+                    'TOO_MANY',
+                  ])
+                }
+              </div>
+            </div>
+
+          ) : (
+            <>
+              <div className="navigationBack">
+                <button
+                  className="back primary"
+                  type="button"
+                  onClick={() => setDisplayedKey('')}
+                >
+                  <img src={iconBack} alt="back" />
+                </button>
+                <div className="activeRecommendation">
+                  <span>{activeCommand}</span>
+                  <NumberButton
+                    number={recommendations[displayedKey].totalCount}
+                    label={paths.recommendation[displayedKey]}
+                    // isBold
+                    isSelected
+                    // onClick={() => setDisplayedKey('')}
+                  />
+                </div>
+              </div>
+              <div className="artifactGroups">
+                {
+                  // render rows for displayed recommendation key
+                  Object.keys(paths.piece).map((piece) => (
+                    <RecommendationRow
+                      key={piece}
+                      set={piece}
+                      data={recommendations[displayedKey]}
+                      onClick={handleClickGroup}
+                    />
+                  ))
+                }
+              </div>
+            </>
+          )
+      }
     </Box>
   );
 }

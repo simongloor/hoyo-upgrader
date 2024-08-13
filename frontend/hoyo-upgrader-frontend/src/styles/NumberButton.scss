@@ -1,0 +1,43 @@
+@import 'variables.scss';
+
+.NumberButton {
+  border-radius: $border;
+  background-color: $elevation-plus2;
+  height: $tile;
+  
+  display: flex;
+  flex-direction: row;
+  padding: $space-minus2 $space-minus1;
+  gap: $space-minus2;
+  align-items: center;
+  justify-content: flex-start;
+
+  &.selected {
+    background-color: $elevation-plus4;
+
+    > div {
+      background-color: $onSurface-mediumEmphasis;
+    }
+  }
+  
+  &.selected h2 {
+    opacity: 1;
+  }
+  h1, h2 {
+    width: 56px;
+    text-align: right;
+    margin: 0;
+    font-weight: 400;
+    opacity: 0.6;
+
+    &.bold {
+      font-weight: 700;
+      opacity: 1;
+    }
+  }
+  > div {
+    width: 2px;
+    height: 100%;
+    background-color: $elevation-plus4;
+  }
+}

@@ -110,7 +110,7 @@ button.primary, button.secondary {
   
   border-style: solid;
   border-width: 4px;
-  border-color: $elevation-minus2;
+  border-color: $elevation-plus2;
   
   span, p {
     color: $onSurface-highEmphasis;
@@ -136,11 +136,11 @@ button.primary, button.secondary {
   }
 }
 button.primary {
-  background-color: $elevation-minus2;
+  background-color: $elevation-plus2;
 
   &.selected {
-    background-color: $elevation-minus1;
-    border-color: $elevation-minus1;
+    background-color: $elevation-plus4;
+    border-color: $elevation-plus4;
   }
 }
 button.secondary {

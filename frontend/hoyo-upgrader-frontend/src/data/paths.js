@@ -7,13 +7,13 @@ const paths = {
     UPGRADE75: '~75% upgrade',
     UPGRADE50: '~50% upgrade',
 
-    MAYBE_UPGRADE_100: 'might be ~100% upgrade',
+    MAYBE_UPGRADE_100: 'might be 100% upgrade',
     MAYBE_UPGRADE_30: 'might be ~30% upgrade',
 
-    TOO_MANY: 'too many pieces',
+    TOO_MANY: 'many similar pieces',
     NOT_NEEDED: 'not needed',
     NO_UPGRADE: 'no upgrade',
-    UNDER30CHANCE_UPGRADE: 'under 30% chance to upgrade',
+    UNDER30CHANCE_UPGRADE: 'under ~30% chance to upgrade',
   },
   localStorage: {
     artifactsJson: 'artifactsJson',
