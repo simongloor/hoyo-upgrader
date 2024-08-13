@@ -23,9 +23,16 @@ export default function ArtifactStats({
   hoveredSubstats,
   uniformSubstatCount,
   showCounter = true,
+  sortRollChances = false,
 }) {
   // console.log(uniformSubstatCount);
   // console.log(hoveredSubstats);
+
+  // only display missing roll chances if there is a chance
+  // this is since we already display them as impossible substats
+  const displayedMissingTollChances = relevantSubstats.missingRollChances
+    .filter((chance) => chance > 0);
+
   let fillerSubstatCount = 0;
   if (uniformSubstatCount) {
     let relevantSubstatsCount = 0;
@@ -34,7 +41,7 @@ export default function ArtifactStats({
         .reduce((acc, cur) => acc + cur, 0)
         + relevantSubstats.impossibleSubstats
         + relevantSubstats.wastedSubstats
-        + relevantSubstats.missingRollChances.length;
+        + displayedMissingTollChances.length;
     }
     fillerSubstatCount = Math.max(
       0,
@@ -87,8 +94,11 @@ export default function ArtifactStats({
       }
       {
         // render missing rolls
-        relevantSubstats.missingRollChances
-          .sort((a, b) => b - a)
+        (
+          sortRollChances
+            ? displayedMissingTollChances.sort((a, b) => b - a)
+            : displayedMissingTollChances
+        )
           .map((chance, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <Substat key={`missingRoll-${i}`} stat="missingRoll" chance={chance} />

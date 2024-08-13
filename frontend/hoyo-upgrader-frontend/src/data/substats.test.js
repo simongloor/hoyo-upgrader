@@ -48,6 +48,53 @@ const testSands_2 = {
     hp_: 0,
   },
 };
+const testSands_3 = {
+  piece: 'sands',
+  level: 20,
+  rarity: 5,
+  mainStatKey: 'enerRech_',
+  substats: [
+    { key: 'def', value: 80 },
+    { key: 'def_', value: 4 },
+    { key: 'hp', value: 219 },
+    { key: 'hp_', value: 5 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 0,
+    critDMG_: 0,
+    critRate_: 0,
+    def: 5,
+    def_: 1,
+    eleMas: 0,
+    enerRech_: 0,
+    hp: 1,
+    hp_: 1,
+  },
+};
+const testSands_4 = {
+  piece: 'sands',
+  level: 0,
+  rarity: 5,
+  mainStatKey: 'enerRech_',
+  substats: [
+    { key: 'def', value: 80 },
+    { key: 'def_', value: 4 },
+    { key: 'hp', value: 219 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 0,
+    critDMG_: 0,
+    critRate_: 0,
+    def: 1,
+    def_: 1,
+    eleMas: 0,
+    enerRech_: 0,
+    hp: 1,
+    hp_: 0,
+  },
+};
 const testPlume_1 = {
   piece: 'plume',
   level: 0,
@@ -73,6 +120,7 @@ const testPlume_1 = {
 const testBuild_1 = { substats: ['enerRech_', 'critRate_', 'critDMG_'] };
 const testBuild_2 = { substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'] };
 const testBuild_3 = { substats: ['enerRech_', 'critRate_', 'hp_'] };
+const testBuild_4 = { substats: ['enerRech_'] };
 
 test('gets correct impossibleSubstats case 1', () => {
   // should be 2 because only critRate_ and critDMG_ are possible on sands
@@ -146,10 +194,21 @@ test('gets correct missingRollChances case 5', () => {
 test('gets correct missingRollChances case 6', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testPlume_1, testBuild_3);
   // should be 0 because the 2nd roll can't roll into anything useful
+  // console.log(relevantSubstats.missingRollChances);
   expect(relevantSubstats.missingRollChances[1]).toEqual(0.0);
 });
 test('gets correct missingRollChances case 7', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testPlume_1, testBuild_3);
   // should be 0.75 because the 3rd roll can roll into three valuable substats
   expect(relevantSubstats.missingRollChances[2]).toEqual(0.75);
+});
+test('gets correct missingRollChances case 8', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_3, testBuild_1);
+  // should be an empty array because there are no missing rolls
+  expect(relevantSubstats.missingRollChances.length).toEqual(0);
+});
+test('gets correct missingRollChances case 9', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_4, testBuild_4);
+  // should be an array with 0% chance because are no useful substats for the build
+  expect(relevantSubstats.missingRollChances[0]).toEqual(0);
 });
