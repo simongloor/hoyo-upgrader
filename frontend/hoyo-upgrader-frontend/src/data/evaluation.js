@@ -61,7 +61,7 @@ export function getBuildQualitySortValue(relevantSubstats) {
   const { missingRollChances } = relevantSubstats;
   if (missingRollChances && missingRollChances.length > 0) {
     // console.log('missingRolls', missingRollChances);
-    sortValue += missingRollChances[missingRollChances.length - 1];
+    sortValue -= missingRollChances[missingRollChances.length - 1];
   }
 
   return sortValue;

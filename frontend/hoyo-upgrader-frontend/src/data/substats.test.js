@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
-import { getRelevantSubstatsOfArtifact } from './substats';
+import { countSubstats, getRelevantSubstatsOfArtifact } from './substats';
 
 const testSands_1 = {
   piece: 'sands',
@@ -95,6 +96,30 @@ const testSands_4 = {
     hp_: 0,
   },
 };
+const testFlower_1 = {
+  piece: 'flower',
+  level: 0,
+  rarity: 5,
+  mainStatKey: 'enerRech_',
+  substats: [
+    { key: 'critDMG_', value: 7 },
+    { key: 'critRate_', value: 2.7 },
+    { key: 'atk_', value: 5.8 },
+    { key: 'def_', value: 7.3 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 1,
+    critDMG_: 1,
+    critRate_: 1,
+    def: 0,
+    def_: 1,
+    eleMas: 0,
+    enerRech_: 0,
+    hp: 0,
+    hp_: 0,
+  },
+};
 const testPlume_1 = {
   piece: 'plume',
   level: 0,
@@ -121,7 +146,16 @@ const testBuild_1 = { substats: ['enerRech_', 'critRate_', 'critDMG_'] };
 const testBuild_2 = { substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'] };
 const testBuild_3 = { substats: ['enerRech_', 'critRate_', 'hp_'] };
 const testBuild_4 = { substats: ['enerRech_'] };
+const testBuild_5 = { substats: ['atk_', 'critRate_', 'critDMG_', 'enerRech_'] };
 
+test('gets correct substat counts case 1', () => {
+  const substatCounts = countSubstats(testFlower_1);
+  expect(substatCounts.critDMG_).toEqual(1);
+  expect(substatCounts.critRate_).toEqual(1);
+  expect(substatCounts.atk_).toEqual(1);
+  expect(substatCounts.def_).toEqual(1);
+  expect(substatCounts.enerRech_).toEqual(0);
+});
 test('gets correct impossibleSubstats case 1', () => {
   // should be 2 because only critRate_ and critDMG_ are possible on sands
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_1, testBuild_1);
@@ -211,4 +245,10 @@ test('gets correct missingRollChances case 9', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_4, testBuild_4);
   // should be an array with 0% chance because are no useful substats for the build
   expect(relevantSubstats.missingRollChances[0]).toEqual(0);
+});
+test('gets correct missingRollChances case 10', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testFlower_1, testBuild_5);
+  // should be 0.75 because all substats already exist and one substat is useless
+  console.log(relevantSubstats.missingRollChances);
+  expect(relevantSubstats.missingRollChances[0]).toEqual(0.75);
 });

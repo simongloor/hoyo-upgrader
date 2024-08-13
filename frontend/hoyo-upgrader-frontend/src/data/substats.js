@@ -168,6 +168,7 @@ function getTotalArtifactRolls(artifactData) {
 function getMissingRollChances(
   missingRolls,
   unknownSlotRolls,
+  rolledUselessSlots,
   slotsNotUsableByBuild,
   unrolledSlotPotential,
 ) {
@@ -179,7 +180,7 @@ function getMissingRollChances(
   //   unrolledSlotPotential,
   // );
   let baseRollChance = 1;
-  switch (slotsNotUsableByBuild) {
+  switch (Math.max(slotsNotUsableByBuild, rolledUselessSlots)) {
     case 1: {
       baseRollChance = 0.75;
       break;
@@ -196,8 +197,11 @@ function getMissingRollChances(
       baseRollChance = 0;
       break;
     }
-    case 0:
+    case 0: {
+      break;
+    }
     default: {
+      console.log('Error: slotsNotUsableByBuild', slotsNotUsableByBuild);
       break;
     }
   }
@@ -254,7 +258,7 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
     characterBuild,
   );
 
-  let wastedSubstats = getWastedSubstats(
+  const wastedSubstats = getWastedSubstats(
     artifactData,
     valuableSubstats.total,
     impossibleSubstats,
@@ -263,10 +267,11 @@ export function getRelevantSubstatsOfArtifact(artifactData, characterBuild) {
   const missingRollChances = getMissingRollChances(
     missingRolls,
     slotEvaluation.unknownSlotRolls,
+    slotEvaluation.rolledUselessSlots,
     slotEvaluation.slotsNotUsableByBuild,
     slotEvaluation.unrolledSlotPotential,
   );
-  wastedSubstats += missingRollChances.filter((chance) => chance === 0).length;
+  // wastedSubstats += missingRollChances.filter((chance) => chance === 0).length;
 
   // return a flat object ready for display
   return {
