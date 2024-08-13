@@ -181,15 +181,29 @@ export function countArtifactsByQuality(artifacts, builds) {
     );
 
     if (!a.artifactData.location) {
-      if (relevantBuilds.length === 0) {
+      if (
+        // NOT_NEEDED
+        relevantBuilds.length === 0
+      ) {
         notNeeded = countTowardsGroup(notNeeded, a.artifactData);
-      } else if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
+      } else if (
+        // NO_UPGRADE
+        !relevantEvaluations.some((e) => e.upgradePotential >= 0)
+      ) {
         noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
-      } else if (relevantEvaluations.some((e) => (
-        e.assumedUsefulMissingSlots > 0 && e.upgradeChance >= 1
-      ))) {
+      } else if (
+        // MAYBE_UPGRADE_100
+        relevantEvaluations.some((e) => (
+          e.assumedUsefulMissingSlots > 0 && e.upgradeChance >= 1
+        ))
+      ) {
         maybeUpgrade100 = countTowardsGroup(maybeUpgrade100, a.artifactData);
-      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.3)) {
+      } else if (
+        // MAYBE_UPGRADE_30
+        relevantEvaluations.some((e) => (
+          e.assumedUsefulMissingSlots > 0 && e.upgradeChance >= 0.3
+        ))
+      ) {
         maybeUpgrade30 = countTowardsGroup(maybeUpgrade30, a.artifactData);
       } else if (relevantEvaluations.some((e) => e.upgradeChance >= 1)) {
         upgrade100 = countTowardsGroup(upgrade100, a.artifactData);
