@@ -7,8 +7,9 @@ import { possibleStats } from '../data/substats';
 import { resetFilter, toggleShowOffpieces } from '../data/actions/filter';
 
 import FilterTileCharacterBuild from './FilterTileCharacterBuild';
+import FilterTileCharacterSet from './FilterTileCharacterSet';
+import FilterTileSpecificSet from './FilterTileSpecificSet';
 import FilterTilePiece from './FilterTilePiece';
-import FilterTileSet from './FilterTileSet';
 import FilterStats from './FilterStats';
 
 import iconReset from '../theme/reset.svg';
@@ -31,7 +32,11 @@ export default function Filter() {
               dispatch(resetFilter());
             }}
           >
-            <img src={iconReset} alt="reset" />
+            <img
+              className="resetButton"
+              src={iconReset}
+              alt="reset"
+            />
           </button>
         </div>
         <span>reset</span>
@@ -40,14 +45,14 @@ export default function Filter() {
       <div className="filterSection">
         <div className="buttons">
           <FilterTileCharacterBuild filter={filter} />
-          <FilterTileSet filter={filter} />
+          <FilterTileCharacterSet filter={filter} />
         </div>
         <span>character</span>
       </div>
       <div className="filterSpacer" />
       <div className="filterSection">
         <div className="buttons">
-          ...
+          <FilterTileSpecificSet filter={filter} />
         </div>
         <span>set</span>
       </div>
@@ -78,7 +83,7 @@ export default function Filter() {
           <div className="filterSection">
             <div className="buttons">
               <button
-                className="offpiece"
+                className={`offpiece ${filter.showOffpieces ? '' : 'filtered'}`}
                 type="button"
                 onClick={() => {
                   dispatch(toggleShowOffpieces());

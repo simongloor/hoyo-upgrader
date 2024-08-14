@@ -1,14 +1,15 @@
 @import "variables.scss";
 
 .Filter {
+  $spacer-width: $space-minus1;
   background-color: $elevation;
   border: $border-width solid $elevation-minus2;
 
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: $space-minus3;
+  justify-content: flex-start; // sections move to the left
+  align-items: stretch; // sections fill height
+  gap: 0;
   padding: $space-minus2 $space;
 
   .filterSpacer {
@@ -16,56 +17,49 @@
     align-self: stretch;
     width: 2px;
     background-color: $elevation-minus2;
-    margin: 0 $space;
+    opacity: 0.4;
+    margin: 0 $spacer-width;
   }
   .filterSection {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: center; // text is centered
     gap: $space-minus3;
 
     .buttons {
       display: flex;
       flex-direction: row;
-      // gap: $space-minus3;
+      align-items: flex-end;
       gap: 0;
       flex-grow: 1;
+
+      .resetButton {
+        margin-bottom: $space-minus3;
+      }
     }
     >span {
       font-size: 12px;
+      opacity: 0.5;
     }
   }
 
-  .offpiece img {
-    height: $tile;
-    width: $tile;
+  .offpiece {
+    img {
+      height: $tile;
+      width: $tile;
+    }
   }
-  
-  // .offpiece {
-  //   justify-content: end;
-    
-  //   button {
-  //     height: 27px;
-      
-  //     span {
-  //       background-color: white;
-        
-  //       &.filtered {
-  //         background-color: rgba(255, 255, 255, 0.3);
-  //       }
-  //     }
-  //   }
-  // }
+
   .FilterStats {
-    justify-content: end;
+    margin-right: $spacer-width;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: $space-minus3;
 
-    max-width: 406px;
-    flex-wrap: wrap;
 
-    padding-top: $space-minus1;
-    padding-bottom: $space-minus1;
-
+    span {
+      font-size: 12px;
+    }
   }
 }

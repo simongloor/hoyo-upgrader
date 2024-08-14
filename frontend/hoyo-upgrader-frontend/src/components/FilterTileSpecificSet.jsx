@@ -12,44 +12,36 @@ import ArtifactMultiSet from './ArtifactMultiSet';
 
 import '../styles/FilterTile.scss';
 
-export default function FilterTileSet({ filter }) {
+export default function FilterTileSpecificSet({ filter }) {
   const dispatch = useDispatch();
 
   // event handlers
   const handleClick = () => {
-    if (filter.filterCharacterSets) {
-      dispatch(toggleCharacterSetsFilter());
-    } else if (filter.filterSpecificSet) {
+    if (filter.filterSpecificSet) {
       dispatch(toggleSpecificSetFilter(filter.specificSet));
+    } else {
+      // show all sets
+      // !!!!!!
     }
   };
 
   // render
   return (
     <div
-      className={`FilterTile artifact-set ${filter.filterSpecificSet ? 'specific' : ''} ${filter.filterCharacterSets ? 'character' : ''}`}
+      className="FilterTile artifact-set specific"
     >
       <button
         type="button"
         onClick={handleClick}
         alt="Filtered Artifact Set"
-        disabled={!filter.filterCharacterSets && !filter.filterSpecificSet} // can only be disabled
       >
         {
-          filter.filterCharacterSets && (
-            <ArtifactMultiSet filter={filter} />
-          )
-        }
-        {
-          filter.filterSpecificSet && (
+          filter.filterSpecificSet ? (
             <Artifact
               set={filter.specificSet}
               piece="flower"
             />
-          )
-        }
-        {
-          !filter.filterCharacterSets && !filter.filterSpecificSet && (
+          ) : (
             <Artifact
               set="empty"
             />

@@ -23,7 +23,7 @@ export default function FilterStats({ piece, filter }) {
 
   // render
   return (
-    <Box
+    <div
       className="FilterStats row"
     >
       {
@@ -37,6 +37,6 @@ export default function FilterStats({ piece, filter }) {
           />
         ))
       }
-    </Box>
+    </div>
   );
 }
