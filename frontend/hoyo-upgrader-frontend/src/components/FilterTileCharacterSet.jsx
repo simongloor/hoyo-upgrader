@@ -34,6 +34,7 @@ export default function FilterTileCharacterSet({ filter }) {
         type="button"
         onClick={handleClick}
         alt="Filtered Artifact Set"
+        disabled={!filter.artifactWearer}
       >
         {
           filter.characterSets ? (

@@ -11,9 +11,11 @@ export default function FilterTileCharacterBuild({ filter }) {
       className={`FilterTile character ${filter.artifactWearer ? 'active' : 'placeholder'}`}
     >
       <Character
+        className={filter.artifactWearer ? '' : 'filtered'}
         character={filter.artifactWearer || 'generic'}
         secondaryCharacter={filter.buildOwner}
         sets={filter.characterSets}
+        disabled={!filter.artifactWearer}
       />
     </div>
   );

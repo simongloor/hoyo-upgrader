@@ -5,6 +5,7 @@ import { useDispatch, useStore } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
 export default function Character({
+  className,
   character = 'generic',
   secondaryCharacter,
   upgradePotential = 0,
@@ -36,7 +37,7 @@ export default function Character({
   // render
   return (
     <button
-      className={`Character tile ${character} ${selected ? 'selected' : ''} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
+      className={`Character tile ${character} ${className || ''} ${selected ? 'selected' : ''} ${inactive ? 'inactive' : 'active'} ${disabled ? 'disabled' : ''}`}
       type="button"
       onClick={handleClick}
       disabled={disabled}

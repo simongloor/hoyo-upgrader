@@ -158,6 +158,10 @@ button.filtered {
   &:active {
     opacity: 0.2;
   }
+  &:disabled {
+    cursor: auto;
+    opacity: 0.4;
+  }
 }
 
 textarea {
