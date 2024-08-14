@@ -3,7 +3,7 @@
 .Filter {
   $spacer-width: $space-minus1;
   background-color: $elevation;
-  border: $border-width solid $elevation-minus2;
+  // border: $border-width solid $elevation-minus2;
 
   display: flex;
   flex-direction: row;

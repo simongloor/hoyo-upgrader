@@ -62,46 +62,42 @@ export default function Home() {
     <div
       className="Home page"
     >
-      <SettingsRow />
-      <Recommendations
-        recommendations={recommendations}
-      />
-      <AccountOverview
-        filteredBuilds={filteredBuilds}
-        artifactsAsList={evaluatedArtifacts.asList}
-      />
-      {/* <Profiler
-        id="ArtifactOverview"
-        onRender={(id, phase, actualDuration) => {
-          console.log(`${id} took ${actualDuration}ms.`);
-          }}
-          > */}
-      <ArtifactOverview
-        artifactsAsList={filteredArtifacts.asList}
-      />
-      {/* </Profiler> */}
-      <Pinboard />
-      {
-        activePopup
-        && (
-          <div className="popup">
-            <button
-              className="backdrop"
-              type="button"
-              onClick={() => setActivePopup(null)}
-              alt="Close artifact inventory"
-            />
-            {
-              activePopup === 'artifactSets' && (
-                <ArtifactInventory
-                  counts={artifacts.counts}
-                  onClickSet={handleClickSet}
-                />
-              )
-            }
-          </div>
-        )
-      }
+      <div className="scrollArea">
+        <SettingsRow />
+        <Recommendations
+          recommendations={recommendations}
+        />
+        <AccountOverview
+          filteredBuilds={filteredBuilds}
+          artifactsAsList={evaluatedArtifacts.asList}
+        />
+        <ArtifactOverview
+          artifactsAsList={filteredArtifacts.asList}
+        />
+        <Pinboard />
+        {
+          activePopup
+          && (
+            <div className="popup">
+              <button
+                className="backdrop"
+                type="button"
+                onClick={() => setActivePopup(null)}
+                alt="Close artifact inventory"
+              />
+              {
+                activePopup === 'artifactSets' && (
+                  <ArtifactInventory
+                    counts={artifacts.counts}
+                    onClickSet={handleClickSet}
+                  />
+                )
+              }
+            </div>
+          )
+        }
+      </div>
+      <div className="border horizontal" />
       <Filter
         onClickArtifactSets={() => setActivePopup('artifactSets')}
       />

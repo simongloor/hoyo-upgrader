@@ -88,7 +88,7 @@ export default function Recommendations({
           ? (
             <div className="buttons">
               <div className="filterSelection">
-                <span>level these:</span>
+                <span>level these artifacts:</span>
                 {
                   renderFilterButtons([
                     'UPGRADE100',
@@ -107,7 +107,7 @@ export default function Recommendations({
                 }
               </div>
               <div className="filterSelection">
-                <span>reduce these:</span>
+                <span>fodder or strongbox these:</span>
                 {
                   renderFilterButtons([
                     'NOT_NEEDED',

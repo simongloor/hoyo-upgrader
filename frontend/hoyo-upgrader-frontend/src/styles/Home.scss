@@ -1,14 +1,58 @@
 @import "variables.scss";
 
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
 .Home.page {
   // padding-top: 108px;
-  padding-bottom: 240px;
+  padding: 0;
+  margin: 0;
+  
+  // exactly fill the viewport
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 0;
 
   $minipopup-bottom: calc($tile * 2);
+
+  >.scrollArea {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: $space-plus1;
+    // padding: $space-minus1;
+    padding-bottom: $space-minus1;
+
+    >.Box {
+      margin: 0 $space-minus1;
+    }
+
+    overflow: scroll;
+  }
+  .Filter {
+    width: 100%;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
 
   .SettingsRow {
     width: 100%;
     background-color: $elevation;
+    border: $space-minus1 solid $elevation;
   }
 
   .loading {
@@ -22,16 +66,16 @@
     z-index: 200;
   }
 
-  .Filter {
-    position: fixed;
-    // bottom: $space-minus1;
-    // right: $space-minus1;
-    bottom: -$border-width;
-    left: -$border-width;
-    right: -$border-width;
+  // .Filter {
+  //   position: fixed;
+  //   // bottom: $space-minus1;
+  //   // right: $space-minus1;
+  //   bottom: -$border-width;
+  //   left: -$border-width;
+  //   right: -$border-width;
 
-    z-index: 100;
-  }
+  //   z-index: 100;
+  // }
 
   .Pinboard {
     position: fixed;
