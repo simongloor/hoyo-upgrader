@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import paths from '../data/paths';
 
-import Box from './Box';
+import iconSchool from '../theme/school.svg';
+import iconUploadFile from '../theme/upload_file.svg';
+import iconManufacturing from '../theme/manufacturing.svg';
 import '../styles/SettingsRow.scss';
-import SpacerPiece from './SpacerPiece';
 
 export default function SettingsRow({ children }) {
   const navigate = useNavigate();
@@ -16,24 +17,27 @@ export default function SettingsRow({ children }) {
     >
       <div className="row">
         <button
-          className="secondary"
+          className="iconButton secondary"
           type="button"
           onClick={() => navigate(`/genshin/${paths.DOCUMENTATION}`)}
         >
+          <img src={iconSchool} alt="documentation" />
           <span>Documentation</span>
         </button>
         <button
-          className="primary"
+          className="iconButton primary"
           type="button"
           onClick={() => navigate(`/genshin/${paths.IMPORT_ARTIFACTS}`)}
         >
+          <img src={iconUploadFile} alt="import artifacts" />
           <span>Import Artifacts</span>
         </button>
         <button
-          className="primary"
+          className="iconButton primary"
           type="button"
           onClick={() => navigate(`/genshin/${paths.EDIT_BUILDS}`)}
         >
+          <img src={iconManufacturing} alt="edit builds" />
           <span>Edit Character Builds</span>
         </button>
       </div>

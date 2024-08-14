@@ -120,6 +120,13 @@ button {
     user-drag: none;
   }
 }
+button.iconButton {
+  display: flex;
+  flex-direction: row;
+  gap: $space-minus2;
+  align-items: center;
+  justify-content: center;
+}
 button.primary, button.secondary {
   border-radius: $space-minus2;
   padding: $space-minus3 $space-minus2;
@@ -131,7 +138,9 @@ button.primary, button.secondary {
   span, p {
     color: $onSurface-highEmphasis;
   }
-  &:disabled span {
+  &:disabled span
+  &:disabled img
+  {
     opacity: 0.5;
   }
 
@@ -139,13 +148,13 @@ button.primary, button.secondary {
     &:hover {
       cursor: pointer;
       opacity: 1;
-      span, p {
+      span, p, img {
         opacity: 0.4;
       }
     }
     &:active {
       opacity: 1;
-      span {
+      span, p, img {
         opacity: 0.2;
       }
     }
