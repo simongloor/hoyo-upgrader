@@ -27,6 +27,9 @@ const filterReducer = (
   const newState = state;
   newState.highlightArtifactKeys = [];
   switch (action.type) {
+    case 'RESET_FILTER': {
+      return { ...emptyFilter };
+    }
     case 'TOGGLE_ARTIFACT_SPECIFIC_PIECE': {
       const enableFilter = state.specificPiece !== action.payload.specificPiece;
 

@@ -1,4 +1,10 @@
+@import 'variables.scss';
+
 .ArtifactInventory {
+  .row {
+    flex-wrap: wrap;
+  }
+
   button.filtered {
     opacity: 0.4;
     &:hover {

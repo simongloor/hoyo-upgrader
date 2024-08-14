@@ -21,9 +21,11 @@ import ArtifactInventory from '../components/ArtifactInventory';
 import Recommendations from '../components/Recommendations';
 
 import '../styles/Home.scss';
+import { toggleSpecificSetFilter } from '../data/actions/filter';
 
 export default function Home() {
   const dispatch = useDispatch();
+  const [activePopup, setActivePopup] = useState(null);
 
   const artifacts = useSelector((state) => state.artifacts);
   const characters = useSelector((state) => state.characters);
@@ -51,6 +53,11 @@ export default function Home() {
     return null;
   }
 
+  const handleClickSet = (set) => {
+    dispatch(toggleSpecificSetFilter(set));
+    setActivePopup(null);
+  };
+
   return (
     <div
       className="Home page"
@@ -59,7 +66,6 @@ export default function Home() {
       <Recommendations
         recommendations={recommendations}
       />
-      <ArtifactInventory counts={artifacts.counts} />
       <AccountOverview
         filteredBuilds={filteredBuilds}
         artifactsAsList={evaluatedArtifacts.asList}
@@ -68,14 +74,37 @@ export default function Home() {
         id="ArtifactOverview"
         onRender={(id, phase, actualDuration) => {
           console.log(`${id} took ${actualDuration}ms.`);
-        }}
-      > */}
+          }}
+          > */}
       <ArtifactOverview
         artifactsAsList={filteredArtifacts.asList}
       />
       {/* </Profiler> */}
       <Pinboard />
-      <Filter />
+      {
+        activePopup
+        && (
+          <div className="popup">
+            <button
+              className="backdrop"
+              type="button"
+              onClick={() => setActivePopup(null)}
+              alt="Close artifact inventory"
+            />
+            {
+              activePopup === 'artifactSets' && (
+                <ArtifactInventory
+                  counts={artifacts.counts}
+                  onClickSet={handleClickSet}
+                />
+              )
+            }
+          </div>
+        )
+      }
+      <Filter
+        onClickArtifactSets={() => setActivePopup('artifactSets')}
+      />
     </div>
   );
 }

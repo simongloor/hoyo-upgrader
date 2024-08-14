@@ -16,7 +16,7 @@ import iconReset from '../theme/reset.svg';
 import iconOffpiece from '../theme/offpiece.png';
 import '../styles/Filter.scss';
 
-export default function Filter() {
+export default function Filter({ onClickArtifactSets }) {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
 
@@ -52,7 +52,10 @@ export default function Filter() {
       <div className="filterSpacer" />
       <div className="filterSection">
         <div className="buttons">
-          <FilterTileSpecificSet filter={filter} />
+          <FilterTileSpecificSet
+            filter={filter}
+            onClick={onClickArtifactSets}
+          />
         </div>
         <span>set</span>
       </div>

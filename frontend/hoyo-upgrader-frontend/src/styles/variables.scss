@@ -63,7 +63,7 @@ $runningText-family: 'Inter', sans-serif;
 // Effects
 $shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
 $shadow-minus2: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
-// $backdrop: rgba(0,0,0,0.6);
+$backdrop: rgba(0,0,0,0.6);
 // $overline-outline: 2px solid #FFFFFF;
 // $overline-outline-width: 2px;
 // $overlay-shadow: 0px 0px 16px 4px $onContent;
@@ -107,7 +107,7 @@ $border-width: 4px;
 // Layout
 $width-base: 646px;
 
-// $breakpoint-desktop: 824px;
+$breakpoint-desktop: 1075px;
 
 // $header-height-mobile: 240px;
 // $content-width-mobile: 414px;

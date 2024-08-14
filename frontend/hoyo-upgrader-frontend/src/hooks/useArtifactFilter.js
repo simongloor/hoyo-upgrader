@@ -41,7 +41,7 @@ export default function useArtifactFilter(artifacts, characters) {
       }
 
       // Filter by character
-      if (filter.artifactWearer) {
+      if (filter.artifactWearer && filter.filterCharacterSets) {
         // console.log('filter.artifactWearer', filter.artifactWearer);
         // Only Artifacts that can be used by the build should be displayed
         const build = characters.find((b) => b.artifactWearer === filter.artifactWearer);

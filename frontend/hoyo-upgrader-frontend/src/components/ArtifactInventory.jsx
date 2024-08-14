@@ -1,55 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React, { Profiler } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import paths from '../data/paths';
-import {
-  toggleCharacterSetsFilter,
-  toggleSpecificSetFilter,
-} from '../data/actions/filter';
 
 import Artifact from './Artifact';
 import Box from './Box';
-import ArtifactMultiSet from './ArtifactMultiSet';
-import SpacerPiece from './SpacerPiece';
 
 import '../styles/ArtifactInventory.scss';
 
-export default function ArtifactInventory({ counts }) {
-  const dispatch = useDispatch();
+export default function ArtifactInventory({ counts, onClickSet }) {
   const filter = useSelector((state) => state.filter);
-
-  // event handlers
-  const handleClickSpecificSet = (set) => {
-    // console.log(`Artifact Set: ${set}`);
-    dispatch(toggleSpecificSetFilter(set));
-  };
-  const handleClickCharacterSets = () => {
-    // console.log('Character Sets');
-    dispatch(toggleCharacterSetsFilter());
-  };
 
   // render
   return (
     <Box
       className="ArtifactInventory"
     >
-      <h2>Sets</h2>
       <div className="row">
-        <button
-          className={`button ${
-            filter.filterCharacterSets // active filter should be highlighted
-            || !filter.characterSets // no sets should also be left at default
-              ? '' : 'filtered'
-          }`}
-          type="button"
-          onClick={() => handleClickCharacterSets()}
-          alt="Filtered Character Artifact Sets"
-          disabled={!filter.artifactWearer}
-        >
-          <ArtifactMultiSet filter={filter} />
-        </button>
-        <SpacerPiece />
         {
           // iterate through paths.set
           // render Artifact component for each set
@@ -66,7 +34,7 @@ export default function ArtifactInventory({ counts }) {
                     ? '' : 'filtered'
                 }`}
                 type="button"
-                onClick={() => handleClickSpecificSet(set)}
+                onClick={() => onClickSet && onClickSet(set)}
                 alt={set}
                 key={set}
               >

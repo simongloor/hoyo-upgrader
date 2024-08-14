@@ -12,16 +12,15 @@ import ArtifactMultiSet from './ArtifactMultiSet';
 
 import '../styles/FilterTile.scss';
 
-export default function FilterTileSpecificSet({ filter }) {
+export default function FilterTileSpecificSet({ filter, onClick }) {
   const dispatch = useDispatch();
 
   // event handlers
   const handleClick = () => {
     if (filter.filterSpecificSet) {
       dispatch(toggleSpecificSetFilter(filter.specificSet));
-    } else {
-      // show all sets
-      // !!!!!!
+    } else if (onClick) {
+      onClick();
     }
   };
 
