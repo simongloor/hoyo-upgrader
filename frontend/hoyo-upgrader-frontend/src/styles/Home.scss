@@ -25,6 +25,7 @@ body {
 
   >.scrollArea {
     width: 100%;
+    overflow: auto;
     flex-grow: 1;
     flex-shrink: 1;
     
@@ -40,7 +41,6 @@ body {
       margin: 0 $space-minus1;
     }
 
-    overflow: scroll;
   }
   .Filter {
     width: 100%;
