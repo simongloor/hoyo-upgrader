@@ -1,0 +1,12 @@
+@import 'variables.scss';
+
+.QualitySection {
+  background-color: $elevation;
+  padding-top: $space-minus1;
+  padding-bottom: $space-minus3;
+
+  span {
+    font-weight: 700;
+    opacity: 0.5;
+  }
+}

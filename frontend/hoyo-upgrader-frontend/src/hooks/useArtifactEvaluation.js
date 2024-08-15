@@ -85,7 +85,7 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
 
 // ---------------------------------------------------------
 
-export default function useEvaluation(artifacts, builds) {
+export default function useArtifactEvaluation(artifacts, builds) {
   const [evaluatedArtifacts, setEvaluatedArtifacts] = useState({
     ...artifacts,
     isEvaluated: false,

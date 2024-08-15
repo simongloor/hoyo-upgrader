@@ -6,8 +6,10 @@ import characterJson from '../data/mock/characters.json';
 import artifactsJson from '../data/mock/artifacts.json';
 import { loadArtifacts } from '../data/actions/artifacts';
 import { loadCharacters } from '../data/actions/characters';
+import { toggleSpecificSetFilter } from '../data/actions/filter';
 
-import useEvaluation from '../hooks/useEvaluation';
+import useArtifactEvaluation from '../hooks/useArtifactEvaluation';
+import useBuildEvaluation from '../hooks/useBuildEvaluation';
 import useRecommendations from '../hooks/useRecommendations';
 import useBuildFilter from '../hooks/useBuildFilter';
 import useArtifactFilter from '../hooks/useArtifactFilter';
@@ -21,7 +23,6 @@ import ArtifactInventory from '../components/ArtifactInventory';
 import Recommendations from '../components/Recommendations';
 
 import '../styles/Home.scss';
-import { toggleSpecificSetFilter } from '../data/actions/filter';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -31,7 +32,8 @@ export default function Home() {
   const characters = useSelector((state) => state.characters);
 
   // non-interactive - precalculation possible
-  const evaluatedArtifacts = useEvaluation(artifacts, characters);
+  const evaluatedArtifacts = useArtifactEvaluation(artifacts, characters);
+  const evaluatedBuilds = useBuildEvaluation(evaluatedArtifacts, characters);
   // console.log(artifacts, evaluatedArtifacts);
   const recommendations = useRecommendations(
     evaluatedArtifacts,
