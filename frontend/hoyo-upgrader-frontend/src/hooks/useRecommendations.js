@@ -22,22 +22,6 @@ export default function useRecommendations(
       let newRecommendations = {};
       let recommendedGroups = null;
 
-      // level these
-
-      // UPGRADE100: '100% upgrade',
-
-      // UPGRADE75: '~75% upgrade',
-
-      // UPGRADE50: '~50% upgrade',
-
-      // bring to lvl 4
-
-      // MAYBE_UPGRADE_100: 'might be ~100% upgrade',
-
-      // MAYBE_UPGRADE_30: 'might be ~30% upgrade',
-
-      // reduct these
-
       // TOO_MANY: 'too many pieces',
       recommendedGroups = { ...counts };
       recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
@@ -48,8 +32,8 @@ export default function useRecommendations(
         totalCount: 0,
       };
 
+      // Any other recommendations are quality based
       const artifactGroupsByQuality = countArtifactsByQuality(artifacts.asList, builds);
-
       newRecommendations = {
         ...newRecommendations,
         ...artifactGroupsByQuality,

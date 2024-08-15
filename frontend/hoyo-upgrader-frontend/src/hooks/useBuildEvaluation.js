@@ -44,4 +44,16 @@ function splitIntoQualityLevels(evaluatedBuilds) {
 // ---------------------------------------------------------
 
 export default function useBuildEvaluation(artifacts, characters) {
+  const [evaluatedBuilds, setEvaluatedBuilds] = useState(null);
+  const artifactsAsList = Object.values(artifacts);
+
+  useEffect(() => {
+    setEvaluatedBuilds(
+      splitIntoQualityLevels(
+        evaluateBuilds(characters, artifactsAsList),
+      ),
+    );
+  }, [artifacts, characters, artifactsAsList]);
+
+  return evaluatedBuilds;
 }

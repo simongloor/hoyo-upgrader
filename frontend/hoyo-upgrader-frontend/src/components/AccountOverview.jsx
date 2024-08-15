@@ -11,43 +11,16 @@ import SpacerPiece from './SpacerPiece';
 import TextPiece from './TextPiece';
 
 import '../styles/AccountOverview.scss';
-
-function getDataToDisplay(
-  filteredBuilds,
-  artifactsAsList,
-) {
-  return filteredBuilds.map((build) => {
-    const artifacts = getEquippedArtifacts(build.artifactWearer, artifactsAsList);
-    const relevantSubstats = getCharactersTotalSubstats(build.artifactWearer, artifacts);
-    return {
-      build,
-      artifacts,
-      relevantSubstats,
-    };
-  }).sort((a, b) => (
-    b.relevantSubstats.wastedSubstats - a.relevantSubstats.wastedSubstats
-  ));
-}
+import QualitySection from './QualitySection';
 
 export default function AccountOverview({
   filteredBuilds,
-  artifactsAsList,
 }) {
-  // Prepare data for rendering
-  // This is required since the list can be sorted by wasted substats
-  const dataToDisplay = getDataToDisplay(
-    filteredBuilds,
-    artifactsAsList,
-  );
-
-  // Render
-  return (
-    <Box
-      className="AccountOverview"
-    >
-      <h2>Characters</h2>
+  const renderQualitySection = (label, builds) => (
+    <>
+      <QualitySection label={label} />
       {
-        dataToDisplay.map((data) => (
+        builds.map((data) => (
           <CharacterOverview
             key={data.build.artifactWearer}
             characterBuild={data.build}
@@ -57,7 +30,7 @@ export default function AccountOverview({
         ))
       }
       {
-        dataToDisplay.length === 0 && (
+        builds.length === 0 && (
           <div className="row placeholder">
             <Character />
             <SpacerPiece />
@@ -66,6 +39,18 @@ export default function AccountOverview({
           </div>
         )
       }
+    </>
+  );
+
+  // Render
+  return (
+    <Box
+      className="AccountOverview"
+    >
+      <h2>Characters</h2>
+      { renderQualitySection('in progress', filteredBuilds.missingRolls) }
+      { renderQualitySection('max level', filteredBuilds.completeBuilds) }
+      { renderQualitySection('missing artifacts', filteredBuilds.missingArtifacts) }
     </Box>
   );
 }

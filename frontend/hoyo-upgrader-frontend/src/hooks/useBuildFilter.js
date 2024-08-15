@@ -12,34 +12,35 @@ const emptyArtifactData = {
 
 export default function useBuildFilter(builds) {
   const filter = useSelector((state) => state.filter);
-  const [filteredBuilds, setFilteredBuilds] = useState([...builds]);
+  const [filteredBuilds, setFilteredBuilds] = useState({ ...builds });
   // const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
 
   useEffect(() => {
-    if (builds.length > 0) {
-      // console.log('useBuildFilter');
-
+    if (builds) {
       // // measure time
       // const t0 = performance.now();
 
-      let newBuilds = [...builds];
-
-      // Filter by set
-      if (filter.specificSet && !filter.showOffpieces) {
-        // Only CharacterOverviews that want the set should be displayed
-        newBuilds = newBuilds.filter((build) => build.sets.includes(filter.specificSet));
-      }
-
-      // Filter by piece
-      if (filter.specificPiece) {
-        const specificMainStat = filter.mainstat[filter.specificPiece];
-        // Only CharacterOverviews that want the main stat
-        // for the filtered piece should be displayed
-        if (specificMainStat) {
-          newBuilds = newBuilds.filter((build) => (
-            build.mainstats[filter.specificPiece].includes(specificMainStat)));
+      const newBuilds = { ...builds };
+      Object.keys(builds).forEach((key) => {
+        // Filter by set
+        if (filter.specificSet && !filter.showOffpieces) {
+          // Only CharacterOverviews that want the set should be displayed
+          newBuilds[key] = newBuilds[key].filter((build) => (
+            build.sets.includes(filter.specificSet)
+          ));
         }
-      }
+
+        // Filter by piece
+        if (filter.specificPiece) {
+          const specificMainStat = filter.mainstat[filter.specificPiece];
+          // Only CharacterOverviews that want the main stat
+          // for the filtered piece should be displayed
+          if (specificMainStat) {
+            newBuilds[key] = newBuilds[key].filter((build) => (
+              build.mainstats[filter.specificPiece].includes(specificMainStat)));
+          }
+        }
+      });
 
       // Apply
       setFilteredBuilds(newBuilds);

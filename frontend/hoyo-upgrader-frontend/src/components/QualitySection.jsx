@@ -2,12 +2,12 @@
 import React from 'react';
 import '../styles/QualitySection.scss';
 
-export default function QualitySection({ children }) {
+export default function QualitySection({ label }) {
   return (
     <div
       className="QualitySection"
     >
-      {children}
+      <span>{label}</span>
     </div>
   );
 }

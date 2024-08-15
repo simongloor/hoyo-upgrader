@@ -33,16 +33,15 @@ export default function Home() {
 
   // non-interactive - precalculation possible
   const evaluatedArtifacts = useArtifactEvaluation(artifacts, characters);
-  const evaluatedBuilds = useBuildEvaluation(evaluatedArtifacts, characters);
-  // console.log(artifacts, evaluatedArtifacts);
   const recommendations = useRecommendations(
     evaluatedArtifacts,
     characters,
     artifacts.groupCounts,
   );
+  const evaluatedBuilds = useBuildEvaluation(evaluatedArtifacts, characters);
 
   // interactive
-  const filteredBuilds = useBuildFilter(characters);
+  const filteredBuilds = useBuildFilter(evaluatedBuilds);
   const filteredArtifacts = useArtifactFilter(evaluatedArtifacts, characters);
 
   useEffect(() => {
@@ -71,7 +70,6 @@ export default function Home() {
         />
         <AccountOverview
           filteredBuilds={filteredBuilds}
-          artifactsAsList={evaluatedArtifacts.asList}
         />
         <ArtifactOverview
           artifactsAsList={filteredArtifacts.asList}
