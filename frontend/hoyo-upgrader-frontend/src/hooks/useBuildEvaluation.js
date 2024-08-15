@@ -22,6 +22,25 @@ function evaluateBuilds(
   ));
 }
 
+function splitIntoQualityLevels(evaluatedBuilds) {
+  return evaluatedBuilds.reduce((acc, b) => {
+    if (b.build.relevantSubstats.missingRollChances.length > 0) {
+      acc.missingRolls = [...acc.missingRolls, b];
+    } else if (
+      !b.artifacts.flower
+      || !b.artifacts.plume
+      || !b.artifacts.sands
+      || !b.artifacts.goblet
+      || !b.artifacts.circlet
+    ) {
+      acc.missingArtifacts = [...acc.missingArtifacts, b];
+    } else {
+      acc.completeBuilds = [...acc.completeBuilds, b];
+    }
+    return acc;
+  }, {});
+}
+
 // ---------------------------------------------------------
 
 export default function useBuildEvaluation(artifacts, characters) {
