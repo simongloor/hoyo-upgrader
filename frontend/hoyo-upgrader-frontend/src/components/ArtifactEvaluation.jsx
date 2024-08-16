@@ -76,8 +76,8 @@ export default function ArtifactEvaluation({
             >
               <SpacerPiece size="small" />
               <Character
-                character={b.buildOwner}
-                secondaryCharacter={b.artifactWearer}
+                character={b.artifactWearer}
+                secondaryCharacter={b.buildOwner}
                 upgradePotential={b.upgradePotential}
               />
               <ArtifactStats

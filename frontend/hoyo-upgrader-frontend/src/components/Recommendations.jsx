@@ -107,7 +107,7 @@ export default function Recommendations({
                 }
               </div>
               <div className="filterSelection">
-                <span>fodder or strongbox these:</span>
+                <span>fodder/strongbox these artifacts:</span>
                 {
                   renderFilterButtons([
                     'NOT_NEEDED',
