@@ -11,7 +11,7 @@ export function getBuildQualitySortValue(artifactData, evaluation) {
   // priorities
   let sortValue = -evaluation.upgradeChance;
   sortValue -= evaluation.upgradePotential * 0.01;
-  sortValue -= evaluation.relevantSubstats.wastedSubstats * 0.0001;
+  sortValue += evaluation.relevantSubstats.wastedSubstats * 0.0001;
   sortValue -= artifactData.location === evaluation.artifactWearer ? 0.000001 : 0;
 
   return sortValue;
