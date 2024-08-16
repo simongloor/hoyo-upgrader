@@ -74,6 +74,8 @@ export default function ArtifactEvaluation({
               className={`evaluation row ${b.upgradePotential === 0 && b.artifactWearer !== artifact.artifactData.location ? 'weak' : ''}`}
               key={b.artifactWearer}
             >
+              {/* <span>{b.upgradeChance}</span>
+              <span>{b.sortValue}</span> */}
               <SpacerPiece size="small" />
               <Character
                 character={b.artifactWearer}

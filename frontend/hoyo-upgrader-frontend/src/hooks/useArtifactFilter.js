@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getArtifactQualitySortValue } from '../data/evaluation';
+
+import { getArtifactQualitySortValue } from '../data/sorting';
 
 export default function useArtifactFilter(artifacts, characters) {
   const filter = useSelector((state) => state.filter);

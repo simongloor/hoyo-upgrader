@@ -41,55 +41,6 @@ export function getArtifactTier(artifactData, relevantSubstats) {
 }
 
 // ---------------------------------------------------------
-// sorting
-
-export function getBuildQualitySortValue(relevantSubstats) {
-  // wasted substats is the biggest factor
-  let sortValue = relevantSubstats.wastedSubstats;
-
-  // // filtered character build is pushed to be the first build in the list
-  // if (filteredCharacterName && build.artifactWearer === filteredCharacterName) {
-  //   sortValue -= 100;
-  // }
-
-  // artifacts that don't have valuable substats go to the bottom
-  if (relevantSubstats.impossibleSubstats >= 8) {
-    return 10;
-  }
-
-  // add chance as decimal
-  const { missingRollChances } = relevantSubstats;
-  if (missingRollChances && missingRollChances.length > 0) {
-    // console.log('missingRolls', missingRollChances);
-    sortValue -= missingRollChances[missingRollChances.length - 1];
-  }
-
-  return sortValue;
-}
-
-export function getArtifactQualitySortValue(artifact, filteredArtifactWearer) {
-  // console.log(artifactEvaluation, filteredArtifactWearer);
-
-  // artifacts without builds go to the bottom
-  if (artifact.buildEvaluations.length === 0) {
-    return 20;
-  }
-
-  // the filtered character build is used when the filter is active
-  if (filteredArtifactWearer) {
-    const build = artifact.buildEvaluations.find((evaluation) => (
-      evaluation.artifactWearer === filteredArtifactWearer
-    ));
-    return build ? build.sortValue : 0;
-  }
-
-  // return the lowest sort value of all builds
-  return Math.min(
-    ...artifact.buildEvaluations.map((evaluation) => evaluation.sortValue),
-  );
-}
-
-// ---------------------------------------------------------
 // data enhancement
 
 function getBuildOfWearer(artifact) {
@@ -115,6 +66,7 @@ export function getUpgradePotential(
 
 // get the chance of an build gaining at least one substat by rolling to the max level
 export function getUpgradeChance(upgradePotential, relevantSubstats) {
+  // no upgrade potential?
   if (upgradePotential <= 0) {
     return 0;
   }
@@ -123,6 +75,11 @@ export function getUpgradeChance(upgradePotential, relevantSubstats) {
   const missingRolls = missingRollChances.length;
 
   const requiredRolls = missingRolls - upgradePotential;
+
+  // already an upgrade?
+  if (requiredRolls <= 0) {
+    return 1;
+  }
 
   // the index is right after the required rolls
   // since the index is 0 based, the required rolls count matches the index

@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+
 import { getRelevantSubstatsOfArtifact } from '../data/substats';
 import {
   getArtifactTier,
-  getBuildQualitySortValue,
   getUpgradeChance,
   getUpgradePotential,
 } from '../data/evaluation';
+import { getBuildQualitySortValue } from '../data/sorting';
 
 // we want to evaluate all artifacts for their relevant builds
 // this includes:
@@ -25,7 +26,7 @@ function evaluateArtifact(artifact, build) {
     buildOwner: build.buildOwner,
     relevantSubstats,
     assumedUsefulMissingSlots,
-    sortValue: getBuildQualitySortValue(relevantSubstats),
+    // sortValue: getBuildQualitySortValue(relevantSubstats),
     tier: getArtifactTier(artifact, relevantSubstats),
   };
 }
@@ -118,12 +119,21 @@ export default function useArtifactEvaluation(artifacts, builds) {
         );
       });
 
+      // generate sort value
+      newEvaluatedArtifacts.forEach((artifact, iArtifact) => {
+        artifact.buildEvaluations.forEach((evaluation, iEvaluation) => {
+          newEvaluatedArtifacts[iArtifact].buildEvaluations[iEvaluation]
+            .sortValue = getBuildQualitySortValue(evaluation);
+        });
+      });
+
       // sort evaluations by sortValue
       newEvaluatedArtifacts.forEach((artifact) => {
         artifact.buildEvaluations.sort((a, b) => a.sortValue - b.sortValue);
       });
 
       // sort artifacts by sortValue of first buildEvaluation
+      console.log(newEvaluatedArtifacts);
       newEvaluatedArtifacts.sort((a, b) => (
         (a.buildEvaluations[0] ? a.buildEvaluations[0].sortValue : 20)
         - (b.buildEvaluations[0] ? b.buildEvaluations[0].sortValue : 20)
