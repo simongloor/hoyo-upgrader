@@ -2,27 +2,27 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getArtifactQualitySortValue } from '../data/sorting';
+import { getArtifactQualitySortValue, sortIntoSections } from '../data/sorting';
 
 export default function useArtifactFilter(artifacts, characters) {
   const filter = useSelector((state) => state.filter);
-  const [filteredArtifacts, setFilteredArtifacts] = useState({ ...artifacts });
+  const [filteredArtifacts, setFilteredArtifacts] = useState(null);
 
   useEffect(() => {
-    if (artifacts.asList.length > 0 && artifacts.isEvaluated) {
+    if (artifacts) {
       // console.log('useArtifactFilter');
 
       // // measure time
       // const t0 = performance.now();
 
-      const artifactsToFilter = { ...artifacts };
+      let artifactsToFilter = [...artifacts];
 
       // Filter by set
       if (filter.specificSet) {
         // console.log('filter.specificSet', filter.specificSet);
 
         // Only Artifacts that belong to the set should be displayed
-        artifactsToFilter.asList = artifactsToFilter.asList
+        artifactsToFilter = artifactsToFilter
           .filter((artifact) => artifact.artifactData.setKey === filter.specificSet);
       }
 
@@ -32,11 +32,11 @@ export default function useArtifactFilter(artifacts, characters) {
         const specificMainStat = filter.mainstat[filter.specificPiece];
 
         // Only Artifacts that belong to the piece should be displayed
-        artifactsToFilter.asList = artifactsToFilter.asList
+        artifactsToFilter = artifactsToFilter
           .filter((artifact) => artifact.artifactData.slotKey === filter.specificPiece);
         // Also filter by main stat
         if (specificMainStat) {
-          artifactsToFilter.asList = artifactsToFilter.asList
+          artifactsToFilter = artifactsToFilter
             .filter((artifact) => specificMainStat === artifact.artifactData.mainStatKey);
         }
       }
@@ -47,7 +47,7 @@ export default function useArtifactFilter(artifacts, characters) {
         // Only Artifacts that can be used by the build should be displayed
         const build = characters.find((b) => b.artifactWearer === filter.artifactWearer);
 
-        artifactsToFilter.asList = artifactsToFilter.asList
+        artifactsToFilter = artifactsToFilter
           .filter((artifact) => {
             if (artifact.artifactData.location === filter.artifactWearer) {
               return true;
@@ -79,7 +79,7 @@ export default function useArtifactFilter(artifacts, characters) {
       }
 
       // Filter the evaluations
-      artifactsToFilter.asList = artifactsToFilter.asList
+      artifactsToFilter = artifactsToFilter
         .map((a) => ({
           ...a,
           buildEvaluations: a.buildEvaluations.filter((evaluation) => {
@@ -106,7 +106,7 @@ export default function useArtifactFilter(artifacts, characters) {
         }));
 
       // Add highest upgrade potential
-      artifactsToFilter.asList.forEach((artifact, iArtifact) => {
+      artifactsToFilter.forEach((artifact, iArtifact) => {
         const highestUpgradePotential = artifact.buildEvaluations
           .reduce((acc, evaluation) => {
             if (evaluation.upgradePotential > acc) {
@@ -114,13 +114,13 @@ export default function useArtifactFilter(artifacts, characters) {
             }
             return acc;
           }, 0);
-        artifactsToFilter.asList[iArtifact].highestUpgradePotential = highestUpgradePotential;
+        artifactsToFilter[iArtifact].highestUpgradePotential = highestUpgradePotential;
       });
 
       // Push the build of the filtered character to the front of the evaluations
       if (filter.artifactWearer) {
-        artifactsToFilter.asList.forEach((artifact, iArtifact) => {
-          artifactsToFilter.asList[iArtifact].buildEvaluations.sort((a, b) => (
+        artifactsToFilter.forEach((artifact, iArtifact) => {
+          artifactsToFilter[iArtifact].buildEvaluations.sort((a, b) => (
             (a.artifactWearer === filter.artifactWearer ? -1000 : a.sortValue)
             - (b.artifactWearer === filter.artifactWearer ? -1000 : b.sortValue)
           ));
@@ -128,7 +128,7 @@ export default function useArtifactFilter(artifacts, characters) {
       }
 
       // Sort artifacts
-      artifactsToFilter.asList
+      artifactsToFilter
         .sort((a, b) => (
           getArtifactQualitySortValue(a, filter.artifactWearer)
             - getArtifactQualitySortValue(b, filter.artifactWearer)
@@ -136,22 +136,24 @@ export default function useArtifactFilter(artifacts, characters) {
 
       // Mark highlighted artifacts
       if (filter.highlightArtifactKeys) {
-        artifactsToFilter.asList.forEach((artifact, iArtifact) => {
-          artifactsToFilter.asList[iArtifact].highlight = filter.highlightArtifactKeys
+        artifactsToFilter.forEach((artifact, iArtifact) => {
+          artifactsToFilter[iArtifact].highlight = filter.highlightArtifactKeys
             .includes(artifact.artifactData.key);
         });
       }
 
       // // DEBUGGING
-      // artifactsToFilter.asList = artifactsToFilter.asList.slice(115, 150);
+      // artifactsToFilter = artifactsToFilter.slice(115, 150);
 
       // apply
-      setFilteredArtifacts(artifactsToFilter);
-
-      // // measure time
-      // const t1 = performance.now();
-      // console.log(`useArtifactFilter took ${t1 - t0} ms.`);
+      setFilteredArtifacts(
+        sortIntoSections(artifactsToFilter),
+      );
     }
+
+    // // measure time
+    // const t1 = performance.now();
+    // console.log(`useArtifactFilter took ${t1 - t0} ms.`);
   }, [artifacts, filter]);
 
   // console.log(filteredArtifacts);

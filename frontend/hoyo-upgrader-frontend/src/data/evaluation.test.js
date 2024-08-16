@@ -15,6 +15,16 @@ const testSandsRelevantSubstats_1 = {
   wastedSubstats: 1,
   missingRollChances: [1, 0.5, 0.25, 0.125, 0.0625],
 };
+const testSandsRelevantSubstats_2 = {
+  valuableSubstats: {
+    critDMG_: 2,
+    critRate_: 1,
+    hp_: 2,
+  },
+  impossibleSubstats: 0,
+  wastedSubstats: 3,
+  missingRollChances: [0.75],
+};
 
 const testSands_2 = {
   artifactData: {
@@ -91,4 +101,12 @@ test('gets correct upgradeChance case 1', () => {
     testSandsRelevantSubstats_1,
   );
   expect(upgradeChance).toEqual(0.5);
+});
+test('gets correct upgradeChance case 2', () => {
+  // should be 1 because upgradePotential is 6, so all rolls are successful
+  const upgradeChance = getUpgradeChance(
+    1, // upgradePotential
+    testSandsRelevantSubstats_2,
+  );
+  expect(upgradeChance).toEqual(0.75);
 });

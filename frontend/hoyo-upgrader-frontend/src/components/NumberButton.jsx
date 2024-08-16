@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/NumberButton.scss';
 
 export default function NumberButton({
-  number,
+  number = -1,
   label,
   isBold,
   isSelected,
@@ -18,7 +18,7 @@ export default function NumberButton({
     >
 
       {
-        number && (
+        number >= 0 && (
           <>
             <h2 className={isBold ? 'bold' : ''}>
               {number}

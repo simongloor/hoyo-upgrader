@@ -17,7 +17,7 @@ export default function useRecommendations(
 
   // initialize
   useEffect(() => {
-    if (artifacts.isEvaluated) {
+    if (artifacts) {
       // prepare data
       let newRecommendations = {};
       let recommendedGroups = null;
@@ -33,7 +33,7 @@ export default function useRecommendations(
       };
 
       // Any other recommendations are quality based
-      const artifactGroupsByQuality = countArtifactsByQuality(artifacts.asList, builds);
+      const artifactGroupsByQuality = countArtifactsByQuality(artifacts, builds);
       newRecommendations = {
         ...newRecommendations,
         ...artifactGroupsByQuality,

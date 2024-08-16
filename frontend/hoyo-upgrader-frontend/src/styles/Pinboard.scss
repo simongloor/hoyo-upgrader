@@ -1,6 +1,8 @@
 @import "variables.scss";
 
 .Pinboard {
+  border-color: $elevation-plus4;
+
   .column {
     gap: $space-minus3;
     align-items: center;

@@ -23,6 +23,7 @@ import ArtifactInventory from '../components/ArtifactInventory';
 import Recommendations from '../components/Recommendations';
 
 import '../styles/Home.scss';
+import useArtifactSorting from '../hooks/useArtifactSorting';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ export default function Home() {
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
 
-  if (!filteredArtifacts.isEvaluated) {
+  if (!filteredArtifacts) {
     return null;
   }
 
@@ -72,7 +73,7 @@ export default function Home() {
           filteredBuilds={filteredBuilds}
         />
         <ArtifactOverview
-          artifactsAsList={filteredArtifacts.asList}
+          artifacts={filteredArtifacts}
         />
         <Pinboard />
         {

@@ -7,7 +7,7 @@ import {
   getUpgradeChance,
   getUpgradePotential,
 } from '../data/evaluation';
-import { getBuildQualitySortValue } from '../data/sorting';
+import { getBuildQualitySortValue, sortIntoSections } from '../data/sorting';
 
 // we want to evaluate all artifacts for their relevant builds
 // this includes:
@@ -87,14 +87,7 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
 // ---------------------------------------------------------
 
 export default function useArtifactEvaluation(artifacts, builds) {
-  const [evaluatedArtifacts, setEvaluatedArtifacts] = useState({
-    ...artifacts,
-    isEvaluated: false,
-    asList: artifacts.asList.map((artifact) => ({
-      artifactData: artifact,
-      buildEvaluations: [],
-    })),
-  });
+  const [evaluatedArtifacts, setEvaluatedArtifacts] = useState(null);
   // console.log(artifacts);
 
   useEffect(() => {
@@ -123,7 +116,7 @@ export default function useArtifactEvaluation(artifacts, builds) {
       newEvaluatedArtifacts.forEach((artifact, iArtifact) => {
         artifact.buildEvaluations.forEach((evaluation, iEvaluation) => {
           newEvaluatedArtifacts[iArtifact].buildEvaluations[iEvaluation]
-            .sortValue = getBuildQualitySortValue(evaluation);
+            .sortValue = getBuildQualitySortValue(artifact.artifactData, evaluation);
         });
       });
 
@@ -133,18 +126,13 @@ export default function useArtifactEvaluation(artifacts, builds) {
       });
 
       // sort artifacts by sortValue of first buildEvaluation
-      console.log(newEvaluatedArtifacts);
       newEvaluatedArtifacts.sort((a, b) => (
         (a.buildEvaluations[0] ? a.buildEvaluations[0].sortValue : 20)
         - (b.buildEvaluations[0] ? b.buildEvaluations[0].sortValue : 20)
       ));
 
       // apply
-      setEvaluatedArtifacts((state) => ({
-        ...state,
-        isEvaluated: true,
-        asList: newEvaluatedArtifacts,
-      }));
+      setEvaluatedArtifacts(newEvaluatedArtifacts);
 
       // // measure time
       // const t1 = performance.now();

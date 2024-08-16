@@ -9,10 +9,12 @@ import SpacerPiece from './SpacerPiece';
 import togglePinnedArtifact from '../data/actions/pinboard';
 
 import '../styles/ArtifactOverview.scss';
+import QualitySection from './QualitySection';
 
 export default function ArtifactOverview({
-  artifactsAsList,
+  artifacts,
 }) {
+  // console.log(artifacts);
   // console.log(artifactsAsList);
   const dispatch = useDispatch();
   const { pinnedArtifactData } = useSelector((state) => state.pinboard);
@@ -23,18 +25,15 @@ export default function ArtifactOverview({
     dispatch(togglePinnedArtifact(artifactData));
   };
 
-  // render
-  return (
-    <Box
-      className="ArtifactOverview"
-    >
-      <h2>
-        Artifacts
-        <span className="weak">{artifactsAsList.length}</span>
-      </h2>
-      {
-        artifactsAsList
-          .map((data, i) => (
+  const renderQualitySection = (artifactsOfQuality, label) => {
+    if (artifactsOfQuality.length === 0) {
+      return null;
+    }
+    return (
+      <>
+        <QualitySection label={label} />
+        {
+          artifactsOfQuality.map((data, i) => (
             <ArtifactEvaluation
               // eslint-disable-next-line react/no-array-index-key
               key={i}
@@ -43,10 +42,34 @@ export default function ArtifactOverview({
               pinnedArtifactString={pinnedArtifactString}
             />
           ))
-      }
+        }
+      </>
+    );
+  };
+
+  if (!artifacts) {
+    return null;
+  }
+
+  // render
+  return (
+    <Box
+      className="ArtifactOverview"
+    >
+      <h2>
+        Artifacts
+        <span className="weak">{artifacts.totalCount}</span>
+      </h2>
+      { renderQualitySection(artifacts.chance100, '100% upgrade chance') }
+      { renderQualitySection(artifacts.chance75, '~75% upgrade chance') }
+      { renderQualitySection(artifacts.chance50, '~50% upgrade chance') }
+      { renderQualitySection(artifacts.chance30, '~30% upgrade chance') }
+      { renderQualitySection(artifacts.chanceLow, 'low upgrade chance') }
+      { renderQualitySection(artifacts.noUpgrade, 'no upgrade') }
+      { renderQualitySection(artifacts.notNeeded, 'not needed') }
       {
         // placeholder
-        artifactsAsList.length === 0 && (
+        artifacts.totalCount === 0 && (
           <div className="placeholder row">
             <Artifact set="empty" />
             <SpacerPiece />

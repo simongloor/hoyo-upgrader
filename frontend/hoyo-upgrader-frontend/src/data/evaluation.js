@@ -77,7 +77,7 @@ export function getUpgradeChance(upgradePotential, relevantSubstats) {
   const requiredRolls = missingRolls - upgradePotential;
 
   // already an upgrade?
-  if (requiredRolls <= 0) {
+  if (requiredRolls < 0) {
     return 1;
   }
 

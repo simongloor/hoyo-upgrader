@@ -52,11 +52,11 @@ export default function useBuildEvaluation(artifacts, characters) {
   const [evaluatedBuilds, setEvaluatedBuilds] = useState(null);
 
   useEffect(() => {
-    if (artifacts.asList.length > 0 && characters.length > 0) {
+    if (artifacts && characters.length > 0) {
       // console.log(artifacts, characters);
       setEvaluatedBuilds(
         splitIntoQualityLevels(
-          evaluateBuilds(characters, artifacts.asList),
+          evaluateBuilds(characters, artifacts),
         ),
       );
     }
