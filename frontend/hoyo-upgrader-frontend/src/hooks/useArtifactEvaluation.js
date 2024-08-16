@@ -127,8 +127,8 @@ export default function useArtifactEvaluation(artifacts, builds) {
 
       // sort artifacts by sortValue of first buildEvaluation
       newEvaluatedArtifacts.sort((a, b) => (
-        (a.buildEvaluations[0] ? a.buildEvaluations[0].sortValue : 20)
-        - (b.buildEvaluations[0] ? b.buildEvaluations[0].sortValue : 20)
+        (a.buildEvaluations[0] ? a.buildEvaluations[0].sortValue : 2000)
+        - (b.buildEvaluations[0] ? b.buildEvaluations[0].sortValue : 2000)
       ));
 
       // apply

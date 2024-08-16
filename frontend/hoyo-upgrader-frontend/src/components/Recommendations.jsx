@@ -49,7 +49,7 @@ export default function Recommendations({
     .map((recommendationKey) => (
       <NumberButton
         key={recommendationKey}
-        number={recommendationKey !== 'TOO_MANY' && recommendations[recommendationKey].totalCount}
+        number={recommendationKey === 'TOO_MANY' ? -1 : recommendations[recommendationKey].totalCount}
         label={paths.recommendation[recommendationKey]}
         isBold={recommendationKey === 'UPGRADE100' || recommendationKey === 'MAYBE_UPGRADE_100'}
         // isSelected={displayedKey === recommendationKey}

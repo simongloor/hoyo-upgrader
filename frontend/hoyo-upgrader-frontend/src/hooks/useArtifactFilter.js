@@ -121,8 +121,8 @@ export default function useArtifactFilter(artifacts, characters) {
       if (filter.artifactWearer) {
         artifactsToFilter.forEach((artifact, iArtifact) => {
           artifactsToFilter[iArtifact].buildEvaluations.sort((a, b) => (
-            (a.artifactWearer === filter.artifactWearer ? -1000 : a.sortValue)
-            - (b.artifactWearer === filter.artifactWearer ? -1000 : b.sortValue)
+            (a.artifactWearer === filter.artifactWearer ? -10000 : a.sortValue)
+            - (b.artifactWearer === filter.artifactWearer ? -10000 : b.sortValue)
           ));
         });
       }

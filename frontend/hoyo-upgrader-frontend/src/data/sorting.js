@@ -5,14 +5,19 @@
 export function getBuildQualitySortValue(artifactData, evaluation) {
   // artifacts that don't have valuable substats go to the bottom
   if (evaluation.relevantSubstats.impossibleSubstats >= 8) {
-    return 10;
+    return 1000;
   }
 
+  const { missingRollChances } = evaluation.relevantSubstats;
+
   // priorities
-  let sortValue = -evaluation.upgradeChance;
-  sortValue -= evaluation.upgradePotential * 0.01;
-  sortValue += evaluation.relevantSubstats.wastedSubstats * 0.0001;
-  sortValue -= artifactData.location === evaluation.artifactWearer ? 0.000001 : 0;
+  let sortValue = -evaluation.upgradeChance * 100;
+  sortValue -= evaluation.upgradePotential * 1;
+  sortValue += evaluation.relevantSubstats.wastedSubstats * 0.01;
+  if (missingRollChances && missingRollChances.length > 0) {
+    sortValue -= missingRollChances[missingRollChances.length - 1] * 0.0001;
+  }
+  sortValue -= artifactData.location === evaluation.artifactWearer ? 0.00001 : 0;
 
   return sortValue;
 }
@@ -76,7 +81,7 @@ export function getArtifactQualitySortValue(artifact, filteredArtifactWearer) {
 
   // artifacts without builds go to the bottom
   if (artifact.buildEvaluations.length === 0) {
-    return 20;
+    return 2000;
   }
 
   // the filtered character build is used when the filter is active
