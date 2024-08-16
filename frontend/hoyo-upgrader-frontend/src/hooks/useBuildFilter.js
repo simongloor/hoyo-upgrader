@@ -12,8 +12,9 @@ const emptyArtifactData = {
 
 export default function useBuildFilter(builds) {
   const filter = useSelector((state) => state.filter);
-  const [filteredBuilds, setFilteredBuilds] = useState({ ...builds });
+  const [filteredBuilds, setFilteredBuilds] = useState(null);
   // const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
+  // console.log(builds);
 
   useEffect(() => {
     if (builds) {
@@ -25,8 +26,8 @@ export default function useBuildFilter(builds) {
         // Filter by set
         if (filter.specificSet && !filter.showOffpieces) {
           // Only CharacterOverviews that want the set should be displayed
-          newBuilds[key] = newBuilds[key].filter((build) => (
-            build.sets.includes(filter.specificSet)
+          newBuilds[key] = newBuilds[key].filter((b) => (
+            b.build.sets.includes(filter.specificSet)
           ));
         }
 
@@ -36,8 +37,8 @@ export default function useBuildFilter(builds) {
           // Only CharacterOverviews that want the main stat
           // for the filtered piece should be displayed
           if (specificMainStat) {
-            newBuilds[key] = newBuilds[key].filter((build) => (
-              build.mainstats[filter.specificPiece].includes(specificMainStat)));
+            newBuilds[key] = newBuilds[key].filter((b) => (
+              b.build.mainstats[filter.specificPiece].includes(specificMainStat)));
           }
         }
       });

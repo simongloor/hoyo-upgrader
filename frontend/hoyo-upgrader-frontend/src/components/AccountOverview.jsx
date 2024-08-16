@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-import { getCharactersTotalSubstats } from '../data/substats';
-import { getEquippedArtifacts } from '../data/builds';
-
 import CharacterOverview from './CharacterOverview';
 import Box from './Box';
 import Character from './Character';
@@ -16,31 +13,51 @@ import QualitySection from './QualitySection';
 export default function AccountOverview({
   filteredBuilds,
 }) {
-  const renderQualitySection = (label, builds) => (
-    <>
-      <QualitySection label={label} />
-      {
-        builds.map((data) => (
-          <CharacterOverview
-            key={data.build.artifactWearer}
-            characterBuild={data.build}
-            characterArtifacts={data.artifacts}
-            relevantSubstats={data.relevantSubstats}
-          />
-        ))
-      }
-      {
-        builds.length === 0 && (
-          <div className="row placeholder">
-            <Character />
-            <SpacerPiece />
-            <TextPiece canOverflow>No matching character found</TextPiece>
-            <SpacerPiece />
-          </div>
-        )
-      }
-    </>
-  );
+  if (!filteredBuilds) {
+    return null;
+  }
+
+  const renderQualitySection = (label, builds) => {
+    if (builds.length === 0) {
+      return null;
+    }
+    return (
+      <>
+        <QualitySection label={label} withSpacer />
+        {
+          builds.map((data) => (
+            <CharacterOverview
+              key={data.build.artifactWearer}
+              characterBuild={data.build}
+              characterArtifacts={data.artifacts}
+              relevantSubstats={data.relevantSubstats}
+            />
+          ))
+        }
+      </>
+    );
+  };
+
+  // no characters?
+  if (
+    filteredBuilds.completeBuilds.length === 0
+    && filteredBuilds.missingArtifacts.length === 0
+    && filteredBuilds.missingRolls.length === 0
+  ) {
+    return (
+      <Box
+        className="AccountOverview"
+      >
+        <h2>Characters</h2>
+        <div className="row placeholder">
+          <Character />
+          <SpacerPiece />
+          <span>No matching character found</span>
+          <SpacerPiece />
+        </div>
+      </Box>
+    );
+  }
 
   // Render
   return (

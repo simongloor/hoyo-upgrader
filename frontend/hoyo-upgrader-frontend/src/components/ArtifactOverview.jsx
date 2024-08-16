@@ -2,17 +2,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getBuildsBySets } from '../data/characters';
-import { getArtifactQualitySortValue } from '../data/evaluation';
-
 import Box from './Box';
 import ArtifactEvaluation from './ArtifactEvaluation';
 import Artifact from './Artifact';
 import SpacerPiece from './SpacerPiece';
-import TextPiece from './TextPiece';
 import togglePinnedArtifact from '../data/actions/pinboard';
 
-// import '../styles/ArtifactOverview.scss';
+import '../styles/ArtifactOverview.scss';
 
 export default function ArtifactOverview({
   artifactsAsList,
@@ -51,10 +47,10 @@ export default function ArtifactOverview({
       {
         // placeholder
         artifactsAsList.length === 0 && (
-          <div className="row">
+          <div className="placeholder row">
             <Artifact set="empty" />
             <SpacerPiece />
-            <TextPiece canOverflow>No matching artifact found</TextPiece>
+            <span>No matching artifact found</span>
             <SpacerPiece />
           </div>
         )

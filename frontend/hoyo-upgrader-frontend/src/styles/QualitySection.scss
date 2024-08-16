@@ -2,8 +2,20 @@
 
 .QualitySection {
   background-color: $elevation;
+  width: 100%;
+
   padding-top: $space-minus1;
-  padding-bottom: $space-minus3;
+  padding-bottom: $space-minus2;
+
+  &.withSpacer {
+    padding-left: $space;
+  }
+  &.withTile {
+    padding-left: $tile;
+  }
+  &.withSpacer.withTile {
+    padding-left: calc(#{$space} + #{$tile});
+  }
 
   span {
     font-weight: 700;

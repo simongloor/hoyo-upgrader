@@ -24,36 +24,44 @@ function evaluateBuilds(
 
 function splitIntoQualityLevels(evaluatedBuilds) {
   return evaluatedBuilds.reduce((acc, b) => {
-    if (b.build.relevantSubstats.missingRollChances.length > 0) {
-      acc.missingRolls = [...acc.missingRolls, b];
-    } else if (
+    // console.log(b);
+    if (
       !b.artifacts.flower
       || !b.artifacts.plume
       || !b.artifacts.sands
       || !b.artifacts.goblet
       || !b.artifacts.circlet
     ) {
-      acc.missingArtifacts = [...acc.missingArtifacts, b];
+      acc.missingArtifacts.push(b);
+    } else if (b.relevantSubstats.missingRollChances.length > 0) {
+      acc.missingRolls.push(b);
     } else {
-      acc.completeBuilds = [...acc.completeBuilds, b];
+      acc.completeBuilds.push(b);
     }
     return acc;
-  }, {});
+  }, {
+    missingArtifacts: [],
+    missingRolls: [],
+    completeBuilds: [],
+  });
 }
 
 // ---------------------------------------------------------
 
 export default function useBuildEvaluation(artifacts, characters) {
   const [evaluatedBuilds, setEvaluatedBuilds] = useState(null);
-  const artifactsAsList = Object.values(artifacts);
 
   useEffect(() => {
-    setEvaluatedBuilds(
-      splitIntoQualityLevels(
-        evaluateBuilds(characters, artifactsAsList),
-      ),
-    );
-  }, [artifacts, characters, artifactsAsList]);
+    if (artifacts.asList.length > 0 && characters.length > 0) {
+      // console.log(artifacts, characters);
+      setEvaluatedBuilds(
+        splitIntoQualityLevels(
+          evaluateBuilds(characters, artifacts.asList),
+        ),
+      );
+    }
+  }, [artifacts, characters]);
 
+  // console.log(evaluatedBuilds);
   return evaluatedBuilds;
 }
