@@ -18,6 +18,7 @@ export function getBuildQualitySortValue(artifactData, evaluation) {
   if (missingRollChances && missingRollChances.length > 0) {
     sortValue -= missingRollChances[missingRollChances.length - 1] * 0.0001;
   }
+  // allready fully rolled is a 100% chance
   if (missingRollChances && missingRollChances.length === 0) {
     sortValue -= 0.0001;
   }
