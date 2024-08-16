@@ -108,48 +108,57 @@ const kqmBuilds = {
     },
   },
   Candace: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'On-Field DPS': {
+      sets: ['TenacityOfTheMillelith', 'GladiatorsFinale', 'EmblemOfSeveredFate', 'HeartOfDepth'],
+      mainstats: {
+        sands: ['enerRech_'],
+        goblet: ['hydro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_'],
+    },
+    'Off-Field DPS': {
+      sets: ['EmblemOfSeveredFate'],
+      mainstats: {
+        sands: ['enerRech_'],
+        goblet: ['hp_', 'hydro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'critDMG_', 'hp_'],
+    },
   },
   Charlotte: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Healing (with Fav)': {
+      sets: ['EmblemOfSeveredFate', 'GladiatorsFinale', 'MaidenBeloved'],
+      mainstats: {
+        sands: ['enerRech_'],
+        goblet: ['atk_'],
+        circlet: ['critRate_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'atk_'],
+    },
   },
   Chevreuse: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Support (with Fav)': {
+      sets: ['NoblesseOblige'],
+      mainstats: {
+        sands: ['enerRech_'],
+        goblet: ['hp_'],
+        circlet: ['hp_', 'heal_', 'critRate_'],
+      },
+      substats: ['enerRech_', 'hp_', 'critRate_'],
+    },
   },
   Chiori: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Off-Field DPS': {
+      sets: ['GoldenTroupe'],
+      mainstats: {
+        sands: ['def_'],
+        goblet: ['geo_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['critRate_', 'critDMG_', 'def_', 'atk_'],
+    },
   },
   Chongyun: {
     // '': {
