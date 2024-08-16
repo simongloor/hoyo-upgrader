@@ -98,6 +98,7 @@ export default function useArtifactFilter(artifacts, characters) {
               // show for the artifact's wearer
               && evaluation.artifactWearer !== a.artifactData.location
             ) {
+              console.log('no upgrade potential', evaluation);
               return false;
             }
 

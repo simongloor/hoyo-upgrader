@@ -14,9 +14,14 @@ export function getBuildQualitySortValue(artifactData, evaluation) {
   let sortValue = -evaluation.upgradeChance * 100;
   sortValue -= evaluation.upgradePotential * 1;
   sortValue += evaluation.relevantSubstats.wastedSubstats * 0.01;
+
   if (missingRollChances && missingRollChances.length > 0) {
     sortValue -= missingRollChances[missingRollChances.length - 1] * 0.0001;
   }
+  if (missingRollChances && missingRollChances.length === 0) {
+    sortValue -= 0.0001;
+  }
+
   sortValue -= artifactData.location === evaluation.artifactWearer ? 0.00001 : 0;
 
   return sortValue;
@@ -42,7 +47,7 @@ export function sortIntoSections(artifacts) {
       sortedArtifacts.notNeeded.push(artifact);
       return;
     }
-    if (artifact.buildEvaluations[0].upgradePotential === 0) {
+    if (artifact.buildEvaluations[0].upgradePotential <= 0) {
       // console.log('no potential', artifact.buildEvaluations[0]);
       sortedArtifacts.noUpgrade.push(artifact);
       return;

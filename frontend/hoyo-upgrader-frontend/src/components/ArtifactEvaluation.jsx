@@ -18,6 +18,14 @@ export default function ArtifactEvaluation({
   pinnedArtifactString,
 }) {
   // console.log(artifact);
+  if (
+    artifact
+    && artifact.buildEvaluations.length > 0
+    && artifact.buildEvaluations[0].upgradePotential < 0
+  ) {
+    return null;
+  }
+
   return (
     <div
       className="ArtifactEvaluation row"
