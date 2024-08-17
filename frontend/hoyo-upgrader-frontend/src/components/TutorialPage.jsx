@@ -1,7 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-// import '../styles/TutorialPage.scss';
+
+import playIcon from '../theme/play_circle.svg';
+import '../styles/TutorialPage.scss';
 
 export default function TutorialPage({
   img,
@@ -9,21 +11,45 @@ export default function TutorialPage({
   title,
   paragraphs,
 }) {
+  const [showVideo, setShowVideo] = React.useState(false);
+
   return (
     <div
       className="TutorialPage"
     >
       <div className="visual">
-        <a href={video} target="_blank" rel="noreferrer">
-          <img src={img} alt="" />
-          play
-        </a>
+        {
+          showVideo ? (
+            <iframe
+              width="730"
+              height="410"
+              src={video}
+              // src={`${video}&amp;controls=0`
+              title="YouTube video player"
+              // frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            />
+          ) : (
+            <button
+              className="media"
+              type="button"
+              onClick={() => setShowVideo(true)}
+            >
+              <img className="still" src={img} alt="" />
+              <img className="play" src={playIcon} alt="play" />
+            </button>
+          )
+        }
       </div>
-      <h6>{title}</h6>
       <div className="content">
-        {paragraphs.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
-        ))}
+        <h6>{title}</h6>
+        <div className="description">
+          {paragraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
       </div>
     </div>
   );

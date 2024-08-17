@@ -238,7 +238,7 @@ export default function ImportArtifacts({ children }) {
           <br />
           <br />
           2. Either replace the whole data set directly in the text box below,
-          or click on an artifact set update only a specific set.
+          or select an artifact set to update only that set.
           {/* <br />
           <br />
           Hint: The textbox turns red if the data is invalid.

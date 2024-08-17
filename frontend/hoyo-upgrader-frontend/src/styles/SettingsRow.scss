@@ -4,6 +4,14 @@
 
   .row {
     align-items: center;
+    justify-content: space-between;
     gap: $space-minus2;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      gap: $space-minus2;
+      align-items: center;
+    }
   }
 }

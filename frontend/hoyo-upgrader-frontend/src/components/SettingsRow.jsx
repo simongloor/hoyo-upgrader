@@ -16,6 +16,24 @@ export default function SettingsRow({ children }) {
       className="SettingsRow"
     >
       <div className="row">
+        <div>
+          <button
+            className="iconButton primary"
+            type="button"
+            onClick={() => navigate(`/genshin/${paths.IMPORT_ARTIFACTS}`)}
+          >
+            <img src={iconUploadFile} alt="import artifacts" />
+            <span>Import Artifacts</span>
+          </button>
+          <button
+            className="iconButton primary"
+            type="button"
+            onClick={() => navigate(`/genshin/${paths.EDIT_BUILDS}`)}
+          >
+            <img src={iconManufacturing} alt="edit builds" />
+            <span>Edit Character Builds</span>
+          </button>
+        </div>
         <button
           className="iconButton secondary"
           type="button"
@@ -23,22 +41,6 @@ export default function SettingsRow({ children }) {
         >
           <img src={iconSchool} alt="documentation" />
           <span>Documentation</span>
-        </button>
-        <button
-          className="iconButton primary"
-          type="button"
-          onClick={() => navigate(`/genshin/${paths.IMPORT_ARTIFACTS}`)}
-        >
-          <img src={iconUploadFile} alt="import artifacts" />
-          <span>Import Artifacts</span>
-        </button>
-        <button
-          className="iconButton primary"
-          type="button"
-          onClick={() => navigate(`/genshin/${paths.EDIT_BUILDS}`)}
-        >
-          <img src={iconManufacturing} alt="edit builds" />
-          <span>Edit Character Builds</span>
         </button>
       </div>
     </div>

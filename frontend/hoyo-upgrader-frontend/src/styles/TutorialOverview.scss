@@ -3,5 +3,44 @@
 .TutorialOverview {
   width: calc($breakpoint-desktop - (2 * $space-minus1));
 
-  
+  .header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .tutorialBody {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus2;
+    justify-content: stretch;
+
+    .tutorialList {
+      min-width: calc($tile * 3);
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+      gap: $space-minus3;
+
+      button {
+        text-align: left;
+      }
+    }
+    .tutorial {
+      flex-grow: 1;
+
+      border-radius: $border;
+      background-color: $elevation;
+      min-height: 100%;
+      
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: $space;
+    }
+  }
 }

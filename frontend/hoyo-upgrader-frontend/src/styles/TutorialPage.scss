@@ -1,0 +1,59 @@
+@import 'variables.scss';
+
+.TutorialPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-plus1;
+
+  padding-bottom: $space-plus1;
+  height: $tile * 10;
+
+  .content {
+    // max-width: calc($tile * 13);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-minus2;
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $space-minus2;
+
+      text-align: center;
+
+      p {
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .visual {
+    .media {
+      position: relative;
+      // height: 410px;
+      width: $tile * 12;
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .still {
+        object-fit: contain;
+        max-width: 100%;
+        max-height: $tile * 8;
+        width: auto;
+        height: auto;
+      }
+      .play {
+        position: absolute;
+        top: $space-minus1;
+        right: $space-minus1;
+      }
+    }
+  }
+}

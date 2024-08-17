@@ -1,0 +1,23 @@
+@import 'variables.scss';
+
+.TutorialPagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-minus2;
+
+  .dots {
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus2;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus2;
+
+    button {
+      min-width: calc($tile * 3);
+    }
+  }
+}

@@ -1,39 +1,61 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-// import '../styles/TutorialPagination.scss';
+
+import circleEmpty from '../theme/circle_empty.svg';
+import circleFilled from '../theme/circle_filled.svg';
+import '../styles/TutorialPagination.scss';
 
 export default function TutorialPagination({
   onPrev,
   onNext,
-  page,
-  total,
+  pageNumber = 0,
+  total = 1,
 }) {
+  if (total < 2) {
+    return null;
+  }
+
   return (
     <div
       className="TutorialPagination"
     >
       <div className="dots">
-        {Array.from({ length: total }).map((_, index) => (
-          <span key={index} className={index === page ? 'active' : ''}>o</span>
-        ))}
+        {
+          Array(total).fill().map((_, index) => (
+            index === pageNumber
+              ? (
+                <img
+                  key={index}
+                  src={circleFilled}
+                  alt=""
+                />
+              ) : (
+                <img
+                  key={index}
+                  src={circleEmpty}
+                  alt=""
+                />
+              )
+          ))
+        }
       </div>
       <div className="buttons">
         <button
-          className={`${page === 0 ? 'secondary' : 'primary'}`}
+          className={`${pageNumber === 0 ? 'secondary' : 'primary'}`}
           type="button"
           onClick={onPrev}
-          disabled={page === 0}
+          disabled={pageNumber === 0}
         >
-          Previous
+          <span>Previous</span>
         </button>
         <button
-          className={`button ${page === total - 1 ? 'primary' : 'secondary'}`}
+          className={`button ${pageNumber === total - 1 ? 'secondary' : 'primary'}`}
           type="button"
           onClick={onNext}
-          disabled={page === total - 1}
+          disabled={pageNumber === total - 1}
         >
-          Next
+          <span>Next</span>
         </button>
       </div>
     </div>
