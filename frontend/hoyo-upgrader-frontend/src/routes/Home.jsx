@@ -24,6 +24,7 @@ import Recommendations from '../components/Recommendations';
 
 import '../styles/Home.scss';
 import useArtifactSorting from '../hooks/useArtifactSorting';
+import TutorialOverview from '../components/TutorialOverview';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ export default function Home() {
     >
       <div className="scrollArea">
         <SettingsRow />
+        <TutorialOverview />
         <Recommendations
           recommendations={recommendations}
         />

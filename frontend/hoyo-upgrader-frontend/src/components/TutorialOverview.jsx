@@ -37,15 +37,15 @@ export default function TutorialOverview() {
         {
           tutorials.map((tutorial, index) => (
             <button
-              key={tutorial.title}
+              className={`primary ${tutorialIndex === index ? 'active' : ''}`}
+              key={tutorial.label}
               type="button"
-              className={tutorialIndex === index ? 'active' : ''}
               onClick={() => {
                 setTutorialIndex(index);
                 setTutorialPageIndex(0);
               }}
             >
-              {tutorial.title}
+              <span>{tutorial.label}</span>
             </button>
           ))
         }
