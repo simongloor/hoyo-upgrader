@@ -14,18 +14,19 @@ export default [
         img: '/genshin/tutorials/artiscan.jpg',
         video: 'https://www.youtube.com/embed/BZNH3r3Nias?si=EyrcAF9ZxL2wznea',
       }, {
-        title: 'Neither CV nor Rollvalue',
+        title: 'How does it work?',
         paragraphs: [
           'The value of an artifact is measured by the number of valuable rolls that an artifact could have for each build on your account.',
-          'The goal is not to find the best max-lvl artifact for your specific team-rotation, but to decide what artifacts could be valuable enough to even level.',
+          'The goal of the Upgrader is not to find the best max-lvl artifact for your specific team-rotation, but to decide what artifacts could be valuable enough to even level.',
         ],
         img: '/genshin/tutorials/artifact-import.jpg',
         video: '',
       }, {
         title: 'Is it complicated?',
         paragraphs: [
-          'You don\'t need to write any data files and there are few things that need to configure.',
-          'There is a video-tutorial on scanning artifacts and links to reliable build guides.',
+          'You don\'t need to write any data files and there are few things that need configuration.',
+          'There is a video-tutorial on scanning artifacts and reliable build guides are linked.',
+          'Give it a try! 😀',
         ],
         img: '/genshin/tutorials/artifact-import.jpg',
         video: '',
