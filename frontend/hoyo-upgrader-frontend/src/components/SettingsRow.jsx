@@ -9,7 +9,10 @@ import iconUploadFile from '../theme/upload_file.svg';
 import iconManufacturing from '../theme/manufacturing.svg';
 import '../styles/SettingsRow.scss';
 
-export default function SettingsRow({ children }) {
+export default function SettingsRow({
+  activeTutorial,
+  onClickTutorial,
+}) {
   const navigate = useNavigate();
   return (
     <div
@@ -35,12 +38,12 @@ export default function SettingsRow({ children }) {
           </button>
         </div>
         <button
-          className="iconButton secondary"
+          className={`iconButton ${activeTutorial ? 'secondary' : 'primary'}`}
           type="button"
-          onClick={() => navigate(`/genshin/${paths.DOCUMENTATION}`)}
+          onClick={() => onClickTutorial(!activeTutorial)}
         >
           <img src={iconSchool} alt="documentation" />
-          <span>Documentation</span>
+          <span>Tutorials</span>
         </button>
       </div>
     </div>

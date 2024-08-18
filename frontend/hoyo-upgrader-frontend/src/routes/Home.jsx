@@ -23,15 +23,21 @@ import ArtifactInventory from '../components/ArtifactInventory';
 import Recommendations from '../components/Recommendations';
 
 import '../styles/Home.scss';
-import useArtifactSorting from '../hooks/useArtifactSorting';
 import TutorialOverview from '../components/TutorialOverview';
+import useSettings from '../hooks/useSettings';
 
 export default function Home() {
   const dispatch = useDispatch();
+
   const [activePopup, setActivePopup] = useState(null);
 
   const artifacts = useSelector((state) => state.artifacts);
   const characters = useSelector((state) => state.characters);
+
+  const {
+    activeTutorial,
+    handleSetTutorial,
+  } = useSettings();
 
   // non-interactive - precalculation possible
   const evaluatedArtifacts = useArtifactEvaluation(artifacts, characters);
@@ -66,8 +72,17 @@ export default function Home() {
       className="Home page"
     >
       <div className="scrollArea">
-        <SettingsRow />
-        <TutorialOverview />
+        <SettingsRow
+          activeTutorial={activeTutorial}
+          onClickTutorial={handleSetTutorial}
+        />
+        {
+          activeTutorial && (
+            <TutorialOverview
+              onCloseTutorial={() => handleSetTutorial(false)}
+            />
+          )
+        }
         <Recommendations
           recommendations={recommendations}
         />

@@ -19,6 +19,7 @@ const paths = {
     artifactsJson: 'artifactsJson',
     charactersJson: 'charactersJson',
     buildsJson: 'buildsJson',
+    settings: 'settings',
   },
   piece: {
     flower: 'flower',

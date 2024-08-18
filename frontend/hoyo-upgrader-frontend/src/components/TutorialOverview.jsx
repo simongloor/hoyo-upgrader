@@ -10,7 +10,7 @@ import Box from './Box';
 import close from '../theme/close.svg';
 import '../styles/TutorialOverview.scss';
 
-export default function TutorialOverview() {
+export default function TutorialOverview({ onCloseTutorial }) {
   const [tutorialIndex, setTutorialIndex] = React.useState(0);
   const [tutorialPageIndex, setTutorialPageIndex] = React.useState(0);
 
@@ -31,9 +31,6 @@ export default function TutorialOverview() {
       setTutorialPageIndex(0);
     }
   };
-  const handleClose = () => {
-    console.log('close');
-  };
 
   // render
   return (
@@ -45,7 +42,7 @@ export default function TutorialOverview() {
         <button
           className="iconButton"
           type="button"
-          onClick={handleClose}
+          onClick={onCloseTutorial}
         >
           <img src={close} alt="close" />
         </button>
