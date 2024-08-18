@@ -1,0 +1,24 @@
+@import "variables.scss";
+
+button.WearerSelection.primary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: $space-minus1;
+
+  > span {
+    color: $onSurface-mediumEmphasis;
+    strong {
+      color: $onSurface-highEmphasis;
+    }
+  }
+
+  &:hover,
+  &:active {
+    .secondary,
+    .separator {
+      opacity: 0;
+    }
+  }
+}

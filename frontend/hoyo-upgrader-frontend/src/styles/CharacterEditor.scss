@@ -9,6 +9,7 @@
   .Box {
     position: relative;
     gap: $space-minus1;
+    padding: $space;
   }
   .Box.row.right {
     flex-direction: row;
@@ -37,9 +38,6 @@
   .row {
     align-items: center;
   }
-  .column {
-    gap: $space-minus4;
-  }
 
   .header {
     gap: $space;
@@ -65,8 +63,11 @@
   .statButtons {
     align-items: center;
     justify-content: start;
-    gap: $space-minus4;
+    gap: $space-minus3;
     flex-wrap: wrap;
+  }
+  .statSections {
+    gap: $space-minus3;
   }
 
   .SubstatButton {

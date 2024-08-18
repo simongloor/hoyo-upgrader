@@ -1,3 +1,9 @@
+@import "variables.scss";
+
 .SubstatButton {
   height: 27px;
+
+  span {
+    color: $onElevation-highEmphasis;
+  }
 }

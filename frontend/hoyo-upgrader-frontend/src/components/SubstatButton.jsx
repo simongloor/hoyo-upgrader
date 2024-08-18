@@ -11,11 +11,11 @@ export default function SubstatButton({
 }) {
   return (
     <button
-      className="SubstatButton"
+      className={`SubstatButton stat ${statName} ${isActive ? 'active' : 'inactive'}`}
       type="button"
       onClick={() => onClick && onClick(statName)}
     >
-      <span className={`stat ${statName} ${isActive ? 'active' : 'inactive'}`}>
+      <span>
         {
           isShort
             ? paths.statsShort[statName]

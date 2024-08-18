@@ -71,6 +71,7 @@ export default function TutorialOverview({ onCloseTutorial }) {
             video={tutorials[tutorialIndex].pages[tutorialPageIndex].video}
             title={tutorials[tutorialIndex].pages[tutorialPageIndex].title}
             paragraphs={tutorials[tutorialIndex].pages[tutorialPageIndex].paragraphs}
+            forceVideo={tutorialIndex === 0 && tutorialPageIndex === 0}
           />
           <TutorialPagination
             onPrev={handlePrev}

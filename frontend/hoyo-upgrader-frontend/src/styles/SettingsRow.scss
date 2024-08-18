@@ -2,6 +2,27 @@
 
 .SettingsRow {
 
+  .brand {
+    // margin-right: 48px;
+    margin-right: $space;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $space-minus2;
+
+    img {
+      height: 48px;
+    }
+    h1 {
+      color: #6CB5FF;
+
+      strong {
+        color: #F2D59C;
+        font-weight: 400;
+      }
+    }
+  }
+
   .row {
     align-items: center;
     justify-content: space-between;

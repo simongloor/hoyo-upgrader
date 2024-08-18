@@ -25,9 +25,14 @@
       gap: $space-minus2;
 
       text-align: center;
+      // max-width: $tile * 12;
 
       p {
         line-height: 1.2;
+      }
+      small {
+        opacity: 0.6;
+        font-size: 12px;
       }
     }
   }

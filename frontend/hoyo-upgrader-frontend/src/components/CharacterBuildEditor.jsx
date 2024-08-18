@@ -8,8 +8,7 @@ import Box from './Box';
 import Character from './Character';
 import Artifact from './Artifact';
 import SubstatButton from './SubstatButton';
-import CharacterSelector from './CharacterSelector';
-import { getBusyArtifactWearers } from '../data/builds';
+import WearerSelection from './WearerSelection';
 
 export default function CharacterBuildEditor({
   build,
@@ -49,24 +48,30 @@ export default function CharacterBuildEditor({
         />
         <h2>{ paths.character[build.buildOwner] }</h2>
       </div>
-      <span><strong>Wearer</strong></span>
-      <span>
-        Choose the character that currently wears the artifacts.
-        If you have multiple builds for a character or you don&apos;t own a character,
-        you can equip the artifacts on an other character.
-      </span>
       <Box>
-        <CharacterSelector
+        <span><strong>Wearer</strong></span>
+        <span>
+          Choose the character that currently wears the artifacts.
+          If you have multiple builds for a character or you don&apos;t own a character,
+          you can equip the artifacts on an other character.
+        </span>
+        {/* <CharacterSelector
           selectedCharacter={build.artifactWearer}
           disabledCharacters={getBusyArtifactWearers(wearerStates, build.artifactWearer)}
           onClick={handleClickWearer}
+        /> */}
+        <WearerSelection
+          artifactWearer={build.artifactWearer}
+          buildOwner={build.buildOwner}
+          wearerStates={wearerStates}
+          onSelectWearer={handleClickWearer}
         />
       </Box>
-      <span><strong>Sets</strong></span>
-      <span>
-        Select all sets that you consider using for this build.
-      </span>
       <Box>
+        <span><strong>Sets</strong></span>
+        <span>
+          Select all sets that you consider using for this build.
+        </span>
         <div className="artifacts row">
           {
             Object.keys(paths.set).map((setName) => (
@@ -86,9 +91,9 @@ export default function CharacterBuildEditor({
           }
         </div>
       </Box>
-      <span><strong>MainStats</strong></span>
-      <span>Select the desired mainstats for sands, goblet and circlet.</span>
       <Box>
+        <span><strong>MainStats</strong></span>
+        <span>Select the desired mainstats for sands, goblet and circlet.</span>
         <div className="row">
           <Artifact
             piece="sands"
@@ -112,10 +117,10 @@ export default function CharacterBuildEditor({
             piece="goblet"
             set="generic"
           />
-          <div className="column">
-            <div className="statButtons elementalDmg row">
+          <div className="statSections column">
+            <div className="statButtons row">
               {
-                possibleStats.gobletDmg.map((statName) => (
+                possibleStats.gobletPrimary.map((statName) => (
                   <SubstatButton
                     key={statName}
                     statName={statName}
@@ -125,9 +130,9 @@ export default function CharacterBuildEditor({
                 ))
               }
             </div>
-            <div className="statButtons row">
+            <div className="statButtons elementalDmg row">
               {
-                possibleStats.gobletPrimary.map((statName) => (
+                possibleStats.gobletDmg.map((statName) => (
                   <SubstatButton
                     key={statName}
                     statName={statName}
@@ -158,13 +163,13 @@ export default function CharacterBuildEditor({
           </div>
         </div>
       </Box>
-      <span><strong>Substats</strong></span>
-      <span>
-        Select all substats that you consider valuable.
-        It is recommended to skip &quot;nice to have&quot; stats.
-        Focus on the stats that are essential for the build.
-      </span>
       <Box>
+        <span><strong>Substats</strong></span>
+        <span>
+          Select all substats that you consider valuable.
+          It is recommended to skip &quot;nice to have&quot; stats.
+          Focus on the stats that are essential for the build.
+        </span>
         <div className="statButtons row">
           {
             possibleStats.substat.map((statName) => (

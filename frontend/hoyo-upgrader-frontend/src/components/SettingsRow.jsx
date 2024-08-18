@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +21,13 @@ export default function SettingsRow({
     >
       <div className="row">
         <div>
+          <div className="brand">
+            <img
+              src={`${process.env.PUBLIC_URL}/logo.png`}
+              alt="noblesse logo"
+            />
+            <h1>Genshin <strong>Up</strong>grader</h1>
+          </div>
           <button
             className="iconButton primary"
             type="button"

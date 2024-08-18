@@ -118,54 +118,56 @@ export default function EditBuilds() {
 
   // render
   return (
-    <Box
+    <div
       className="EditBuilds page"
     >
-      <h2>Edit Character Builds</h2>
-      <span>
-        The hoyo updater comes with just a few examples of builds.
-        It is ultimately up to you to decide how you want to build your characters.
-        <br />
-        <br />
-        After you&apos;ve set up your builds, please make sure to copy this data to a safe place.
-        That way, you can restore it in case your browser cache is cleared:
-      </span>
-      <Box className={`json ${jsonIsValid ? '' : 'error'}`}>
-        <textarea
-          value={buildData.json}
-          onChange={handleChangeJson}
+      <Box>
+        <h2>Edit Character Builds</h2>
+        <span>
+          The hoyo updater comes with just a few examples of builds.
+          It is ultimately up to you to decide how you want to build your characters.
+          <br />
+          <br />
+          After you&apos;ve set up your builds, please make sure to copy this data to a safe place.
+          That way, you can restore it in case your browser cache is cleared:
+        </span>
+        <Box className={`json ${jsonIsValid ? '' : 'error'}`}>
+          <textarea
+            value={buildData.json}
+            onChange={handleChangeJson}
+          />
+        </Box>
+        <Box className="characterSelection">
+          <h2>Select a Character</h2>
+          <span>Choose the character that the build is meant for.</span>
+          <CharacterSelector
+            selectedCharacter={selectedCharacter}
+            onClick={setSelectedCharacter}
+            inactiveCharacters={wearerStates.withoutOwnBiuld}
+            // inactiveCharacters={getBusyArtifactWearers(wearerStates, selectedCharacter)}
+          />
+        </Box>
+        <CharacterEditor
+          key={selectedCharacter}
+          buildOwner={selectedCharacter}
+          characterBuilds={buildData.data.filter((b) => b.buildOwner === selectedCharacter)}
+          wearerStates={wearerStates}
+          onClickOpenBuildOwner={setSelectedCharacter}
+          onClickAddBuild={handleCreateBuild}
+          onClickDeleteBuild={handleDeleteBuild}
+          onClickSetWearer={handleSetWearer}
+          onClickToggleSet={handleToggleSet}
+          onClickToggleMainstat={handleToggleMainstat}
+          onClickToggleSubstat={handleToggleSubstat}
         />
+        <div className="return">
+          <WindowActions
+            onClickCancel={() => navigate('/genshin')}
+            onClickSave={handleClickSave}
+            isValid
+          />
+        </div>
       </Box>
-      <Box className="characterSelection">
-        <h2>Select a Character</h2>
-        <span>Choose the character that the build is meant for.</span>
-        <CharacterSelector
-          selectedCharacter={selectedCharacter}
-          onClick={setSelectedCharacter}
-          inactiveCharacters={wearerStates.withoutOwnBiuld}
-          // inactiveCharacters={getBusyArtifactWearers(wearerStates, selectedCharacter)}
-        />
-      </Box>
-      <CharacterEditor
-        key={selectedCharacter}
-        buildOwner={selectedCharacter}
-        characterBuilds={buildData.data.filter((b) => b.buildOwner === selectedCharacter)}
-        wearerStates={wearerStates}
-        onClickOpenBuildOwner={setSelectedCharacter}
-        onClickAddBuild={handleCreateBuild}
-        onClickDeleteBuild={handleDeleteBuild}
-        onClickSetWearer={handleSetWearer}
-        onClickToggleSet={handleToggleSet}
-        onClickToggleMainstat={handleToggleMainstat}
-        onClickToggleSubstat={handleToggleSubstat}
-      />
-      <div className="return">
-        <WindowActions
-          onClickCancel={() => navigate('/genshin')}
-          onClickSave={handleClickSave}
-          isValid
-        />
-      </div>
-    </Box>
+    </div>
   );
 }

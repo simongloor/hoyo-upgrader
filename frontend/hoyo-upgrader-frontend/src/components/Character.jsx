@@ -4,6 +4,32 @@ import '../styles/Character.scss';
 import { useDispatch, useStore } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
 
+export function CharacterIcon({
+  character = 'generic',
+  secondaryCharacter,
+}) {
+  return (
+    <div className={`Character tile ${character} CharacterIcon`}>
+      <img
+        src={`${process.env.PUBLIC_URL}/genshin/characters/${character}.png`}
+        alt={character}
+      />
+      {
+        secondaryCharacter && character !== secondaryCharacter && (
+          <>
+            <img
+              className="secondary"
+              src={`${process.env.PUBLIC_URL}/genshin/characters/${secondaryCharacter}.png`}
+              alt={secondaryCharacter}
+            />
+            <div className="separator" />
+          </>
+        )
+      }
+    </div>
+  );
+}
+
 export default function Character({
   className,
   character = 'generic',

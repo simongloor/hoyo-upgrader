@@ -10,6 +10,7 @@ export default function TutorialPage({
   video,
   title,
   paragraphs,
+  forceVideo,
 }) {
   const [showVideo, setShowVideo] = React.useState(false);
 
@@ -19,7 +20,7 @@ export default function TutorialPage({
     >
       <div className="visual">
         {
-          showVideo ? (
+          showVideo || forceVideo ? (
             <iframe
               width="730"
               height="410"

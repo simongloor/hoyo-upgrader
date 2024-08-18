@@ -2,36 +2,47 @@
 
 .EditBuilds.page {
   padding-bottom: 80px;
+  align-items: center;
 
-  >h2 {
-    margin-bottom: 0;
-  }
-  span {
-    line-height: 1.2;
-  }
-  .characterSelection {
-    h2 {
-      margin-bottom: 0;
-      margin-top: $space-minus2;
-    }
-  }
-  .Box {
+  > .Box {
+    position: relative;
     gap: $space;
-  }
-
-  .Box.json {
-    width: $width-base;
-    height: 200px;
-
-    textarea {
-      width: 100%;
-      height: 100%;
+    width: $breakpoint-desktop;
+    
+    > .Box {
+      gap: $space;
+      // padding: $space;
+    }
+    >h2 {
+      margin-bottom: 0;
+    }
+    span {
+      line-height: 1.2;
+    }
+    .characterSelection {
+      h2 {
+        margin-bottom: 0;
+        margin-top: $space-minus2;
+      }
+    }
+  
+    .Box.json {
+      // width: 100%;
+      width: $width-base;
+      // width: $breakpoint-desktop;
+      height: 200px;
+  
+      textarea {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  
+    .return {
+      position: fixed;
+      bottom: $space-minus1;
+      right: $space-minus1;
     }
   }
 
-  .return {
-    position: fixed;
-    bottom: $space-minus1;
-    right: $space-minus1;
-  }
 }
