@@ -4,6 +4,34 @@ import React from 'react';
 /* eslint-disable max-len */
 export default [
   {
+    label: 'Overview',
+    pages: [
+      {
+        title: 'What is the Upgrader?',
+        paragraphs: [
+          'The upgrader makes it easy to see the quality of your builds and artifacts at a glance. It visualizes the substat rolls and roll chances for each build and shows you the biggest upgrade you can get.',
+        ],
+        img: '/genshin/tutorials/artiscan.jpg',
+        video: 'https://www.youtube.com/embed/BZNH3r3Nias?si=EyrcAF9ZxL2wznea',
+      }, {
+        title: 'Neither CV nor Rollvalue',
+        paragraphs: [
+          'The value of an artifact is measured by the number of valuable rolls that an artifact could have for each build on your account.',
+          'The goal is not to find the best max-lvl artifact for your specific team-rotation, but to decide what artifacts could be valuable enough to even level.',
+        ],
+        img: '/genshin/tutorials/artifact-import.jpg',
+        video: '',
+      }, {
+        title: 'Is it complicated?',
+        paragraphs: [
+          'You don\'t need to write any data files and there are few things that need to configure.',
+          'There is a video-tutorial on scanning artifacts and links to reliable build guides.',
+        ],
+        img: '/genshin/tutorials/artifact-import.jpg',
+        video: '',
+      },
+    ],
+  }, {
     label: 'Importing artifacts',
     pages: [
       {
