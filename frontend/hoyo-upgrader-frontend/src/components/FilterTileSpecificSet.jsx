@@ -30,6 +30,7 @@ export default function FilterTileSpecificSet({ filter, onClick }) {
       className="FilterTile artifact-set specific"
     >
       <button
+        className={filter.showOffpieces ? 'filtered' : ''}
         type="button"
         onClick={handleClick}
         alt="Filtered Artifact Set"

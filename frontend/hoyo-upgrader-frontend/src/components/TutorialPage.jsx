@@ -37,9 +37,14 @@ export default function TutorialPage({
               className="media"
               type="button"
               onClick={() => setShowVideo(true)}
+              disabled={!video}
             >
               <img className="still" src={img} alt="" />
-              <img className="play" src={playIcon} alt="play" />
+              {
+                video && (
+                  <img className="play" src={playIcon} alt="play" />
+                )
+              }
             </button>
           )
         }

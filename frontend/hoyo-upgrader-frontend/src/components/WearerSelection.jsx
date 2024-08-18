@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import { getBusyArtifactWearers } from '../data/builds';
+import paths from '../data/paths';
 
 import CharacterSelector from './CharacterSelector';
 import { CharacterIcon } from './Character';
@@ -47,10 +48,10 @@ export default function WearerSelection({
         secondaryCharacter={buildOwner}
       />
       <span>
-        <strong>{artifactWearer}</strong>
+        <strong>{paths.character[artifactWearer]}</strong>
         {
           buildOwner !== artifactWearer
-            ? ` wears ${buildOwner}'s artifacts.`
+            ? ` wears ${paths.character[buildOwner]}'s artifacts.`
             : ' wears their own artifacts.'
         }
       </span>

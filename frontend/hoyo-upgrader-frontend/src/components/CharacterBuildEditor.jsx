@@ -92,7 +92,7 @@ export default function CharacterBuildEditor({
         </div>
       </Box>
       <Box>
-        <span><strong>MainStats</strong></span>
+        <span><strong>Mainstats</strong></span>
         <span>Select the desired mainstats for sands, goblet and circlet.</span>
         <div className="row">
           <Artifact

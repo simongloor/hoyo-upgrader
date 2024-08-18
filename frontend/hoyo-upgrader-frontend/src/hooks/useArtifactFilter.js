@@ -18,7 +18,7 @@ export default function useArtifactFilter(artifacts, characters) {
       let artifactsToFilter = [...artifacts];
 
       // Filter by set
-      if (filter.specificSet) {
+      if (filter.specificSet && !filter.showOffpieces) {
         // console.log('filter.specificSet', filter.specificSet);
 
         // Only Artifacts that belong to the set should be displayed

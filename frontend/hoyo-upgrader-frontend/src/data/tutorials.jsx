@@ -24,7 +24,7 @@ export default [
         ],
         // img: '/genshin/tutorials/character-overview.jpg',
         img: '/genshin/tutorials/character-overview-short.jpg',
-        video: 'https://www.youtube.com/embed/BZNH3r3Nias?si=EyrcAF9ZxL2wznea',
+        video: '',
       }, {
         title: 'Is it accurate?',
         paragraphs: [
@@ -53,7 +53,7 @@ export default [
           <>Artifacts can be scanned with regular Genshin Scanners.<br />For example: You can record your inventory using <a href="https://obsproject.com/" target="_blank" rel="noreferrer">OBS</a> and upload it to <a href="https://artiscan.ninjabay.org/#/artifacts/help" target="_blank" rel="noreferrer">Artiscan</a>.</>,
         ],
         img: '/genshin/tutorials/artiscan.jpg',
-        video: 'https://www.youtube.com/embed/BZNH3r3Nias?si=EyrcAF9ZxL2wznea',
+        video: '',
       }, {
         title: 'Importing Artifacts',
         paragraphs: [
@@ -70,8 +70,8 @@ export default [
       {
         title: 'Creating a build',
         paragraphs: [
-          'Open the Build editor, select a character and click on [+add build]. You can then select all sets, mainstats and substats that are valuable to the character. ',
-          'Only choose the stats that are actually needed. E.g. don’t just select everything on Bennett: Should he heal or do damage?',
+          <>Open the Build editor, select a character and click on [+add build].<br />You can then select all sets, mainstats and substats that are valuable to the character.</>,
+          <>Only choose the stats that are actually needed.<br />E.g. don’t just select everything on Bennett: Should he heal or do damage?</>,
         ],
         img: '/genshin/tutorials/create-build.jpg',
         video: '',
