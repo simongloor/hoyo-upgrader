@@ -11,7 +11,7 @@ export default [
         paragraphs: [
           <small>Check out the other tutorials for more detailed information.</small>,
         ],
-        video: 'https://www.youtube.com/embed/BZNH3r3Nias?si=EyrcAF9ZxL2wznea',
+        video: 'https://www.youtube.com/watch?v=pz8ETnYhdBQ',
       },
     ],
   }, {
