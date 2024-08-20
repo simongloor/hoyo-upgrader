@@ -19,6 +19,10 @@ export default function Recommendations({
   const dispatch = useDispatch();
   const [displayedKey, setDisplayedKey] = useState('');
 
+  if (!recommendations) {
+    return null;
+  }
+
   // event handlers
   const handleClickGroup = (group) => {
     const {

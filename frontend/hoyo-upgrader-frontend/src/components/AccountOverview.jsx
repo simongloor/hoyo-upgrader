@@ -13,9 +13,9 @@ import QualitySection from './QualitySection';
 export default function AccountOverview({
   filteredBuilds,
 }) {
-  if (!filteredBuilds) {
-    return null;
-  }
+  // if (!filteredBuilds) {
+  //   return null;
+  // }
 
   const renderQualitySection = (label, builds) => {
     if (builds.length === 0) {
@@ -40,9 +40,10 @@ export default function AccountOverview({
 
   // no characters?
   if (
-    filteredBuilds.completeBuilds.length === 0
+    !filteredBuilds
+    || (filteredBuilds.completeBuilds.length === 0
     && filteredBuilds.missingArtifacts.length === 0
-    && filteredBuilds.missingRolls.length === 0
+    && filteredBuilds.missingRolls.length === 0)
   ) {
     return (
       <Box
@@ -52,7 +53,7 @@ export default function AccountOverview({
         <div className="row placeholder">
           <Character />
           <SpacerPiece />
-          <span>No matching character found</span>
+          <span>No characters found</span>
           <SpacerPiece />
         </div>
       </Box>

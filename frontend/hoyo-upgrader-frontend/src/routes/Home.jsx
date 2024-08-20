@@ -58,9 +58,9 @@ export default function Home() {
     dispatch(loadCharacters(characterJson));
   }, [dispatch]);
 
-  if (!filteredArtifacts) {
-    return null;
-  }
+  // if (!filteredArtifacts) {
+  //   return null;
+  // }
 
   const handleClickSet = (set) => {
     dispatch(toggleSpecificSetFilter(set));

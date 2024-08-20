@@ -1,4 +1,8 @@
+@import "variables.scss";
+
 .AccountOverview {
+  min-width: $breakpoint-desktop;
+
   .placeholder {
     justify-content: center;
     align-items: center;

@@ -47,9 +47,9 @@ export default function ArtifactOverview({
     );
   };
 
-  if (!artifacts) {
-    return null;
-  }
+  // if (!artifacts) {
+  //   return null;
+  // }
 
   // render
   return (
@@ -58,22 +58,24 @@ export default function ArtifactOverview({
     >
       <h2>
         Artifacts
-        <span className="weak">{artifacts.totalCount}</span>
+        <span className="weak">{artifacts ? artifacts.totalCount : 0}</span>
       </h2>
-      { renderQualitySection(artifacts.chance100, '100% upgrade chance') }
-      { renderQualitySection(artifacts.chance75, '~75% upgrade chance') }
-      { renderQualitySection(artifacts.chance50, '~50% upgrade chance') }
-      { renderQualitySection(artifacts.chance30, '~30% upgrade chance') }
-      { renderQualitySection(artifacts.chanceLow, 'low upgrade chance') }
-      { renderQualitySection(artifacts.noUpgrade, 'no upgrade') }
-      { renderQualitySection(artifacts.notNeeded, 'not needed') }
+      { artifacts && renderQualitySection(artifacts.chance100, '100% upgrade chance') }
+      { artifacts && renderQualitySection(artifacts.chance75, '~75% upgrade chance') }
+      { artifacts && renderQualitySection(artifacts.chance50, '~50% upgrade chance') }
+      { artifacts && renderQualitySection(artifacts.chance30, '~30% upgrade chance') }
+      { artifacts && renderQualitySection(artifacts.chanceLow, 'low upgrade chance') }
+      { artifacts && renderQualitySection(artifacts.noUpgrade, 'no upgrade') }
+      { artifacts && renderQualitySection(artifacts.notNeeded, 'not needed') }
       {
         // placeholder
-        artifacts.totalCount === 0 && (
+        (
+          !artifacts || artifacts.totalCount === 0
+        ) && (
           <div className="placeholder row">
             <Artifact set="empty" />
             <SpacerPiece />
-            <span>No matching artifact found</span>
+            <span>No artifacts found</span>
             <SpacerPiece />
           </div>
         )
