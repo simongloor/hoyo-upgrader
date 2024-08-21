@@ -53,7 +53,7 @@ export default [
           <>Artifacts can be scanned with regular Genshin Scanners.<br />For example: You can record your inventory using <a href="https://obsproject.com/" target="_blank" rel="noreferrer">OBS</a> and upload it to <a href="https://artiscan.ninjabay.org/#/artifacts/help" target="_blank" rel="noreferrer">Artiscan</a>.</>,
         ],
         img: '/genshin/tutorials/artiscan.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=175',
       }, {
         title: 'Importing Artifacts',
         paragraphs: [
@@ -61,7 +61,7 @@ export default [
           'You can also scan only artifacts of a specific set. To update them, first select the set and then paste the data.',
         ],
         img: '/genshin/tutorials/artifact-import.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=220',
       },
     ],
   }, {
@@ -74,7 +74,7 @@ export default [
           <>Only choose the stats that are actually needed.<br />E.g. don’t just select everything on Bennett: Should he heal or do damage?</>,
         ],
         img: '/genshin/tutorials/create-build.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=238',
       }, {
         title: 'Multiple builds for a character',
         paragraphs: [
@@ -93,7 +93,7 @@ export default [
           'The substats of artifacts are shown for each build. Only the substats that are of value to the build are displayed. Flat stats are ignored, since either % stats or other stats are preferrable.',
         ],
         img: '/genshin/tutorials/substats.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=14',
       }, {
         title: 'Wasted stats',
         paragraphs: [
@@ -129,7 +129,7 @@ export default [
           'You can click on the characters image to add the character to the filter.',
         ],
         img: '/genshin/tutorials/character-overview.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=70',
       }, {
         title: 'Builds by Artifacts',
         paragraphs: [
@@ -152,7 +152,7 @@ export default [
           'All artifacts that are currently equipped, show the wearer on the left side.',
         ],
         img: '/genshin/tutorials/artifacts.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=59',
       },
     ],
   }, {
@@ -167,7 +167,7 @@ export default [
           'You can always enable offpieces and show artifacts and builds independent from any sets.',
         ],
         img: '/genshin/tutorials/filter.jpg',
-        video: '',
+        video: 'https://www.youtube.com/embed/ROPKUlY-svI?si=skDk-S6BN83_Jgv3&amp;start=80',
       },
     ],
   }, {

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import playIcon from '../theme/play_circle.svg';
 import '../styles/TutorialPage.scss';
@@ -14,6 +14,10 @@ export default function TutorialPage({
 }) {
   const [showVideo, setShowVideo] = React.useState(false);
 
+  useEffect(() => {
+    setShowVideo(false);
+  }, [video]);
+
   return (
     <div
       className="TutorialPage"
@@ -24,7 +28,7 @@ export default function TutorialPage({
             <iframe
               width="730"
               height="410"
-              src={video}
+              src={forceVideo ? video : `${video}&autoplay=1`}
               // src={`${video}&amp;controls=0`
               title="YouTube video player"
               // frameBorder="0"
