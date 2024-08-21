@@ -17,7 +17,7 @@ export default function ArtifactEvaluation({
   handleClickPinArtifact,
   pinnedArtifactString,
 }) {
-  // console.log(artifact);
+  console.log(artifact);
   if (
     artifact
     && artifact.buildEvaluations.length > 0
@@ -94,6 +94,7 @@ export default function ArtifactEvaluation({
                 relevantSubstats={b.relevantSubstats}
                 showCounter={false}
                 uniformSubstatCount={9}
+                upgradeChance={b.upgradeChance}
               />
             </div>
           ))

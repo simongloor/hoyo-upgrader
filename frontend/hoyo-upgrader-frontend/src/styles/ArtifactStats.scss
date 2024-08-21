@@ -51,6 +51,11 @@
     }
     &.missingRoll {
       background-color: $stat-missing;
+      opacity: 0.8;
+    }
+    &.missingRoll.isUpgrade {
+      background-color: $stat-missing;
+      opacity: 1;
     }
     
     &.enerRech_ {

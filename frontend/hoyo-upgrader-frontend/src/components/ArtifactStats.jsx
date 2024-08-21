@@ -22,6 +22,7 @@ export default function ArtifactStats({
   relevantSubstats,
   hoveredSubstats,
   uniformSubstatCount,
+  upgradeChance,
   showCounter = true,
   sortRollChances = false,
 }) {
@@ -101,7 +102,7 @@ export default function ArtifactStats({
         )
           .map((chance, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Substat key={`missingRoll-${i}`} stat="missingRoll" chance={chance} />
+            <Substat className={upgradeChance && chance <= upgradeChance && 'isUpgrade'} key={`missingRoll-${i}`} stat="missingRoll" chance={chance} />
           ))
       }
       {
