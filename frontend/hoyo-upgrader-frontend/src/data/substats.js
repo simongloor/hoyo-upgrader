@@ -165,6 +165,52 @@ function getTotalArtifactRolls(artifactData) {
     .reduce((acc, key) => acc + artifactData.substatCounts[key], 0);
 }
 
+function binomialCoefficient(n, k) {
+  if (k > n) return 0;
+  let res = 1;
+  for (let i = 0; i < k; i += 1) {
+    res *= (n - i) / (i + 1);
+  }
+  return res;
+}
+
+// function probabilityOfAtLeastSuccesses(rollChance, numberOfRolls, numberOfRequiredSuccesses) {
+//   let probability = 0;
+
+//   // Calculate the probability for each number of successes >= numberOfRequiredSuccesses
+//   for (let k = numberOfRequiredSuccesses; k <= numberOfRolls; k += 1) {
+//     const binomCoeff = binomialCoefficient(numberOfRolls, k);
+//     const successProbability = rollChance ** k;
+//     const failureProbability = (1 - rollChance) ** (numberOfRolls - k);
+//     probability += binomCoeff * successProbability * failureProbability;
+//   }
+
+//   return probability;
+// }
+
+function calculateRollProbabilities(rollChance, numberOfRolls) {
+  return Array(numberOfRolls).fill(0).map((_, k) => {
+    const roll = k + 1;
+    const binomCoeff = binomialCoefficient(numberOfRolls, roll);
+    const successProbability = rollChance ** roll;
+    const failureProbability = (1 - rollChance) ** (numberOfRolls - roll);
+    return binomCoeff * successProbability * failureProbability;
+  });
+}
+
+function calculateRollProbabilityForSlot(rollProbabilities, numberOfRequiredSuccesses) {
+  return rollProbabilities.reduce((acc, probability, i) => (
+    acc + (i >= numberOfRequiredSuccesses ? probability : 0)
+  ), 0);
+}
+
+function claculateRollProbabilitiesForSlots(rollChance, numberOfRolls) {
+  const rollProbabilities = calculateRollProbabilities(rollChance, numberOfRolls);
+  return Array(numberOfRolls).fill(0).map((_, i) => (
+    calculateRollProbabilityForSlot(rollProbabilities, i)
+  ));
+}
+
 function getMissingRollChances(
   missingRolls,
   unknownSlotRolls,
@@ -222,11 +268,12 @@ function getMissingRollChances(
 
   // For the rest of the rolls, the chance decreases every roll
   // console.log(missingRolls, baseRollChance);
-  Array(missingRolls - unknownSlotRolls)
-    .fill(0).forEach((_, i) => {
-      rollChances.push(baseRollChance ** (i + 1));
-    });
-  // map((_, i) => baseRollChance ** (i + 1), []);
+  const missingProbabilityCount = missingRolls - unknownSlotRolls;
+  rollChances.push(...claculateRollProbabilitiesForSlots(baseRollChance, missingProbabilityCount));
+  // Array(missingRolls - unknownSlotRolls)
+  //   .fill(0).forEach((_, i) => {
+  //     rollChances.push(baseRollChance ** (i + 1));
+  //   });
 
   return rollChances;
 }
