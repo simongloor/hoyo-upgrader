@@ -174,20 +174,6 @@ function binomialCoefficient(n, k) {
   return res;
 }
 
-// function probabilityOfAtLeastSuccesses(rollChance, numberOfRolls, numberOfRequiredSuccesses) {
-//   let probability = 0;
-
-//   // Calculate the probability for each number of successes >= numberOfRequiredSuccesses
-//   for (let k = numberOfRequiredSuccesses; k <= numberOfRolls; k += 1) {
-//     const binomCoeff = binomialCoefficient(numberOfRolls, k);
-//     const successProbability = rollChance ** k;
-//     const failureProbability = (1 - rollChance) ** (numberOfRolls - k);
-//     probability += binomCoeff * successProbability * failureProbability;
-//   }
-
-//   return probability;
-// }
-
 function calculateRollProbabilities(rollChance, numberOfRolls) {
   return Array(numberOfRolls).fill(0).map((_, k) => {
     const roll = k + 1;
@@ -270,10 +256,6 @@ function getMissingRollChances(
   // console.log(missingRolls, baseRollChance);
   const missingProbabilityCount = missingRolls - unknownSlotRolls;
   rollChances.push(...claculateRollProbabilitiesForSlots(baseRollChance, missingProbabilityCount));
-  // Array(missingRolls - unknownSlotRolls)
-  //   .fill(0).forEach((_, i) => {
-  //     rollChances.push(baseRollChance ** (i + 1));
-  //   });
 
   return rollChances;
 }
