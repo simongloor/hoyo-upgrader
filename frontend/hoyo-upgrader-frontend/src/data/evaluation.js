@@ -55,13 +55,20 @@ export function getUpgradePotential(
   rarity,
 ) {
   if (!evaluatedCompetingArtifact) {
-    return (rarity === 5 ? 9 : 7)
-      - relevantSubstats.wastedSubstats
-      - relevantSubstats.impossibleSubstats;
+    return {
+      upgradeIsRelevant: false,
+      upgradePotential: 0,
+    };
+    // return (rarity === 5 ? 9 : 7)
+    //   - relevantSubstats.wastedSubstats
+    //   - relevantSubstats.impossibleSubstats;
   }
   const competingBuildEvaluation = getBuildOfWearer(evaluatedCompetingArtifact);
-  return competingBuildEvaluation.relevantSubstats.wastedSubstats
-    - relevantSubstats.wastedSubstats;
+  return {
+    upgradeIsRelevant: true,
+    upgradePotential: competingBuildEvaluation.relevantSubstats.wastedSubstats
+      - relevantSubstats.wastedSubstats,
+  };
 }
 
 // get the chance of an build gaining at least one substat by rolling to the max level

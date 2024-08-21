@@ -66,7 +66,7 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
         evaluation.artifactWearer,
         evaluatedArtifacts,
       );
-      const upgradePotential = getUpgradePotential(
+      const { upgradePotential, upgradeIsRelevant } = getUpgradePotential(
         evaluation.relevantSubstats,
         competingArtifact,
         artifact.artifactData.rarity,
@@ -77,6 +77,7 @@ function identifyUpgradePotentials(artifact, evaluatedArtifacts) {
       );
       return {
         ...evaluation,
+        upgradeIsRelevant,
         upgradePotential,
         upgradeChance,
       };

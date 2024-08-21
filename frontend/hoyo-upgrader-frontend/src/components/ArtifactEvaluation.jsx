@@ -79,7 +79,7 @@ export default function ArtifactEvaluation({
         artifact.buildEvaluations
           .map((b) => (
             <div
-              className={`evaluation row ${b.upgradePotential === 0 && b.artifactWearer !== artifact.artifactData.location ? 'weak' : ''}`}
+              className={`evaluation row ${b.upgradeIsRelevant && b.upgradePotential === 0 && b.artifactWearer !== artifact.artifactData.location ? 'weak' : ''}`}
               key={b.artifactWearer}
             >
               {/* <span>{b.upgradeChance}</span> */}
