@@ -5,6 +5,10 @@
   justify-content: center;
   align-items: center;
 
+  h3 {
+    font-weight: 700;
+  }
+
   > * {
     transform: translateY(-$space-minus4);
   }

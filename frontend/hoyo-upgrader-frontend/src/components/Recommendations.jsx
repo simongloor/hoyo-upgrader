@@ -10,6 +10,8 @@ import RecommendationRow from './RecommendationRow';
 import NumberButton from './NumberButton';
 
 import iconBack from '../theme/arrow_back.svg';
+import iconChevronDown from '../theme/chevron_down.svg';
+import iconChevronUp from '../theme/chevron_up.svg';
 import '../styles/Recommendations.scss';
 
 export default function Recommendations({
@@ -17,6 +19,7 @@ export default function Recommendations({
 }) {
   // console.log(recommendations);
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const [displayedKey, setDisplayedKey] = useState('');
 
   if (!recommendations) {
@@ -81,12 +84,44 @@ export default function Recommendations({
       break;
   }
 
+  // closed?
+  if (!isOpen) {
+    return (
+      <Box
+        className="Recommendations"
+      >
+        <div className="header">
+          <h3>Upgrade Recommendations (BETA)</h3>
+          <button
+            className="primary"
+            type="button"
+            onClick={() => setIsOpen(true)}
+          >
+            <img src={iconChevronDown} alt="open recommendations" />
+          </button>
+        </div>
+      </Box>
+    );
+  }
+
   // render
   return (
     <Box
       className="Recommendations"
     >
-      <h2>Build Recommendations</h2>
+      <div className="header">
+        <h2>
+          {'Upgrade Recommendations '}
+          <small>(BETA)</small>
+        </h2>
+        <button
+          className="primary"
+          type="button"
+          onClick={() => setIsOpen(false)}
+        >
+          <img src={iconChevronUp} alt="close recommendations" />
+        </button>
+      </div>
       {
         displayedKey === ''
           ? (

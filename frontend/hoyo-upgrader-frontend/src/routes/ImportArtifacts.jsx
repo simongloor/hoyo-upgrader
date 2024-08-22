@@ -103,10 +103,16 @@ export default function ImportArtifacts({ children }) {
         return;
       }
 
-      // update full data while avoiding artifacts equipped to multiple characters
+      // remove old artifacts of this set from full data
       const fullData = JSON.parse(artifactData.full);
-      fullData.artifacts = fullData.artifacts.filter((artifact) => artifact.setKey !== selectedSet);
+      fullData.artifacts = fullData.artifacts
+        .filter((artifact) => artifact.setKey !== selectedSet);
 
+      // remove artifacts that don't belong to the selected set from the new data
+      newJsonData.artifacts = newJsonData.artifacts
+        .filter((artifact) => artifact.setKey === selectedSet);
+
+      // update full data while avoiding artifacts equipped to multiple characters
       const newLocations = [];
       newJsonData.artifacts.forEach((artifact) => {
         if (artifact.location) {
@@ -132,9 +138,8 @@ export default function ImportArtifacts({ children }) {
         return artifact;
       });
 
-      fullData.artifacts.push(
-        ...newJsonData.artifacts.filter((artifact) => artifact.setKey === selectedSet),
-      );
+      // add new artifacts to full data
+      fullData.artifacts.push(...newJsonData.artifacts);
 
       // update set data
       setArtifactData((state) => {
