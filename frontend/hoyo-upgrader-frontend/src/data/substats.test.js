@@ -207,8 +207,9 @@ test('gets correct missingRollChances case 1', () => {
 });
 test('gets correct missingRollChances case 2', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_1, testBuild_1);
-  // should be 0.5 because the 2nd roll could either be critRate_ or critDMG_
-  expect(relevantSubstats.missingRollChances[1]).toEqual(0.5);
+  // should be 0.9375 because the 2nd roll could either be critRate_ or critDMG_
+  // 93.75% is the chance that at least one of the 4 rolls left is valuable
+  expect(relevantSubstats.missingRollChances[1]).toEqual(0.9375);
 });
 test('gets correct missingRollChances case 3', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_2, testBuild_1);
@@ -217,8 +218,9 @@ test('gets correct missingRollChances case 3', () => {
 });
 test('gets correct missingRollChances case 4', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_2, testBuild_1);
-  // should be 0.5 because the 3rd roll could go into critRate_ or critDMG_
-  expect(relevantSubstats.missingRollChances[2]).toEqual(0.5);
+  // should be 0.75 because the 3rd roll could go into critRate_ or critDMG_
+  // 75% is the chance that at least one of the 2 rolls left is valuable
+  expect(relevantSubstats.missingRollChances[2]).toEqual(0.75);
 });
 test('gets correct missingRollChances case 5', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testPlume_1, testBuild_3);
@@ -233,8 +235,9 @@ test('gets correct missingRollChances case 6', () => {
 });
 test('gets correct missingRollChances case 7', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testPlume_1, testBuild_3);
-  // should be 0.75 because the 3rd roll can roll into three valuable substats
-  expect(relevantSubstats.missingRollChances[2]).toEqual(0.75);
+  // should be 0.9375 because there are three valuable substats
+  // 93.75% is the chance that at least one of the 2 rolls left is valuable
+  expect(relevantSubstats.missingRollChances[2]).toEqual(0.9375);
 });
 test('gets correct missingRollChances case 8', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_3, testBuild_1);
@@ -248,7 +251,8 @@ test('gets correct missingRollChances case 9', () => {
 });
 test('gets correct missingRollChances case 10', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testFlower_1, testBuild_5);
-  // should be 0.75 because all substats already exist and one substat is useless
+  // should be 0.9990234375 because all substats already exist and one substat is useless
+  // 99.9% is the chance that at least one of the 5 rolls left is valuable
   console.log(relevantSubstats.missingRollChances);
-  expect(relevantSubstats.missingRollChances[0]).toEqual(0.75);
+  expect(relevantSubstats.missingRollChances[0]).toEqual(0.9990234375);
 });
