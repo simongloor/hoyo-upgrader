@@ -80,17 +80,16 @@ test('gets correct upgradePotential case 1', () => {
     testSands_2,
     5,
   );
-  expect(upgradePotential).toEqual(4);
+  expect(upgradePotential.upgradePotential).toEqual(4);
 });
 test('gets correct upgradePotential case 2', () => {
-  // should be 6 because 1 roll already went into critDMG_ the next can go into critRate_
-  // 5 rolls are left in total, no competing artifact
+  // should be 0 because there is no competing artifact
   const upgradePotential = getUpgradePotential(
     testSandsRelevantSubstats_1,
     null,
     5,
   );
-  expect(upgradePotential).toEqual(6);
+  expect(upgradePotential.upgradePotential).toEqual(0);
 });
 
 test('gets correct upgradeChance case 1', () => {

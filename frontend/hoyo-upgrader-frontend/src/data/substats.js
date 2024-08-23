@@ -204,16 +204,16 @@ function getMissingRollChances(
   slotsNotUsableByBuild,
   unrolledSlotPotential,
 ) {
-  console.log(
-    'missingRolls',
-    missingRolls,
-    'unknownSlotRolls',
-    unknownSlotRolls,
-    'slotsNotUsableByBuild',
-    slotsNotUsableByBuild,
-    'unrolledSlotPotential',
-    unrolledSlotPotential,
-  );
+  // console.log(
+  //   'missingRolls',
+  //   missingRolls,
+  //   'unknownSlotRolls',
+  //   unknownSlotRolls,
+  //   'slotsNotUsableByBuild',
+  //   slotsNotUsableByBuild,
+  //   'unrolledSlotPotential',
+  //   unrolledSlotPotential,
+  // );
   let baseRollChance = 1;
   switch (Math.max(slotsNotUsableByBuild, rolledUselessSlots)) {
     case 1: {
@@ -258,15 +258,14 @@ function getMissingRollChances(
   // For the rest of the rolls, the chance decreases every roll
   // console.log(missingRolls, baseRollChance);
   const missingProbabilityCount = missingRolls - unknownSlotRolls;
-  console.log(
-    'missingProbabilityCount',
-    missingProbabilityCount,
-    'baseRollChance',
-    baseRollChance,
-  );
-  console.log(rollChances);
+  // console.log(
+  //   'missingProbabilityCount',
+  //   missingProbabilityCount,
+  //   'baseRollChance',
+  //   baseRollChance,
+  // );
   rollChances.push(...claculateRollProbabilitiesForSlots(baseRollChance, missingProbabilityCount));
-  console.log(rollChances);
+  // console.log(rollChances);
 
   return rollChances;
 }

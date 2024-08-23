@@ -253,6 +253,6 @@ test('gets correct missingRollChances case 10', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testFlower_1, testBuild_5);
   // should be 0.9990234375 because all substats already exist and one substat is useless
   // 99.9% is the chance that at least one of the 5 rolls left is valuable
-  console.log(relevantSubstats.missingRollChances);
+  // console.log(relevantSubstats.missingRollChances);
   expect(relevantSubstats.missingRollChances[0]).toEqual(0.9990234375);
 });
