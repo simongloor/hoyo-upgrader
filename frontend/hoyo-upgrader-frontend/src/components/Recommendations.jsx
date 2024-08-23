@@ -76,9 +76,10 @@ export default function Recommendations({
       activeCommand = 'level these artifacts to 4:';
       break;
     case 'TOO_MANY':
-    case 'NOT_NEEDED':
+    case 'NOT_UPGRADE_OFFPIECE':
     case 'NO_UPGRADE':
-    case 'UNDER30CHANCE_UPGRADE':
+    case 'NO_UPGRADE_OFFPIECE':
+    case 'LOWCHANCE_UPGRADE':
     default:
       activeCommand = 'reduce these:';
       break;
@@ -149,9 +150,10 @@ export default function Recommendations({
                 <span>fodder/strongbox these artifacts:</span>
                 {
                   renderFilterButtons([
-                    'NOT_NEEDED',
+                    'NO_UPGRADE_OFFPIECE',
                     'NO_UPGRADE',
-                    'UNDER30CHANCE_UPGRADE',
+                    'LOWCHANCE_UPGRADE_OFFPIECE',
+                    'LOWCHANCE_UPGRADE',
                     'TOO_MANY',
                   ])
                 }

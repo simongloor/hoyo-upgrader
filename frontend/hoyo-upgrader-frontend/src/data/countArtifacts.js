@@ -52,12 +52,12 @@ export function countTowardsCustomGroup(
   return newCounter;
 }
 
-export function countTowardsGroup(counter, artifactData) {
+export function countTowardsGroup(counter, artifactData, offpieces) {
   return countTowardsCustomGroup(
     counter,
     artifactData,
     artifactData.slotKey !== 'flower' && artifactData.slotKey !== 'plume',
-    artifactData.slotKey === 'goblet',
+    offpieces,
   );
 }
 
@@ -80,22 +80,18 @@ export function countArtifactsByGroup(artifactData) {
 
 // ----------------------------------------------------------------------------
 
-function getBuildsRelevantForFixedArtifact(artifact, builds) {
-  return builds.filter((build) => (
-    build.sets.includes(artifact.setKey)
-  ));
+function getBuildsRelevantForFixedArtifact(artifact, builds, onSet) {
+  return onSet
+    ? builds.filter((build) => (
+      build.sets.includes(artifact.setKey)
+    ))
+    : builds;
 }
 
-function getBuildsRelevantForMainstatArtifact(artifact, builds) {
+function getBuildsRelevantForMainstatArtifact(artifact, builds, onSet) {
   return builds.filter((build) => (
     build.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
-    && build.sets.includes(artifact.setKey)
-  ));
-}
-
-function getBuildsRelevantForOffpieceArtifact(artifact, builds) {
-  return builds.filter((build) => (
-    build.mainstats[artifact.slotKey].includes(artifact.mainStatKey)
+    && (build.sets.includes(artifact.setKey) || !onSet)
   ));
 }
 
@@ -105,21 +101,18 @@ function filterEvaluationsByBuilds(builds, evaluations) {
   ));
 }
 
-export function getBuildsRelevantForArtifact(artifactData, builds) {
+export function getBuildsRelevantForArtifact(artifactData, builds, onSet) {
   let relevantBuilds = [];
   switch (artifactData.slotKey) {
     case 'flower':
     case 'plume': {
-      relevantBuilds = getBuildsRelevantForFixedArtifact(artifactData, builds);
+      relevantBuilds = getBuildsRelevantForFixedArtifact(artifactData, builds, onSet);
       break;
     }
     case 'sands':
-    case 'circlet': {
-      relevantBuilds = getBuildsRelevantForMainstatArtifact(artifactData, builds);
-      break;
-    }
+    case 'circlet':
     case 'goblet': {
-      relevantBuilds = getBuildsRelevantForOffpieceArtifact(artifactData, builds);
+      relevantBuilds = getBuildsRelevantForMainstatArtifact(artifactData, builds, onSet);
       break;
     }
     default: {
@@ -129,102 +122,98 @@ export function getBuildsRelevantForArtifact(artifactData, builds) {
   return relevantBuilds;
 }
 
-// export function countArtifactsWithoutUpgrade(artifacts, builds) {
-//   let artifactsByGroup = {};
-
-//   artifacts.forEach((a) => {
-//     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
-
-//     const relevantEvaluations = filterEvaluationsByBuilds(
-//       relevantBuilds,
-//       a.buildEvaluations,
-//     );
-//     // console.log(relevantEvaluations);
-//     if (!relevantEvaluations.some((e) => e.upgradePotential >= 0)) {
-//       artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
-//       // console.log(uselessArtifactsByGroup);
-//     }
-//   });
-
-//   return sortArtifactGroupCounter(artifactsByGroup);
-// }
-
-// export function countArtifactsNotNeeded(artifacts, builds) {
-//   let artifactsByGroup = {};
-
-//   artifacts.forEach((a) => {
-//     const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
-//     if (relevantBuilds.length === 0) {
-//       artifactsByGroup = countTowardsGroup(artifactsByGroup, a.artifactData);
-//     }
-//   });
-
-//   return sortArtifactGroupCounter(artifactsByGroup);
-// }
-
 export function countArtifactsByQuality(artifacts, builds) {
-  let notNeeded = {};
   let noUpgrade = {};
   let maybeUpgrade100 = {};
   let maybeUpgrade30 = {};
   let upgrade100 = {};
   let upgrade75 = {};
   let upgrade50 = {};
-  let under30 = {};
+  let lowChance = {};
+
+  let noUpgradeOffpiece = {};
+  let lowChanceOffpiece = {};
 
   artifacts.forEach((a) => {
-    const relevantBuilds = getBuildsRelevantForArtifact(a.artifactData, builds);
-
-    const relevantEvaluations = filterEvaluationsByBuilds(
-      relevantBuilds,
-      a.buildEvaluations,
-    );
-
+    // Skip if artifact is equipped
     if (!a.artifactData.location) {
+      // Evaluate on set with relevant Evaluations
+      const relevantBuildsOnSet = getBuildsRelevantForArtifact(a.artifactData, builds, true);
+      const relevantEvaluationsOnSet = filterEvaluationsByBuilds(
+        relevantBuildsOnSet,
+        a.buildEvaluations,
+      );
+      const hasCharacterWithoutArtifactOnSet = relevantEvaluationsOnSet
+        .some((e) => !e.upgradeIsRelevant);
+
       if (
-        // NOT_NEEDED
-        relevantBuilds.length === 0
-      ) {
-        notNeeded = countTowardsGroup(notNeeded, a.artifactData);
-      } else if (
         // NO_UPGRADE
-        !relevantEvaluations.some((e) => e.upgradePotential >= 0)
+        !hasCharacterWithoutArtifactOnSet
+        && (
+          relevantEvaluationsOnSet.length === 0
+          || !relevantEvaluationsOnSet.some((e) => e.upgradePotential >= 0)
+        )
       ) {
-        noUpgrade = countTowardsGroup(noUpgrade, a.artifactData);
+        noUpgrade = countTowardsGroup(noUpgrade, a.artifactData, false);
       } else if (
         // MAYBE_UPGRADE_100
-        relevantEvaluations.some((e) => (
+        relevantEvaluationsOnSet.some((e) => (
           e.assumedUsefulMissingSlots > 0 && e.upgradeChance >= 1
         ))
       ) {
-        maybeUpgrade100 = countTowardsGroup(maybeUpgrade100, a.artifactData);
+        maybeUpgrade100 = countTowardsGroup(maybeUpgrade100, a.artifactData, false);
       } else if (
         // MAYBE_UPGRADE_30
-        relevantEvaluations.some((e) => (
+        relevantEvaluationsOnSet.some((e) => (
           e.assumedUsefulMissingSlots > 0 && e.upgradeChance >= 0.3
         ))
       ) {
-        maybeUpgrade30 = countTowardsGroup(maybeUpgrade30, a.artifactData);
-      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 1)) {
-        upgrade100 = countTowardsGroup(upgrade100, a.artifactData);
-      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.75)) {
-        upgrade75 = countTowardsGroup(upgrade75, a.artifactData);
-      } else if (relevantEvaluations.some((e) => e.upgradeChance >= 0.5)) {
-        upgrade50 = countTowardsGroup(upgrade50, a.artifactData);
-      } else if (!relevantEvaluations.some((e) => e.upgradeChance >= 0.3)) {
-        under30 = countTowardsGroup(under30, a.artifactData);
+        maybeUpgrade30 = countTowardsGroup(maybeUpgrade30, a.artifactData, false);
+      } else if (relevantEvaluationsOnSet.some((e) => e.upgradeChance >= 1)) {
+        upgrade100 = countTowardsGroup(upgrade100, a.artifactData, false);
+      } else if (relevantEvaluationsOnSet.some((e) => e.upgradeChance >= 0.75)) {
+        upgrade75 = countTowardsGroup(upgrade75, a.artifactData, false);
+      } else if (relevantEvaluationsOnSet.some((e) => e.upgradeChance >= 0.5)) {
+        upgrade50 = countTowardsGroup(upgrade50, a.artifactData, false);
+      } else if (
+        !hasCharacterWithoutArtifactOnSet
+        && !relevantEvaluationsOnSet.some((e) => e.upgradeChance <= 0.3)
+      ) {
+        lowChance = countTowardsGroup(lowChance, a.artifactData, false);
+      }
+
+      // Evaluate offpiece with relevant Evaluations
+      const relevantBuildsOffpiece = getBuildsRelevantForArtifact(a.artifactData, builds, false);
+      const relevantEvaluationsOffpiece = filterEvaluationsByBuilds(
+        relevantBuildsOffpiece,
+        a.buildEvaluations,
+      );
+
+      if (relevantEvaluationsOffpiece.some((e) => !e.upgradeIsRelevant)) {
+        // There is at least one build that isn't wearing a relevant artifact
+      } else if (
+        // NO_UPGRADE_OFFPIECE
+        relevantEvaluationsOffpiece.length === 0
+        || !relevantEvaluationsOffpiece.some((e) => e.upgradePotential >= 0)
+      ) {
+        noUpgradeOffpiece = countTowardsGroup(noUpgradeOffpiece, a.artifactData, true);
+      } else if (!relevantEvaluationsOffpiece.some((e) => e.upgradeChance <= 0.3)
+      ) {
+        lowChanceOffpiece = countTowardsGroup(lowChanceOffpiece, a.artifactData, true);
       }
     }
   });
 
   return {
-    NOT_NEEDED: sortArtifactGroupCounter(notNeeded),
     NO_UPGRADE: sortArtifactGroupCounter(noUpgrade),
     MAYBE_UPGRADE_100: sortArtifactGroupCounter(maybeUpgrade100),
     MAYBE_UPGRADE_30: sortArtifactGroupCounter(maybeUpgrade30),
     UPGRADE100: sortArtifactGroupCounter(upgrade100),
     UPGRADE75: sortArtifactGroupCounter(upgrade75),
     UPGRADE50: sortArtifactGroupCounter(upgrade50),
-    UNDER30CHANCE_UPGRADE: sortArtifactGroupCounter(under30),
+    LOWCHANCE_UPGRADE: sortArtifactGroupCounter(lowChance),
+
+    NO_UPGRADE_OFFPIECE: sortArtifactGroupCounter(noUpgradeOffpiece),
+    LOWCHANCE_UPGRADE_OFFPIECE: sortArtifactGroupCounter(lowChanceOffpiece),
   };
 }

@@ -12,8 +12,10 @@ const paths = {
 
     TOO_MANY: 'many similar pieces',
     NOT_NEEDED: 'not needed',
-    NO_UPGRADE: 'no upgrade',
-    UNDER30CHANCE_UPGRADE: 'under ~30% chance to upgrade',
+    NO_UPGRADE_OFFPIECE: 'no upgrade offpiece',
+    NO_UPGRADE: 'no upgrade on set',
+    LOWCHANCE_UPGRADE_OFFPIECE: 'low chance upgrade offpiece',
+    LOWCHANCE_UPGRADE: 'low chance upgrade on set',
   },
   localStorage: {
     artifactsJson: 'artifactsJson',
