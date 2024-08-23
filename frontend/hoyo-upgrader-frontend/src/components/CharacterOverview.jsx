@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import togglePinnedArtifact from '../data/actions/pinboard';
@@ -17,7 +17,7 @@ export default function CharacterOverview({
   relevantSubstats,
 }) {
   // console.log(characterBuild, characterArtifacts, relevantSubstats);
-  const [hoveredArtifact, setHoveredArtifact] = React.useState(null);
+  const [hoveredArtifact, setHoveredArtifact] = useState(null);
   const dispatch = useDispatch();
   // console.log(hoveredArtifact);
 

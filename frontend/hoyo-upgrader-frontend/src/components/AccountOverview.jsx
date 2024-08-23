@@ -1,38 +1,40 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 
 import CharacterOverview from './CharacterOverview';
 import Box from './Box';
 import Character from './Character';
 import SpacerPiece from './SpacerPiece';
-import TextPiece from './TextPiece';
-
-import '../styles/AccountOverview.scss';
 import QualitySection from './QualitySection';
+
+import iconChevronDown from '../theme/chevron_down.svg';
+import '../styles/AccountOverview.scss';
 
 export default function AccountOverview({
   filteredBuilds,
 }) {
-  // if (!filteredBuilds) {
-  //   return null;
-  // }
+  console.log(filteredBuilds);
+  const [limitCharacterCount, setLimitCharacterCount] = useState(true);
+  const characterCountLimit = 12;
 
-  const renderQualitySection = (label, builds) => {
-    if (builds.length === 0) {
+  const renderQualitySection = (label, builds, usedSlots) => {
+    if (builds.length - usedSlots <= 0) {
       return null;
     }
     return (
       <>
         <QualitySection label={label} withSpacer />
         {
-          builds.map((data) => (
-            <CharacterOverview
-              key={data.build.artifactWearer}
-              characterBuild={data.build}
-              characterArtifacts={data.artifacts}
-              relevantSubstats={data.relevantSubstats}
-            />
-          ))
+          builds
+            .slice(0, characterCountLimit - usedSlots)
+            .map((data) => (
+              <CharacterOverview
+                key={data.build.artifactWearer}
+                characterBuild={data.build}
+                characterArtifacts={data.artifacts}
+                relevantSubstats={data.relevantSubstats}
+              />
+            ))
         }
       </>
     );
@@ -60,15 +62,53 @@ export default function AccountOverview({
     );
   }
 
+  let slotUsage = [0, 0, 0];
+  if (limitCharacterCount) {
+    slotUsage = [filteredBuilds.missingRolls.length];
+    slotUsage.push(slotUsage[slotUsage.length - 1] + filteredBuilds.completeBuilds.length);
+    slotUsage.push(slotUsage[slotUsage.length - 1] + filteredBuilds.missingArtifacts.length);
+  }
+
   // Render
   return (
     <Box
       className="AccountOverview"
     >
       <h2>Characters</h2>
-      { renderQualitySection('in progress', filteredBuilds.missingRolls) }
-      { renderQualitySection('max level', filteredBuilds.completeBuilds) }
-      { renderQualitySection('missing artifacts', filteredBuilds.missingArtifacts) }
+      {
+        renderQualitySection(
+          'in progress',
+          filteredBuilds.missingRolls,
+          0,
+        )
+      }
+      {
+        renderQualitySection(
+          'max level',
+          filteredBuilds.completeBuilds,
+          slotUsage[0],
+        )
+      }
+      {
+        renderQualitySection(
+          'missing artifacts',
+          filteredBuilds.missingArtifacts,
+          slotUsage[1],
+        )
+      }
+      {
+        limitCharacterCount && slotUsage[2] > characterCountLimit && (
+          <div className="more row">
+            <button
+              type="button"
+              className="button primary"
+              onClick={() => setLimitCharacterCount(false)}
+            >
+              <img src={iconChevronDown} alt="show more characters" />
+            </button>
+          </div>
+        )
+      }
     </Box>
   );
 }

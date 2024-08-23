@@ -12,4 +12,10 @@
       opacity: 0.5;
     }
   }
+  .more.row {
+    height: $tile;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }
