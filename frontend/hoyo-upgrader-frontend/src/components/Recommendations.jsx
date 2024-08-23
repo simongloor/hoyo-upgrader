@@ -56,7 +56,7 @@ export default function Recommendations({
     .map((recommendationKey) => (
       <NumberButton
         key={recommendationKey}
-        number={recommendationKey === 'TOO_MANY' ? -1 : recommendations[recommendationKey].totalCount}
+        number={recommendations[recommendationKey].totalCount}
         label={paths.recommendation[recommendationKey]}
         isBold={recommendationKey === 'UPGRADE100' || recommendationKey === 'MAYBE_UPGRADE_100'}
         // isSelected={displayedKey === recommendationKey}
@@ -76,6 +76,7 @@ export default function Recommendations({
       activeCommand = 'level these artifacts to 4:';
       break;
     case 'TOO_MANY':
+    case 'TOO_MANY_FOR_BUILDS':
     case 'NOT_UPGRADE_OFFPIECE':
     case 'NO_UPGRADE':
     case 'NO_UPGRADE_OFFPIECE':
@@ -155,6 +156,7 @@ export default function Recommendations({
                     'LOWCHANCE_UPGRADE_OFFPIECE',
                     'LOWCHANCE_UPGRADE',
                     'TOO_MANY',
+                    'TOO_MANY_FOR_BUILDS',
                   ])
                 }
               </div>

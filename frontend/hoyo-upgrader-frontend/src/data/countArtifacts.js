@@ -33,6 +33,7 @@ export function countTowardsCustomGroup(
   artifactData,
   useStat,
   offpieces,
+  increment = 1,
 ) {
   const group = `${offpieces ? 'any' : artifactData.set}-${artifactData.slotKey}-${artifactData.mainStatKey}`;
   const newCounter = counter;
@@ -42,11 +43,11 @@ export function countTowardsCustomGroup(
       set: offpieces ? artifactData.mainStatKey : artifactData.set,
       stat: useStat ? artifactData.mainStatKey : '',
       offpieces,
-      count: 1,
+      count: increment,
       filterStrings: [artifactData.key],
     };
   } else {
-    newCounter[group].count += 1;
+    newCounter[group].count += increment;
     newCounter[group].filterStrings.push(artifactData.key);
   }
   return newCounter;
@@ -216,4 +217,29 @@ export function countArtifactsByQuality(artifacts, builds) {
     NO_UPGRADE_OFFPIECE: sortArtifactGroupCounter(noUpgradeOffpiece),
     LOWCHANCE_UPGRADE_OFFPIECE: sortArtifactGroupCounter(lowChanceOffpiece),
   };
+}
+
+// ----------------------------------------------------------------------------
+
+export function countArtifactsByBuilds(artifacts, builds) {
+  let groupCounts = {};
+
+  artifacts.forEach((a) => {
+    const relevantBuildsOnSet = getBuildsRelevantForArtifact(a.artifactData, builds, true);
+    const relevantEvaluationsOnSet = filterEvaluationsByBuilds(
+      relevantBuildsOnSet,
+      a.buildEvaluations,
+    );
+    groupCounts = countTowardsCustomGroup(
+      groupCounts,
+      a.artifactData,
+      a.artifactData.slotKey !== 'flower' && a.artifactData.slotKey !== 'plume',
+      false,
+      relevantEvaluationsOnSet.length === 0 ? 0 : 1 / relevantEvaluationsOnSet.length,
+    );
+  });
+
+  groupCounts.totalCount = -1;
+
+  return sortArtifactGroupCounter(groupCounts);
 }

@@ -21,7 +21,7 @@ export default function Filter({ characters, onClickArtifactSets }) {
   const filter = useSelector((state) => state.filter);
   const filteredBuild = filter.artifactWearer
     && characters.find((character) => character.artifactWearer === filter.artifactWearer);
-  console.log(filteredBuild, characters, filter.artifactWearer);
+  // console.log(filteredBuild, characters, filter.artifactWearer);
 
   return (
     <div

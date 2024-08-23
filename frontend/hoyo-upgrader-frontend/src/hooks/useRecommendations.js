@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import {
+  countArtifactsByBuilds,
   countArtifactsByQuality,
   // countArtifactsNotNeeded,
   // countArtifactsWithoutUpgrade,
@@ -26,11 +27,13 @@ export default function useRecommendations(
       recommendedGroups = { ...counts };
       recommendedGroups.sortedGroups = recommendedGroups.sortedGroups
         .filter((group) => recommendedGroups.groups[group].count >= 10);
-
       newRecommendations.TOO_MANY = {
         ...recommendedGroups,
-        totalCount: 0,
+        totalCount: -1,
       };
+
+      // TOO_MANY_FOR_BUILDS: 'too many for builds',
+      newRecommendations.TOO_MANY_FOR_BUILDS = countArtifactsByBuilds(artifacts, builds);
 
       // Any other recommendations are quality based
       const artifactGroupsByQuality = countArtifactsByQuality(artifacts, builds);

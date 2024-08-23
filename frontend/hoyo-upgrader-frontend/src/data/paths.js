@@ -11,6 +11,7 @@ const paths = {
     MAYBE_UPGRADE_30: 'might be ~30% upgrade',
 
     TOO_MANY: 'many similar pieces',
+    TOO_MANY_FOR_BUILDS: 'many similar pieces for builds',
     NOT_NEEDED: 'not needed',
     NO_UPGRADE_OFFPIECE: 'no upgrade offpiece',
     NO_UPGRADE: 'no upgrade on set',

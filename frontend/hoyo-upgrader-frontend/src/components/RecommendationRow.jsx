@@ -30,7 +30,7 @@ export default function RecommendationRow({ set, data, onClick }) {
                 piece={data.groups[group].piece}
                 set={data.groups[group].set}
                 mainstat={data.groups[group].stat}
-                count={data.groups[group].count}
+                count={Math.ceil(data.groups[group].count)}
                 key={`${data.groups[group].set}-${data.groups[group].piece}-${data.groups[group].mainstat}`}
               />
             </button>

@@ -13,12 +13,15 @@ import '../styles/AccountOverview.scss';
 export default function AccountOverview({
   filteredBuilds,
 }) {
-  console.log(filteredBuilds);
+  // console.log(filteredBuilds);
   const [limitCharacterCount, setLimitCharacterCount] = useState(true);
   const characterCountLimit = 12;
 
   const renderQualitySection = (label, builds, usedSlots) => {
-    if (builds.length - usedSlots <= 0) {
+    if (
+      builds.length === 0
+      || (limitCharacterCount && usedSlots >= characterCountLimit)
+    ) {
       return null;
     }
     return (
@@ -62,6 +65,7 @@ export default function AccountOverview({
     );
   }
 
+  // Calculate slot usage to determine if we can show more characters
   let slotUsage = [-9999, -9999, -9999];
   if (limitCharacterCount) {
     slotUsage = [filteredBuilds.missingRolls.length];

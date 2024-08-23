@@ -17,7 +17,7 @@ export default function ArtifactEvaluation({
   handleClickPinArtifact,
   pinnedArtifactString,
 }) {
-  console.log(artifact);
+  // console.log(artifact);
   if (
     artifact
     && artifact.buildEvaluations.length > 0
