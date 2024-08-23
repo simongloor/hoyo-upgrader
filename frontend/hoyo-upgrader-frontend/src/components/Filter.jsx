@@ -16,9 +16,12 @@ import iconReset from '../theme/reset.svg';
 import iconOffpiece from '../theme/offpiece.png';
 import '../styles/Filter.scss';
 
-export default function Filter({ onClickArtifactSets }) {
+export default function Filter({ characters, onClickArtifactSets }) {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
+  const filteredBuild = filter.artifactWearer
+    && characters.find((character) => character.artifactWearer === filter.artifactWearer);
+  console.log(filteredBuild, characters, filter.artifactWearer);
 
   return (
     <div
@@ -62,11 +65,33 @@ export default function Filter({ onClickArtifactSets }) {
       <div className="filterSpacer" />
       <div className="filterSection">
         <div className="buttons">
-          <FilterTilePiece artifactPieceName={paths.piece.flower} filter={filter} />
-          <FilterTilePiece artifactPieceName={paths.piece.plume} filter={filter} />
-          <FilterTilePiece artifactPieceName={paths.piece.sands} filter={filter} />
-          <FilterTilePiece artifactPieceName={paths.piece.goblet} filter={filter} />
-          <FilterTilePiece artifactPieceName={paths.piece.circlet} filter={filter} />
+          <FilterTilePiece
+            artifactPieceName={paths.piece.flower}
+            filter={filter}
+            substats={filteredBuild && filteredBuild.substats}
+          />
+          <FilterTilePiece
+            artifactPieceName={paths.piece.plume}
+            filter={filter}
+          />
+          <FilterTilePiece
+            artifactPieceName={paths.piece.sands}
+            filter={filter}
+            mainstats={filteredBuild && filteredBuild.mainstats.sands}
+            substats={filteredBuild && filteredBuild.substats}
+          />
+          <FilterTilePiece
+            artifactPieceName={paths.piece.goblet}
+            filter={filter}
+            mainstats={filteredBuild && filteredBuild.mainstats.goblet}
+            substats={filteredBuild && filteredBuild.substats}
+          />
+          <FilterTilePiece
+            artifactPieceName={paths.piece.circlet}
+            filter={filter}
+            mainstats={filteredBuild && filteredBuild.mainstats.circlet}
+            substats={filteredBuild && filteredBuild.substats}
+          />
         </div>
         <span>piece</span>
       </div>

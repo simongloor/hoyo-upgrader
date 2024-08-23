@@ -62,7 +62,7 @@ export default function AccountOverview({
     );
   }
 
-  let slotUsage = [0, 0, 0];
+  let slotUsage = [-9999, -9999, -9999];
   if (limitCharacterCount) {
     slotUsage = [filteredBuilds.missingRolls.length];
     slotUsage.push(slotUsage[slotUsage.length - 1] + filteredBuilds.completeBuilds.length);

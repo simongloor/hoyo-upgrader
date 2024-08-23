@@ -6,6 +6,7 @@ import iconTrash from '../theme/trash.svg';
 import '../styles/Artifact.scss';
 
 export default function Artifact({
+  className,
   data,
   tier,
   showMainstat,
@@ -62,7 +63,7 @@ export default function Artifact({
   // render
   return (
     <div
-      className={`Artifact tile ${displayedSet} ${displayedPiece}`}
+      className={`Artifact tile ${className || ''} ${displayedSet} ${displayedPiece}`}
     >
       <img
         src={`${process.env.PUBLIC_URL}/genshin/artifacts/${displayedSet}/${displayedPiece}.png`}

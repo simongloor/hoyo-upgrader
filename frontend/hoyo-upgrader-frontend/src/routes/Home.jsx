@@ -118,6 +118,7 @@ export default function Home() {
       <div className="border horizontal" />
       <Filter
         onClickArtifactSets={() => setActivePopup('artifactSets')}
+        characters={characters}
       />
     </div>
   );

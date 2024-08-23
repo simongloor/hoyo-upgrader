@@ -1,9 +1,46 @@
 @import "variables.scss";
 
 .FilterTile {
+  position: relative;
   height: $tile;
 
-  // &.character.placeholder {
-  //   opacity: 0.2;
-  // }
+  .stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    opacity: 0.6;
+
+    display: flex;
+    // flex-direction: row;
+    flex-direction: column;
+
+    
+    padding: 0 $space-minus4;
+    gap: 1px;
+
+    border-radius: $border;
+    overflow: hidden;
+    
+    &.main {
+      justify-content: flex-start;
+    }
+    &.sub {
+      justify-content: flex-end;
+    }
+    
+    .stat {
+      flex-grow: 0;
+      height: 4px;
+      width: 100%;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    &.stretch {
+      width: 200%;
+    }
+  }
 }
