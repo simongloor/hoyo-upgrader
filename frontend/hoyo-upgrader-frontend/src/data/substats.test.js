@@ -142,11 +142,110 @@ const testPlume_1 = {
     hp_: 1,
   },
 };
+const testGoblet_1 = {
+  location: 'Kazuha',
+  piece: 'goblet',
+  level: 0,
+  rarity: 5,
+  mainStatKey: 'eleMas',
+  substats: [
+    { key: 'hp', value: 239 },
+    { key: 'enerRech_', value: 5.8 },
+    { key: 'def', value: 23 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 0,
+    critDMG_: 0,
+    critRate_: 0,
+    def: 1,
+    def_: 0,
+    eleMas: 0,
+    enerRech_: 1,
+    hp: 1,
+    hp_: 0,
+  },
+};
+const testGoblet_2 = {
+  location: 'Kazuha',
+  piece: 'goblet',
+  level: 0,
+  rarity: 5,
+  mainStatKey: 'eleMas',
+  substats: [
+    { key: 'hp', value: 239 },
+    { key: 'def_', value: 5.8 },
+    { key: 'def', value: 23 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 0,
+    critDMG_: 0,
+    critRate_: 0,
+    def: 1,
+    def_: 1,
+    eleMas: 0,
+    enerRech_: 0,
+    hp: 1,
+    hp_: 0,
+  },
+};
+const testGoblet_3 = {
+  location: 'Kazuha',
+  piece: 'goblet',
+  level: 8,
+  rarity: 5,
+  mainStatKey: 'eleMas',
+  substats: [
+    { key: 'hp', value: 239 },
+    { key: 'def_', value: 5.8 },
+    { key: 'def', value: 23 },
+    { key: 'enerRech_', value: 5.8 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 0,
+    critDMG_: 0,
+    critRate_: 0,
+    def: 1,
+    def_: 1,
+    eleMas: 0,
+    enerRech_: 2,
+    hp: 1,
+    hp_: 0,
+  },
+};
+const testGoblet_4 = {
+  location: 'Bennett',
+  piece: 'goblet',
+  level: 4,
+  rarity: 5,
+  mainStatKey: 'eleMas',
+  substats: [
+    { key: 'hp', value: 239 },
+    { key: 'def_', value: 5.8 },
+    { key: 'def', value: 23 },
+    { key: 'enerRech_', value: 5.8 },
+  ],
+  substatCounts: {
+    atk: 0,
+    atk_: 0,
+    critDMG_: 0,
+    critRate_: 0,
+    def: 1,
+    def_: 1,
+    eleMas: 0,
+    enerRech_: 2,
+    hp: 1,
+    hp_: 0,
+  },
+};
 const testBuild_1 = { substats: ['enerRech_', 'critRate_', 'critDMG_'] };
-const testBuild_2 = { substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'] };
+const testBuild_2 = { substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'] }; // xl
 const testBuild_3 = { substats: ['enerRech_', 'critRate_', 'hp_'] };
 const testBuild_4 = { substats: ['enerRech_'] };
 const testBuild_5 = { substats: ['atk_', 'critRate_', 'critDMG_', 'enerRech_'] };
+const testBuild_6 = { substats: ['enerRech_'] }; // kazuha
 
 test('gets correct substat counts case 1', () => {
   const substatCounts = countSubstats(testFlower_1);
@@ -169,7 +268,7 @@ test('gets correct impossibleSubstats case 2', () => {
 
 test('gets correct wastedSubstats case 1', () => {
   const { relevantSubstats } = getRelevantSubstatsOfArtifact(testSands_1, testBuild_1);
-  // should be 1 because 2 substats are impossible and 3 substats are bad (def, def, empty slot)
+  // should be 1 because one missed initial roll. the last slot could roll into critRate_
   expect(relevantSubstats.wastedSubstats).toEqual(1);
 });
 test('gets correct wastedSubstats case 2', () => {
@@ -255,4 +354,30 @@ test('gets correct missingRollChances case 10', () => {
   // 99.9% is the chance that at least one of the 5 rolls left is valuable
   // console.log(relevantSubstats.missingRollChances);
   expect(relevantSubstats.missingRollChances[0]).toEqual(0.9990234375);
+});
+test('gets correct wastedSubstats case 11', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testGoblet_1, testBuild_6);
+  // should be 1 because there is one missing initial substat
+  // console.log(relevantSubstats);
+  expect(relevantSubstats.wastedSubstats).toEqual(1);
+  // expect(relevantSubstats.missingRollChances.length).toEqual(5);
+  // expect(relevantSubstats.impossibleSubstats).toEqual(3);
+});
+test('gets correct wastedSubstats case 12', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testGoblet_2, testBuild_6);
+  // should be 1 because there is one missing initial substat, the last valuable slot could succeed
+  // console.log(relevantSubstats);
+  expect(relevantSubstats.wastedSubstats).toEqual(1);
+});
+test('gets correct wastedSubstats case 13', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testGoblet_3, testBuild_6);
+  // should be 1 because there is one missing initial substat but all optional rolls succeeded
+  // console.log(relevantSubstats);
+  expect(relevantSubstats.wastedSubstats).toEqual(1);
+});
+test('gets correct wastedSubstats case 14', () => {
+  const { relevantSubstats } = getRelevantSubstatsOfArtifact(testGoblet_4, testBuild_6);
+  // should be 0 because there is no missing initial substat and all optional rolls succeeded
+  // console.log(relevantSubstats);
+  expect(relevantSubstats.wastedSubstats).toEqual(0);
 });
