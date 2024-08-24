@@ -38,6 +38,12 @@ export function getBusyArtifactWearers(wearerStates, exception = '') {
     }, []);
 }
 
+export function getFreeArtifactWearer(wearerStates, buildData, buildOwner) {
+  return buildData.data.some((b) => b.artifactWearer === buildOwner)
+    ? wearerStates.free[0]
+    : buildOwner;
+}
+
 export function getEquippedArtifacts(artifactWearer, artifactsAsList) {
   // console.log(artifactsAsList[0]);
   const artifacts = artifactsAsList.filter((artifact) => (

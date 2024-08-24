@@ -13,7 +13,7 @@ import paths from '../data/paths';
 import { loadStateFromStorage } from '../data/localStorage';
 import { updateCharacters } from '../data/actions/characters';
 import { getEmptyBuild } from '../data/characters';
-import { getWearerStates } from '../data/builds';
+import { getFreeArtifactWearer, getWearerStates } from '../data/builds';
 
 import '../styles/EditBuilds.scss';
 
@@ -50,15 +50,24 @@ export default function EditBuilds() {
     }
   };
 
-  // create and delete functions
-  const handleCreateBuild = (buildOwner) => {
+  const getNewEmptyBuild = (buildOwner) => {
     const newBuilds = [...buildData.data];
     const newBuild = getEmptyBuild();
     newBuild.buildOwner = buildOwner;
-    newBuild.artifactWearer = buildData.data
-      .some((b) => b.artifactWearer === buildOwner)
-      ? wearerStates.free[0]
-      : buildOwner;
+    newBuild.artifactWearer = getFreeArtifactWearer(wearerStates, buildData, buildOwner);
+    return { newBuilds, newBuild };
+  };
+
+  // create and delete functions
+  const handleCreateBuild = (buildOwner) => {
+    const { newBuilds, newBuild } = getNewEmptyBuild(buildOwner);
+    newBuilds.push(newBuild);
+    setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
+  };
+  const handleCreatebuildFromPreset = (buildOwner, preset) => {
+    // eslint-disable-next-line prefer-const
+    let { newBuilds, newBuild } = getNewEmptyBuild(buildOwner);
+    newBuild = { ...newBuild, ...preset };
     newBuilds.push(newBuild);
     setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
@@ -154,6 +163,7 @@ export default function EditBuilds() {
           wearerStates={wearerStates}
           onClickOpenBuildOwner={setSelectedCharacter}
           onClickAddBuild={handleCreateBuild}
+          onClickAddRecommendedBuild={handleCreatebuildFromPreset}
           onClickDeleteBuild={handleDeleteBuild}
           onClickSetWearer={handleSetWearer}
           onClickToggleSet={handleToggleSet}

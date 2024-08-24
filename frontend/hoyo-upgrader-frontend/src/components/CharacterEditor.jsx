@@ -2,6 +2,7 @@
 import React from 'react';
 
 import paths from '../data/paths';
+import kqmBuilds from '../data/kqmBuilds';
 
 import Box from './Box';
 import Character from './Character';
@@ -15,6 +16,7 @@ export default function CharacterEditor({
   wearerStates,
   onClickOpenBuildOwner,
   onClickAddBuild,
+  onClickAddRecommendedBuild,
   onClickDeleteBuild,
   onClickSetWearer,
   onClickToggleSet,
@@ -22,6 +24,7 @@ export default function CharacterEditor({
   onClickToggleSubstat,
 }) {
   // console.log(characterBuilds, wearerStates);
+  // console.log(buildOwner, kqmBuilds[buildOwner]);
 
   if (!characterBuilds) {
     return null;
@@ -58,18 +61,36 @@ export default function CharacterEditor({
         {
           canCreateBuild
             ? (
-              <button
-                className="addBuild primary"
-                type="button"
-                onClick={() => onClickAddBuild(buildOwner)}
-                disabled={!canCreateBuild}
-              >
-                <span>+add build</span>
-              </button>
+              <>
+                {
+                  kqmBuilds[buildOwner]
+                  && Object.keys(kqmBuilds[buildOwner]).map((key) => (
+                    <button
+                      className="addRecommendedBuild secondary"
+                      type="button"
+                      key={key}
+                      onClick={() => onClickAddRecommendedBuild(
+                        buildOwner,
+                        kqmBuilds[buildOwner][key],
+                      )}
+                    >
+                      <span>{`+${key}`}</span>
+                    </button>
+                  ))
+                }
+                <button
+                  className="addBuild primary"
+                  type="button"
+                  onClick={() => onClickAddBuild(buildOwner)}
+                  disabled={!canCreateBuild}
+                >
+                  <span>+add build</span>
+                </button>
+              </>
             ) : (
               <>
                 <span className="used">
-                  {`This character currently wears the artifact set of ${useOfOwner[0].buildOwner}.`}
+                  {`This character currently wears the artifact set of ${paths.character[useOfOwner[0].buildOwner]}`}
                 </span>
                 <button
                   className="unlock primary"
@@ -77,7 +98,7 @@ export default function CharacterEditor({
                   onClick={() => onClickOpenBuildOwner(useOfOwner[0].buildOwner)}
                   alt="switch to build"
                 >
-                  <span>{`open ${useOfOwner[0].buildOwner}`}</span>
+                  <span>{`open ${paths.character[useOfOwner[0].buildOwner]}`}</span>
                 </button>
               </>
             )
