@@ -161,70 +161,79 @@ const kqmBuilds = {
     },
   },
   Chongyun: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Quickswap Burst DPS': {
+      sets: ['NoblessOblige'],
+      mainstats: {
+        sands: ['atk_', 'eleMas', 'enerRech_'],
+        goblet: ['cryo_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'],
+    },
   },
   Clorinde: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'On-Field DPS': {
+      sets: ['FragmentOfHarmonicWhimsy', 'GladiatorsFinale', 'ThunderingFury'],
+      mainstats: {
+        sands: ['eleMas'],
+        goblet: ['electro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['critRate_', 'critDMG_', 'atk_', 'eleMas'],
+    },
   },
   Collei: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Crit Off-Field DPS': {
+      sets: ['DeepwoodMemories', 'GildedDreams'],
+      mainstats: {
+        sands: ['eleMas', 'atk_', 'enerRech_'],
+        goblet: ['dendro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'],
+    },
   },
   Cyno: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'On-Field DPS': {
+      sets: ['ThunderingFury'],
+      mainstats: {
+        sands: ['eleMas'],
+        goblet: ['electro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'critDMG_', 'eleMas'],
+    },
   },
   Dehya: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Hyperburgeon Support': {
+      sets: ['Instructor'],
+      mainstats: {
+        sands: ['eleMas'],
+        goblet: ['eleMas'],
+        circlet: ['eleMas'],
+      },
+      substats: ['eleMas', 'hp_', 'enerRech_'],
+    },
+    'On-Field DPS (C0)': {
+      sets: ['EmblemOfSeveredFate'],
+      mainstats: {
+        sands: ['enerRech_'],
+        goblet: ['pyro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_'],
+    },
   },
   Diluc: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'On-Field Melt': {
+      sets: ['CrimsonWitchOfFlames', 'GildedDreams'],
+      mainstats: {
+        sands: ['eleMas'],
+        goblet: ['pyro_dmg_'],
+        circlet: ['critRate_', 'critDMG_'],
+      },
+      substats: ['critRate_', 'critDMG_', 'atk_', 'eleMas'],
+    },
   },
   Diona: {
     // '': {
