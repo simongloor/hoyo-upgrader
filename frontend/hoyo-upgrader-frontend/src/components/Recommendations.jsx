@@ -58,7 +58,11 @@ export default function Recommendations({
         key={recommendationKey}
         number={recommendations[recommendationKey].totalCount}
         label={paths.recommendation[recommendationKey]}
-        isBold={recommendationKey === 'UPGRADE100' || recommendationKey === 'MAYBE_UPGRADE_100'}
+        isBold={
+          recommendationKey === 'UPGRADE100'
+          || recommendationKey === 'MAYBE_UPGRADE_100'
+          || recommendationKey === 'NO_UPGRADE_OFFPIECE'
+        }
         // isSelected={displayedKey === recommendationKey}
         onClick={() => setDisplayedKey(recommendationKey)}
       />
