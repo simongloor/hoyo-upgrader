@@ -1,24 +1,45 @@
+/* eslint-disable no-unused-vars */
+
+// strong type to avoid typos
+const er = 'enerRech_';
+const atk = 'atk_';
+const hp = 'hp_';
+const def = 'def_';
+const em = 'elemMas';
+const cr = 'critRate_';
+const cd = 'critDMG_';
+const heal = 'heal_';
+const pyro = 'pyro';
+const hydro = 'hydro';
+const electro = 'electro';
+const dendro = 'dendro';
+const anemo = 'anemo';
+const geo = 'geo';
+const cryo = 'cryo';
+const phys = 'phys';
+
+// builds for each character
 const kqmBuilds = {
   Albedo: {
     'Off-Field DPS': {
       sets: ['GoldenTroupe'],
       mainstats: {
-        sands: ['def_'],
-        goblet: ['geo_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [def],
+        goblet: [geo],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'def_'],
+      substats: [er, cr, cd, def],
     },
   },
   Alhaitham: {
     'On-Field DPS': {
       sets: ['GildedDreams'],
       mainstats: {
-        sands: ['eleMas'],
-        goblet: ['dendro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [em],
+        goblet: [dendro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'eleMas', 'atk_'],
+      substats: [er, cr, cd, em, atk],
     },
   },
   Aloy: {},
@@ -27,235 +48,235 @@ const kqmBuilds = {
     'On-Field DPS': {
       sets: ['HuskOfOpulentDreams'],
       mainstats: {
-        sands: ['def_'],
-        goblet: ['geo_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [def],
+        goblet: [geo],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'def_'],
+      substats: [er, cr, cd, def],
     },
   },
   Arlecchino: {
     'Mono Pyro': {
       sets: ['FragmentOfHarmonicWhimsy', 'GladiatorsFinale'],
       mainstats: {
-        sands: ['atk_'],
-        goblet: ['pyro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [atk],
+        goblet: [pyro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_'],
+      substats: [er, cr, cd, atk],
     },
     Vaporize: {
       sets: ['FragmentOfHarmonicWhimsy', 'GladiatorsFinale'],
       mainstats: {
-        sands: ['atk_', 'eleMas'],
-        goblet: ['pyro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [atk, em],
+        goblet: [pyro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'],
+      substats: [er, cr, cd, atk, em],
     },
   },
   Baizhu: {
     'Healing (without Fav)': {
       sets: ['DeepwoodMemories', 'OceanHuedClam'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['hp_'],
-        circlet: ['hp_'],
+        sands: [er],
+        goblet: [hp],
+        circlet: [hp],
       },
-      substats: ['enerRech_', 'hp_'],
+      substats: [er, hp],
     },
   },
   Barbara: {
     'Healing (without Fav)': {
       sets: ['OceanHuedClam'],
       mainstats: {
-        sands: ['hp_'],
-        goblet: ['hp_'],
-        circlet: ['heal_'],
+        sands: [hp],
+        goblet: [hp],
+        circlet: [heal],
       },
-      substats: ['hp_'],
+      substats: [hp],
     },
   },
   Beidou: {
     'Off-Field DPS': {
       sets: ['EmblemOfSeveredFate', 'GladiatorsFinale', 'ThunderingFury', 'NoblesseOblige'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['electro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [er],
+        goblet: [electro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_'],
+      substats: [er, cr, cd, atk],
     },
   },
   Bennett: {
     Healing: {
       sets: ['NoblesseOblige'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['hp_'],
-        circlet: ['hp_', 'heal_'],
+        sands: [er],
+        goblet: [hp],
+        circlet: [hp, heal],
       },
-      substats: ['enerRech_', 'hp_'],
+      substats: [er, hp],
     },
     'Off-Field DPS': {
       sets: ['NoblesseOblige'],
       mainstats: {
-        sands: ['enerRech_', 'atk_', 'eleMas'],
-        goblet: ['pyro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [er, atk, em],
+        goblet: [pyro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'],
+      substats: [er, cr, cd, atk, em],
     },
   },
   Candace: {
     'On-Field DPS': {
       sets: ['TenacityOfTheMillelith', 'GladiatorsFinale', 'EmblemOfSeveredFate', 'HeartOfDepth'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['hydro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [er],
+        goblet: [hydro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_'],
+      substats: [er, cr, cd, atk],
     },
     'Off-Field DPS': {
       sets: ['EmblemOfSeveredFate'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['hp_', 'hydro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [er],
+        goblet: [hp, hydro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'hp_'],
+      substats: [er, cr, cd, hp],
     },
   },
   Charlotte: {
     'Healing (with Fav)': {
       sets: ['EmblemOfSeveredFate', 'GladiatorsFinale', 'MaidenBeloved'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['atk_'],
-        circlet: ['critRate_'],
+        sands: [er],
+        goblet: [atk],
+        circlet: [cr],
       },
-      substats: ['enerRech_', 'critRate_', 'atk_'],
+      substats: [er, cr, atk],
     },
   },
   Chevreuse: {
     'Support (with Fav)': {
       sets: ['NoblesseOblige'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['hp_'],
-        circlet: ['hp_', 'heal_', 'critRate_'],
+        sands: [er],
+        goblet: [hp],
+        circlet: [hp, heal, cr],
       },
-      substats: ['enerRech_', 'hp_', 'critRate_'],
+      substats: [er, hp, cr],
     },
   },
   Chiori: {
     'Off-Field DPS': {
       sets: ['GoldenTroupe'],
       mainstats: {
-        sands: ['def_'],
-        goblet: ['geo_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [def],
+        goblet: [geo],
+        circlet: [cr, cd],
       },
-      substats: ['critRate_', 'critDMG_', 'def_', 'atk_'],
+      substats: [cr, cd, def, atk],
     },
   },
   Chongyun: {
     'Quickswap Burst DPS': {
       sets: ['NoblessOblige'],
       mainstats: {
-        sands: ['atk_', 'eleMas', 'enerRech_'],
-        goblet: ['cryo_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [atk, em, er],
+        goblet: [cryo],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'],
+      substats: [er, cr, cd, atk, em],
     },
   },
   Clorinde: {
     'On-Field DPS': {
       sets: ['FragmentOfHarmonicWhimsy', 'GladiatorsFinale', 'ThunderingFury'],
       mainstats: {
-        sands: ['eleMas'],
-        goblet: ['electro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [em],
+        goblet: [electro],
+        circlet: [cr, cd],
       },
-      substats: ['critRate_', 'critDMG_', 'atk_', 'eleMas'],
+      substats: [cr, cd, atk, em],
     },
   },
   Collei: {
     'Crit Off-Field DPS': {
       sets: ['DeepwoodMemories', 'GildedDreams'],
       mainstats: {
-        sands: ['eleMas', 'atk_', 'enerRech_'],
-        goblet: ['dendro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [em, atk, er],
+        goblet: [dendro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_', 'eleMas'],
+      substats: [er, cr, cd, atk, em],
     },
   },
   Cyno: {
     'On-Field DPS': {
       sets: ['ThunderingFury'],
       mainstats: {
-        sands: ['eleMas'],
-        goblet: ['electro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [em],
+        goblet: [electro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'eleMas'],
+      substats: [er, cr, cd, em],
     },
   },
   Dehya: {
     'Hyperburgeon Support': {
       sets: ['Instructor'],
       mainstats: {
-        sands: ['eleMas'],
-        goblet: ['eleMas'],
-        circlet: ['eleMas'],
+        sands: [em],
+        goblet: [em],
+        circlet: [em],
       },
-      substats: ['eleMas', 'hp_', 'enerRech_'],
+      substats: [em, hp, er],
     },
     'On-Field DPS (C0)': {
       sets: ['EmblemOfSeveredFate'],
       mainstats: {
-        sands: ['enerRech_'],
-        goblet: ['pyro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [er],
+        goblet: [pyro],
+        circlet: [cr, cd],
       },
-      substats: ['enerRech_', 'critRate_', 'critDMG_', 'atk_'],
+      substats: [er, cr, cd, atk],
     },
   },
   Diluc: {
     'On-Field Melt': {
       sets: ['CrimsonWitchOfFlames', 'GildedDreams'],
       mainstats: {
-        sands: ['eleMas'],
-        goblet: ['pyro_dmg_'],
-        circlet: ['critRate_', 'critDMG_'],
+        sands: [em],
+        goblet: [pyro],
+        circlet: [cr, cd],
       },
-      substats: ['critRate_', 'critDMG_', 'atk_', 'eleMas'],
+      substats: [cr, cd, atk, em],
     },
   },
   Diona: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    Support: {
+      sets: ['EmbldOfSeveredFate', 'TenacityOfTheMillelith', 'MaidenBeloved'],
+      mainstats: {
+        sands: [hp],
+        goblet: [hp],
+        circlet: [hp, heal],
+      },
+      substats: [er, hp, cr],
+    },
   },
   Dori: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'C6 Quickbloom': {
+      sets: ['ThunderingFury'],
+      mainstats: {
+        sands: [er],
+        goblet: [electro],
+        circlet: [cr, cd],
+      },
+      substats: [er, cr, cd, em],
+    },
   },
   Emilie: {
     // '': {
