@@ -8,6 +8,7 @@ import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import Artifact from './Artifact';
 import ArtifactStats from './ArtifactStats';
+import { addArtifactFilter } from '../data/actions/filter';
 
 // import '../styles/CharacterOverview.scss';
 
@@ -21,6 +22,11 @@ export default function CharacterOverview({
   const dispatch = useDispatch();
   // console.log(hoveredArtifact);
 
+  const handleClickArtifact = (slot, artifactData) => {
+    dispatch(togglePinnedArtifact(artifactData[slot].artifactData));
+    dispatch(addArtifactFilter(slot, artifactData[slot].artifactData.mainStatKey));
+  };
+
   const renderArtifact = (artifactData, slot) => {
     const build = artifactData[slot] && artifactData[slot].buildEvaluations
       .find((b) => b.artifactWearer === characterBuild.artifactWearer);
@@ -29,7 +35,7 @@ export default function CharacterOverview({
         type="button"
         className="button pin"
         alt="pin artifact"
-        onClick={() => dispatch(togglePinnedArtifact(artifactData[slot].artifactData))}
+        onClick={() => handleClickArtifact(slot, artifactData)}
         onMouseEnter={() => setHoveredArtifact(build)}
         disabled={!artifactData}
       >

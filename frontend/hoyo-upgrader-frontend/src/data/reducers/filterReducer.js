@@ -109,6 +109,23 @@ const filterReducer = (
         showOffpieces: !state.showOffpieces,
       };
     }
+    case 'ADD_ARTIFACT_FILTER': {
+      const { mainstat, specificPiece } = action.payload;
+      if (mainstat === 'hp' || mainstat === 'atk') {
+        return {
+          ...newState,
+          specificPiece,
+        };
+      }
+      return {
+        ...newState,
+        specificPiece,
+        mainstat: {
+          ...newState.mainstat,
+          [specificPiece]: mainstat,
+        },
+      };
+    }
     case 'APPLY_FILTER': {
       return {
         ...emptyFilter,

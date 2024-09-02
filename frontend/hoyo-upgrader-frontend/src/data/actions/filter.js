@@ -38,6 +38,12 @@ export function applyFilter(filter) {
     payload: { filter },
   });
 }
+export function addArtifactFilter(specificPiece, mainstat) {
+  return ({
+    type: 'ADD_ARTIFACT_FILTER',
+    payload: { specificPiece, mainstat },
+  });
+}
 export function resetFilter() {
   return ({
     type: 'RESET_FILTER',
