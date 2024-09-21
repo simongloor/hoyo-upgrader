@@ -9,6 +9,7 @@ import ImportArtifacts from './routes/ImportArtifacts';
 import EditBuilds from './routes/EditBuilds';
 
 import './styles/App.scss';
+import TheaterTeams from './routes/TheaterTeams';
 
 function App() {
   return (
@@ -37,6 +38,11 @@ function App() {
         exact
         path={`/genshin/${paths.EDIT_BUILDS}`}
         element={<EditBuilds />}
+      />
+      <Route
+        exact
+        path="/genshin/theater/teams"
+        element={<TheaterTeams />}
       />
     </Routes>
   );
