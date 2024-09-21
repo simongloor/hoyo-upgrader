@@ -76,7 +76,7 @@ const kqmBuilds = {
     },
   },
   Baizhu: {
-    'Healing (without Fav)': {
+    'Healing (no Fav)': {
       sets: ['DeepwoodMemories', 'OceanHuedClam'],
       mainstats: {
         sands: [er],
@@ -87,7 +87,7 @@ const kqmBuilds = {
     },
   },
   Barbara: {
-    'Healing (without Fav)': {
+    'Healing (no Fav)': {
       sets: ['OceanHuedClam'],
       mainstats: {
         sands: [hp],
@@ -149,7 +149,7 @@ const kqmBuilds = {
     },
   },
   Charlotte: {
-    'Healing (with Fav)': {
+    'Healing (Fav)': {
       sets: ['EmblemOfSeveredFate', 'GladiatorsFinale', 'MaidenBeloved'],
       mainstats: {
         sands: [er],
@@ -160,7 +160,7 @@ const kqmBuilds = {
     },
   },
   Chevreuse: {
-    'Support (with Fav)': {
+    'Support (Fav)': {
       sets: ['NoblesseOblige'],
       mainstats: {
         sands: [er],
@@ -697,15 +697,24 @@ const kqmBuilds = {
     // },
   },
   Sayu: {
-    // '': {
-    //   sets: [''],
-    //   mainstats: {
-    //     sands: [''],
-    //     goblet: [''],
-    //     circlet: [''],
-    //   },
-    //   substats: [''],
-    // },
+    'Swirl Driver (Fav)': {
+      sets: ['ViridescentVenerer'],
+      mainstats: {
+        sands: [em],
+        goblet: [em],
+        circlet: [cr],
+      },
+      substats: [cr, em, atk, er],
+    },
+    'Off-Field Healer (Fav)': {
+      sets: ['ViridescentVenerer'],
+      mainstats: {
+        sands: [er],
+        goblet: [atk],
+        circlet: [cr],
+      },
+      substats: [er, cr, atk, em],
+    },
   },
   Sethos: {
     // '': {
