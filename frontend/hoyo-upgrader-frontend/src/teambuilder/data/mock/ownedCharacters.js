@@ -3,7 +3,7 @@ import paths from '../../../data/paths';
 export default [
   paths.character.Wanderer,
   paths.character.Faruzan,
-  paths.character.Kazuha,
+  paths.character.KaedeharaKazuha,
   paths.character.Xianyun,
   paths.character.Sucrose,
   paths.character.Sayu,

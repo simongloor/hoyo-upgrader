@@ -4,24 +4,16 @@ import * as THREE from 'three';
 import { ForceGraph3D } from 'react-force-graph';
 
 import paths, { getCharacterImgPath } from '../../data/paths';
+import ownedCharacters from '../data/mock/ownedCharacters';
 
 // import '../styles/TeamForceGraph.scss';
 
-export default function TeamForceGraph({ children }) {
-  const characterNodes = [
-    {
-      id: paths.character.Bennett,
-      img: getCharacterImgPath(paths.character.Bennett),
-    },
-    {
-      id: paths.character.Xiangling,
-      img: getCharacterImgPath(paths.character.Xiangling),
-    },
-    {
-      id: paths.character.Gaming,
-      img: getCharacterImgPath(paths.character.Gaming),
-    },
-  ];
+export default function TeamForceGraph() {
+  const characterNodes = ownedCharacters.map((character) => ({
+    id: character,
+    img: getCharacterImgPath(character),
+  }));
+  console.log(characterNodes);
 
   const gData = {
     nodes: characterNodes,
