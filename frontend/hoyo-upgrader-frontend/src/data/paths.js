@@ -238,3 +238,5 @@ export function getStatText({ key, value }) {
   const { name, unit } = statValueParts[key];
   return `${name}+${value}${unit}`;
 }
+
+export const getCharacterImgPath = (character) => `${process.env.PUBLIC_URL}/genshin/characters/${character}.png`;

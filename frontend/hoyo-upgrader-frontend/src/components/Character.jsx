@@ -3,6 +3,7 @@ import React from 'react';
 import '../styles/Character.scss';
 import { useDispatch, useStore } from 'react-redux';
 import { toggleCharacterFilter } from '../data/actions/filter';
+import { getCharacterImgPath } from '../data/paths';
 
 export function CharacterIcon({
   character = 'generic',
@@ -11,7 +12,7 @@ export function CharacterIcon({
   return (
     <div className={`Character tile ${character} CharacterIcon`}>
       <img
-        src={`${process.env.PUBLIC_URL}/genshin/characters/${character}.png`}
+        src={getCharacterImgPath(character)}
         alt={character}
       />
       {
@@ -19,7 +20,7 @@ export function CharacterIcon({
           <>
             <img
               className="secondary"
-              src={`${process.env.PUBLIC_URL}/genshin/characters/${secondaryCharacter}.png`}
+              src={getCharacterImgPath(secondaryCharacter)}
               alt={secondaryCharacter}
             />
             <div className="separator" />
@@ -69,7 +70,7 @@ export default function Character({
       disabled={disabled}
     >
       <img
-        src={`${process.env.PUBLIC_URL}/genshin/characters/${character}.png`}
+        src={getCharacterImgPath(character)}
         alt={character}
       />
       {
@@ -82,7 +83,7 @@ export default function Character({
           <>
             <img
               className="secondary"
-              src={`${process.env.PUBLIC_URL}/genshin/characters/${secondaryCharacter}.png`}
+              src={getCharacterImgPath(secondaryCharacter)}
               alt={secondaryCharacter}
             />
             <div className="separator" />
