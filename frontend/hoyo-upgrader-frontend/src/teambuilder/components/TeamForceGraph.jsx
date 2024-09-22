@@ -16,25 +16,29 @@ export default function TeamForceGraph() {
   }));
 
   const links = [];
-  const colorNeeds = '#ffffff';
-  const colorLikes = '#5555ff';
+  const linkNeeds = {
+    value: 10,
+    color: '#ffffff',
+  };
+  const linkLikes = {
+    value: 3,
+    color: '#5555ff',
+  };
   characters.forEach((char) => {
     const { name, mates } = char;
-    const { needs, likes, hates } = mates;
+    const { needs, likes } = mates;
     needs.forEach((need) => {
       links.push({
         source: name,
         target: need,
-        value: 10,
-        color: colorNeeds,
+        ...linkNeeds,
       });
     });
     likes.forEach((like) => {
       links.push({
         source: name,
         target: like,
-        value: 3,
-        color: colorLikes,
+        ...linkLikes,
       });
     });
   });
