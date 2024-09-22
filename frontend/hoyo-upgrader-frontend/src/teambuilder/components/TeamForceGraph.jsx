@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { ForceGraph3D } from 'react-force-graph';
 import * as THREE from 'three';
+import { ForceGraph3D } from 'react-force-graph';
+
 import paths, { getCharacterImgPath } from '../../data/paths';
+
 // import '../styles/TeamForceGraph.scss';
 
 export default function TeamForceGraph({ children }) {
@@ -27,17 +29,12 @@ export default function TeamForceGraph({ children }) {
       {
         source: paths.character.Xiangling,
         target: paths.character.Bennett,
-        linkLabel: 'hui',
-        linkColor: 'red',
-        linkWidth: 3,
-        val: 1,
         value: 1,
         color: '#ffff00',
       },
       {
         source: paths.character.Gaming,
         target: paths.character.Bennett,
-        val: 10,
         value: 10,
         color: '#ffffff',
       },
@@ -62,10 +59,8 @@ export default function TeamForceGraph({ children }) {
         nodeThreeObject={drawCharacterNode}
         linkWidth={0.5}
         linkOpacity={0.6}
-        // nodeAutoColorBy="value"
-        // linkAutoColorBy="value"
-        linkDirectionalParticles="value"
-        linkDirectionalParticleSpeed={(d) => d.val * 0.001}
+        linkDirectionalParticleSpeed={(d) => d.value * 0.001}
+        // linkDirectionalParticles="value"
       />
     </div>
   );
