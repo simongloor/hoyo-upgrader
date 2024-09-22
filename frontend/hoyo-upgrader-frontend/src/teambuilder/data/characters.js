@@ -7,8 +7,13 @@ export default [
     role: 'onfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Faruzan,
+        paths.character.Layla,
+      ],
+      likes: [
+        paths.character.Bennett,
+      ],
       hates: [],
     },
   },
@@ -24,7 +29,7 @@ export default [
     },
   },
   {
-    name: paths.character.Kazuha,
+    name: paths.character.KaedeharaKazuha,
     element: 'anemo',
     role: 'buffer',
     powerlevel: 3,
@@ -140,7 +145,12 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Bennett,
+        paths.character.Xianyun,
+        paths.character.Diona,
+        paths.character.Rosaria,
+      ],
       hates: [],
     },
   },

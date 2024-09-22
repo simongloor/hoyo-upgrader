@@ -5,6 +5,7 @@ import { ForceGraph3D } from 'react-force-graph';
 
 import paths, { getCharacterImgPath } from '../../data/paths';
 import ownedCharacters from '../data/mock/ownedCharacters';
+import characters from '../data/characters';
 
 // import '../styles/TeamForceGraph.scss';
 
@@ -13,24 +14,34 @@ export default function TeamForceGraph() {
     id: character,
     img: getCharacterImgPath(character),
   }));
-  console.log(characterNodes);
+
+  const links = [];
+  const colorNeeds = '#ffffff';
+  const colorLikes = '#5555ff';
+  characters.forEach((char) => {
+    const { name, mates } = char;
+    const { needs, likes, hates } = mates;
+    needs.forEach((need) => {
+      links.push({
+        source: name,
+        target: need,
+        value: 10,
+        color: colorNeeds,
+      });
+    });
+    likes.forEach((like) => {
+      links.push({
+        source: name,
+        target: like,
+        value: 3,
+        color: colorLikes,
+      });
+    });
+  });
 
   const gData = {
     nodes: characterNodes,
-    links: [
-      {
-        source: paths.character.Xiangling,
-        target: paths.character.Bennett,
-        value: 1,
-        color: '#ffff00',
-      },
-      {
-        source: paths.character.Gaming,
-        target: paths.character.Bennett,
-        value: 10,
-        color: '#ffffff',
-      },
-    ],
+    links,
   };
 
   const drawCharacterNode = ({ img }) => {
@@ -50,9 +61,9 @@ export default function TeamForceGraph() {
         graphData={gData}
         nodeThreeObject={drawCharacterNode}
         linkWidth={0.5}
-        linkOpacity={0.6}
+        linkOpacity={0.4}
         linkDirectionalParticleSpeed={(d) => d.value * 0.001}
-        // linkDirectionalParticles="value"
+        linkDirectionalParticles="value"
       />
     </div>
   );
