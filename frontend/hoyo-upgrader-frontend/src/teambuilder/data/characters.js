@@ -304,7 +304,10 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.YaeMiko,
+        paths.character.Beidou,
+      ],
       hates: [],
     },
   },

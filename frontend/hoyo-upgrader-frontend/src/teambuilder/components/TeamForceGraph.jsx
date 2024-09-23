@@ -9,10 +9,23 @@ import characters from '../data/characters';
 
 // import '../styles/TeamForceGraph.scss';
 
+function filterCharacter(nodes, links) {
+
+}
+
 export default function TeamForceGraph() {
-  const characterNodes = ownedCharacters.map((character) => ({
-    id: character,
-    img: getCharacterImgPath(character),
+  const ownedCharacterData = characters
+    .filter((char) => ownedCharacters.includes(char.name));
+
+  const filteredElements = ['electro', 'dendro'];
+  const filteredCharacterData = ownedCharacterData
+    .filter((char) => filteredElements.includes(char.element));
+
+  const characterNodes = filteredCharacterData.map((character) => ({
+    id: character.name,
+    img: getCharacterImgPath(
+      Object.keys(paths.character).find((key) => paths.character[key] === character.name),
+    ),
   }));
 
   const links = [];
@@ -24,22 +37,26 @@ export default function TeamForceGraph() {
     value: 3,
     color: '#5555ff',
   };
-  characters.forEach((char) => {
+  filteredCharacterData.forEach((char) => {
     const { name, mates } = char;
     const { needs, likes } = mates;
     needs.forEach((need) => {
-      links.push({
-        source: name,
-        target: need,
-        ...linkNeeds,
-      });
+      if (filteredCharacterData.find((fChar) => fChar.name === need)) {
+        links.push({
+          source: name,
+          target: need,
+          ...linkNeeds,
+        });
+      }
     });
     likes.forEach((like) => {
-      links.push({
-        source: name,
-        target: like,
-        ...linkLikes,
-      });
+      if (filteredCharacterData.find((fChar) => fChar.name === like)) {
+        links.push({
+          source: name,
+          target: like,
+          ...linkLikes,
+        });
+      }
     });
   });
 
