@@ -389,7 +389,7 @@ export default [
     },
   },
   {
-    name: 'DMC',
+    name: paths.character.Traveler,
     element: 'dendro',
     role: 'offfield',
     powerlevel: 3,
@@ -502,17 +502,6 @@ export default [
     name: paths.character.Navia,
     element: 'geo',
     role: 'quickswap',
-    powerlevel: 3,
-    mates: {
-      needs: [],
-      likes: [],
-      hates: [],
-    },
-  },
-  {
-    name: 'GMC',
-    element: 'geo',
-    role: 'offfield',
     powerlevel: 3,
     mates: {
       needs: [],

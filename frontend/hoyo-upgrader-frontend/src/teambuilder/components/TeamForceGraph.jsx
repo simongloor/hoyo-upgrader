@@ -9,17 +9,18 @@ import characters from '../data/characters';
 
 // import '../styles/TeamForceGraph.scss';
 
-function filterCharacter(nodes, links) {
+export default function TeamForceGraph({
+  filteredElements,
+}) {
+  if (!filteredElements) {
+    return null;
+  }
 
-}
-
-export default function TeamForceGraph() {
   const ownedCharacterData = characters
     .filter((char) => ownedCharacters.includes(char.name));
 
-  const filteredElements = ['electro', 'dendro'];
   const filteredCharacterData = ownedCharacterData
-    .filter((char) => filteredElements.includes(char.element));
+    .filter((char) => filteredElements.includes(char.element) || char.name === 'Traveler');
 
   const characterNodes = filteredCharacterData.map((character) => ({
     id: character.name,

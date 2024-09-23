@@ -223,6 +223,7 @@ const paths = {
     def: 'DEF',
     hp: 'HP',
   },
+  elements: ['anemo', 'cryo', 'dendro', 'electro', 'geo', 'hydro', 'pyro'],
 };
 export default paths;
 

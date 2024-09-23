@@ -35,7 +35,7 @@ export default [
   paths.character.Charlotte,
   paths.character.Diona,
   paths.character.Nahida,
-  'DMC',
+  paths.character.Traveler,
   paths.character.Baizhu,
   paths.character.Collei,
   paths.character.Yaoyao,
@@ -46,7 +46,6 @@ export default [
   paths.character.Ningguang,
   paths.character.Xilonen,
   paths.character.Navia,
-  'GMC',
   paths.character.Kachina,
   paths.character.Zhongli,
 ];
