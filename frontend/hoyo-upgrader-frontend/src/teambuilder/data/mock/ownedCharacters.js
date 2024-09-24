@@ -40,7 +40,7 @@ export default [
   paths.character.Collei,
   paths.character.Yaoyao,
   paths.character.Kirara,
-  paths.character.Tighnari,
+  // paths.character.Tighnari,
   paths.character.Noelle,
   paths.character.Gorou,
   paths.character.Ningguang,

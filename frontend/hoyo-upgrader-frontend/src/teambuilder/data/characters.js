@@ -10,9 +10,17 @@ export default [
       needs: [
         paths.character.Faruzan,
         paths.character.Layla,
+        paths.character.Bennett,
       ],
       likes: [
-        paths.character.Bennett,
+        paths.character.Zhongli,
+        paths.character.Furina,
+        paths.character.Yelan,
+        paths.character.Xingqiu,
+        paths.character.Beidou,
+        paths.character.Fischl,
+        paths.character.YaeMiko,
+        paths.character.Kachina,
       ],
       hates: [],
     },
@@ -67,8 +75,18 @@ export default [
     role: 'sustain',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Xiangling,
+        paths.character.Bennett,
+      ],
+      likes: [
+        paths.character.Kaeya,
+        paths.character.Fischl,
+        paths.character.SangonomiyaKokomi,
+        paths.character.Rosaria,
+        paths.character.Keqing,
+        paths.character.Lisa,
+      ],
       hates: [],
     },
   },
@@ -78,8 +96,23 @@ export default [
     role: 'onfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Bennett,
+        paths.character.Yelan,
+        paths.character.Xingqiu,
+        paths.character.Sucrose,
+      ],
+      likes: [
+        paths.character.Nahida,
+        paths.character.Baizhu,
+        paths.character.KaedeharaKazuha,
+        paths.character.Beidou,
+        paths.character.Lisa,
+        paths.character.Rosaria,
+        paths.character.Layla,
+        paths.character.Kachina,
+        paths.character.Charlotte,
+      ],
       hates: [],
     },
   },
@@ -90,7 +123,12 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Yanfei,
+        paths.character.Fischl,
+        paths.character.YaeMiko,
+        paths.character.Lisa,
+      ],
       hates: [],
     },
   },
@@ -100,8 +138,13 @@ export default [
     role: 'offfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Bennett,
+        paths.character.Chevreuse,
+      ],
+      likes: [
+        paths.character.RaidenShogun,
+      ],
       hates: [],
     },
   },
@@ -134,7 +177,9 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Kaeya,
+      ],
       hates: [],
     },
   },
@@ -144,12 +189,17 @@ export default [
     role: 'onfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [
-        paths.character.Bennett,
+      needs: [
         paths.character.Xianyun,
+        paths.character.Furina,
+        paths.character.Bennett,
+      ],
+      likes: [
         paths.character.Diona,
         paths.character.Rosaria,
+        paths.character.Yelan,
+        paths.character.KaedeharaKazuha,
+        paths.character.Zhongli,
       ],
       hates: [],
     },
@@ -161,7 +211,15 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Furina,
+        paths.character.Fischl,
+        paths.character.Nahida,
+        paths.character.RaidenShogun,
+        paths.character.Dehya,
+        paths.character.Sucrose,
+        paths.character.KaedeharaKazuha,
+      ],
       hates: [],
     },
   },
@@ -172,7 +230,11 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Charlotte,
+        paths.character.Xianyun,
+        paths.character.Baizhu,
+      ],
       hates: [],
     },
   },
@@ -182,8 +244,15 @@ export default [
     role: 'buffer',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Rosaria,
+      ],
+      likes: [
+        paths.character.RaidenShogun,
+        paths.character.Yanfei,
+        paths.character.Neuvillette,
+        paths.character.Navia,
+      ],
       hates: [],
     },
   },
@@ -193,8 +262,16 @@ export default [
     role: 'sustain',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Nilou,
+        paths.character.Nahida,
+      ],
+      likes: [
+        paths.character.Lisa,
+        paths.character.Beidou,
+        paths.character.Fischl,
+        paths.character.Rosaria,
+      ],
       hates: [],
     },
   },
@@ -215,8 +292,12 @@ export default [
     role: 'offfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Yelan,
+      ],
+      likes: [
+        paths.character.Xingqiu,
+      ],
       hates: [],
     },
   },
@@ -226,8 +307,15 @@ export default [
     role: 'offfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Yaoyao,
+      ],
+      likes: [
+        paths.character.Beidou,
+        paths.character.KukiShinobu,
+        paths.character.Traveler,
+        paths.character.Nahida,
+      ],
       hates: [],
     },
   },
@@ -237,8 +325,12 @@ export default [
     role: 'buffer',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Nahida,
+      ],
+      likes: [
+        paths.character.Baizhu,
+      ],
       hates: [],
     },
   },
@@ -284,7 +376,9 @@ export default [
     role: 'offfield',
     powerlevel: 3,
     mates: {
-      needs: [],
+      needs: [
+        paths.character.Fischl,
+      ],
       likes: [
         paths.character.Lisa,
       ],
@@ -309,7 +403,13 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Fischl,
+        paths.character.KukiShinobu,
+        paths.character.Zhongli,
+        paths.character.Nahida,
+        paths.character.Baizhu,
+      ],
       hates: [],
     },
   },
@@ -323,6 +423,8 @@ export default [
       likes: [
         paths.character.YaeMiko,
         paths.character.Beidou,
+        paths.character.Zhongli,
+        paths.character.Dehya,
       ],
       hates: [],
     },
@@ -334,7 +436,12 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Xilonen,
+        paths.character.KaedeharaKazuha,
+        paths.character.Chevreuse,
+        paths.character.Bennett,
+      ],
       hates: [],
     },
   },
@@ -345,7 +452,10 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Yelan,
+        paths.character.Xingqiu,
+      ],
       hates: [],
     },
   },
@@ -356,7 +466,12 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.SangonomiyaKokomi,
+        paths.character.Xingqiu,
+        paths.character.Mona,
+        paths.character.Xiangling,
+      ],
       hates: [],
     },
   },
@@ -378,7 +493,11 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Mona,
+        paths.character.Xingqiu,
+        paths.character.Yelan,
+      ],
       hates: [],
     },
   },
@@ -388,19 +507,28 @@ export default [
     role: 'sustain',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Gaming,
+      ],
+      likes: [
+        paths.character.Yanfei,
+        paths.character.Kaeya,
+        paths.character.Rosaria,
+      ],
       hates: [],
     },
   },
   {
     name: paths.character.Nahida,
     element: 'dendro',
-    role: 'offfield',
+    role: 'quickswap',
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.KukiShinobu,
+        paths.character.RaidenShogun,
+      ],
       hates: [],
     },
   },
@@ -410,8 +538,12 @@ export default [
     role: 'offfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.KukiShinobu,
+        paths.character.Nilou,
+      ],
+      likes: [
+      ],
       hates: [],
     },
   },
@@ -433,7 +565,9 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Nilou,
+      ],
       hates: [],
     },
   },
@@ -443,8 +577,13 @@ export default [
     role: 'sustain',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.KukiShinobu,
+        paths.character.Nilou,
+      ],
+      likes: [
+        paths.character.Xingqiu,
+      ],
       hates: [],
     },
   },
@@ -455,7 +594,9 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Nilou,
+      ],
       hates: [],
     },
   },
@@ -488,8 +629,17 @@ export default [
     role: 'onfield',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Furina,
+        paths.character.KaedeharaKazuha,
+      ],
+      likes: [
+        paths.character.Gorou,
+        paths.character.Kachina,
+        paths.character.Yelan,
+        paths.character.Xingqiu,
+        paths.character.Sucrose,
+      ],
       hates: [],
     },
   },
@@ -511,7 +661,10 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Zhongli,
+        paths.character.Xilonen,
+      ],
       hates: [],
     },
   },
@@ -533,7 +686,18 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Zhongli,
+        paths.character.Furina,
+        paths.character.Xianyun,
+        paths.character.Wanderer,
+        paths.character.Ningguang,
+        paths.character.Xiangling,
+        paths.character.Bennett,
+        paths.character.Kachina,
+        paths.character.Traveler,
+        paths.character.Xilonen,
+      ],
       hates: [],
     },
   },

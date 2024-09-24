@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import * as THREE from 'three';
 import { ForceGraph3D } from 'react-force-graph';
 
@@ -12,6 +12,20 @@ import characters from '../data/characters';
 export default function TeamForceGraph({
   filteredElements,
 }) {
+  const graph = useRef();
+
+  const handleClickNode = useCallback((node) => {
+    // Aim at node from outside it
+    const distance = 200;
+    const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+
+    graph.current.cameraPosition(
+      { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+      node, // lookAt ({ x, y, z })
+      3000, // ms transition duration
+    );
+  }, [graph]);
+
   if (!filteredElements) {
     return null;
   }
@@ -80,12 +94,14 @@ export default function TeamForceGraph({
       className="TeamForceGraph"
     >
       <ForceGraph3D
+        ref={graph}
         graphData={gData}
         nodeThreeObject={drawCharacterNode}
         linkWidth={0.5}
         linkOpacity={0.4}
         linkDirectionalParticleSpeed={(d) => d.value * 0.001}
         linkDirectionalParticles="value"
+        onNodeClick={handleClickNode}
       />
     </div>
   );
