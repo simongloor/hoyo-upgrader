@@ -4,8 +4,9 @@ import ownedCharacters from '../data/mock/ownedCharacters';
 import characters from '../data/characters';
 import paths from '../../data/paths';
 import Box from '../../components/Box';
+import SpacerPiece from '../../components/SpacerPiece';
 import ElementCharacters from './ElementCharacters';
-// import '../styles/ElementSelection.scss';
+import '../styles/ElementSelection.scss';
 
 export default function ElementSelection({
   onSelectElement,
@@ -37,6 +38,21 @@ export default function ElementSelection({
     >
       <h2>select element</h2>
       <div className="column">
+        <div className="roles row">
+          <SpacerPiece size="default" />
+          {
+            paths.roles.map((role) => (
+              new Array(MaxNumberOfCharactersByRole[role]).fill(null).map(() => (
+                <img
+                  className={`role tile ${role}`}
+                  src={`${process.env.PUBLIC_URL}/genshin/roles/${role}.png`}
+                  alt={role}
+                  key={role}
+                />
+              ))
+            ))
+          }
+        </div>
         {
           paths.elements.map((element) => {
             console.log('element', element);

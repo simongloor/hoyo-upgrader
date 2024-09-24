@@ -42,7 +42,7 @@ export default [
   {
     name: paths.character.Xianyun,
     element: 'anemo',
-    role: 'sustain',
+    role: 'support',
     powerlevel: 3,
     mates: {
       needs: [],
@@ -86,7 +86,7 @@ export default [
   {
     name: paths.character.Chevreuse,
     element: 'pyro',
-    role: 'buffer',
+    role: 'support',
     powerlevel: 3,
     mates: {
       needs: [],
@@ -108,7 +108,7 @@ export default [
   {
     name: paths.character.Bennett,
     element: 'pyro',
-    role: 'buffer',
+    role: 'support',
     powerlevel: 3,
     mates: {
       needs: [],
@@ -245,7 +245,7 @@ export default [
   {
     name: paths.character.Keqing,
     element: 'electro',
-    role: 'quickswap',
+    role: 'onfield',
     powerlevel: 3,
     mates: {
       needs: [],
@@ -316,7 +316,7 @@ export default [
   {
     name: paths.character.RaidenShogun,
     element: 'electro',
-    role: 'offfield',
+    role: 'quickswap',
     powerlevel: 3,
     mates: {
       needs: [],
@@ -448,7 +448,7 @@ export default [
   {
     name: paths.character.Tighnari,
     element: 'dendro',
-    role: 'quickswap',
+    role: 'onfield',
     powerlevel: 3,
     mates: {
       needs: [
@@ -504,7 +504,7 @@ export default [
   {
     name: paths.character.Xilonen,
     element: 'geo',
-    role: 'buffer',
+    role: 'support',
     powerlevel: 3,
     mates: {
       needs: [],
@@ -537,7 +537,7 @@ export default [
   {
     name: paths.character.Zhongli,
     element: 'geo',
-    role: 'sustain',
+    role: 'support',
     powerlevel: 3,
     mates: {
       needs: [],

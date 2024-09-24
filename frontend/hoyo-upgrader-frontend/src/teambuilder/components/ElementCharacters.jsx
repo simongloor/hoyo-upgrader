@@ -5,34 +5,11 @@ import '../styles/ElementCharacters.scss';
 import characters from '../data/characters';
 import ownedCharacters from '../data/mock/ownedCharacters';
 
-export default function ElementCharacters({ element }) {
-  const ownedCharactersData = characters
-    .filter((char) => ownedCharacters.includes(char.name));
-
-  const renderRole = (role) => (
-    <>
-      <img
-        className="tile role"
-        src={`${process.env.PUBLIC_URL}/genshin/roles/${role}.png`}
-        alt={role}
-      />
-      {
-        ownedCharactersData
-          .filter((char) => char.element === element && char.role === role)
-          .map((char) => (
-            <img
-              className="tile character"
-              src={getCharacterImgPath(
-                Object.keys(paths.character).find((key) => paths.character[key] === char.name),
-              )}
-              alt={char.name}
-              key={char.name}
-            />
-          ))
-      }
-    </>
-  );
-
+export default function ElementCharacters({
+  element,
+  charactersByRole,
+  maxNumberOfCharactersByRole,
+}) {
   return (
     <div
       className="ElementCharacters row"
@@ -43,7 +20,26 @@ export default function ElementCharacters({ element }) {
         alt={element}
       />
       {
-        paths.roles.map((role) => renderRole(role))
+        // add an element for the number of max roles
+        paths.roles.map((role) => (
+          new Array(maxNumberOfCharactersByRole[role]).fill(null).map((_, index) => (
+            index < charactersByRole[role].length
+              ? (
+                <img
+                  className="tile character"
+                  src={getCharacterImgPath(
+                    Object.keys(paths.character).find(
+                      (key) => paths.character[key] === charactersByRole[role][index].name,
+                    ),
+                  )}
+                  alt={charactersByRole[role].name}
+                  key={charactersByRole[role].name}
+                />
+              ) : (
+                <div className="tile" />
+              )
+          ))
+        ))
       }
     </div>
   );

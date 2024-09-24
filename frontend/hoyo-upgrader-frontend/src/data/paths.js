@@ -237,6 +237,7 @@ const paths = {
     'quickswap',
     'offfield',
     'buffer',
+    'support',
     'sustain',
   ],
 };

@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.ElementSelection {
+  .role {
+    opacity: 0.4;
+  }
+  .support,
+  .quickswap {
+    opacity: 0.8;
+  }
+}
