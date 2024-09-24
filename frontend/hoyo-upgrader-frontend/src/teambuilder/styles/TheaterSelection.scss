@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+.TheaterSelection {
+  .elements {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+    .combination {
+      margin-right: $tile;
+    }
+  }
+}

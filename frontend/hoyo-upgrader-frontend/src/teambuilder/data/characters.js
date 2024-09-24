@@ -271,7 +271,9 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Lisa,
+      ],
       hates: [],
     },
   },
@@ -449,8 +451,20 @@ export default [
     role: 'quickswap',
     powerlevel: 3,
     mates: {
-      needs: [],
-      likes: [],
+      needs: [
+        paths.character.Fischl,
+        paths.character.YaeMiko,
+      ],
+      likes: [
+        paths.character.Lisa,
+        paths.character.Beidou,
+        paths.character.Nahida,
+        paths.character.Baizhu,
+        paths.character.Kirara,
+        paths.character.KaedeharaKazuha,
+        paths.character.Sucrose,
+        paths.character.Sayu,
+      ],
       hates: [],
     },
   },
