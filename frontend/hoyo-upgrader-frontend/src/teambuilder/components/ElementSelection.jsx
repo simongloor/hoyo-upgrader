@@ -14,6 +14,7 @@ export default function ElementSelection({
   const ownedCharactersData = characters
     .filter((char) => ownedCharacters.includes(char.name));
 
+  // get characters by role by element
   const characterByRoleByElement = paths.elements.reduce((acc, element) => {
     acc[element] = paths.roles.reduce((roleAcc, role) => {
       const roles = roleAcc;
@@ -24,6 +25,7 @@ export default function ElementSelection({
     return acc;
   }, {});
 
+  // get max number of characters by role
   const MaxNumberOfCharactersByRole = paths.roles.reduce((acc, role) => {
     const roles = acc;
     roles[role] = Math.max(...paths.elements.map(
@@ -32,6 +34,7 @@ export default function ElementSelection({
     return roles;
   }, {});
 
+  // render
   return (
     <Box
       className="ElementSelection"
@@ -42,36 +45,34 @@ export default function ElementSelection({
           <SpacerPiece size="default" />
           {
             paths.roles.map((role) => (
-              new Array(MaxNumberOfCharactersByRole[role]).fill(null).map(() => (
+              new Array(MaxNumberOfCharactersByRole[role]).fill(null).map((_, index) => (
                 <img
                   className={`role tile ${role}`}
                   src={`${process.env.PUBLIC_URL}/genshin/roles/${role}.png`}
                   alt={role}
-                  key={role}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`role-${index}`}
                 />
               ))
             ))
           }
         </div>
         {
-          paths.elements.map((element) => {
-            console.log('element', element);
-            return (
-              <button
-                className="element"
-                key={element}
-                type="button"
-                onClick={() => onSelectElement(element)}
-                alt={element}
-              >
-                <ElementCharacters
-                  element={element}
-                  charactersByRole={characterByRoleByElement[element]}
-                  maxNumberOfCharactersByRole={MaxNumberOfCharactersByRole}
-                />
-              </button>
-            );
-          })
+          paths.elements.map((element) => (
+            <button
+              className="element"
+              key={element}
+              type="button"
+              onClick={() => onSelectElement(element)}
+              alt={element}
+            >
+              <ElementCharacters
+                element={element}
+                charactersByRole={characterByRoleByElement[element]}
+                maxNumberOfCharactersByRole={MaxNumberOfCharactersByRole}
+              />
+            </button>
+          ))
         }
       </div>
     </Box>

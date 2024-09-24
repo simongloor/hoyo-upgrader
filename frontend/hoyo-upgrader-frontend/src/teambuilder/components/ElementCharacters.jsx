@@ -32,11 +32,15 @@ export default function ElementCharacters({
                       (key) => paths.character[key] === charactersByRole[role][index].name,
                     ),
                   )}
-                  alt={charactersByRole[role].name}
-                  key={charactersByRole[role].name}
+                  alt={charactersByRole[role][index].name}
+                  key={charactersByRole[role][index].name}
                 />
               ) : (
-                <div className="tile" />
+                <div
+                  className="tile"
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`empty-${role}-${index}`}
+                />
               )
           ))
         ))
