@@ -13,6 +13,7 @@ export default function TeamForceGraph({
   filteredElements,
 }) {
   const graph = useRef();
+  const [selectedNode, setSelectedNode] = React.useState(null);
 
   const handleClickNode = useCallback((node) => {
     // Aim at node from outside it
@@ -24,6 +25,9 @@ export default function TeamForceGraph({
       node, // lookAt ({ x, y, z })
       3000, // ms transition duration
     );
+
+    console.log(node);
+    setSelectedNode(node.id);
   }, [graph]);
 
   if (!filteredElements) {
@@ -43,6 +47,7 @@ export default function TeamForceGraph({
     ),
   }));
 
+  // Links
   const links = [];
   const linkNeeds = {
     value: 10,
@@ -51,6 +56,7 @@ export default function TeamForceGraph({
   const linkLikes = {
     value: 3,
     color: '#5555ff',
+    linkWidth: 10,
   };
   filteredCharacterData.forEach((char) => {
     const { name, mates } = char;

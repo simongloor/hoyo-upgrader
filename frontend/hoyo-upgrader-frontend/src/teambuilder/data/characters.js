@@ -687,7 +687,14 @@ export default [
     powerlevel: 3,
     mates: {
       needs: [],
-      likes: [],
+      likes: [
+        paths.character.Yanfei,
+        paths.character.Navia,
+        paths.character.Noelle,
+        paths.character.Neuvillette,
+        paths.character.Furina,
+        paths.character.Rosaria,
+      ],
       hates: [],
     },
   },
