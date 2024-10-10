@@ -68,7 +68,7 @@ export default function ArtifactStats({
     >
       {
         // fill up the remaining substats
-        Array(fillerSubstatCount).fill().map((_, i) => (
+        fillerSubstatCount > 0 && Array(fillerSubstatCount).fill().map((_, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <div key={i} className="filler" />
         ))
