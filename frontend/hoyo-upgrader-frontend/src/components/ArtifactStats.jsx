@@ -107,7 +107,11 @@ export default function ArtifactStats({
       }
       {
         // render wasted substats
-        Array(relevantSubstats.wastedSubstats || 0).fill().map((_, i) => (
+        Array(
+          relevantSubstats.wastedSubstats
+          && relevantSubstats.wastedSubstats >= 0
+            ? relevantSubstats.wastedSubstats : 0,
+        ).fill().map((_, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <Substat key={`wasted-${i}`} stat="wastedSubstats" />
         ))
