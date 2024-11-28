@@ -72,9 +72,13 @@ export default function EditBuilds() {
     setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };
 
-  const handleDeleteBuild = (buildWearer) => {
+  const handleDeleteBuild = (artifactWearer) => {
+    // Make sure wearer exists
+    if (!artifactWearer) return;
+
+    // Remove build from data
     const newBuilds = [...buildData.data];
-    const index = newBuilds.findIndex((b) => b.artifactWearer === buildWearer);
+    const index = newBuilds.findIndex((b) => b.artifactWearer === artifactWearer);
     newBuilds.splice(index, 1);
     setBuildData({ data: newBuilds, json: JSON.stringify(newBuilds, null, 2) });
   };

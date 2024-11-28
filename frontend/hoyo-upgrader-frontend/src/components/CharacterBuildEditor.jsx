@@ -33,7 +33,7 @@ export default function CharacterBuildEditor({
     onClickToggleSubstat(build.artifactWearer, statName);
   };
   const handleDeleteBuild = () => {
-    onClickDeleteBuild(build.buildWearer);
+    onClickDeleteBuild(build.artifactWearer);
   };
 
   // console.log(build.buildOwner, build.artifactWearer);
