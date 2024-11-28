@@ -42,6 +42,7 @@ export default function CharacterOverview({
         <Artifact
           data={artifactData[slot] && artifactData[slot].artifactData}
           tier={build && build.relevantSubstats.wastedSubstats}
+          showMainstat
         />
       </button>
     );

@@ -53,8 +53,9 @@ export default function Artifact({
   }
 
   // add widget around label
-  const widget = data && (label || tier || showMainstat) ? (
-    <div className={`tier tile-marker ${tier ? 'heavy' : ''} ${showMainstat && 'empty'}`}>
+  const hasMainstat = data && data.mainStatKey !== 'atk' && data.mainStatKey !== 'hp';
+  const widget = data && (label || tier || (showMainstat && hasMainstat)) ? (
+    <div className={`tier tile-marker ${tier ? 'heavy' : ''} ${!label && showMainstat && 'empty'}`}>
       <div className={`${data.piece === 'flower' || data.piece === 'plume' ? 'generic' : data.mainStatKey}`} />
       {label}
     </div>

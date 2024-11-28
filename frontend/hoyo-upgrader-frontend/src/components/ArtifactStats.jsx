@@ -7,6 +7,7 @@ import Substat from './Substat';
 import CounterPiece from './CounterPiece';
 
 import '../styles/ArtifactStats.scss';
+import paths from '../data/paths';
 
 const statOrder = [
   'enerRech_',
@@ -82,29 +83,40 @@ export default function ArtifactStats({
       }
       {
         // render valuable substats
-        Object.keys(sortedSubstats).map((stat) => (
-          Array(sortedSubstats[stat]).fill().map((_, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Substat
-              key={`${stat}-${i}`}
-              stat={stat}
-              isHighlighted={hoveredSubstats && i < hoveredSubstats.valuableSubstats[stat]}
-            />
-          ))
+        Object.keys(sortedSubstats).map((stat) => sortedSubstats[stat] > 0 && (
+          <div className="SubstatType" key={stat}>
+            {
+              Array(sortedSubstats[stat]).fill().map((_, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Substat
+                  key={`${stat}-${i}`}
+                  stat={stat}
+                  isHighlighted={hoveredSubstats && i < hoveredSubstats.valuableSubstats[stat]}
+                />
+              ))
+            }
+            {
+              sortedSubstats[stat] > 1 && (
+                <span className={`StatLabel fine ${stat}`}><strong>{paths.statsShort[stat]}</strong></span>
+              )
+            }
+          </div>
         ))
       }
-      {
-        // render missing rolls
-        (
-          sortRollChances
-            ? displayedMissingTollChances.sort((a, b) => b - a)
-            : displayedMissingTollChances
-        )
-          .map((chance, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Substat className={upgradeChance && chance <= upgradeChance && 'isUpgrade'} key={`missingRoll-${i}`} stat="missingRoll" chance={chance} />
-          ))
-      }
+      <div className="SubstatType">
+        {
+          // render missing rolls
+          (
+            sortRollChances
+              ? displayedMissingTollChances.sort((a, b) => b - a)
+              : displayedMissingTollChances
+          )
+            .map((chance, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Substat className={upgradeChance && chance <= upgradeChance && 'isUpgrade'} key={`missingRoll-${i}`} stat="missingRoll" chance={chance} />
+            ))
+        }
+      </div>
       {
         // render wasted substats
         Array(
