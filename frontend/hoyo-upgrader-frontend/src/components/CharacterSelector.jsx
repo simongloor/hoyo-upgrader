@@ -5,6 +5,7 @@ import paths from '../data/paths';
 
 import Character from './Character';
 import '../styles/CharacterSelector.scss';
+import { characterData } from '../data/characters';
 
 export default function CharacterSelector({
   selectedCharacter,
@@ -18,7 +19,7 @@ export default function CharacterSelector({
       className="CharacterSelector"
     >
       {
-        Object.keys(paths.character).map((characterName) => (
+        Object.keys(characterData).map((characterName) => (
           <Character
             key={characterName}
             character={characterName}
