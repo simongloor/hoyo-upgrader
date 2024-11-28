@@ -17,11 +17,12 @@ export default function FilterTileSpecificSet({ filter, onClick }) {
 
   // event handlers
   const handleClick = () => {
-    if (filter.filterSpecificSet) {
-      dispatch(toggleSpecificSetFilter(filter.specificSet));
-    } else if (onClick) {
-      onClick();
-    }
+    onClick();
+    // if (filter.filterSpecificSet) {
+    //   dispatch(toggleSpecificSetFilter(filter.specificSet));
+    // } else if (onClick) {
+    //   onClick();
+    // }
   };
 
   // render
