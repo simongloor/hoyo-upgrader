@@ -70,6 +70,7 @@ export default function CharacterOverview({
         hoveredSubstats={hoveredArtifact && hoveredArtifact.relevantSubstats}
         uniformSubstatCount={45}
         sortRollChances
+        showLabel
       />
     </div>
   );

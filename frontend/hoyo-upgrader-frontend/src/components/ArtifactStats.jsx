@@ -26,6 +26,7 @@ export default function ArtifactStats({
   upgradeChance,
   showCounter = true,
   sortRollChances = false,
+  showLabel = false,
 }) {
   // console.log(uniformSubstatCount);
   // console.log(hoveredSubstats);
@@ -96,7 +97,7 @@ export default function ArtifactStats({
               ))
             }
             {
-              sortedSubstats[stat] > 1 && (
+              showLabel && sortedSubstats[stat] > 1 && (
                 <span className={`StatLabel fine ${stat}`}><strong>{paths.statsShort[stat]}</strong></span>
               )
             }
