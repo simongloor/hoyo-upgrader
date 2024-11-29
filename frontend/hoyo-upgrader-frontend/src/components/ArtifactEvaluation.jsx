@@ -17,14 +17,14 @@ export default function ArtifactEvaluation({
   handleClickPinArtifact,
   pinnedArtifactString,
 }) {
-  // console.log(artifact);
-  if (
-    artifact
-    && artifact.buildEvaluations.length > 0
-    && artifact.buildEvaluations[0].upgradePotential < 0
-  ) {
-    return null;
-  }
+  // // console.log(artifact);
+  // if (
+  //   artifact
+  //   && artifact.buildEvaluations.length > 0
+  //   && artifact.buildEvaluations[0].upgradePotential < 0
+  // ) {
+  //   return null;
+  // }
 
   return (
     <div
@@ -79,7 +79,7 @@ export default function ArtifactEvaluation({
         artifact.buildEvaluations
           .map((b) => (
             <div
-              className={`evaluation row ${b.upgradeIsRelevant && b.upgradePotential === 0 && b.artifactWearer !== artifact.artifactData.location ? 'weak' : ''}`}
+              className={`evaluation row ${b.upgradeIsRelevant && b.upgradePotential < 0 && b.artifactWearer !== artifact.artifactData.location ? 'weak' : ''}`}
               key={b.artifactWearer}
             >
               {/* <span>{b.upgradeChance}</span> */}
