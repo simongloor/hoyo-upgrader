@@ -17,6 +17,12 @@ export default function useArtifactFilter(artifacts, characters) {
 
       let artifactsToFilter = [...artifacts];
 
+      // Filter out 4* while offpieces are enabled
+      if (filter.showOffpieces) {
+        artifactsToFilter = artifactsToFilter
+          .filter((artifact) => artifact.artifactData.rarity === 5);
+      }
+
       // Filter by set
       if (filter.specificSet && !filter.showOffpieces) {
         // console.log('filter.specificSet', filter.specificSet);
