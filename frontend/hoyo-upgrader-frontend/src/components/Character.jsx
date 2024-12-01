@@ -91,10 +91,10 @@ export default function Character({
         )
       }
       {
-        upgradePotential > 0 && (
+        upgradePotential !== 0 && (
           <div className="upgrade tile-marker">
             <div />
-            <h6>{ `↑${upgradePotential}` }</h6>
+            <h6>{ `${upgradePotential > 0 ? '↑' : '↓'}${upgradePotential}` }</h6>
           </div>
         )
       }
