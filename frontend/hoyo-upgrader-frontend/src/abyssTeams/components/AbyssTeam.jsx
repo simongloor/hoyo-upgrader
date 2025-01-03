@@ -8,17 +8,18 @@ import '../styles/AbyssTeam.scss';
 import CharacterSelector from '../../components/CharacterSelector';
 import Box from '../../components/Box';
 import { addTeam, removeTeam, updateTeam } from '../data/actions/teams';
+import { getAllTeamMatches, getCharactersByTier } from '../data/teamMatching';
 
-export default function AbyssTeam({ team }) {
+export default function AbyssTeam({ team, teams }) {
   const dispatch = useDispatch();
   const [selectedCharacter, setSelectedCharacter] = React.useState(-1);
 
   // fill missing character slots with "generic", there are 4 slots
   const characters = team.characters.concat(Array(4 - team.characters.length).fill('generic'));
-  console.log(team);
+  const teamMatchCharacters = getCharactersByTier(getAllTeamMatches(team, teams));
+  console.log(teamMatchCharacters);
 
   const handleToggleTier = (letter) => {
-    console.log('toggle tier', letter);
     if (team.id === 'new') {
       dispatch(addTeam({ ...team, tier: letter }));
     } else {
@@ -27,7 +28,6 @@ export default function AbyssTeam({ team }) {
   };
 
   const handleClickCharacter = (character) => {
-    console.log('click character', character);
     if (selectedCharacter === character) {
       setSelectedCharacter(-1);
       return;
@@ -70,6 +70,22 @@ export default function AbyssTeam({ team }) {
             ))
           }
         </div>
+        {
+          team.id !== 'new' && (
+            <div className="matches">
+              {
+                teamMatchCharacters.map((match) => (
+                  <Character
+                    key={match.character}
+                    className={match.tier}
+                    character={match.character}
+                    disabled
+                  />
+                ))
+              }
+            </div>
+          )
+        }
         {
           team.id !== 'new' && (
             <button

@@ -24,7 +24,6 @@ const teamsReducer = (
     case 'LOAD_TEAMS': {
       // prepare data to be processed
       let newJsonData = action.payload.exampleJsonData;
-      console.log('newJsonData', newJsonData);
 
       // ensure that there is always data in the local storage
       const localJsonData = loadStateFromStorage(

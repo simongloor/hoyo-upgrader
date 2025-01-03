@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.AvailableAbyssTeams {
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus2;
+    margin-bottom: $space-minus2;
+
+    span {
+      text-align: center;
+      opacity: 0.5;
+    }
+
+    :nth-child(1) {
+      width: $tile;
+    }
+    :nth-child(2) {
+      width: calc($tile * 4);
+    }
+    :nth-child(3) {
+      width: calc($tile * 4);
+    }
+  }
+}

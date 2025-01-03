@@ -4,7 +4,7 @@ import React from 'react';
 import Box from '../../components/Box';
 import AbyssTeam from './AbyssTeam';
 
-// import '../styles/AvailableAbyssTeams.scss';
+import '../styles/AvailableAbyssTeams.scss';
 
 export default function AvailableAbyssTeams({
   abyssTeams,
@@ -31,11 +31,17 @@ export default function AvailableAbyssTeams({
       className="AvailableAbyssTeams"
     >
       <h2>Teams</h2>
+      <div className="header">
+        <span>tier</span>
+        <span>team</span>
+        <span>playable on other side</span>
+      </div>
       {
         teams.map((team) => (
           <AbyssTeam
             key={team.id}
             team={team}
+            teams={teams}
           />
         ))
       }
