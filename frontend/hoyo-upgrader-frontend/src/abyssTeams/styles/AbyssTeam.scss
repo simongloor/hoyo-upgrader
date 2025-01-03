@@ -19,16 +19,15 @@
       display: flex;
       flex-direction: row;
       gap: 0;
+    }
 
-      .Character.A {
-        opacity: 0.5;
-      }
-      .Character.B {
-        opacity: 0.3;
-      }
-      .Character.C {
-        opacity: 0.1;
-      }
+    .Character.A {
+      opacity: 0.6;
+    }
+    .Character.B,
+    .Character.C,
+    .Character.D {
+      opacity: 0.3;
     }
   }
   .Box {

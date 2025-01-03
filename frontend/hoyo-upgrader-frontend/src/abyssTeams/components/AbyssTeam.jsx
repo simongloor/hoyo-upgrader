@@ -62,6 +62,7 @@ export default function AbyssTeam({ team, teams, disabledCharacters }) {
               <Character
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
+                className={team.tier}
                 character={character}
                 onClick={() => handleClickCharacter(index)}
                 selected={selectedCharacter === index}

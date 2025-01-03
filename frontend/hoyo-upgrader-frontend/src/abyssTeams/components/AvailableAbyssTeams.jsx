@@ -12,6 +12,7 @@ export default function AvailableAbyssTeams({
   selectedTeam,
   setSelectedTeam,
 }) {
+  // filter out teams with disabled characters
   const teams = [
     ...abyssTeams.filter((team) => {
       if (team.characters.some((character) => disabledCharacters.includes(character))) {
@@ -26,6 +27,18 @@ export default function AvailableAbyssTeams({
     },
   ];
 
+  // sort teams by tier and then by the characters joined names
+  const tiers = ['S', 'A', 'B', 'C', 'D'];
+  teams.sort((a, b) => {
+    if (tiers.indexOf(a.tier) !== tiers.indexOf(b.tier)) {
+      return tiers.indexOf(a.tier) - tiers.indexOf(b.tier);
+    }
+    return a.characters.join().localeCompare(b.characters.join());
+  });
+  // move the new team to the last position
+  teams.push(teams.shift());
+
+  // render
   return (
     <Box
       className="AvailableAbyssTeams"
