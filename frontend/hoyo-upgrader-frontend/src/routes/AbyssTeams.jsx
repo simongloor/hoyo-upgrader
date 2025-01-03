@@ -6,8 +6,11 @@ import CharacterAvailability from '../abyssTeams/components/CharacterAvailabilit
 import AvailableAbyssTeams from '../abyssTeams/components/AvailableAbyssTeams';
 import Abysses from '../abyssTeams/components/Abysses';
 import AbyssMatchups from '../abyssTeams/components/AbyssMatchups';
+import Box from '../components/Box';
+
 import { loadTeams } from '../abyssTeams/data/actions/teams';
-// import '../styles/AbyssTeams.scss';
+
+import '../abyssTeams/styles/AbyssTeams.scss';
 
 export default function AbyssTeams() {
   const dispatch = useDispatch();
@@ -17,18 +20,29 @@ export default function AbyssTeams() {
   const [selectedTeam, setSelectedTeam] = useState(null);
 
   useEffect(() => {
-    console.log('AbyssTeams useEffect');
     dispatch(loadTeams());
   }, []);
+
+  if (!abyssTeams) {
+    return null;
+  }
 
   return (
     <div
       className="AbyssTeams page"
     >
+      <Box className="backup">
+        <textarea
+          value={JSON.stringify(abyssTeams, null, 2)}
+          readOnly
+        />
+      </Box>
       <CharacterAvailability
         disabledCharacters={abyssTeams.disabledCharacters}
       />
       <AvailableAbyssTeams
+        disabledCharacters={abyssTeams.disabledCharacters}
+        abyssTeams={abyssTeams.teams}
         selectedTeam={selectedTeam}
         setSelectedTeam={setSelectedTeam}
       />

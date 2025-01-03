@@ -1,0 +1,28 @@
+@import "variables.scss";
+
+.Tier {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h2, h3 {
+    margin: 0;
+    color: $onElevation-highEmphasis;
+  }
+
+  &.S {
+    background-color: #fe7f7e;
+  }
+  &.A {
+    background-color: #f7bd7f;
+  }
+  &.B {
+    background-color: #fae381;
+  }
+  &.C {
+    background-color: #fefe80;
+  }
+  &.D {
+    background-color: #b0fe80;
+  }
+}

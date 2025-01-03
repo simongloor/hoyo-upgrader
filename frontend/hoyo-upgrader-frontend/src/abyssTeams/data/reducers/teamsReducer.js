@@ -5,8 +5,17 @@
 import { loadStateFromStorage, saveStateToStorage } from '../localStorage';
 import paths from '../paths';
 
+const saveState = (state) => {
+  saveStateToStorage(
+    paths.localStorage.abyssTeams,
+    {
+      data: JSON.stringify(state, 0, 2),
+    },
+  );
+};
+
 const teamsReducer = (
-  state = [],
+  state = null,
   action,
 ) => {
   const newState = { ...state };
@@ -45,39 +54,26 @@ const teamsReducer = (
       } else {
         newState.disabledCharacters.push(characterName);
       }
-      saveStateToStorage(
-        paths.localStorage.abyssTeams,
-        {
-          data: JSON.stringify(newState, 0, 2),
-        },
-      );
+      saveState(newState);
       return newState;
     }
-    // case 'DISABLE_CHARACTER': {
-    //   const { characterName } = action.payload;
-    //   if (!newState.disabledCharacters.includes(characterName)) {
-    //     newState.disabledCharacters.push(characterName);
-    //   }
-    //   return newState;
-    // }
-    // case 'ENABLE_CHARACTER': {
-    //   const { characterName } = action.payload;
-    //   if (newState.disabledCharacters.includes(characterName)) {
-    //     newState.disabledCharacters.splice(newState.disabledCharacters.indexOf(characterName), 1);
-    //   }
-    //   return newState;
-    // }
     case 'ADD_TEAM': {
-      newState.push(action.payload.team);
-      return newState;
-    }
-    case 'REMOVE_TEAM': {
-      newState.splice(newState.indexOf(action.payload.team), 1);
+      newState.teams.push({
+        ...action.payload.team,
+        id: newState.teams.reduce((max, team) => (team.id > max ? team.id : max), 0) + 1,
+      });
+      saveState(newState);
       return newState;
     }
     case 'UPDATE_TEAM': {
-      const teamIndex = newState.findIndex((team) => team.id === action.payload.team.id);
-      newState[teamIndex] = action.payload.team;
+      const teamIndex = newState.teams.findIndex((team) => team.id === action.payload.team.id);
+      newState.teams[teamIndex] = action.payload.team;
+      saveState(newState);
+      return newState;
+    }
+    case 'REMOVE_TEAM': {
+      newState.teams.splice(newState.teams.indexOf(action.payload.team), 1);
+      saveState(newState);
       return newState;
     }
     default: {

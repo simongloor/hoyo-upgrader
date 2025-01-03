@@ -1,0 +1,18 @@
+@import '../../styles/variables.scss';
+
+.AbyssTeam {
+  .team {
+    display: flex;
+    flex-direction: row;
+    gap: $space-minus2;
+  
+    .characters {
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+    }
+  }
+  .Box {
+    margin-top: $space-minus1;
+  }
+}
