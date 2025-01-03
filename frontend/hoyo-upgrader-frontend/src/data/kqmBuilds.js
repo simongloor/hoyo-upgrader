@@ -5,18 +5,18 @@ const er = 'enerRech_';
 const atk = 'atk_';
 const hp = 'hp_';
 const def = 'def_';
-const em = 'elemMas';
+const em = 'eleMas';
 const cr = 'critRate_';
 const cd = 'critDMG_';
 const heal = 'heal_';
-const pyro = 'pyro';
-const hydro = 'hydro';
-const electro = 'electro';
-const dendro = 'dendro';
-const anemo = 'anemo';
-const geo = 'geo';
-const cryo = 'cryo';
-const phys = 'phys';
+const pyro = 'pyro_dmg_';
+const hydro = 'hydro_dmg_';
+const electro = 'electro_dmg_';
+const dendro = 'dendro_dmg_';
+const anemo = 'anemo_dmg_';
+const geo = 'geo_dmg_';
+const cryo = 'cryo_dmg_';
+const phys = 'physical_dmg_';
 
 // builds for each character
 const kqmBuilds = {

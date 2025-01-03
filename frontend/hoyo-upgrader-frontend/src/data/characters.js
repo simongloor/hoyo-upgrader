@@ -57,6 +57,7 @@ export const characterData = {
   KamisatoAyaka: { name: 'Ayaka', element: 'Cryo', weapon: 'Sword' },
   Qiqi: { name: 'Qiqi', element: 'Cryo', weapon: 'Sword' },
   Shenhe: { name: 'Shenhe', element: 'Cryo', weapon: 'Polearm' },
+  Skirk: { name: 'Skirk', element: 'Cryo', weapon: 'Sword' },
   Wriothesley: { name: 'Wriothesley', element: 'Cryo', weapon: 'Catalyst' },
   Aloy: { name: 'Aloy', element: 'Cryo', weapon: 'Bow' },
 
@@ -110,6 +111,7 @@ export const characterData = {
   Xiao: { name: 'Xiao', element: 'Anemo', weapon: 'Polearm' },
 
   Faruzan: { name: 'Faruzan', element: 'Anemo', weapon: 'Bow' },
+  LanYan: { name: 'LanYan', element: 'Anemo', weapon: 'Catalyst' },
   Lynette: { name: 'Lynette', element: 'Anemo', weapon: 'Sword' },
   Sayu: { name: 'Sayu', element: 'Anemo', weapon: 'Claymore' },
   ShikanoinHeizou: { name: 'Heizou', element: 'Anemo', weapon: 'Catalyst' },
