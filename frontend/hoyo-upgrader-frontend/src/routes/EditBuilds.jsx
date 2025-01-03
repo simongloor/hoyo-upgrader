@@ -155,7 +155,7 @@ export default function EditBuilds() {
           <span>Choose the character that the build is meant for.</span>
           <CharacterSelector
             selectedCharacter={selectedCharacter}
-            onClick={setSelectedCharacter}
+            onSelectCharacter={setSelectedCharacter}
             inactiveCharacters={wearerStates.withoutOwnBiuld}
             // inactiveCharacters={getBusyArtifactWearers(wearerStates, selectedCharacter)}
           />

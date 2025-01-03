@@ -11,9 +11,15 @@ export default function CharacterSelector({
   selectedCharacter,
   inactiveCharacters = [],
   disabledCharacters = [],
-  onClick,
+  onSelectCharacter,
 }) {
   // console.log(inactiveCharacters);
+  const handleClick = (characterName) => {
+    if (onSelectCharacter) {
+      onSelectCharacter(characterName);
+    }
+  };
+
   return (
     <div
       className="CharacterSelector"
@@ -23,7 +29,7 @@ export default function CharacterSelector({
           <Character
             key={characterName}
             character={characterName}
-            onClick={() => onClick(characterName)}
+            onClick={() => handleClick(characterName)}
             selected={selectedCharacter === characterName}
             inactive={
               inactiveCharacters.includes(characterName)

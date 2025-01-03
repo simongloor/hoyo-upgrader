@@ -32,7 +32,7 @@ export default function WearerSelection({
       <CharacterSelector
         selectedCharacter={artifactWearer}
         disabledCharacters={getBusyArtifactWearers(wearerStates, artifactWearer)}
-        onClick={handleSelectWearer}
+        onSelectCharacter={handleSelectWearer}
       />
     );
   }

@@ -7,9 +7,10 @@ import Home from './routes/Home';
 import Documentation from './routes/Documentation';
 import ImportArtifacts from './routes/ImportArtifacts';
 import EditBuilds from './routes/EditBuilds';
+import TheaterTeams from './routes/TheaterTeams';
+import AbyssTeams from './routes/AbyssTeams';
 
 import './styles/App.scss';
-import TheaterTeams from './routes/TheaterTeams';
 
 function App() {
   return (
@@ -43,6 +44,11 @@ function App() {
         exact
         path="/genshin/theater/teams"
         element={<TheaterTeams />}
+      />
+      <Route
+        exact
+        path="/genshin/abyss/teams"
+        element={<AbyssTeams />}
       />
     </Routes>
   );
