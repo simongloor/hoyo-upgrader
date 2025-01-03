@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import Box from '../Box';
+import Box from '../../components/Box';
 // import '../styles/Abysses.scss';
 
 export default function Abysses({

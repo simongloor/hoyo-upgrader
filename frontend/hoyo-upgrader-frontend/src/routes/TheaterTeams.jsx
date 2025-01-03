@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import paths from '../data/paths';
-import TeamForceGraph from '../teambuilder/components/TeamForceGraph';
-import ElementSelection from '../teambuilder/components/ElementSelection';
-import TheaterSelection from '../teambuilder/components/TheaterSelection';
+import TeamForceGraph from '../theaterTeams/components/TeamForceGraph';
+import ElementSelection from '../theaterTeams/components/ElementSelection';
+import TheaterSelection from '../theaterTeams/components/TheaterSelection';
 // import '../styles/TheaterTeams.scss';
 
 export default function TheaterTeams() {

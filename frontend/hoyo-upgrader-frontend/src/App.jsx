@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
-import paths from './data/paths';
+import { Provider } from 'react-redux';
 
 import Home from './routes/Home';
 import Documentation from './routes/Documentation';
@@ -10,6 +9,8 @@ import EditBuilds from './routes/EditBuilds';
 import TheaterTeams from './routes/TheaterTeams';
 import AbyssTeams from './routes/AbyssTeams';
 
+import paths from './data/paths';
+import abyssStore from './abyssTeams/data/reducers/store';
 import './styles/App.scss';
 
 function App() {
@@ -48,7 +49,11 @@ function App() {
       <Route
         exact
         path="/genshin/abyss/teams"
-        element={<AbyssTeams />}
+        element={(
+          <Provider store={abyssStore}>
+            <AbyssTeams />
+          </Provider>
+        )}
       />
     </Routes>
   );

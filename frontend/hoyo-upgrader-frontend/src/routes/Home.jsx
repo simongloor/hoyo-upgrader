@@ -27,6 +27,7 @@ import TutorialOverview from '../components/TutorialOverview';
 import useSettings from '../hooks/useSettings';
 
 export default function Home() {
+  console.log('Home');
   const dispatch = useDispatch();
 
   const [activePopup, setActivePopup] = useState(null);
