@@ -10,14 +10,13 @@ import Box from '../../components/Box';
 import { addTeam, removeTeam, updateTeam } from '../data/actions/teams';
 import { getAllTeamMatches, getCharactersByTier } from '../data/teamMatching';
 
-export default function AbyssTeam({ team, teams }) {
+export default function AbyssTeam({ team, teams, disabledCharacters }) {
   const dispatch = useDispatch();
   const [selectedCharacter, setSelectedCharacter] = React.useState(-1);
 
   // fill missing character slots with "generic", there are 4 slots
   const characters = team.characters.concat(Array(4 - team.characters.length).fill('generic'));
   const teamMatchCharacters = getCharactersByTier(getAllTeamMatches(team, teams));
-  console.log(teamMatchCharacters);
 
   const handleToggleTier = (letter) => {
     if (team.id === 'new') {
@@ -103,6 +102,7 @@ export default function AbyssTeam({ team, teams }) {
           <Box>
             <CharacterSelector
               onSelectCharacter={handleAssignSlot}
+              disabledCharacters={disabledCharacters}
             />
           </Box>
         )

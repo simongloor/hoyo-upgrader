@@ -42,6 +42,7 @@ export default function AvailableAbyssTeams({
             key={team.id}
             team={team}
             teams={teams}
+            disabledCharacters={disabledCharacters}
           />
         ))
       }
