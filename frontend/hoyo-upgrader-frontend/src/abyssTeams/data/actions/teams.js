@@ -25,6 +25,13 @@ export function toggleDisabledCharacter(characterName) {
   });
 }
 
+export function toggleHighlightedCharacter(characterName) {
+  return ({
+    type: 'TOGGLE_HIGHLIGHTED_CHARACTER',
+    payload: { characterName },
+  });
+}
+
 export function addTeam(team) {
   return ({
     type: 'ADD_TEAM',

@@ -61,6 +61,16 @@ const teamsReducer = (
       saveState(newState);
       return newState;
     }
+    case 'TOGGLE_HIGHLIGHTED_CHARACTER': {
+      const { characterName } = action.payload;
+      if (newState.highlightedCharacters.includes(characterName)) {
+        newState.highlightedCharacters.splice(newState.highlightedCharacters.indexOf(characterName), 1);
+      } else {
+        newState.highlightedCharacters.push(characterName);
+      }
+      saveState(newState);
+      return newState;
+    }
     case 'ADD_TEAM': {
       newState.teams.push({
         ...action.payload.team,

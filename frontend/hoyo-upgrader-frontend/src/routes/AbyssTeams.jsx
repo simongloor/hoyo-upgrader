@@ -80,6 +80,7 @@ export default function AbyssTeams() {
       />
       <TeamGrowth
         teamMatches={teamMatches}
+        highlightedCharacters={abyssTeams.highlightedCharacters}
       />
       <AvailableAbyssTeams
         disabledCharacters={abyssTeams.disabledCharacters}
