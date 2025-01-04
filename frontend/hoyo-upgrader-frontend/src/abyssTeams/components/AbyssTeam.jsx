@@ -31,7 +31,8 @@ export default function AbyssTeam({
 
   // fill missing character slots with "generic", there are 4 slots
   const characters = team.characters.concat(Array(4 - team.characters.length).fill('generic'));
-  const teamMatchCharacters = getCharactersByTier(getAllTeamMatches(team, teams));
+  const teamMatches = getAllTeamMatches(team, teams);
+  const teamMatchCharacters = getCharactersByTier(teamMatches);
 
   const handleToggleTier = (letter) => {
     if (team.id === 'new') {
@@ -78,7 +79,7 @@ export default function AbyssTeam({
           className="characters"
         >
           {
-            teamMatchCharacters.filter((match) => match.tier === 'S' && match.character === highlightedCharacter).length > 0 && (
+            teamMatchCharacters.filter((match) => team.id !== 'new' && (match.tier === 'S' || match.tier === 'A') && match.character === highlightedCharacter).length > 0 && (
               <div className="highlightTile" />
             )
           }
@@ -145,6 +146,35 @@ export default function AbyssTeam({
               onSelectCharacter={handleAssignSlot}
               disabledCharacters={disabledCharacters}
             />
+          </Box>
+        )
+      }
+      {
+        matchesOpen && (
+          <Box>
+            <div className="matches">
+              {
+                teamMatches.map((teamMatch) => (
+                  <div
+                    key={teamMatch.id}
+                    className="teamMatch"
+                  >
+                    <div>
+                      {
+                        teamMatch.characters.map((character, index) => (
+                          <Character
+                            key={character}
+                            className={teamMatch.tier}
+                            character={character}
+                            disabled
+                          />
+                        ))
+                      }
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
           </Box>
         )
       }

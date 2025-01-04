@@ -19,6 +19,7 @@
       width: calc($tile * 4);
     }
     :nth-child(3) {
+      margin-left: 29px;
       width: calc($tile * 4);
     }
   }

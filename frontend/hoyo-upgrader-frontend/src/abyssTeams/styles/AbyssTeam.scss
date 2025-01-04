@@ -25,6 +25,7 @@
         border-radius: $tile;
       }
     }
+
     button.primary {
       height: calc($tile - 2px);
       top: 1px;
@@ -35,22 +36,27 @@
       gap: 0;
     }
 
-    .Character.A {
-      opacity: 0.6;
-    }
-    .Character.B,
-    .Character.C,
-    .Character.D {
-      opacity: 0.3;
-    }
-
     .chevron {
       opacity: 0.5;
       margin-right: $space-minus3;
     }
   }
+
   .Box {
     margin-top: $space-minus1;
     max-width: calc($tile * 16 + 14px);
+
+    .teamMatch {
+      margin-left: calc($tile * 5 + 29px + 12px);
+    }
+  }
+
+  .Character.A {
+    opacity: 0.6;
+  }
+  .Character.B,
+  .Character.C,
+  .Character.D {
+    opacity: 0.3;
   }
 }
