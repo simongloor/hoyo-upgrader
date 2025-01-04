@@ -4,15 +4,30 @@ import { useDispatch } from 'react-redux';
 
 import Tier from '../../components/Tier';
 import Character from '../../components/Character';
-import '../styles/AbyssTeam.scss';
 import CharacterSelector from '../../components/CharacterSelector';
 import Box from '../../components/Box';
-import { addTeam, removeTeam, updateTeam } from '../data/actions/teams';
+
+import {
+  addTeam,
+  removeTeam,
+  updateTeam,
+} from '../data/actions/teams';
 import { getAllTeamMatches, getCharactersByTier } from '../data/teamMatching';
 
-export default function AbyssTeam({ team, teams, disabledCharacters }) {
+import iconChevronDown from '../../theme/chevron_down.svg';
+import iconChevronUp from '../../theme/chevron_up.svg';
+import '../styles/AbyssTeam.scss';
+
+export default function AbyssTeam({
+  team,
+  teams,
+  disabledCharacters,
+  highlightedCharacter,
+  setHighlightedCharacter,
+}) {
   const dispatch = useDispatch();
   const [selectedCharacter, setSelectedCharacter] = React.useState(-1);
+  const [matchesOpen, setMatchesOpen] = React.useState(false);
 
   // fill missing character slots with "generic", there are 4 slots
   const characters = team.characters.concat(Array(4 - team.characters.length).fill('generic'));
@@ -45,6 +60,11 @@ export default function AbyssTeam({ team, teams, disabledCharacters }) {
     setSelectedCharacter(-1);
   };
 
+  const handleToggleTeamMatches = () => {
+    setMatchesOpen(!matchesOpen);
+  };
+
+  // render
   return (
     <div
       className="AbyssTeam"
@@ -57,6 +77,11 @@ export default function AbyssTeam({ team, teams, disabledCharacters }) {
         <div
           className="characters"
         >
+          {
+            teamMatchCharacters.filter((match) => match.tier === 'S' && match.character === highlightedCharacter).length > 0 && (
+              <div className="highlightTile" />
+            )
+          }
           {
             characters.map((character, index) => (
               <Character
@@ -73,13 +98,28 @@ export default function AbyssTeam({ team, teams, disabledCharacters }) {
         {
           team.id !== 'new' && (
             <div className="matches">
+              <button
+                className="chevron"
+                type="button"
+                onClick={handleToggleTeamMatches}
+              >
+                <img
+                  src={matchesOpen ? iconChevronUp : iconChevronDown}
+                  alt="toggle matches"
+                />
+              </button>
               {
                 teamMatchCharacters.map((match) => (
                   <Character
                     key={match.character}
                     className={match.tier}
                     character={match.character}
-                    disabled
+                    onClick={() => {
+                      setHighlightedCharacter((state) => (
+                        state === match.character ? null : match.character
+                      ));
+                    }}
+                    selected={highlightedCharacter === match.character}
                   />
                 ))
               }

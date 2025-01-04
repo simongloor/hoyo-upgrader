@@ -46,6 +46,11 @@ const teamsReducer = (
 
       return newJsonData;
     }
+    case 'RESTORE_TEAMS': {
+      const restoredData = action.payload.data;
+      saveState(restoredData);
+      return restoredData;
+    }
     case 'TOGGLE_CHARACTER': {
       const { characterName } = action.payload;
       if (newState.disabledCharacters.includes(characterName)) {

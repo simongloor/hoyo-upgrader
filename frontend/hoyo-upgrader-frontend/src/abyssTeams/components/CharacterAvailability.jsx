@@ -17,6 +17,10 @@ export default function CharacterAvailability({ disabledCharacters }) {
       className="CharacterAvailability"
     >
       <h2>Characters</h2>
+      <span>
+        If you want to evaluate which character does more for team flexibility,
+        you can disable characters here.
+      </span>
       <CharacterSelector
         onSelectCharacter={(characterName) => dispatch(toggleDisabledCharacter(characterName))}
         inactiveCharacters={disabledCharacters}

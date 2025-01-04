@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '../../components/Box';
 import AbyssTeam from './AbyssTeam';
 
@@ -12,6 +12,8 @@ export default function AvailableAbyssTeams({
   selectedTeam,
   setSelectedTeam,
 }) {
+  const [highlightedCharacter, setHighlightedCharacter] = useState(null);
+
   // filter out teams with disabled characters
   const teams = [
     ...abyssTeams.filter((team) => {
@@ -44,6 +46,10 @@ export default function AvailableAbyssTeams({
       className="AvailableAbyssTeams"
     >
       <h2>Teams</h2>
+      <span>
+        Add your teams and rank them by strength.
+        On the right side, you can see which characters have teams for the other side.
+      </span>
       <div className="header">
         <span>tier</span>
         <span>team</span>
@@ -56,6 +62,8 @@ export default function AvailableAbyssTeams({
             team={team}
             teams={teams}
             disabledCharacters={disabledCharacters}
+            highlightedCharacter={highlightedCharacter}
+            setHighlightedCharacter={setHighlightedCharacter}
           />
         ))
       }

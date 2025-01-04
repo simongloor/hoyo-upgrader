@@ -2,14 +2,28 @@
 
 .AbyssTeam {
   .team {
+    position: relative;
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: $space-minus2;
   
     .characters {
       display: flex;
       flex-direction: row;
+      align-items: center;
       gap: 0;
+
+      .highlightTile {
+        position: relative;
+        margin-right: 2px;
+        height: calc($tile - 4px);
+        width: $space-minus2;
+        
+        background-color: $onSurface-highEmphasis;
+        // border-radius: $tile 0 0 $tile;
+        border-radius: $tile;
+      }
     }
     button.primary {
       height: calc($tile - 2px);
@@ -28,6 +42,11 @@
     .Character.C,
     .Character.D {
       opacity: 0.3;
+    }
+
+    .chevron {
+      opacity: 0.5;
+      margin-right: $space-minus3;
     }
   }
   .Box {

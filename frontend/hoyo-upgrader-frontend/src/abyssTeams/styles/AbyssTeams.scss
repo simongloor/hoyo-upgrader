@@ -1,5 +1,12 @@
+@import '../../styles/variables.scss';
+
 .AbyssTeams {
   margin-bottom: 400px;
+
+  .Box > span {
+    margin-bottom: $space-minus1;
+    opacity: 0.5;
+  }
   .backup {
     width: 100%;
 

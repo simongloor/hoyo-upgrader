@@ -5,8 +5,16 @@ export function loadTeams() {
       exampleJsonData: {
         disabledCharacters: [],
         teams: [],
+        highlightedCharacters: [],
       },
     },
+  });
+}
+
+export function restoreTeams(data) {
+  return ({
+    type: 'RESTORE_TEAMS',
+    payload: { data },
   });
 }
 
@@ -16,20 +24,6 @@ export function toggleDisabledCharacter(characterName) {
     payload: { characterName },
   });
 }
-
-// export function disableCharacter(characterName) {
-//   return ({
-//     type: 'DISABLE_CHARACTER',
-//     payload: { characterName },
-//   });
-// }
-
-// export function enableCharacter(characterName) {
-//   return ({
-//     type: 'ENABLE_CHARACTER',
-//     payload: { characterName },
-//   });
-// }
 
 export function addTeam(team) {
   return ({
