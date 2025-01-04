@@ -12,7 +12,7 @@ import {
   removeTeam,
   updateTeam,
 } from '../data/actions/teams';
-import { getAllTeamMatches, getCharactersByTier } from '../data/teamMatching';
+import { getCharactersByTier } from '../data/teamMatching';
 
 import iconChevronDown from '../../theme/chevron_down.svg';
 import iconChevronUp from '../../theme/chevron_up.svg';
@@ -20,7 +20,7 @@ import '../styles/AbyssTeam.scss';
 
 export default function AbyssTeam({
   team,
-  teams,
+  teamMatches,
   disabledCharacters,
   highlightedCharacter,
   setHighlightedCharacter,
@@ -31,7 +31,6 @@ export default function AbyssTeam({
 
   // fill missing character slots with "generic", there are 4 slots
   const characters = team.characters.concat(Array(4 - team.characters.length).fill('generic'));
-  const teamMatches = getAllTeamMatches(team, teams);
   const teamMatchCharacters = getCharactersByTier(teamMatches);
 
   const handleToggleTier = (letter) => {

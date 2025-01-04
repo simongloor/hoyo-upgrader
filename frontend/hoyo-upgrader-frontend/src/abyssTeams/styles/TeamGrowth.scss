@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+.TeamGrowth {
+
+  .matches {
+    align-items: center;
+
+    .match {
+      height: $tile;
+      width: $tile;
+
+      display: flex;
+      flex-direction: column;
+
+      border: 2px solid $onElevation-highEmphasis;
+      border-radius: 12px;
+      overflow: hidden;
+
+      p {
+        height: 50%;
+        color: $onElevation-highEmphasis;
+        text-align: center;
+        line-height: 26px;
+
+        &.S {
+          background-color: $tier-s;
+        }
+        &.A {
+          background-color: $tier-a;
+        }
+        &.B {
+          background-color: $tier-b;
+        }
+        &.C {
+          background-color: $tier-c;
+        }
+        &.D {
+          background-color: $tier-d;
+        }
+      }
+    }
+  }
+}

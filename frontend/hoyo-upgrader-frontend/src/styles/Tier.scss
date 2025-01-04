@@ -11,18 +11,18 @@
   }
 
   &.S {
-    background-color: #fe7f7e;
+    background-color: $tier-s;
   }
   &.A {
-    background-color: #f7bd7f;
+    background-color: $tier-a;
   }
   &.B {
-    background-color: #fae381;
+    background-color: $tier-b;
   }
   &.C {
-    background-color: #fefe80;
+    background-color: $tier-c;
   }
   &.D {
-    background-color: #b0fe80;
+    background-color: $tier-d;
   }
 }
