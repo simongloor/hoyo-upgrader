@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '../../components/Box';
 
 import paths, { getCharacterImgPath } from '../../data/paths';
@@ -10,7 +10,24 @@ import Character from '../../components/Character';
 
 export default function TeamGrowth({ teamMatches }) {
   const matchesByCharacter = getTeamMatchesForCharacters(teamMatches);
-  console.log(matchesByCharacter);
+
+  const [dataVariants, setDataVariants] = useState([]);
+
+  const handleAddDataVariant = (variant) => {
+    setDataVariants([...dataVariants, matchesByCharacter]);
+  };
+
+  const renderMatches = (data) => (
+    data.map((match) => (
+      <div
+        key={match.characterName}
+        className={`match ${match.matchesByTier.S === 0 && match.matchesByTier.A === 0 ? 'empty' : ''}`}
+      >
+        <p className="S">{match.matchesByTier.S}</p>
+        <p className="A">{match.matchesByTier.A}</p>
+      </div>
+    ))
+  );
 
   // render
   return (
@@ -35,23 +52,32 @@ export default function TeamGrowth({ teamMatches }) {
           ))
         }
       </div>
+      {
+        dataVariants.map((data, index) => (
+          <div key={data[0].characterName} className="matches row">
+            <h3>
+              {`V${index + 1}`}
+            </h3>
+            {
+              renderMatches(data)
+            }
+          </div>
+        ))
+      }
       <div className="activeMatches matches row">
-        <div
+        <button
           key="active"
           className="tile"
+          onClick={() => handleAddDataVariant(matchesByCharacter)}
+          type="button"
         >
           <img
             src={getCharacterImgPath('add')}
             alt="add"
           />
-        </div>
+        </button>
         {
-          matchesByCharacter.map((match) => (
-            <div key={match.characterName} className="match">
-              <p className="S">{match.matchesByTier.S}</p>
-              <p className="A">{match.matchesByTier.A}</p>
-            </div>
-          ))
+          renderMatches(matchesByCharacter)
         }
       </div>
     </Box>

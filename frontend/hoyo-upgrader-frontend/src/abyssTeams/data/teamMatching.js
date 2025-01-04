@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
-import paths from '../../data/paths';
+import { characterData } from '../../data/characters';
+// import paths from '../../data/paths';
 
 export function getTeamMatchesForTeam(team, teams) {
   // return all teams that don't don't have an overlap of the used characters
@@ -48,7 +49,7 @@ export function getTeamMatchesForCharacters(teamMatches) {
 
   // count the number of matches for each character by tier
   // in the format [{ characterName, matchesByTier: { S, A, B, C, D } }]
-  const matchesByCharacter = Object.keys(paths.character).map((characterName) => {
+  const matchesByCharacter = Object.keys(characterData).map((characterName) => {
     const matchesByTier = {
       S: 0,
       A: 0,
@@ -76,8 +77,16 @@ export function getTeamMatchesForCharacters(teamMatches) {
     return { characterName, matchesByTier };
   });
 
-  const relevantMatches = matchesByCharacter
-    .filter((match) => Object.values(match.matchesByTier).some((count) => count > 0));
+  // const relevantMatches = matchesByCharacter
+  //   .filter((match) => Object.values(match.matchesByTier).some((count) => count > 0));
+  // return relevantMatches;
 
-  return relevantMatches;
+  // // move characters with no matches to the end
+  // const sortedMatches = matchesByCharacter.sort((a, b) => {
+  //   const aMatches = Object.values(a.matchesByTier).reduce((acc, val) => acc + val, 0);
+  //   const bMatches = Object.values(b.matchesByTier).reduce((acc, val) => acc + val, 0);
+  //   return bMatches - aMatches;
+  // });
+
+  return matchesByCharacter;
 }
