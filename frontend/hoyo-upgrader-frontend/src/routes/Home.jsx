@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <div
-      className="Home page"
+      className="Home mainpage page"
     >
       <div className="scrollArea">
         <SettingsRow

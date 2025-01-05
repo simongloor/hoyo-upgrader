@@ -130,6 +130,11 @@ button.iconButton {
   gap: $space-minus2;
   align-items: center;
   justify-content: center;
+  line-height: 24px;
+
+  img {
+    height: 24px;
+  }
 }
 button.primary, button.secondary {
   border-radius: $space-minus2;
@@ -219,6 +224,44 @@ textarea {
   align-items: start;
   gap: $space-plus1;
   padding: $space-minus1;
+}
+
+.mainpage {
+  padding: 0;
+  margin: 0;
+  
+  // exactly fill the viewport
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 0;
+
+  $minipopup-bottom: calc($tile * 2);
+
+  >.scrollArea {
+    position: relative;
+
+    width: 100%;
+    overflow: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: $space-plus1;
+    // padding: $space-minus1;
+    padding-bottom: $space-minus1;
+
+    >.Box {
+      margin: 0 $space-minus1;
+    }
+  }
 }
 
 .tile {

@@ -1,0 +1,55 @@
+@import 'variables.scss';
+
+.Header {
+  width: 100%;
+  background-color: $elevation;
+  border: $space-minus1 solid $elevation;
+
+  .brand {
+    // margin-right: 48px;
+    margin-right: $space;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $space-minus2;
+
+    img {
+      height: 48px;
+    }
+    h1 {
+      color: #6CB5FF;
+
+      strong {
+        color: #F2D59C;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .row {
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-minus2;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      gap: $space-minus2;
+      align-items: center;
+    }
+  }
+
+  .dropdown {
+    position: relative;
+
+    .Box {
+      position: absolute;
+      top: calc(100% + $space-minus2);
+      right: 0;
+
+      button span, button p {
+        white-space: nowrap;
+      }
+    }
+  }
+}

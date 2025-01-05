@@ -2,6 +2,7 @@ const paths = {
   DOCUMENTATION: 'documentation',
   EDIT_BUILDS: 'builds',
   IMPORT_ARTIFACTS: 'import',
+  TEAM_UPGRADER: 'abyss/teams',
   recommendation: {
     UPGRADE100: '100% upgrade',
     UPGRADE75: '~75% upgrade',
