@@ -90,6 +90,7 @@ export const characterData = {
   Iansan: { name: 'Iansan', element: 'Electro', weapon: 'Polearm' },
   Keqing: { name: 'Keqing', element: 'Electro', weapon: 'Sword' },
   RaidenShogun: { name: 'Raiden Shogun', element: 'Electro', weapon: 'Polearm' },
+  Varesa: { name: 'Varesa', element: 'Electro', weapon: 'Catalyst' },
   YaeMiko: { name: 'Yae Miko', element: 'Electro', weapon: 'Catalyst' },
 
   Beidou: { name: 'Beidou', element: 'Electro', weapon: 'Claymore' },
