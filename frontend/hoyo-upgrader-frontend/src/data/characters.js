@@ -53,6 +53,7 @@ export const characterData = {
 
   Citlali: { name: 'Citlali', element: 'Cryo', weapon: 'Catalyst' },
   Eula: { name: 'Eula', element: 'Cryo', weapon: 'Claymore' },
+  Escoffier: { name: 'Escoffier', element: 'Cryo', weapon: 'Polearm' },
   Ganyu: { name: 'Ganyu', element: 'Cryo', weapon: 'Bow' },
   KamisatoAyaka: { name: 'Ayaka', element: 'Cryo', weapon: 'Sword' },
   Qiqi: { name: 'Qiqi', element: 'Cryo', weapon: 'Sword' },
@@ -81,8 +82,9 @@ export const characterData = {
   Neuvillette: { name: 'Neuvillette', element: 'Hydro', weapon: 'Catalyst' },
   SangonomiyaKokomi: { name: 'Kokomi', element: 'Hydro', weapon: 'Catalyst' },
 
-  Candace: { name: 'Candace', element: 'Hydro', weapon: 'Polearm' },
   Barbara: { name: 'Barbara', element: 'Hydro', weapon: 'Catalyst' },
+  Candace: { name: 'Candace', element: 'Hydro', weapon: 'Polearm' },
+  Dahlia: { name: 'Dahlia', element: 'Hydro', weapon: 'Sword' },
   Xingqiu: { name: 'Xingqiu', element: 'Hydro', weapon: 'Sword' },
 
   Clorinde: { name: 'Clorinde', element: 'Electro', weapon: 'Sword' },
@@ -112,6 +114,7 @@ export const characterData = {
   Xiao: { name: 'Xiao', element: 'Anemo', weapon: 'Polearm' },
 
   Faruzan: { name: 'Faruzan', element: 'Anemo', weapon: 'Bow' },
+  Ifa: { name: 'Ifa', element: 'Anemo', weapon: 'Catalyst' },
   LanYan: { name: 'LanYan', element: 'Anemo', weapon: 'Catalyst' },
   Lynette: { name: 'Lynette', element: 'Anemo', weapon: 'Sword' },
   Sayu: { name: 'Sayu', element: 'Anemo', weapon: 'Claymore' },
