@@ -21,12 +21,22 @@ export default function FilterTilePiece({
     : substats;
 
   const renderStats = (statType, stats) => (
-    <div className={`${statType} stats ${artifactPieceName === 'flower' && 'stretch'}`}>
+    <div className={`${statType} stats`}>
       {
         stats.map((stat) => (
           <div key={stat} className={`stat ${stat}`} />
         ))
       }
+    </div>
+  );
+
+  const renderTiers = (stats) => (
+    <div className="tiers">
+      {stats.map((stat) => (
+        <div key={stat} className="tier tile-marker empty">
+          <div className={stat} />
+        </div>
+      ))}
     </div>
   );
 
@@ -39,13 +49,13 @@ export default function FilterTilePiece({
         onClick={() => dispatch(toggleSpecificPieceFilter(artifactPieceName))}
         alt="Filtered Artifact Piece"
       >
-        { mainstats && renderStats('main', mainstats) }
         { substats && renderStats('sub', filteredSubstats) }
         <Artifact
           className={filter.specificPiece && filter.specificPiece !== artifactPieceName ? 'filtered' : ''}
           piece={artifactPieceName}
           set="generic"
         />
+        { mainstats && renderTiers(mainstats) }
       </button>
     </div>
   );

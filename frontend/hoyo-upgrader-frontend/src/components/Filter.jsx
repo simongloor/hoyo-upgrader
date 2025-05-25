@@ -73,6 +73,7 @@ export default function Filter({ characters, onClickArtifactSets }) {
           <FilterTilePiece
             artifactPieceName={paths.piece.plume}
             filter={filter}
+            substats={filteredBuild && filteredBuild.substats}
           />
           <FilterTilePiece
             artifactPieceName={paths.piece.sands}

@@ -274,19 +274,24 @@ textarea {
   }
 }
 .tile-marker {
+  position: relative;
+  width: calc($tile);
+  height: calc($tile);
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
   h6, img {
     position: absolute;
-    right: $space-minus2;
-    bottom: $space-minus3;
+    right: calc($space-minus2 + 1.5px);
+    bottom: calc($space-minus3 - 1px);
   }
   img {
     right: 8px;
     bottom: 4px;
   }
   div {
-    position: absolute;
-    right: 1.5px;
-    bottom: 1px;
     width: 32px;
     height: 28px;
 
@@ -296,6 +301,45 @@ textarea {
 
     border-right-color: $stat-potency;
     border-right-width: 4px;
+  }
+}
+
+.tier {
+  &.heavy h6 {
+    // font-weight: 700;
+    opacity: 1.0;
+  }
+  &.empty, &.empty div {
+    width: $border;
+  }
+
+  div {
+    border-right-style: solid;
+
+    &.generic {
+      border-right-style: none;
+    }
+    &.enerRech_ {
+      border-right-color: $stat-enerRech;
+    }
+    &.critRate_ {
+      border-right-color: $stat-critRate;
+    }
+    &.critDMG_ {
+      border-right-color: $stat-critDMG;
+    }
+    &.atk_ {
+      border-right-color: $stat-atk;
+    }
+    &.hp_ {
+      border-right-color: $stat-hp;
+    }
+    &.def_ {
+      border-right-color: $stat-def;
+    }
+    &.eleMas {
+      border-right-color: $stat-eleMas;
+    }
   }
 }
 

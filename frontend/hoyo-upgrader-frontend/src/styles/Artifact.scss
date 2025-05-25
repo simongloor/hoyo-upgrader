@@ -5,6 +5,12 @@
   flex-shrink: 0;
   overflow: hidden;
 
+  .tile-marker {
+    position: absolute;
+    right: 1.5px;
+    bottom: 1px;
+  }
+
   .count {
     position: absolute;
     bottom: 0px;
@@ -40,45 +46,6 @@
       text-align: center;
       // opacity: 0.8;
       color: $onSurface-highEmphasis;
-    }
-  }
-
-  .tier {
-    &.heavy h6 {
-      // font-weight: 700;
-      opacity: 1.0;
-    }
-    &.empty div {
-      width: $border;
-    }
-
-    div {
-      border-right-style: solid;
-
-      &.generic {
-        border-right-style: none;
-      }
-      &.enerRech_ {
-        border-right-color: $stat-enerRech;
-      }
-      &.critRate_ {
-        border-right-color: $stat-critRate;
-      }
-      &.critDMG_ {
-        border-right-color: $stat-critDMG;
-      }
-      &.atk_ {
-        border-right-color: $stat-atk;
-      }
-      &.hp_ {
-        border-right-color: $stat-hp;
-      }
-      &.def_ {
-        border-right-color: $stat-def;
-      }
-      &.eleMas {
-        border-right-color: $stat-eleMas;
-      }
     }
   }
 }
