@@ -273,11 +273,8 @@ textarea {
     
   }
 }
-.tile-marker {
-  position: relative;
-  width: calc($tile);
-  height: calc($tile);
 
+.tile-marker {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;

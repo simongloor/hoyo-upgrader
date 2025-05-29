@@ -4,6 +4,12 @@
   position: relative;
   flex-shrink: 0;
 
+  .tile-marker {
+    position: absolute;
+    right: 1.5px;
+    bottom: 1px;
+  }
+
   &.selected .selected-marker {
     position: absolute;
     top: 0;

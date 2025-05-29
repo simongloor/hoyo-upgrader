@@ -1,0 +1,56 @@
+@import "variables.scss";
+
+.StatNeeds {
+  position: relative;
+  height: $tile;
+  width: $tile;
+
+  .stats, .tiers {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+  }
+
+  .tiers {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    .tier.tile-marker {
+      position: relative;
+    }
+  }
+
+  .stats {
+    opacity: 0.6;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+    border-radius: $border;
+    overflow: hidden;
+    
+    &.main {
+      justify-content: flex-start;
+    }
+    &.sub {
+      justify-content: flex-end;
+
+      .stat {
+        flex-grow: 1;
+      }
+    }
+    
+    .stat {
+      flex-grow: 0;
+      height: 4px;
+      width: 100%;
+      padding: 0;
+      border-radius: 0;
+    }
+  }
+}

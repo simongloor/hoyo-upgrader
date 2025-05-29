@@ -8,6 +8,8 @@ import Character from './Character';
 import SpacerPiece from './SpacerPiece';
 import Artifact from './Artifact';
 import ArtifactStats from './ArtifactStats';
+import StatNeeds from './StatNeeds';
+
 import { addArtifactFilter } from '../data/actions/filter';
 
 // import '../styles/CharacterOverview.scss';
@@ -17,7 +19,7 @@ export default function CharacterOverview({
   characterArtifacts,
   relevantSubstats,
 }) {
-  // console.log(characterBuild, characterArtifacts, relevantSubstats);
+  console.log(characterBuild, characterArtifacts, relevantSubstats);
   const [hoveredArtifact, setHoveredArtifact] = useState(null);
   const dispatch = useDispatch();
   // console.log(hoveredArtifact);
@@ -28,6 +30,24 @@ export default function CharacterOverview({
   };
 
   const renderArtifact = (artifactData, slot) => {
+    if (!artifactData || !artifactData[slot]) {
+      return (
+        <button
+          type="button"
+          className="button pin empty"
+          alt="empty artifact slot"
+          onClick={() => console.log(characterBuild.mainstats[slot], characterBuild.substats)}
+        >
+          <StatNeeds
+            artifactPieceName={slot}
+            mainstats={characterBuild.mainstats[slot]}
+            substats={characterBuild.substats}
+            displayActive={false}
+          />
+        </button>
+      );
+    }
+
     const build = artifactData[slot] && artifactData[slot].buildEvaluations
       .find((b) => b.artifactWearer === characterBuild.artifactWearer);
     return (
