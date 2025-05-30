@@ -13,23 +13,30 @@ import '../styles/AccountOverview.scss';
 export default function AccountOverview({
   filteredBuilds,
 }) {
-  // console.log(filteredBuilds);
+  console.log(filteredBuilds);
   const [limitCharacterCount, setLimitCharacterCount] = useState(true);
   const characterCountLimit = 12;
 
   const renderQualitySection = (label, builds, usedSlots) => {
+    // If no builds or used slots exceed the limit, skip section
     if (
       builds.length === 0
       || (limitCharacterCount && usedSlots >= characterCountLimit)
     ) {
       return null;
     }
+
+    // If we are limiting the character count, slice the builds array
+    const limitedBuilds = limitCharacterCount
+      ? builds.slice(0, characterCountLimit - usedSlots)
+      : builds;
+
+    // Render the section
     return (
       <>
         <QualitySection label={label} withSpacer />
         {
-          builds
-            .slice(0, characterCountLimit - usedSlots)
+          limitedBuilds
             .map((data) => (
               <CharacterOverview
                 key={data.build.artifactWearer}

@@ -11,7 +11,7 @@ export default function StatNeeds({
   substats,
   displayActive = true,
 }) {
-  console.log(mainstats, substats);
+  // console.log(mainstats, substats);
   const filteredSubstats = mainstats && substats && mainstats.length === 1
     ? substats.filter((stat) => !mainstats.includes(stat))
     : substats;

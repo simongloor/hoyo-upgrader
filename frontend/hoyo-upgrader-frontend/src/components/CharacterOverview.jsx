@@ -19,7 +19,7 @@ export default function CharacterOverview({
   characterArtifacts,
   relevantSubstats,
 }) {
-  console.log(characterBuild, characterArtifacts, relevantSubstats);
+  // console.log(characterBuild, characterArtifacts, relevantSubstats);
   const [hoveredArtifact, setHoveredArtifact] = useState(null);
   const dispatch = useDispatch();
   // console.log(hoveredArtifact);
