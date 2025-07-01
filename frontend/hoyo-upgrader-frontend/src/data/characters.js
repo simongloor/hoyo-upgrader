@@ -90,6 +90,7 @@ export const characterData = {
   Clorinde: { name: 'Clorinde', element: 'Electro', weapon: 'Sword' },
   Cyno: { name: 'Cyno', element: 'Electro', weapon: 'Polearm' },
   Iansan: { name: 'Iansan', element: 'Electro', weapon: 'Polearm' },
+  Ineffa: { name: 'Ineffa', element: 'Electro', weapon: 'Polearm' },
   Keqing: { name: 'Keqing', element: 'Electro', weapon: 'Sword' },
   RaidenShogun: { name: 'Raiden Shogun', element: 'Electro', weapon: 'Polearm' },
   Varesa: { name: 'Varesa', element: 'Electro', weapon: 'Catalyst' },

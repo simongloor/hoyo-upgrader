@@ -70,6 +70,7 @@ const paths = {
     HuTao: 'Hu Tao',
     Iansan: 'Iansan',
     Ifan: 'Ifan',
+    Ineffa: 'Ineffa',
     Jean: 'Jean',
     KaedeharaKazuha: 'Kazuha',
     Kaeya: 'Kaeya',

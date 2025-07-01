@@ -46,6 +46,7 @@ export default function ArtifactEvaluation({
         artifact.artifactData.location ? (
           <Character
             character={artifact.artifactData.location}
+            // there is no secondaryCharacter as we want to know who has the artifact equipped
           />
         ) : (
           <SpacerPiece size="default" />
