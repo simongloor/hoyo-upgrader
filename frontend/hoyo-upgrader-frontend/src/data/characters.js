@@ -33,9 +33,11 @@ export function getEmptyBuild() {
 }
 
 export const characterData = {
+  Alice: { name: 'Alice', element: 'Pyro', weapon: 'Catalyst' },
   Arlecchino: { name: 'Arlecchino', element: 'Pyro', weapon: 'Polearm' },
   Dehya: { name: 'Dehya', element: 'Pyro', weapon: 'Claymore' },
   Diluc: { name: 'Diluc', element: 'Pyro', weapon: 'Claymore' },
+  Durin: { name: 'Durin', element: 'Pyro', weapon: 'Bow' },
   HuTao: { name: 'Hu Tao', element: 'Pyro', weapon: 'Polearm' },
   Klee: { name: 'Klee', element: 'Pyro', weapon: 'Catalyst' },
   Lyney: { name: 'Lyney', element: 'Pyro', weapon: 'Bow' },
@@ -46,6 +48,7 @@ export const characterData = {
   Bennett: { name: 'Bennett', element: 'Pyro', weapon: 'Sword' },
   Chevreuse: { name: 'Chevreuse', element: 'Pyro', weapon: 'Polearm' },
   Gaming: { name: 'Gaming', element: 'Pyro', weapon: 'Claymore' },
+  Jahoda: { name: 'Jahoda', element: 'Pyro', weapon: 'Unknown' },
   Thoma: { name: 'Thoma', element: 'Pyro', weapon: 'Polearm' },
   Xiangling: { name: 'Xiangling', element: 'Pyro', weapon: 'Polearm' },
   Xinyan: { name: 'Xinyan', element: 'Pyro', weapon: 'Claymore' },
@@ -56,6 +59,7 @@ export const characterData = {
   Escoffier: { name: 'Escoffier', element: 'Cryo', weapon: 'Polearm' },
   Ganyu: { name: 'Ganyu', element: 'Cryo', weapon: 'Bow' },
   KamisatoAyaka: { name: 'Ayaka', element: 'Cryo', weapon: 'Sword' },
+  Nicole: { name: 'Nicole', element: 'Cryo', weapon: 'Unknown' },
   Qiqi: { name: 'Qiqi', element: 'Cryo', weapon: 'Sword' },
   Shenhe: { name: 'Shenhe', element: 'Cryo', weapon: 'Polearm' },
   Skirk: { name: 'Skirk', element: 'Cryo', weapon: 'Sword' },
@@ -71,6 +75,7 @@ export const characterData = {
   Mika: { name: 'Mika', element: 'Cryo', weapon: 'Polearm' },
   Rosaria: { name: 'Rosaria', element: 'Cryo', weapon: 'Polearm' },
 
+  Columbina: { name: 'Columbina', element: 'Hydro', weapon: 'Catalyst' },
   Furina: { name: 'Furina', element: 'Hydro', weapon: 'Sword' },
   KamisatoAyato: { name: 'Ayato', element: 'Hydro', weapon: 'Sword' },
   Mona: { name: 'Mona', element: 'Hydro', weapon: 'Catalyst' },
@@ -82,6 +87,7 @@ export const characterData = {
   Neuvillette: { name: 'Neuvillette', element: 'Hydro', weapon: 'Catalyst' },
   SangonomiyaKokomi: { name: 'Kokomi', element: 'Hydro', weapon: 'Catalyst' },
 
+  Aino: { name: 'Aino', element: 'Hydro', weapon: 'Claymore' },
   Barbara: { name: 'Barbara', element: 'Hydro', weapon: 'Catalyst' },
   Candace: { name: 'Candace', element: 'Hydro', weapon: 'Polearm' },
   Dahlia: { name: 'Dahlia', element: 'Hydro', weapon: 'Sword' },
@@ -89,7 +95,7 @@ export const characterData = {
 
   Clorinde: { name: 'Clorinde', element: 'Electro', weapon: 'Sword' },
   Cyno: { name: 'Cyno', element: 'Electro', weapon: 'Polearm' },
-  Iansan: { name: 'Iansan', element: 'Electro', weapon: 'Polearm' },
+  Flins: { name: 'Flins', element: 'Electro', weapon: 'Catalyst' },
   Ineffa: { name: 'Ineffa', element: 'Electro', weapon: 'Polearm' },
   Keqing: { name: 'Keqing', element: 'Electro', weapon: 'Sword' },
   RaidenShogun: { name: 'Raiden Shogun', element: 'Electro', weapon: 'Polearm' },
@@ -99,6 +105,7 @@ export const characterData = {
   Beidou: { name: 'Beidou', element: 'Electro', weapon: 'Claymore' },
   Dori: { name: 'Dori', element: 'Electro', weapon: 'Claymore' },
   Fischl: { name: 'Fischl', element: 'Electro', weapon: 'Bow' },
+  Iansan: { name: 'Iansan', element: 'Electro', weapon: 'Polearm' },
   KujouSara: { name: 'Kujou Sara', element: 'Electro', weapon: 'Bow' },
   KukiShinobu: { name: 'Kuki Shinobu', element: 'Electro', weapon: 'Sword' },
   Lisa: { name: 'Lisa', element: 'Electro', weapon: 'Catalyst' },
@@ -109,6 +116,7 @@ export const characterData = {
   Chasca: { name: 'Chasca', element: 'Anemo', weapon: 'Bow' },
   Jean: { name: 'Jean', element: 'Anemo', weapon: 'Sword' },
   KaedeharaKazuha: { name: 'Kazuha', element: 'Anemo', weapon: 'Sword' },
+  Varka: { name: 'Varka', element: 'Anemo', weapon: 'Claymore' },
   Venti: { name: 'Venti', element: 'Anemo', weapon: 'Bow' },
   Wanderer: { name: 'Wanderer', element: 'Anemo', weapon: 'Catalyst' },
   Xianyun: { name: 'Xianyun', element: 'Anemo', weapon: 'Catalyst' },
@@ -138,7 +146,9 @@ export const characterData = {
   Alhaitham: { name: 'Alhaitham', element: 'Dendro', weapon: 'Sword' },
   Baizhu: { name: 'Baizhu', element: 'Dendro', weapon: 'Catalyst' },
   Kinich: { name: 'Kinich', element: 'Dendro', weapon: 'Claymore' },
+  Lauma: { name: 'Lauma', element: 'Dendro', weapon: 'Catalyst' },
   Nahida: { name: 'Nahida', element: 'Dendro', weapon: 'Catalyst' },
+  Nefer: { name: 'Nefer', element: 'Dendro', weapon: 'Unknown' },
   Tighnari: { name: 'Tighnari', element: 'Dendro', weapon: 'Bow' },
 
   Collei: { name: 'Collei', element: 'Dendro', weapon: 'Bow' },
